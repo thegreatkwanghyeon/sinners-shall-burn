@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <SFML/Graphics.hpp>
 
 int main()
@@ -72,3 +73,15 @@ window.display();
 
 return 0;
 }
+=======
+#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+
+int main(){
+    sf::RenderWindow Window;
+
+    Window.setFramerateLimit(60);
+    
+    
+}
+>>>>>>> a634071410786df713ca24db7fdaa53d3b06a0bd

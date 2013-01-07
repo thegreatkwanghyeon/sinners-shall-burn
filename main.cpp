@@ -5,4 +5,6 @@ int main(){
     sf::RenderWindow Window;
 
     Window.setFramerateLimit(60);
+    
+    
 }

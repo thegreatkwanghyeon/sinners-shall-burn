@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 
 int main(){
-	float zoom = 1.0,rotate = 0.0,x = 0.0,y=0.0;
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	sf::Texture texture;
 	texture.loadFromFile("omg.jpg");
@@ -19,37 +18,28 @@ if (event.type == sf::Event::Closed)
 	window.close();
 }
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		x-=0.001;
-		minimap.move(x,y);
+		minimap.move(-0.1,0);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		x+=0.001;
-		minimap.move(x,y);
+		minimap.move(0.1,0);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		y-=0.001;
-		minimap.move(x,y);
+		minimap.move(0,-0.1);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		y+=0.001;
-		minimap.move(x,y);
+		minimap.move(0,0.1);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		zoom-=0.0001;
-		minimap.zoom(zoom);
+		minimap.zoom(0.999);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		zoom+=0.0001;
-		minimap.zoom(zoom);
+		minimap.zoom(1.001);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		rotate-=0.01;
-		minimap.rotate(rotate);
-
+		minimap.rotate(0.1);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		rotate+=0.01;
-		minimap.rotate(rotate);
+		minimap.rotate(-0.1);
 	}
 	window.clear();
 window.setView(standard);

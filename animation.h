@@ -7,11 +7,11 @@
 
 class Animation{
 	private:
-		TileSet tileSet;
-		sf::Clock eTime;
-		sf::Texture texture;
+		TileSet                  tileSet;
+		sf::Clock                eTime;
+		sf::Texture              texture;
 		std::vector<sf::Texture> textures;
-		sf::Vector2i tileSize;
+		sf::Vector2i             tileSize;
 		int currentTexture;
 		int currentTileX;
 		int currentTileY;

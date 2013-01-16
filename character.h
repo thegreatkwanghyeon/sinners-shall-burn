@@ -12,6 +12,6 @@ class Character{
 		~Character(){}
 		void Draw(sf::RenderWindow &window);
 		sf::Sprite *pSprite;
-		Animation animation;
+		Animation  animation;
 };
 #endif

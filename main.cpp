@@ -1,27 +1,33 @@
+#include "screenManager.h"
 #include <SFML/Graphics.hpp>
-#include "character.h"
+int main(){
+	sf::RenderWindow Window(sf::VideoMode(ScreenWidth, ScreenHeight, 32),"Ddong Game");
+	//ScreenWidth, ScreenHeight 매크로 상수는 screenManager.h 에 정의되어 있음
 
-int main(void){
-	sf::RenderWindow window(sf::VideoMode(800,600), "SFML");
-	Character character(0.0, 0.0);
+	ScreenManager::getInstance().initialize();
+	ScreenManager::getInstance().loadContent();
 
-	while(window.isOpen()){
-		sf::Event Event;
+	while(Window.isOpen()){
+		sf::Event event;
 
-		while (window.pollEvent(Event)){
-			if(Event.type == sf::Event::Closed){
-				window.close();
-			}
+		if(Window.pollEvent(event)){
+			if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+				Window.close();
 
-			if(Event.type == sf::Event::KeyPressed){
-				if(Event.key.code == sf::Keyboard::Escape)
-					window.close();
-			}
+			if(event.key.code == sf::Keyboard::Num1)
+				ScreenManager::getInstance().setScreen(new MenuScreen);
+			else if(event.key.code == sf::Keyboard::Num2)
+				ScreenManager::getInstance().setScreen(new TitleScreen);
 		}
 
-		window.clear();
-		character.Draw(window);	
-		window.display();
+
+
+		Window.clear();
+
+		ScreenManager::getInstance().update();
+		ScreenManager::getInstance().draw(Window);
+
+		Window.display();
 	}
-	return EXIT_SUCCESS;
+	return 0;
 }

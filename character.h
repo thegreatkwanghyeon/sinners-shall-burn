@@ -7,11 +7,21 @@
 class Character{
 	private:
 		sf::Sprite sprite;
+
+		float _x, _y;
 	public:
-		Character(float _x, float _y);
+		Character();
 		~Character(){}
-		void Draw(sf::RenderWindow &window);
+
 		sf::Sprite *pSprite;
 		Animation  animation;
+
+		void loadContent();
+		void unloadContent();
+		void update();
+		void draw(sf::RenderWindow &window);
+
+		void setPosition(float x, float y);
+		
 };
 #endif

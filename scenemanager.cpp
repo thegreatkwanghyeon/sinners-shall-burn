@@ -14,7 +14,10 @@ void SceneManager::setScene(SceneBase *scene){
 }
 
 void SceneManager::update(){
+	
 	currentScene->update();
+	
+
 }
 
 void SceneManager::draw(sf::RenderWindow &window){

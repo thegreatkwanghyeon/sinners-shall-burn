@@ -25,9 +25,8 @@ void Animation::Play(sf::Sprite *sprite, bool tile){
 			tileNum = 0;
 		}
 
-		if(eTime.getElapsedTime().asMilliseconds() > _speed){
+		if(dt.asSeconds() > _speed){
 			tileNum++;
-			eTime.restart();
 		}
 	}
 
@@ -37,11 +36,12 @@ void Animation::Play(sf::Sprite *sprite, bool tile){
 
 		sprite->setTexture(textures[currentTexture]);
 
-		if(eTime.getElapsedTime().asMilliseconds() > _speed){
+		if(dt.asSeconds() > _speed){
 			++currentTexture;
-			eTime.restart();
 		}
 	}
+
+	dt = eTime.restart();
 }
 
 void Animation::setSpeed (int speed){

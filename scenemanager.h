@@ -1,13 +1,20 @@
 #ifndef __scenemanager__
 #define __scenemanager__
 
+#include <cstdio>
+
 #include "scenebase.h"
 #include "gamescene.h"
 #include "titlescene.h"
 
+
 class SceneManager{
 	private:
-		SceneBase *currentScene;
+		SceneBase  *currentScene;
+		
+
+
+
 	public:
 		SceneManager();
 		~SceneManager();

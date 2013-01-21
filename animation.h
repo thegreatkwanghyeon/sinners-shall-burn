@@ -9,6 +9,7 @@ class Animation{
 	private:
 		TileSet tileSet;
 		sf::Clock eTime;
+		sf::Time dt; //dt is a short for deltaTime
 		sf::Texture texture;
 		std::vector<sf::Texture> textures;
 		int currentTexture;

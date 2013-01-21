@@ -1,32 +1,37 @@
 #include "character.h"
 
-Character::Character(){
-}
-
-void Character::loadContent(){
-	pSprite=&sprite;
+Character::Character(float _x, float _y){
 	sprite.setPosition(_x, _y);
+	pSprite=&sprite;
 	animation.addTile("img/number.jpg",100, 100);
-	animation.setSpeed(500);
-
+	animation.setSpeed(100);
 }
 
-void Character::unloadContent(){
+void Character::Move(){
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		sprite.move(-1,0);
+	}
 
+	 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		sprite.move(1,0);
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		sprite.move(0,-1);
+	}
+
+	 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+		sprite.move(0,1);
+	}			
 }
 
 void Character::update(){
-	animation.Play(pSprite, true);
+	Move();
 }
 
 void Character::draw(sf::RenderWindow &window){
-	
+	animation.update(pSprite, true);
 	window.draw(sprite);
-}
-
-void Character::setPosition(float x, float y){
-	_x = x;
-	_y = y;
 }
 
 

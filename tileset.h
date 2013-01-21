@@ -6,10 +6,10 @@
 class TileSet{
 	private:
 		std::vector<sf::Vector2i> coords;
-		sf::IntRect               tileRect;
-		sf::Texture               texture;
-		sf::Vector2i              tmpcoord;
-		sf::Vector2i              _tileSize;
+		sf::IntRect tileRect;
+		sf::Texture texture;
+		sf::Vector2i tmpcoord;
+		sf::Vector2i _tileSize;
 	public:
 		TileSet(){}
 		~TileSet(){}

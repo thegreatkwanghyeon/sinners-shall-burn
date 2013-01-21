@@ -1,33 +1,31 @@
-#include "screenManager.h"
 #include <SFML/Graphics.hpp>
-int main(){
-	sf::RenderWindow Window(sf::VideoMode(ScreenWidth, ScreenHeight, 32),"Ddong Game");
-	//ScreenWidth, ScreenHeight 매크로 상수는 screenManager.h 에 정의되어 있음
+#include "scenemanager.h"
 
-	ScreenManager::getInstance().initialize();
-	ScreenManager::getInstance().loadContent();
+int main(void){
+	sf::RenderWindow window(sf::VideoMode(800,600), "SFML");	
+	SceneManager *sceneManager = new SceneManager();
 
-	while(Window.isOpen()){
-		sf::Event event;
+	while(window.isOpen()){
+		sf::Event Event;
 
-		if(Window.pollEvent(event)){
-			if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
-				Window.close();
 
-			if(event.key.code == sf::Keyboard::Num1)
-				ScreenManager::getInstance().setScreen(new MenuScreen);
-			else if(event.key.code == sf::Keyboard::Num2)
-				ScreenManager::getInstance().setScreen(new TitleScreen);
+		while (window.pollEvent(Event)){
+			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+				window.close();
+			}
 		}
 
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+				sceneManager->setScene(new GameScene());
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+				sceneManager->setScene(new TitleScene());
+		}
 
-
-		Window.clear();
-
-		ScreenManager::getInstance().update();
-		ScreenManager::getInstance().draw(Window);
-
-		Window.display();
+		window.clear();
+		sceneManager->update();
+		sceneManager->draw(window);
+		window.display();
 	}
-	return 0;
+	return EXIT_SUCCESS;
 }

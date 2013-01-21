@@ -7,11 +7,10 @@
 
 class Animation{
 	private:
-		TileSet                  tileSet;
-		sf::Clock                eTime;
-		sf::Texture              texture;
+		TileSet tileSet;
+		sf::Clock eTime;
+		sf::Texture texture;
 		std::vector<sf::Texture> textures;
-		sf::Vector2i             tileSize;
 		int currentTexture;
 		int currentTileX;
 		int currentTileY;
@@ -24,6 +23,8 @@ class Animation{
 		void addTile(std::string path, int _tileWidth, int _tileHeight);
 		void Play(sf::Sprite *sprite, bool tile);
 		void setSpeed(int speed);
+		void update(sf::Sprite *sprite, bool tile){Play(sprite, tile);}
+		sf::Vector2i tileSize;
 };
 
 #endif

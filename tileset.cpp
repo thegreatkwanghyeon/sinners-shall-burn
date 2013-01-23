@@ -13,7 +13,7 @@ sf::Texture TileSet::tileSet(std::string path, sf::Vector2i tileSize){
 			tmpcoord.x = j * tileSize.x;
 			tmpcoord.y = i * tileSize.y;
 			coords.push_back(tmpcoord);
-			printf("%d(%d) : %d, %d\n", temp, coords[temp].x, coords[temp].y);
+			printf("%d : %d, %d\n", temp, coords[temp].x, coords[temp].y);
 			temp ++;
 		}
 	}

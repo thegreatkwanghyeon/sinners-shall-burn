@@ -8,4 +8,4 @@ $(TARGET): $(OBJECTS)
 	$(CC) -o $(TARGET) $(OBJECTS) $(CXXFLAGS)
 
 clean:
-	rm -rf *.o
+	del *.o

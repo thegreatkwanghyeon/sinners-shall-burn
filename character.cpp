@@ -4,33 +4,35 @@ Character::Character(float _x, float _y){
 	animation = new Animation();
 	sprite.setPosition(_x, _y);
 	animation->addTile("img/male_walkcycle.png",64, 64);
-	animation->setSpeed(100);
+	animation->setSpeed(0.2);
+	animation->setInterval(sf::Vector3i(5,3,2));
 }
 
-void Character::Move(){
+void Character::Move(sf::Time deltaTime){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		sprite.move(-1,0);
+		sprite.move(-SPEED*deltaTime.asSeconds(),0);
 	}
 
 	 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		sprite.move(1,0);
+		sprite.move(SPEED*deltaTime.asSeconds(),0);
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		sprite.move(0,-1);
+		sprite.move(0,-SPEED*deltaTime.asSeconds());
 	}
 
 	 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		sprite.move(0,1);
+		sprite.move(0,SPEED*deltaTime.asSeconds());
 	}
 }
 
 void Character::update(){
-	Move();
+	animation->update(&sprite, true);
+	Move(deltaTime);
+	deltaTime = eTime.restart();
 }
 
 void Character::draw(sf::RenderWindow &window){
-	animation->update(&sprite, true);
 	window.draw(sprite);
 }
 

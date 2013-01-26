@@ -9,12 +9,14 @@ class TileSet{
 		sf::IntRect tileRect;
 		sf::Texture texture;
 		sf::Vector2i tmpcoord;
-		sf::Vector2i _tileSize;
+		//sf::Vector2i tileSize;
+
+		int tileSizeX, tileSizeY;
 		int temp;
 	public:
 		TileSet(){}
 		~TileSet(){}
-		sf::Texture tileSet(std::string path, sf::Vector2i tileSize);
+		sf::Texture tileSet(std::string path, int _tileSizeX, int _tileSizeY);
 		sf::IntRect getTileSet(int tileNum);
 };
 

@@ -34,7 +34,9 @@ class Animation{
 		void setInterval(sf::Vector3i _interval);
 		void addTile(std::string path, int _tileWidth, int _tileHeight);
 		void update(sf::Sprite *sprite, bool tile);
-		sf::Vector2i tileSize;
+		//sf::Vector2i tileSize;
+
+		int tileSizeX, tileSizeY;
 };
 
 #endif

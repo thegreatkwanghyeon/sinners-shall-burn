@@ -17,7 +17,7 @@ class Button {
 		};
 
 		sf::Sprite    sprite;
-		sf::Sprite    sprites[4];
+		//sf::Sprite    sprites[4];
 		sf::Texture   texture;
 		sf::Vector2i  position;
 		sf::Vector2i  mousePosition;

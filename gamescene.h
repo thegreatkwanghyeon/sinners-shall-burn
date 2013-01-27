@@ -4,7 +4,7 @@
 #include "scenebase.h"
 #include "character.h"
 #include "map.h"
-#include "button.h"
+#include "uiscene.h"
 
 #include <cstdio>
 
@@ -12,11 +12,11 @@ class GameScene : public SceneBase{
 	private:
 		Character *character;
 		Map *map;
-		Button *button;
-		Button *button2;
+		UiScene *uiscene;
+
 	public:
 		GameScene();
-		~GameScene(){delete character; delete map; delete button;}
+		~GameScene(){delete character; delete map; delete uiscene;}
 		void update();
 		void draw(sf::RenderWindow &window);
 		

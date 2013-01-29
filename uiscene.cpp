@@ -18,6 +18,11 @@ UiScene::UiScene(){
 	gauge2->setPosition(sf::Vector2i(100,150));
 	gauge2->setTextElement(30);
 
+	tooltip = new Tooltip("img/tooltip_.png");
+	tooltip->setTitle("Title testing..");
+	tooltip->setDescription("Description testing..");
+	tooltip->setScope(sf::IntRect(0,0,100,100));
+
 }
 
 void UiScene::update(){
@@ -41,6 +46,8 @@ void UiScene::update(){
 	gauge->update();
 	gauge2->update();
 
+	tooltip->update();
+
 }
 
 void UiScene::draw(sf::RenderWindow &window){
@@ -50,5 +57,7 @@ void UiScene::draw(sf::RenderWindow &window){
 
 	gauge->draw(window);
 	gauge2->draw(window);
+
+	tooltip->draw(window);
 
 }

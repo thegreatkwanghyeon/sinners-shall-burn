@@ -4,6 +4,9 @@
 #include "scenebase.h"
 #include "button.h"
 #include "gauge.h"
+#include "tooltip.h"
+
+#include <cstdio>
 
 class UiScene : public SceneBase {
 
@@ -12,6 +15,7 @@ class UiScene : public SceneBase {
 		Button *button2;
 		Gauge *gauge;
 		Gauge *gauge2;
+		Tooltip *tooltip;
 
 
 	public:

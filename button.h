@@ -2,6 +2,7 @@
 #define __button__
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <cstdio>
 
 #include "tileset.h"
@@ -26,6 +27,7 @@ class Button {
 		sf::Text      buttonName;
 
 		TileSet *tileset;
+		sf::Keyboard::Key hotkey;
 
 		bool isButtonEnable;
 
@@ -44,6 +46,7 @@ class Button {
 		void enableButton();
 		void disableButton();
 		bool checkMouseClick();
+		void setHotkey(sf::Keyboard::Key _hotkey);
 
 };
 #endif

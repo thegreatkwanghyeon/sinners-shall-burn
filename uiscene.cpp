@@ -6,6 +6,7 @@ UiScene::UiScene(){
 	button2 = new Button("img/button.png");
 	button->setPosition(300,300);
 	button->setText("Enabler", 18);
+	button->setHotkey(sf::Keyboard::Return);
 	button2->setPosition(300,380);
 	button2->setText("Click me if you can");
 	button2->disableButton();

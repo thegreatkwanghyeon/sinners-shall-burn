@@ -34,7 +34,9 @@ bool Button::isMouseClicked(){
 	return sf::Mouse::isButtonPressed(sf::Mouse::Left);
 }
 
-
+void Button::setHotkey(sf::Keyboard::Key _hotkey){
+	hotkey = _hotkey;
+}
 
 void Button::update(){
 	if(!isButtonEnable){ 
@@ -45,6 +47,8 @@ void Button::update(){
 		}else{
 			sprite.setTextureRect(tileset->getTileSet(HoverState));
 		}
+	}else if(sf::Keyboard::isKeyPressed(hotkey)){
+		sprite.setTextureRect(tileset->getTileSet(ClickedState));
 	}else{
 		sprite.setTextureRect(tileset->getTileSet(NormalState));
 	}
@@ -58,7 +62,14 @@ void Button::draw(sf::RenderWindow &window){
 
 
 bool Button::checkMouseClick(){
-	if(isMouseOver(mousePosition) && isMouseClicked() && isButtonEnable){
+	/*
+		if 조건 설명 :
+
+		isButtonEnable 은 일단 무조건 TRUE 여야 하고 (버튼이 활성화 되있고)
+			1.isMouseOver(mousePosition) && isMouseClick() 가 TRUE 이거나 (마우스로 눌렀거나)
+			2.sf::Keyboard::isKeyPressed(hotkey) 가 TRUE 일때 (키보드로 눌렀을때)
+	*/
+	if(isButtonEnable && (((isMouseOver(mousePosition)) && isMouseClicked()) || sf::Keyboard::isKeyPressed(hotkey))){ 
 		return true;
 	}else{
 		return false;

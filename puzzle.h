@@ -20,7 +20,7 @@ class Puzzle{
 
 		TileSet *tileset;
 
-		int data[11][11];//일부러 여유 좀 나게 만듬. 실제 크기는 8*8
+		int data[PuzzleSize+1][PuzzleSize+1];
 		//bool isMouseOver (sf::Vector2i _mousePosition);
 		//bool isMouseClicked ();
 
@@ -29,7 +29,6 @@ class Puzzle{
 		~Puzzle();
 		void update();
 		void draw(sf::RenderWindow &window);
-		int make_RandomNum(sf::Clock time_user, int i, int j);
 		void addTile(std::string path, int _tileWidth, int _tileHeight);
 
 		int tileSizeX, tileSizeY;

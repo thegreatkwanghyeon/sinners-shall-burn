@@ -15,7 +15,7 @@ TitleScene::~TitleScene(){
 }
 
 void TitleScene::update(){
-
+	puzzle->update();
 }
 
 void TitleScene::draw(sf::RenderWindow &window){

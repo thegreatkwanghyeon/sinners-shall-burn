@@ -20,8 +20,9 @@ UiScene::UiScene(){
 	gauge2->setTextElement(30);
 
 	tooltip = new Tooltip("img/tooltip_.png");
+	tooltip->setLineBreak(300);
 	tooltip->setTitle("Title testing..");
-	tooltip->setDescription("Description testing..");
+	tooltip->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula, nisi in lacinia pretium, felis elit venenatis magna, ac rhoncus quam neque nec tellus. Suspendisse hendrerit, eros sit amet semper placerat, tortor ligula bibendum massa, vitae pulvinar orci turpis sit amet ipsum. Nulla nec eros metus, eget tempus lorem. Praesent tempus scelerisque risus nec convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In tincidunt libero eu ante blandit non viverra risus facilisis. Vestibulum velit leo, feugiat id commodo pulvinar, dapibus ut eros. Fusce ullamcorper, nibh eu scelerisque auctor, lacus tellus elementum dui, in fermentum lectus purus ac nibh. Phasellus commodo feugiat turpis, eget consequat nulla viverra vitae.");
 	tooltip->setScope(sf::IntRect(0,0,100,100));
 
 }

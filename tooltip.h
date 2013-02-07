@@ -34,12 +34,15 @@ class Tooltip {
 
 		int tooltipWidth;
 		int tooltipHeight;
+		int lineLimit;
 
 		int individualTextureWidth;
 		int individualTextureHeight;
 
 		void defineSpritePositions();
 		void defineSpriteScales();
+		std::vector<std::string> splitWords (std::string &_str);
+		
 
 
 	public:
@@ -51,6 +54,7 @@ class Tooltip {
 		void setTitle(sf::String _stringTitle);
 		void setDescription(sf::String _stringDescription);
 		void setScope(sf::IntRect _rect);
+		void setLineBreak(int _lineLimit);
 
 };
 

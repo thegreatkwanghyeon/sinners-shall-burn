@@ -42,9 +42,10 @@ void Tooltip::defineSpritePositions(){ //9등분한 스프라이트 위치 재�
 	sprite[BottomRight].setPosition(position.x+individualTextureWidth+tooltipWidth, position.y-individualTextureHeight);
 
 	title.setPosition(sprite[Center].getPosition());
-	description.setPosition(sprite[Center].getPosition().x, sprite[Center].getPosition().y+title.getLocalBounds().height);
+	description.setPosition(sprite[Center].getPosition().x, sprite[Center].getPosition().y+title.getLocalBounds().height+5);
 }
-std::vector<std::string> splitWords (std::string &_str){
+
+std::vector<std::string> Tooltip::splitWords (std::string &_str){ //description 문자열 데이터를 공백 기준으로 나눠준다 
 	size_t n = _str.length();
 	size_t start, stop;
 	std::vector<std::string> words;
@@ -62,16 +63,39 @@ std::vector<std::string> splitWords (std::string &_str){
 	return words;
 }
 
+std::string Tooltip::getEntireDescription (std::string _description){ //최종적으로 자동 줄바꿈을 적용한 텍스트 자료를 리턴함.
+	std::vector<std::string> _words = splitWords(_description);
+	std::string entireDescription = "";
+	std::vector<std::string>::iterator iter = _words.begin();
+	std::vector<std::string>::iterator iter_end = _words.end();
+	int currentLineWidth = 0;
+
+	sf::Text tmpText;
+	tmpText.setFont(font);
+	tmpText.setCharacterSize(14);
+
+	for(; iter != iter_end; iter++){
+		tmpText.setString(*iter);
+		currentLineWidth += tmpText.getLocalBounds().width;
+		if(currentLineWidth > lineLimit){
+			entireDescription += "\n";
+			currentLineWidth = 0;
+		}
+		entireDescription += (*iter + " ");
+	}
+
+
+	return entireDescription;
+}
+
 void Tooltip::setTitle(sf::String _stringTitle){ //타이틀 텍스트 셋팅 
 	title.setString(_stringTitle);
 	title.setFont(font);
-
-	tooltipWidth = (title.getLocalBounds().width>description.getLocalBounds().width)?title.getLocalBounds().width:description.getLocalBounds().width;
-	tooltipHeight = title.getLocalBounds().height + description.getLocalBounds().height;
 }
 
 void Tooltip::setDescription(sf::String _stringDescription){ //설명 텍스트 셋팅
 
+	_stringDescription = getEntireDescription(_stringDescription);
  	
 	description.setString(_stringDescription);
 	description.setFont(font);
@@ -80,9 +104,6 @@ void Tooltip::setDescription(sf::String _stringDescription){ //설명 텍스트 
 
 	tooltipWidth = (title.getLocalBounds().width>description.getLocalBounds().width)?title.getLocalBounds().width:description.getLocalBounds().width;
 	tooltipHeight = title.getLocalBounds().height + description.getLocalBounds().height;
-
-
-
 }
 
 void Tooltip::setScope(sf::IntRect _rect){ //hoverRect 는 여기서 어디에 마우스를 올려야 이 툴팁이 나타나는가? 이거 범위 
@@ -91,6 +112,13 @@ void Tooltip::setScope(sf::IntRect _rect){ //hoverRect 는 여기서 어디에 �
 
 void Tooltip::setLineBreak(int _lineLimit){
 	lineLimit = _lineLimit;
+}
+
+void Tooltip::setTooltip(sf::String _title, sf::String _description, sf::IntRect _rect, int _lineLimit){
+	setLineBreak(_lineLimit);
+	setScope(_rect);
+	setTitle(_title);
+	setDescription(_description);
 }
 
 void Tooltip::update(){

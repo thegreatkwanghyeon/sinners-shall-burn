@@ -19,12 +19,8 @@ UiScene::UiScene(){
 	gauge2->setPosition(sf::Vector2i(100,150));
 	gauge2->setTextElement(30);
 
-	tooltip = new Tooltip("img/tooltip_.png");
-	tooltip->setLineBreak(300);
-	tooltip->setTitle("Title testing..");
-	tooltip->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lobortis sollicitudin ipsum sed egestas. Aliquam eros nibh, vehicula quis ultricies nec, dictum lacinia mi. Ut lacinia ante ac neque consectetur facilisis. In vel orci elit, nec ullamcorper risus. Proin dictum ante eget enim semper non gravida dolor auctor. Duis iaculis sem eu enim aliquam ut tincidunt mi eleifend. Sed tristique lectus blandit sapien ornare accumsan. Aenean lorem risus, rutrum posuere rhoncus nec, consequat ac tortor. Etiam id lacus velit. Suspendisse quis quam ipsum.");
-	tooltip->setScope(sf::IntRect(0,0,100,100));
-
+	tooltip = new Tooltip("img/tooltip.png");
+	tooltip->setTooltip("About toradora", "Toradora! is a Japanese light novel series by Yuyuko Takemiya, with illustrations by Yasu. The series includes ten novels released between March 10, 2006 and March 10, 2009, published by ASCII Media Works under their Dengeki Bunko imprint.", sf::IntRect(200,200,300,300), 350);
 }
 
 void UiScene::update(){

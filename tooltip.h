@@ -42,6 +42,12 @@ class Tooltip {
 		void defineSpritePositions();
 		void defineSpriteScales();
 		std::vector<std::string> splitWords (std::string &_str);
+		std::string getEntireDescription (std::string _description);
+
+		void setTitle(sf::String _stringTitle);
+		void setDescription(sf::String _stringDescription);
+		void setScope(sf::IntRect _rect);
+		void setLineBreak(int _lineLimit);
 		
 
 
@@ -50,11 +56,7 @@ class Tooltip {
 		~Tooltip();
 		void update();
 		void draw(sf::RenderWindow &window);
-
-		void setTitle(sf::String _stringTitle);
-		void setDescription(sf::String _stringDescription);
-		void setScope(sf::IntRect _rect);
-		void setLineBreak(int _lineLimit);
+		void setTooltip(sf::String _title, sf::String _description, sf::IntRect _rect, int _lineLimit);
 
 };
 

@@ -4,6 +4,8 @@
 //구현 : 퍼즐 생성, 출력.
 #include <SFML/Graphics.hpp>
 #include <cstdio>
+#include <stdlib.h>
+#include <time.h>
 
 #include "tileset.h"
 

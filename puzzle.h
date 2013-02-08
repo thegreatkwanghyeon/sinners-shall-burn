@@ -23,6 +23,7 @@ class Puzzle{
 		TileSet *tileset;
 
 		int data[PuzzleSize+1][PuzzleSize+1];
+		int cnum,cx,cy;//클릭처리용.
 		//bool isMouseOver (sf::Vector2i _mousePosition);
 		//bool isMouseClicked ();
 

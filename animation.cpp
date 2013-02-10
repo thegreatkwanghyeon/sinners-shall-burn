@@ -36,7 +36,7 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
 
 		if(tmpElapsedTime > _speed){
 			tileNum++;
-			printf("tileNum : %d\n", tileNum);
+			//printf("tileNum : %d\n", tileNum);
 			tmpElapsedTime = 0;
 
 		}

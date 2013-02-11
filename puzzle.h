@@ -32,12 +32,14 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			animation->addTile("img/PuzzleAnimation.PNG",PBlockSize,PBlockSize);
 			animation->setSpeed(0.2);
 			animation->setInterval(sf::Vector3i(1,1,4));//디폴트.
+			is_click=false;
 		}
 		void init_animation(){
 			if(is_click == true){
 				animation->setInterval(sf::Vector3i(1,5,3));
 			}else{
 				switch(num){
+					case -1 : animation->setInterval(sf::Vector3i(5,5,1));break; //빈 스택 표시용.
 					case 0 : animation->setInterval(sf::Vector3i(1,1,3));break;
 					case 1 : animation->setInterval(sf::Vector3i(1,2,3));break;
 					case 2 : animation->setInterval(sf::Vector3i(1,3,3));break;
@@ -45,14 +47,14 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 					case 4 : animation->setInterval(sf::Vector3i(5,1,3));break;
 					case 5 : animation->setInterval(sf::Vector3i(5,2,3));break;
 					case 6 : animation->setInterval(sf::Vector3i(5,3,3));break;
-					default : animation->setInterval(sf::Vector3i(5,4,3));break;
+					default : animation->setInterval(sf::Vector3i(5,4,3));
 				}
 			}
 		}
 		void update(){
 			animation->update(&sprite, true);
 		}
-		void draw(sf::RenderWindow &window, int x, int y){//아무래도 퍼즐 각 칸의 애니메이션 등을 그 칸이 알아서 하면 재미있을거 같아서 해봄.
+		void draw(sf::RenderWindow &window){//아무래도 퍼즐 각 칸의 애니메이션 등을 그 칸이 알아서 하면 재미있을거 같아서 해봄.
 			window.draw(sprite);			
 		}
 };
@@ -79,16 +81,20 @@ class Puzzle{
 	//	void addTile(std::string path, int _tileWidth, int _tileHeight);
 
 		int tileSizeX, tileSizeY;
-		int stack[StackSize];
 
 		PData *data[PuzzleSize+1][PuzzleSize+1];//+1은 혹시 버그날때를 대비함이다.
 		int clickN;
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
 		//포인터로 만듬. free를 응용하기 위함이다.
 
-		//bool checkPuzzle();
+		void checkPuzzle();
 
 		//bool checkMouseClick();
 
+		///------아래부터는 스택 관련.////
+		PData *stack[StackSize];//출력파트가 PDate에 구비되어 있기도 하고...걍 PData로 만듬. 여기서 따로 출력하려고 이거저거 했더니 에러나서 짜증도 났고. 히히.
+		int stackNum;
+		void stackInput(int num);
+		//void drawStack(sf::RenderWindow &window);
 };
 #endif

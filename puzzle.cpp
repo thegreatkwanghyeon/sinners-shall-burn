@@ -31,11 +31,16 @@ Puzzle::Puzzle(){
 				}
 			}
 			data[i][j]->num=rd%PuzzleKind;
-			data[i][j]->is_click=false;//클릭 확인 변수는 거짓으로 설정.
 			data[i][j]->init_animation();
 		}
 	}
+	for(i=0;i<StackSize;i++){//스택은 그림 출력부와 num, init_ani 부분만 쓰게 된다.
+		stack[i]=new PData(PStartX+430,((StackSize-1)-i)*50);
+		stack[i]->num=-1;
+		stack[i]->init_animation();
+	}
 	clickN=0;
+	stackNum=0;
 }
 
 void Puzzle::update(){
@@ -100,7 +105,9 @@ void Puzzle::update(){
 			data[i][j]->update();
 		}
 	}
-
+	checkPuzzle();//한바퀴 돈 다음 검사? 글쎼 걍 해봄.
+	for(i=0;i<StackSize;i++)//스택 업데이트
+		stack[i]->update();
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -112,8 +119,11 @@ void Puzzle::draw(sf::RenderWindow &window){
 			//sprite.setPosition(i*PBlockSize, j*PBlockSize);//PBlockSize==50
 			//sprite.setTextureRect(tileset->getTileSet(data[i][j]));
 			//window.draw(sprite);
-			data[i][j]->draw(window,i*PBlockSize, j*PBlockSize);
+			data[i][j]->draw(window);
 		}
+	}
+	for(i=0;i<StackSize;i++){
+		stack[i]->draw(window);
 	}
 }
 /*
@@ -123,3 +133,106 @@ void Puzzle::addTile(std::string path, int _tileWidth, int _tileHeight){
 	texture = tileset->tileSet(path, tileSizeX, tileSizeY);
 }
 */
+void Puzzle::checkPuzzle(){
+	int i,j;//for문용
+	int k;//예비
+
+	srand(time(NULL));
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){//세로로 3개가 겹칠때.
+				/*free(data[i-2][j]);
+				free(data[i-1][j]);
+				free(data[i][j]);*///굳이 free까지 안해도 되서 폐기된 계획안.
+				stackInput(data[i][j]->num);//스택에 넣는다.
+				k=i;
+				while(1){
+					if(k-3 < 0)
+						break;
+					data[k][j]->num=data[k-3][j]->num;//3칸 위의 것을 땡겨서 옴.
+					data[k][j]->init_animation();
+					k--;
+				}//이러면 필연적으로 맨 위 3개가 비게된다.
+				data[0][j]->num=rand()%PuzzleKind;
+				data[0][j]->init_animation();
+				while(1){
+					data[1][j]->num=(rand())%PuzzleKind;
+					if(data[1][j]->num != data[0][j]->num){
+						data[1][j]->init_animation();
+						break;
+					}
+				}
+				while(1){
+					data[2][j]->num=(rand())%PuzzleKind;
+					if(data[2][j]->num != data[0][j]->num){
+						data[2][j]->init_animation();
+						break;
+					}
+				}
+
+				printf("yea! block change!!!!!!!!(|)\n");
+			}
+
+			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//가로로 3개가 겹칠때.
+				stackInput(data[i][j]->num);//스택에 넣는다.
+				k=i;
+				while(1){
+					if(k-1 < 0)// k == 0와 같다.
+						break;
+					data[k][j]->num=data[k-1][j]->num;
+					data[k][j]->init_animation();
+					data[k][j-1]->num=data[k-1][j-1]->num;
+					data[k][j-1]->init_animation();
+					data[k][j-2]->num=data[k-1][j-2]->num;
+					data[k][j-2]->init_animation();					
+					k--;
+				}//이러면 필연적으로 맨 위 1개가 비게된다.
+				data[0][j]->num=rand()%PuzzleKind;
+				data[0][j]->init_animation();
+				while(1){
+					data[0][j-1]->num=(rand())%PuzzleKind;
+					if(data[0][j-1]->num != data[0][j]->num){
+						data[0][j-1]->init_animation();
+						break;
+					}
+				}
+				while(1){
+					data[0][j-2]->num=(rand())%PuzzleKind;
+					if(data[0][j-2]->num != data[0][j]->num){
+						data[0][j-2]->init_animation();
+						break;
+					}
+				}
+
+				printf("yea! block change!!!!!!!!(-)\n");
+			}
+		}
+	}
+}
+
+void Puzzle::stackInput(int num){
+	int i;
+
+	printf("Stack : %d %d %d %d %d. + %d.",stack[0]->num,stack[1]->num,stack[2]->num,stack[3]->num,stack[4]->num,num);
+	if(stackNum == StackSize){//이미 스택이 찬 상태에서 넣을때.
+		for(i=0;i<StackSize-1;i++){
+			stack[i]->num=stack[i+1]->num;
+		}
+		stack[StackSize-1]->num=num;
+	}else{//스택이 아직 다 안차있을때.
+		stack[stackNum++]->num=num;
+	}
+	for(i=0;i<StackSize;i++)
+		stack[i]->init_animation();
+}/*
+void Puzzle::drawStack(sf::RenderWindow &window){
+	int i;
+	for(i=StackSize-1;i>=0;i--){
+		sprite.setPosition(PStartX+430,i*50);//퍼즐이 끝나는 부분부터 30 옆에 그려지게 됨.
+		if(stackNum <= i)
+			sprite.setTextureRect(tileset->getTileSet(36));
+		else
+			sprite.setTextureRect(tileset->getTileSet(stack[i]*4));
+		window.draw(sprite);
+	}
+}*/

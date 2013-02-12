@@ -4,33 +4,41 @@
 #include "layer.h"
 
 int main(void){
-	printf("Left click : Put tile\nRight click : Remove tile, select tile\nG : View grid\nC : Off grid\nESC : Exit program\n");
+	
+	std::string MAPNAME;
 	bool gridView = false;
 
 	sf::Texture mainTexture;
-	mainTexture.loadFromFile("tiles/prairie.png");
-
 	sf::Texture gridTexture;
-	gridTexture.loadFromFile("tiles/grid.png");
-
 	sf::Texture mapGrid;
-	mapGrid.loadFromFile("tiles//map_grid.png");
 
-	sf::Sprite mainSprite;
-	mainSprite.setTexture(mainTexture);
-	sf::Sprite gridSprite;
-	gridSprite.setTexture(gridTexture);
 	sf::Sprite mapGridSprite;
+	sf::Sprite mainSprite;
+	sf::Sprite gridSprite;
+
+	mainTexture.loadFromFile("tiles/prairie.png");
+	gridTexture.loadFromFile("tiles/grid.png");	
+	mapGrid.loadFromFile("tiles//map_grid.png");
+	
+	mainSprite.setPosition(TEXTUREPOSX, 0);
+	mainSprite.setTexture(mainTexture);
+
+	gridSprite.setPosition(TEXTUREPOSX, 0);
+	gridSprite.setTexture(gridTexture);
+
 	mapGridSprite.setTexture(mapGrid);
 
 	UI ui;
-	Layer groundLayer;
-	groundLayer.setTexture(mainTexture);
+
+	printf("Enter a filename to be saved\n");
+	scanf("%s",MAPNAME.c_str());
+
+	Layer groundLayer(MAPNAME);
+	groundLayer.setTexture("tiles/prairie.png");
+
+	printf("Left click : Put tile\nRight click : Remove tile, select tile\nG : Show grid\nC : Hide grid\nS : Save\nESC : Exit program\n");
 
 	sf::RenderWindow editorWindow(sf::VideoMode(MAPWIDTH + mainTexture.getSize().x + 15, MAPHEIGHT), "Tile Map Editor");	
-
-	mainSprite.setPosition(TEXTUREPOSX, 0);
-	gridSprite.setPosition(TEXTUREPOSX, 0);
 
 	while(editorWindow.isOpen()){
 		sf::Event Event;
@@ -43,6 +51,8 @@ int main(void){
 			gridView = true;
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 			gridView = false;		
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			groundLayer.save();
 
 		editorWindow.clear();
 		ui.draw(editorWindow);

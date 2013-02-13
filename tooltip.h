@@ -30,6 +30,8 @@ class Tooltip {
 		sf::Text description;
 		sf::IntRect hoverRect;
 
+		//sf::Unicode::Text titleUnicode;
+
 		TileSet *tileset;
 
 		int tooltipWidth;

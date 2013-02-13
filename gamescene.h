@@ -5,6 +5,7 @@
 #include "character.h"
 #include "map.h"
 #include "uiscene.h"
+#include "player.h"
 
 #include <cstdio>
 
@@ -13,6 +14,7 @@ class GameScene : public SceneBase{
 		Character *character;
 		Map *map;
 		UiScene *uiscene;
+		Entity *player;
 
 	public:
 		GameScene();

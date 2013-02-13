@@ -96,6 +96,8 @@ void Tooltip::setTitle(sf::String _stringTitle){ //타이틀 텍스트 셋팅
 void Tooltip::setDescription(sf::String _stringDescription){ //설명 텍스트 셋팅
 
 	_stringDescription = getEntireDescription(_stringDescription);
+
+	sf::Utf<8>::toUtf32(_stringDescription.begin(), _stringDescription.end(), _stringDescription.begin());
  	
 	description.setString(_stringDescription);
 	description.setFont(font);
@@ -115,6 +117,9 @@ void Tooltip::setLineBreak(int _lineLimit){
 }
 
 void Tooltip::setTooltip(sf::String _title, sf::String _description, sf::IntRect _rect, int _lineLimit){
+
+	sf::Utf<8>::toUtf32(_description.begin(), _description.end(), _description.begin());
+
 	setLineBreak(_lineLimit);
 	setScope(_rect);
 	setTitle(_title);

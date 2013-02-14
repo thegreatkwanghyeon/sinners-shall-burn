@@ -13,8 +13,8 @@ class TitleScene : public SceneBase{
 	public:
 		TitleScene();
 		virtual ~TitleScene();
-		virtual virtual void update();
-		void draw(sf::RenderWindow &window);
+		virtual void update();
+		virtual void draw(sf::RenderWindow &window);
 
 };
 

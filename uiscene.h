@@ -20,9 +20,9 @@ class UiScene : public SceneBase {
 
 	public:
 		UiScene();
-		~UiScene(){delete button; delete button2; delete gauge; delete gauge2;}
-		void update();
-		void draw(sf::RenderWindow &window);
+		virtual ~UiScene(){delete button; delete button2; delete gauge; delete gauge2;}
+		virtual void update();
+		virtual void draw(sf::RenderWindow &window);
 
 };
 

@@ -7,7 +7,7 @@ class SceneBase{
 	private:
 	public:
 		SceneBase();
-		~SceneBase();
+		virtual ~SceneBase();
 		virtual void update();
 		virtual void draw(sf::RenderWindow &window);
 };

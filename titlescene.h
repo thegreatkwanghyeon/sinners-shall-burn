@@ -12,8 +12,8 @@ class TitleScene : public SceneBase{
 		Puzzle *puzzle;
 	public:
 		TitleScene();
-		~TitleScene();
-		void update();
+		virtual ~TitleScene();
+		virtual virtual void update();
 		void draw(sf::RenderWindow &window);
 
 };

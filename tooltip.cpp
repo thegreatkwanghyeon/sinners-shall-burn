@@ -45,29 +45,29 @@ void Tooltip::defineSpritePositions(){ //9등분한 스프라이트 위치 재�
 	description.setPosition(sprite[Center].getPosition().x, sprite[Center].getPosition().y+title.getLocalBounds().height+5);
 }
 
-std::vector<std::string> Tooltip::splitWords (std::string &_str){ //description 문자열 데이터를 공백 기준으로 나눠준다 
+std::vector<std::wstring> Tooltip::splitWords (std::wstring &_str){ //description 문자열 데이터를 공백 기준으로 나눠준다 
 	size_t n = _str.length();
 	size_t start, stop;
-	std::vector<std::string> words;
-	start = _str.find_first_not_of(" ");
+	std::vector<std::wstring> words;
+	start = _str.find_first_not_of(L" ");
 
 	while ((start >= 0) && (start < n)){
-		stop = _str.find_first_of(" ", start);
+		stop = _str.find_first_of(L" ", start);
 		if((stop<0) || (stop > n)) 
 			stop = n;
 
 		words.push_back(_str.substr(start, stop-start));
-		start = _str.find_first_not_of(" ", stop+1);
+		start = _str.find_first_not_of(L" ", stop+1);
 
 	}
 	return words;
 }
 
-std::string Tooltip::getEntireDescription (std::string _description){ //최종적으로 자동 줄바꿈을 적용한 텍스트 자료를 리턴함.
-	std::vector<std::string> _words = splitWords(_description);
-	std::string entireDescription = "";
-	std::vector<std::string>::iterator iter = _words.begin();
-	std::vector<std::string>::iterator iter_end = _words.end();
+std::wstring Tooltip::getEntireDescription (std::wstring _description){ //최종적으로 자동 줄바꿈을 적용한 텍스트 자료를 리턴함.
+	std::vector<std::wstring> _words = splitWords(_description);
+	std::wstring entireDescription = L"";
+	std::vector<std::wstring>::iterator iter = _words.begin();
+	std::vector<std::wstring>::iterator iter_end = _words.end();
 	int currentLineWidth = 0;
 
 	sf::Text tmpText;
@@ -78,10 +78,10 @@ std::string Tooltip::getEntireDescription (std::string _description){ //최종�
 		tmpText.setString(*iter);
 		currentLineWidth += tmpText.getLocalBounds().width;
 		if(currentLineWidth > lineLimit){
-			entireDescription += "\n";
+			entireDescription += L"\n";
 			currentLineWidth = 0;
 		}
-		entireDescription += (*iter + " ");
+		entireDescription += (*iter + L" ");
 	}
 
 
@@ -96,8 +96,6 @@ void Tooltip::setTitle(sf::String _stringTitle){ //타이틀 텍스트 셋팅
 void Tooltip::setDescription(sf::String _stringDescription){ //설명 텍스트 셋팅
 
 	_stringDescription = getEntireDescription(_stringDescription);
-
-	sf::Utf<8>::toUtf32(_stringDescription.begin(), _stringDescription.end(), _stringDescription.begin());
  	
 	description.setString(_stringDescription);
 	description.setFont(font);
@@ -117,8 +115,6 @@ void Tooltip::setLineBreak(int _lineLimit){
 }
 
 void Tooltip::setTooltip(sf::String _title, sf::String _description, sf::IntRect _rect, int _lineLimit){
-
-	sf::Utf<8>::toUtf32(_description.begin(), _description.end(), _description.begin());
 
 	setLineBreak(_lineLimit);
 	setScope(_rect);

@@ -43,8 +43,8 @@ class Tooltip {
 
 		void defineSpritePositions();
 		void defineSpriteScales();
-		std::vector<std::string> splitWords (std::string &_str);
-		std::string getEntireDescription (std::string _description);
+		std::vector<std::wstring> splitWords (std::wstring &_str);
+		std::wstring getEntireDescription (std::wstring _description);
 
 		void setTitle(sf::String _stringTitle);
 		void setDescription(sf::String _stringDescription);

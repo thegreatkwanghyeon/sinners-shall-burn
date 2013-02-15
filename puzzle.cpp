@@ -41,6 +41,12 @@ Puzzle::Puzzle(){
 	}
 	clickN=0;
 	stackNum=0;
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			printf("%d ",data[i][j]->num);
+		}
+		printf("\n");
+	}
 }
 
 void Puzzle::update(){

@@ -31,23 +31,23 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			sprite.setPosition(_x, _y);
 			animation->addTile("img/PuzzleAnimation.PNG",PBlockSize,PBlockSize);
 			animation->setSpeed(0.2);
-			animation->setInterval(sf::Vector3i(1,1,4));//디폴트.
+			animation->setTileRange(sf::Vector2i(1,1), 4);//디폴트.
 			is_click=false;
 		}
 		void init_animation(){
 			if(is_click == true){
-				animation->setInterval(sf::Vector3i(1,5,3));
+				animation->setTileRange(sf::Vector2i(1,5),3);
 			}else{
 				switch(num){
-					case -1 : animation->setInterval(sf::Vector3i(5,5,1));break; //빈 스택 표시용.
-					case 0 : animation->setInterval(sf::Vector3i(1,1,3));break;
-					case 1 : animation->setInterval(sf::Vector3i(1,2,3));break;
-					case 2 : animation->setInterval(sf::Vector3i(1,3,3));break;
-					case 3 : animation->setInterval(sf::Vector3i(1,4,3));break;
-					case 4 : animation->setInterval(sf::Vector3i(5,1,3));break;
-					case 5 : animation->setInterval(sf::Vector3i(5,2,3));break;
-					case 6 : animation->setInterval(sf::Vector3i(5,3,3));break;
-					default : animation->setInterval(sf::Vector3i(5,4,3));
+					case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //빈 스택 표시용.
+					case 0 : animation->setTileRange(sf::Vector2i(1,1),3);break;
+					case 1 : animation->setTileRange(sf::Vector2i(1,2),3);break;
+					case 2 : animation->setTileRange(sf::Vector2i(1,1),3);break;
+					case 3 : animation->setTileRange(sf::Vector2i(1,4),3);break;
+					case 4 : animation->setTileRange(sf::Vector2i(5,1),1);break;
+					case 5 : animation->setTileRange(sf::Vector2i(5,2),1);break;
+					case 6 : animation->setTileRange(sf::Vector2i(5,3),1);break;
+					default : animation->setTileRange(sf::Vector2i(5,3),1);
 				}
 			}
 		}

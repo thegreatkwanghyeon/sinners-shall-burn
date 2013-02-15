@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity(const char *_path , sf::Vector2i _position) : currentDirection(Up){
+Entity::Entity(const char *_path , sf::Vector2i _position) : currentDirection(Up), currentState(Staying){
 	animation = new Animation();
 	sprite.setPosition(_position.x, _position.y);
 
@@ -18,6 +18,10 @@ void Entity::setDirection(int _direction){
 		currentDirection = _direction;
 		animation->setTileRange(sf::Vector2i(2,currentDirection+1),8);
 	}
+}
+
+void Entity::setState(int _state){
+	currentState = _state;
 }
 
 void Entity::update(){

@@ -26,10 +26,12 @@ class Entity {
 		sf::Time deltaTime;
 
 		int currentDirection;
+		int currentState;
 
 		Animation *animation;
 		void move(sf::Vector2i _direction);
 		void setDirection(int _direction);
+		void setState(int _state);
 
 	public:
 		Entity(const char *_path, sf::Vector2i _position);

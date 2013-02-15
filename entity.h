@@ -19,7 +19,7 @@ class Entity {
 		enum State {
 			Staying,
 			Moving,
-		}
+		};
 
 		sf::Sprite sprite;
 		sf::Clock eTime;

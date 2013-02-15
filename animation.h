@@ -9,7 +9,9 @@ class Animation{
 	private:
 		TileSet                   *tileSet;
 		sf::Texture               texture;
-		sf::Vector3i              interval;
+		sf::Vector2i              interval;
+		sf::Vector2i 			  intervalPosition;
+		int 					  numberOfTile;
 		std::vector<sf::Texture > textures;
 		int                       currentTexture;
 		int                       currentTileX;
@@ -18,7 +20,7 @@ class Animation{
 		int                       endTileNum;
 		float                     tmpElapsedTime;
 		float                     _speed;
-
+		
 		sf::Clock                 eTime;
 		sf::Time                  deltaTime;
 
@@ -31,7 +33,7 @@ class Animation{
 		~Animation(){delete tileSet;}
 		void setSpeed(float speed);		
 		void addFrame(std::string path);
-		void setInterval(sf::Vector3i _interval);
+		void setTileRange(sf::Vector2i _intervalPosition, int _numberOfTile);
 		void addTile(std::string path, int _tileWidth, int _tileHeight);
 		void update(sf::Sprite *sprite, bool tile);
 		//sf::Vector2i tileSize;

@@ -15,10 +15,10 @@ void Animation::addTile(std::string path, int _tileWidth, int _tileHeight){
 	texture = tileSet->tileSet(path, tileSizeX, tileSizeY);
 }
 
-void Animation::setInterval(sf::Vector3i _interval){
-	interval = _interval;
-	tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
-	endTileNum = tileNum + interval.z;
+void Animation::setTileRange(sf::Vector2i _intervalPosition, int _numberOfTile){
+	interval = _intervalPosition;
+	tileNum = (_intervalPosition.x -1) + ((_intervalPosition.y-1)*(texture.getSize().x/tileSizeX));
+	endTileNum = tileNum + _numberOfTile;
 }
 
 void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){

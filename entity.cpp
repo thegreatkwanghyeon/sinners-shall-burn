@@ -6,7 +6,7 @@ Entity::Entity(const char *_path , sf::Vector2i _position){
 
 	animation->addTile(_path , 64, 64);
 	animation->setSpeed(0.2f);
-	animation->setInterval(sf::Vector3i(5,3,2));
+	animation->setTileRange(sf::Vector2i(5,3),2);
 }
 
 void Entity::move(sf::Vector2i _direction){

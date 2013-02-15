@@ -8,7 +8,7 @@ UiScene::UiScene(){
 	button->setText("Enabler", 18);
 	button->setHotkey(sf::Keyboard::Return);
 	button2->setPosition(300,380);
-	button2->setText("Click me if you can");
+	button2->setText(L"클릭 미 이프유 캔");
 	button2->disableButton();
 
 	gauge = new Gauge("img/expgauge.png", 5000, 0, 0);

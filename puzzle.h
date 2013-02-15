@@ -85,9 +85,8 @@ class Puzzle{
 		PData *data[PuzzleSize+1][PuzzleSize+1];//+1은 혹시 버그날때를 대비함이다.
 		int clickN;
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
-		//포인터로 만듬. free를 응용하기 위함이다.
 
-		void checkPuzzle();
+		int checkPuzzle();
 
 		//bool checkMouseClick();
 

@@ -90,6 +90,11 @@ void Puzzle::update(){
 						tp = data[clickStack[0].y][clickStack[0].x]->num;
 						data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 						data[clickStack[1].y][clickStack[1].x]->num = tp;//첫번째 그것과 두번쨰 그것을 바꿈.
+						if(checkPuzzle() == 0){//일단 함수를 돌리고, 만약 0면 복구시킴. 1이면 걍 바뀐다.
+							tp = data[clickStack[0].y][clickStack[0].x]->num;
+							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
+							data[clickStack[1].y][clickStack[1].x]->num = tp;//첫번째 그것과 두번쨰 그것을 '다시' 바꿈.
+						}
 						printf("swap is end(%d %d)\n",data[clickStack[0].y][clickStack[0].x]->num,data[clickStack[1].y][clickStack[1].x]->num);
 					}
 					while(1){
@@ -105,7 +110,6 @@ void Puzzle::update(){
 			data[i][j]->update();
 		}
 	}
-	checkPuzzle();//한바퀴 돈 다음 검사? 글쎼 걍 해봄.
 	for(i=0;i<StackSize;i++)//스택 업데이트
 		stack[i]->update();
 }
@@ -133,7 +137,8 @@ void Puzzle::addTile(std::string path, int _tileWidth, int _tileHeight){
 	texture = tileset->tileSet(path, tileSizeX, tileSizeY);
 }
 */
-void Puzzle::checkPuzzle(){
+int Puzzle::checkPuzzle(){
+	//원래 checkPuzzle은 퍼즐 내의 모든 3개짜리를 터트리는 용도였으나 콤보를 위해 1개 터지면 리턴하도록 설정된다.
 	int i,j;//for문용
 	int k;//예비
 
@@ -144,6 +149,7 @@ void Puzzle::checkPuzzle(){
 				/*free(data[i-2][j]);
 				free(data[i-1][j]);
 				free(data[i][j]);*///굳이 free까지 안해도 되서 폐기된 계획안.
+				printf("[%d %d %d | %d(j)] == break\n",i,i-1,i-2,j);
 				stackInput(data[i][j]->num);//스택에 넣는다.
 				k=i;
 				while(1){
@@ -171,9 +177,11 @@ void Puzzle::checkPuzzle(){
 				}
 
 				printf("yea! block change!!!!!!!!(|)\n");
+				return 1;
 			}
 
 			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//가로로 3개가 겹칠때.
+				printf("[%d(i) | %d %d %d] == break\n",i,j,j-1,j-2);
 				stackInput(data[i][j]->num);//스택에 넣는다.
 				k=i;
 				while(1){
@@ -205,9 +213,12 @@ void Puzzle::checkPuzzle(){
 				}
 
 				printf("yea! block change!!!!!!!!(-)\n");
+				return 1;
 			}
 		}
 	}
+	return 0;
+	//0 : 겹치는게 없다. 이게 뜨면 걍 원상복구.
 }
 
 void Puzzle::stackInput(int num){

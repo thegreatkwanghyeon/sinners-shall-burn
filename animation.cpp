@@ -3,6 +3,7 @@
 
 Animation::Animation() : currentTexture(0), currentTileX(0), currentTileY(0), tileNum(0),  endTileNum(-1),tmpElapsedTime(0){
 	tileSet = new TileSet();
+	isPlay = false;
 } 
 void Animation::addFrame(std::string path){
 	texture.loadFromFile(path);
@@ -59,7 +60,14 @@ void Animation::setSpeed (float speed){
 	_speed = speed;
 }
 
+void Animation::playAnimation(){
+	isPlay = true;
+}
+void Animation::stopAnimation(){
+	isPlay = false;
+}
 void Animation::update(sf::Sprite *sprite, bool tile){
-	play(sprite, tile, deltaTime);
+	if(isPlay)
+		play(sprite, tile, deltaTime);
 	deltaTime = eTime.restart();
 }

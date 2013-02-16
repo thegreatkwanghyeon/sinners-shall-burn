@@ -20,6 +20,7 @@ class Animation{
 		int                       endTileNum;
 		float                     tmpElapsedTime;
 		float                     _speed;
+		bool                      isPlay;
 		
 		sf::Clock                 eTime;
 		sf::Time                  deltaTime;
@@ -36,6 +37,8 @@ class Animation{
 		void setTileRange(sf::Vector2i _intervalPosition, int _numberOfTile);
 		void addTile(std::string path, int _tileWidth, int _tileHeight);
 		void update(sf::Sprite *sprite, bool tile);
+		void playAnimation();
+		void stopAnimation();
 		//sf::Vector2i tileSize;
 
 		int tileSizeX, tileSizeY;

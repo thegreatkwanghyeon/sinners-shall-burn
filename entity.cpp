@@ -26,6 +26,7 @@ void Entity::setState(int _state){
 
 void Entity::update(){
 	animation->update(&sprite, true);
+	animation->playAnimation();
 	deltaTime = eTime.restart();
 }
 

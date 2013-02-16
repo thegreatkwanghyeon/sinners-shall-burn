@@ -41,16 +41,24 @@ Puzzle::Puzzle(){
 	}
 	clickN=0;
 	stackNum=0;
-	for(i=0;i<PuzzleSize;i++){
-		for(j=0;j<PuzzleSize;j++){
-			printf("%d ",data[i][j]->num);
-		}
-		printf("\n");
-	}
+
+	flag=false;//업데이트 정지용.
 }
 
 void Puzzle::update(){
 	int i,j,tp=0;
+/*
+	if(flag == true){//플래그는 어떤 블록이 3개 이상 맞아서 터졌을때 그에 맞는 애니메이션 진행동안은 다른 블록이 움직이거나 클릭을 받거나 하는걸 방지하기 위해 만듬.
+		for(i=0;i<PuzzleSize;i++){
+			for(j=0;j<PuzzleSize;j++){
+				data[i][j]->update();//이거는 해줘야 애니메이션이 돌까 싶어서...
+			}
+		}
+		for(i=0;i<StackSize;i++){
+			stack[i]->draw(window);
+		}
+		return;
+	}*/
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
@@ -96,10 +104,12 @@ void Puzzle::update(){
 						tp = data[clickStack[0].y][clickStack[0].x]->num;
 						data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 						data[clickStack[1].y][clickStack[1].x]->num = tp;//첫번째 그것과 두번쨰 그것을 바꿈.
-						if(checkPuzzle() == 0){//일단 함수를 돌리고, 만약 0면 복구시킴. 1이면 걍 바뀐다.
+						if(checkPuzzle() == 0){//일단 함수를 돌리고, 만약 0면 복구시킴. 1이면 플래그를 세운다. 
 							tp = data[clickStack[0].y][clickStack[0].x]->num;
 							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 							data[clickStack[1].y][clickStack[1].x]->num = tp;//첫번째 그것과 두번쨰 그것을 '다시' 바꿈.
+						}else{
+							flag=true;
 						}
 						printf("swap is end(%d %d)\n",data[clickStack[0].y][clickStack[0].x]->num,data[clickStack[1].y][clickStack[1].x]->num);
 					}

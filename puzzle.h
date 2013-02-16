@@ -22,6 +22,8 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 	private:
 		sf::Sprite sprite;
 		Animation *animation;
+
+		
 	public:
 		int num;//퍼즐의 값
 		bool is_click;//클릭되었는지 체크하는 부분.
@@ -53,10 +55,9 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 		}
 		void update(){
 			animation->update(&sprite, true);
-			animation->playAnimation();
 		}
 		void draw(sf::RenderWindow &window){//아무래도 퍼즐 각 칸의 애니메이션 등을 그 칸이 알아서 하면 재미있을거 같아서 해봄.
-			window.draw(sprite);			
+			window.draw(sprite);
 		}
 };
 
@@ -65,7 +66,7 @@ class Puzzle{
 		//sf::Texture   texture;
 		sf::Vector2i  position;
 		sf::Vector2i  mousePosition;
-
+		bool flag;
 	//	TileSet *tileset;
 
 //		int data[PuzzleSize+1][PuzzleSize+1];

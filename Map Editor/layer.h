@@ -10,13 +10,11 @@ class Layer{
 		TileSelector selector;
 		TilePutter putter;
 		FILE* saveMap;
-		std::string saveTexture;
-		sf::Texture tmpTexture;
 		std::string saveName;
 	public:
 		Layer(std::string string);
 		~Layer(){}
-		void setTexture(std::string mainTexture);
+		void setTexture(int num);
 		void update(sf::RenderWindow &window);
 		void draw(sf::RenderWindow &window);
 		void save();

@@ -6,7 +6,7 @@
 
 class UI{
 	private:
-		sf::RectangleShape vLine;
+		sf::RectangleShape vLine, hLine;
 	public:
 		UI();
 		~UI(){};

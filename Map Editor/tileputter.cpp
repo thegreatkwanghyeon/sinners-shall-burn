@@ -1,12 +1,13 @@
 #include "tileputter.h"
 
-void TilePutter::initialize(std::string mainTexture){
+void TilePutter::initialize(int num){
+
+	number = num;
+
+	saveTexture = texturePaths[number];
 
 	able = true;
 	contain = false;
-
-	tmpTexture.loadFromFile(mainTexture);
-	saveTexture = mainTexture;
 
 	mapArea.left = 0;
 	mapArea.width = MAPWIDTH;
@@ -49,14 +50,16 @@ void TilePutter::putTile(int x, int y, sf::IntRect textureRect){
 
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				if(able){
-					tmpSprite.sprite.setTexture(tmpTexture);				
+					tmpSprite.sprite.setTexture(textures[number]);				
 					tmpSprite.sprite.setPosition(rects[i].left, rects[i].top);
 					tmpSprite.sprite.setTextureRect(textureRect);
 					tmpSprite.string = saveTexture;
 					mapSprites.push_back(tmpSprite);
 				}
 				else{
+					mapSprites[j].sprite.setTexture(textures[number]);
 					mapSprites[j].sprite.setTextureRect(textureRect);
+					mapSprites[j].string = saveTexture;
 				}
 			}	
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && mapSprites.size()>0){

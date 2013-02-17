@@ -71,3 +71,7 @@ void Animation::update(sf::Sprite *sprite, bool tile){
 		play(sprite, tile, deltaTime);
 	deltaTime = eTime.restart();
 }
+
+int Animation::getLocation(){
+	return tileNum;//퍼즐에서 쓰려고 만듬.
+}

@@ -14,7 +14,7 @@ Puzzle::Puzzle(){
 	for(i=0;i<PuzzleSize;i++){//기본 퍼즐 생성.
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));//생성.
-			printf("%d %d ok.\n",i,j);
+			//printf("%d %d ok.\n",i,j);
 			//---
 
 			while(1){
@@ -41,24 +41,54 @@ Puzzle::Puzzle(){
 	}
 	clickN=0;
 	stackNum=0;
+	comboNum=0;
 
 	flag=false;//업데이트 정지용.
 }
 
 void Puzzle::update(){
 	int i,j,tp=0;
-/*
+
 	if(flag == true){//플래그는 어떤 블록이 3개 이상 맞아서 터졌을때 그에 맞는 애니메이션 진행동안은 다른 블록이 움직이거나 클릭을 받거나 하는걸 방지하기 위해 만듬.
 		for(i=0;i<PuzzleSize;i++){
 			for(j=0;j<PuzzleSize;j++){
-				data[i][j]->update();//이거는 해줘야 애니메이션이 돌까 싶어서...
+				data[i][j]->update();//이거는 해줘야 애니메이션이 돌겠지...
 			}
 		}
 		for(i=0;i<StackSize;i++){
-			stack[i]->draw(window);
+			stack[i]->update();//스택...
 		}
+		//---아래에서는 애니메이션이 한바퀴 돌았는지 확인하고 CheckPuzzle을 돌린다.
+		tp = data[temp.y][temp.x]->getLocation();
+		printf("flag is doing now...shit [%d %d ] \nCombo : %d \n",tp,tempNum,comboNum);
+		if(tp < tempNum){//플래그 무효화.
+			printf("i dont like error!!!\n");
+
+			flag=false;
+			printf("TEST 01");
+			if(temp.y >= 2){
+				data[temp.y-2][temp.x]->is_break=false;
+				data[temp.y-2][temp.x]->init_animation();
+				data[temp.y-1][temp.x]->is_break=false;
+				data[temp.y-1][temp.x]->init_animation();
+			}
+			if(temp.x >= 2){
+				data[temp.y][temp.x-1]->is_break=false;
+				data[temp.y][temp.x-1]->init_animation();
+				data[temp.y][temp.x-2]->is_break=false;
+				data[temp.y][temp.x-2]->init_animation();
+			}
+			data[temp.y][temp.x]->is_break=false;
+			data[temp.y][temp.x]->init_animation();
+
+			printf("TEST 02");
+
+			checkPuzzle();//만약 콤보가 터지면 체크퍼즐에서 다시 잘 해결해줄거야...
+		}else
+			tempNum=tp;
+		//---
 		return;
-	}*/
+	}
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
@@ -108,9 +138,7 @@ void Puzzle::update(){
 							tp = data[clickStack[0].y][clickStack[0].x]->num;
 							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 							data[clickStack[1].y][clickStack[1].x]->num = tp;//첫번째 그것과 두번쨰 그것을 '다시' 바꿈.
-						}else{
-							flag=true;
-						}
+						}//원래 플래그는 여기서 설정했는데 상황상 체크퍼즐 하위로 넘어감.
 						printf("swap is end(%d %d)\n",data[clickStack[0].y][clickStack[0].x]->num,data[clickStack[1].y][clickStack[1].x]->num);
 					}
 					while(1){
@@ -146,13 +174,6 @@ void Puzzle::draw(sf::RenderWindow &window){
 		stack[i]->draw(window);
 	}
 }
-/*
-void Puzzle::addTile(std::string path, int _tileWidth, int _tileHeight){
-	tileSizeX = _tileWidth;
-	tileSizeY = _tileHeight;
-	texture = tileset->tileSet(path, tileSizeX, tileSizeY);
-}
-*/
 int Puzzle::checkPuzzle(){
 	//원래 checkPuzzle은 퍼즐 내의 모든 3개짜리를 터트리는 용도였으나 콤보를 위해 1개 터지면 리턴하도록 설정된다.
 	int i,j;//for문용
@@ -166,7 +187,17 @@ int Puzzle::checkPuzzle(){
 				free(data[i-1][j]);
 				free(data[i][j]);*///굳이 free까지 안해도 되서 폐기된 계획안.
 				printf("[%d %d %d | %d(j)] == break\n",i,i-1,i-2,j);
-				stackInput(data[i][j]->num);//스택에 넣는다.
+
+				comboNum++;
+
+				if(comboNum > 1){//앞에서 터진놈 있으면...
+					combo[comboNum-1]=data[i][j]->num;//콤보스택에 넣어준다.
+					//-1을 하는 이유는 1부터 채우기 위함. 또한 for문에서 조건부에 =넣으면 혼란이 올수 있기도 함이다.
+				}else{
+					stackInput(data[i][j]->num);//스택에 넣는다.
+				}
+
+				
 				k=i;
 				while(1){
 					if(k-3 < 0)
@@ -193,12 +224,34 @@ int Puzzle::checkPuzzle(){
 				}
 
 				printf("yea! block change!!!!!!!!(|)\n");
+				//---
+				flag=true;
+				temp.x=j;
+				temp.y=i;
+				tempNum=-1;
+
+				data[i-2][j]->is_break=true;
+				data[i-2][j]->init_animation();
+				data[i-1][j]->is_break=true;
+				data[i-1][j]->init_animation();
+				data[i][j]->is_break=true;
+				data[i][j]->init_animation();
+
 				return 1;
 			}
 
 			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//가로로 3개가 겹칠때.
 				printf("[%d(i) | %d %d %d] == break\n",i,j,j-1,j-2);
-				stackInput(data[i][j]->num);//스택에 넣는다.
+				
+				comboNum++;
+
+				if(comboNum > 1){//앞에서 터진놈 있으면...
+					combo[comboNum-1]=data[i][j]->num;//콤보스택에 넣어준다.
+					//-1을 하는 이유는 1부터 채우기 위함. 또한 for문에서 조건부에 =넣으면 혼란이 올수 있기도 함이다.
+				}else{
+					stackInput(data[i][j]->num);//스택에 넣는다.
+				}
+
 				k=i;
 				while(1){
 					if(k-1 < 0)// k == 0와 같다.
@@ -229,10 +282,25 @@ int Puzzle::checkPuzzle(){
 				}
 
 				printf("yea! block change!!!!!!!!(-)\n");
+				//======
+				flag=true;
+				temp.x=j;
+				temp.y=i;
+				tempNum=-1;
+
+				data[i][j-2]->is_break=true;
+				data[i][j-2]->init_animation();
+				data[i][j-1]->is_break=true;
+				data[i][j-1]->init_animation();
+				data[i][j]->is_break=true;
+				data[i][j]->init_animation();
+
 				return 1;
 			}
 		}
 	}
+	comboNum=0;//겹치는게 없으므로 콤보 종료. 0으로 리셋.
+	//참고 : comboNum에 맞춰 배열이 구르므로 초기화나 중간 비우기는 필요없음. 
 	return 0;
 	//0 : 겹치는게 없다. 이게 뜨면 걍 원상복구.
 }
@@ -251,15 +319,4 @@ void Puzzle::stackInput(int num){
 	}
 	for(i=0;i<StackSize;i++)
 		stack[i]->init_animation();
-}/*
-void Puzzle::drawStack(sf::RenderWindow &window){
-	int i;
-	for(i=StackSize-1;i>=0;i--){
-		sprite.setPosition(PStartX+430,i*50);//퍼즐이 끝나는 부분부터 30 옆에 그려지게 됨.
-		if(stackNum <= i)
-			sprite.setTextureRect(tileset->getTileSet(36));
-		else
-			sprite.setTextureRect(tileset->getTileSet(stack[i]*4));
-		window.draw(sprite);
-	}
-}*/
+}

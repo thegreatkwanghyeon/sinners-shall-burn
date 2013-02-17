@@ -39,6 +39,8 @@ class Animation{
 		void update(sf::Sprite *sprite, bool tile);
 		void playAnimation();
 		void stopAnimation();
+
+		int getLocation();
 		//sf::Vector2i tileSize;
 
 		int tileSizeX, tileSizeY;

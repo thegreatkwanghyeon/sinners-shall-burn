@@ -27,6 +27,7 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 	public:
 		int num;//퍼즐의 값
 		bool is_click;//클릭되었는지 체크하는 부분.
+		bool is_break;//터졌을때 애니메이션 할라고 만든거.
 
 		PData(float _x, float _y){
 			animation=new Animation();
@@ -35,9 +36,12 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			animation->setSpeed(0.2);
 			animation->setTileRange(sf::Vector2i(1,1), 4);//디폴트.
 			is_click=false;
+			is_break=false;
 		}
 		void init_animation(){
-			if(is_click == true){
+			if(is_break == true){
+				animation->setTileRange(sf::Vector2i(5,5),4);
+			}else if(is_click == true){
 				animation->setTileRange(sf::Vector2i(1,5),3);
 			}else{
 				switch(num){
@@ -59,6 +63,9 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 		void draw(sf::RenderWindow &window){//아무래도 퍼즐 각 칸의 애니메이션 등을 그 칸이 알아서 하면 재미있을거 같아서 해봄.
 			window.draw(sprite);
 		}
+		int getLocation(){
+			return animation->getLocation();
+		}
 };
 
 class Puzzle{
@@ -66,7 +73,9 @@ class Puzzle{
 		//sf::Texture   texture;
 		sf::Vector2i  position;
 		sf::Vector2i  mousePosition;
+		sf::Vector2i temp;//플래그용.
 		bool flag;
+		int tempNum;//그냥 플래그랑 세트임...
 	//	TileSet *tileset;
 
 //		int data[PuzzleSize+1][PuzzleSize+1];
@@ -97,5 +106,8 @@ class Puzzle{
 		int stackNum;
 		void stackInput(int num);
 		//void drawStack(sf::RenderWindow &window);
+		//-------아래부터는 콤보 관련.////
+		int combo[10];//현재 콤보터진 블록의 수를 기록.설마 10콤보 이상 내는놈은 없겠지.
+		int comboNum;
 };
 #endif

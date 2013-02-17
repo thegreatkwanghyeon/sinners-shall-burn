@@ -28,7 +28,7 @@ void Entity::update(){
 	animation->update(&sprite, true);
 	animation->playAnimation();
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-		animation->stopAnimation();
+		animation->stopAnimationAt(1);
 	}
 	deltaTime = eTime.restart();
 }

@@ -65,9 +65,21 @@ void Animation::setSpeed (float speed){
 void Animation::playAnimation(){
 	isPlay = true;
 }
+
+void Animation::playAnimationAt(int number){
+	tileNum = number;
+	isPlay = true;
+}
+
 void Animation::stopAnimation(){
 	isPlay = false;
 }
+
+void Animation::stopAnimationAt(int num){
+	tileNum = num;
+	isPlay = false;
+}
+
 void Animation::update(sf::Sprite *sprite, bool tile){
 		play(sprite, tile, deltaTime);
 	deltaTime = eTime.restart();

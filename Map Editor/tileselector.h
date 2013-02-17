@@ -18,7 +18,7 @@ class TileSelector{
 	public:
 		TileSelector(){};
 		~TileSelector(){}
-		void initialize(sf::Texture mainTexture);
+		void initialize(int num);
 		void select(int x, int y);
 		sf::IntRect getSelectedTile();
 		void draw(sf::RenderWindow &window);

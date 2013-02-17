@@ -1,16 +1,15 @@
 #include "tileselector.h"
 
-void TileSelector::initialize(sf::Texture mainTexture){
+void TileSelector::initialize(int num){
 
-	tileset.tileSet(mainTexture, TILEWIDTH, TILEHEIGHT);
-	tmpTexture = mainTexture ;
+	tileset.tileSet(textures[num], TILEWIDTH, TILEHEIGHT);
 
 	textureArea.left = TEXTUREPOSX;
-	textureArea.width = tmpTexture.getSize().x;
+	textureArea.width = textures[num].getSize().x;
 	textureArea.top = 0;
-	textureArea.height = tmpTexture.getSize().y;
+	textureArea.height = textures[num].getSize().y;
 
-	selectedSprite.setTexture(tmpTexture);
+	selectedSprite.setTexture(textures[num]);
 	selectedSprite.setTextureRect(tileset.getTileSet(0));
 
 	for(int i=0;i<tileset.getTileNum();i++){

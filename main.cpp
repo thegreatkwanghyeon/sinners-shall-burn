@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "scenemanager.h"
 
+
 int main(void){
 	sf::RenderWindow window(sf::VideoMode(800,600), "SFML");	
 	SceneManager *sceneManager = new SceneManager();

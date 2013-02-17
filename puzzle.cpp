@@ -46,6 +46,16 @@ Puzzle::Puzzle(){
 	flag=false;//업데이트 정지용.
 }
 
+Puzzle::~Puzzle(){
+	int i,j;
+
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){ 
+			delete data[i][j];
+		}
+	}
+}
+
 void Puzzle::update(){
 	int i,j,tp=0;
 

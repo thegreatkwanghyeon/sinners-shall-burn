@@ -11,7 +11,7 @@ TitleScene::TitleScene(){
 }
 
 TitleScene::~TitleScene(){
-
+	delete puzzle;
 }
 
 void TitleScene::update(){

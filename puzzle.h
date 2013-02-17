@@ -38,6 +38,9 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			is_click=false;
 			is_break=false;
 		}
+		~PData(){
+			
+		}
 		void init_animation(){
 			if(is_break == true){
 				animation->setTileRange(sf::Vector2i(5,5),4);

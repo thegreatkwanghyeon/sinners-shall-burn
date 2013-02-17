@@ -30,16 +30,17 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
 		sprite->setTexture(texture);
 		sprite->setTextureRect(tileSet->getTileSet(tileNum));
 
-		if(tileNum == endTileNum || ((texture.getSize().x / tileSizeX) * (texture.getSize().y / tileSizeY)) == tileNum){
+			if(tileNum == endTileNum || ((texture.getSize().x / tileSizeX) * (texture.getSize().y / tileSizeY)) == tileNum){
 
-			tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
-		}
+				tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
+			}
 
-		if(tmpElapsedTime > _speed){
-			tileNum++;
-			//printf("tileNum : %d\n", tileNum);
-			tmpElapsedTime = 0;
-
+			if(isPlay){
+				if(tmpElapsedTime > _speed){
+					tileNum++;
+					//printf("tileNum : %d\n", tileNum);
+					tmpElapsedTime = 0;
+				}
 		}
 	}
 
@@ -48,10 +49,11 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
 			currentTexture=0;
 
 		sprite->setTexture(textures[currentTexture]);
-
-		if(tmpElapsedTime > _speed){
-			++currentTexture;
-			tmpElapsedTime = 0;
+		if(isPlay){
+			if(tmpElapsedTime > _speed){
+				++currentTexture;
+				tmpElapsedTime = 0;
+			}
 		}
 	}
 }
@@ -67,7 +69,6 @@ void Animation::stopAnimation(){
 	isPlay = false;
 }
 void Animation::update(sf::Sprite *sprite, bool tile){
-	if(isPlay)
 		play(sprite, tile, deltaTime);
 	deltaTime = eTime.restart();
 }

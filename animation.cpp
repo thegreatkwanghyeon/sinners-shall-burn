@@ -4,7 +4,7 @@
 Animation::Animation() : currentTexture(0), currentTileX(0), currentTileY(0), tileNum(0),  endTileNum(-1),tmpElapsedTime(0){
 	tileSet = new TileSet();
 	isPlay = true;
-} 
+} //
 void Animation::addFrame(std::string path){
 	texture.loadFromFile(path);
 	textures.push_back(texture);

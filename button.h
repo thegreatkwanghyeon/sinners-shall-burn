@@ -1,10 +1,7 @@
 #ifndef __button__
 #define __button__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <cstdio>
-
+#include "stdafx.h"
 #include "tileset.h"
 
 class Button {

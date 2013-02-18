@@ -1,7 +1,7 @@
 #ifndef __animation__
 #define __animation__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 
 #include "tileset.h"
 

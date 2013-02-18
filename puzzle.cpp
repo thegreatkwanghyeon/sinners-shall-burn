@@ -54,6 +54,8 @@ Puzzle::~Puzzle(){
 			delete data[i][j];
 		}
 	}
+	for(i=0;i<StackSize;i++)
+		delete stack[i];
 }
 
 void Puzzle::update(){

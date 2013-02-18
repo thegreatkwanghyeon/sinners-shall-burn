@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -g -lsfml-window -lsfml-graphics -lsfml-system -lsfml-audio
+CXXFLAGS = -Wall -g -include stdafx.h -Winvalid-pch -H -O2 -lsfml-window -lsfml-graphics -lsfml-system -lsfml-audio
 OBJECTS =   $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 TARGET = my_program
 CC = g++

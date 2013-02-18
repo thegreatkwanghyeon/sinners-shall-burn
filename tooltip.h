@@ -1,9 +1,9 @@
 #ifndef __tooltip__
 #define __tooltip__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 #include "tileset.h"
-#include <cstdio>
+
 
 class Tooltip {
 
@@ -55,7 +55,7 @@ class Tooltip {
 
 	public:
 		Tooltip(sf::String _path);
-		~Tooltip();
+		~Tooltip(){delete tileset;};
 		void update();
 		void draw(sf::RenderWindow &window);
 		void setTooltip(sf::String _title, sf::String _description, sf::IntRect _rect, int _lineLimit);

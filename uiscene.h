@@ -6,7 +6,7 @@
 #include "gauge.h"
 #include "tooltip.h"
 
-#include <cstdio>
+
 
 class UiScene : public SceneBase {
 
@@ -20,7 +20,7 @@ class UiScene : public SceneBase {
 
 	public:
 		UiScene();
-		virtual ~UiScene(){delete button; delete button2; delete gauge; delete gauge2;}
+		virtual ~UiScene(){delete button; delete button2; delete gauge; delete gauge2; delete tooltip;}
 		virtual void update();
 		virtual void draw(sf::RenderWindow &window);
 

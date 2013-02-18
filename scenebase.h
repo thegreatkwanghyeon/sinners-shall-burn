@@ -1,7 +1,7 @@
 #ifndef __scenebase__
 #define __scenebase__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 
 class SceneBase{
 	private:

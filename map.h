@@ -1,7 +1,7 @@
 #ifndef __map__
 #define __map__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 
 class Map{
 

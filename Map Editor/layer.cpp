@@ -9,8 +9,8 @@ void Layer::setTexture(int num){
 	putter.initialize(num);
 }
 
-void Layer::update(sf::RenderWindow &window){
-	selector.select(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+void Layer::update(sf::RenderWindow &window, sf::Event &event){
+	selector.select(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y, event);
 	putter.putTile(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y, selector.getSelectedTile());	
 }
 

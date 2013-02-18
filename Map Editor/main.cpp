@@ -136,11 +136,11 @@ int main(void){
 		editorWindow.draw(mainSprite);	
 		editorWindow.draw(gridSprite);	
 		if(currentLayer == 0){
-			groundLayer.update(editorWindow);
+			groundLayer.update(editorWindow, Event);
 			groundLayer.draw(editorWindow);
 		}
 		if(currentLayer == 1){
-			objectLayer.update(editorWindow);
+			objectLayer.update(editorWindow, Event);
 			objectLayer.draw(editorWindow);
 		}
 

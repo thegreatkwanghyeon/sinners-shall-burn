@@ -19,7 +19,7 @@ class TileSelector{
 		TileSelector(){};
 		~TileSelector(){}
 		void initialize(int num);
-		void select(int x, int y);
+		void select(int x, int y, sf::Event &event);
 		sf::IntRect getSelectedTile();
 		void draw(sf::RenderWindow &window);
 };

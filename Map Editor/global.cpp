@@ -3,6 +3,8 @@
 sf::Texture textures[50];
 std::string texturePaths[50];
 
+bool mouseLeft = true, mouseRight = true;
+
 void initialize(){
 
 	texturePaths[0] = "tiles/green.png";

@@ -16,6 +16,8 @@ extern std::string texturePaths[50];
 
 extern void initialize();
 
+extern bool mouseLeft, mouseRight;
+
 struct TILE{
 	sf::Sprite sprite;
 	std::string string;

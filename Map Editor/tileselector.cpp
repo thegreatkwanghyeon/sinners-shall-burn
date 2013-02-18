@@ -22,7 +22,7 @@ void TileSelector::initialize(int num){
 
 }
 
-void TileSelector::select(int x, int y){
+void TileSelector::select(int x, int y, sf::Event &event){
 
 	for(i=0;i<=tiles.size();i++){
 		if(tiles[i].contains(x, y))
@@ -31,8 +31,13 @@ void TileSelector::select(int x, int y){
 
 	selectedSprite.setPosition(x - TILEWIDTH/2, y - TILEHEIGHT/2);
 
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && textureArea.contains(x, y))
+	if(mouseRight && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right && textureArea.contains(x, y)){
 		selectedSprite.setTextureRect(tileset.getTileSet(i));	
+		mouseRight = false;
+	}
+	if(!mouseRight && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right)
+		mouseRight = true;
+
 }
 
 sf::IntRect TileSelector::getSelectedTile(){

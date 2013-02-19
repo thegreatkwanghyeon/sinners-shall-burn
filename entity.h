@@ -6,6 +6,15 @@
 
 #define SPEED 200
 
+struct Status{//일단 int로 함.
+	int hp;//체력 
+	int attack;//공격력
+	int defense;//방어력
+	int critical;//치명타율
+	int speed;//스피드
+	int Accuracy;//명중율
+};
+
 class Entity {
 	protected:
 
@@ -24,6 +33,8 @@ class Entity {
 		sf::Sprite sprite;
 		sf::Clock eTime;
 		sf::Time deltaTime;
+
+		Status status;
 
 		int currentDirection;
 		int currentState;

@@ -49,14 +49,14 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			}else{
 				switch(num){
 					case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //빈 스택 표시용.
-					case 0 : animation->setTileRange(sf::Vector2i(1,1),3);break;
-					case 1 : animation->setTileRange(sf::Vector2i(1,2),3);break;
-					case 2 : animation->setTileRange(sf::Vector2i(1,3),3);break;
-					case 3 : animation->setTileRange(sf::Vector2i(1,4),3);break;
-					case 4 : animation->setTileRange(sf::Vector2i(5,1),3);break;
-					case 5 : animation->setTileRange(sf::Vector2i(5,2),3);break;
-					case 6 : animation->setTileRange(sf::Vector2i(5,3),3);break;
-					default : animation->setTileRange(sf::Vector2i(5,4),3);
+					case 0 : animation->setTileRange(sf::Vector2i(1,1),4);break;
+					case 1 : animation->setTileRange(sf::Vector2i(1,2),4);break;
+					case 2 : animation->setTileRange(sf::Vector2i(1,3),4);break;
+					case 3 : animation->setTileRange(sf::Vector2i(1,4),4);break;
+					case 4 : animation->setTileRange(sf::Vector2i(5,1),4);break;
+					case 5 : animation->setTileRange(sf::Vector2i(5,2),4);break;
+					case 6 : animation->setTileRange(sf::Vector2i(5,3),4);break;
+					default : animation->setTileRange(sf::Vector2i(5,4),4);
 				}
 			}
 		}
@@ -77,6 +77,9 @@ class Puzzle{
 		sf::Vector2i  position;
 		sf::Vector2i  mousePosition;
 		sf::Vector2i temp;//플래그용.
+
+		sf::Clock eTime;
+		sf::Time deltaTime;
 		bool flag;
 		int tempNum;//그냥 플래그랑 세트임...
 	//	TileSet *tileset;
@@ -101,6 +104,7 @@ class Puzzle{
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
 
 		int checkPuzzle();
+		void makePuzzle();
 
 		//bool checkMouseClick();
 

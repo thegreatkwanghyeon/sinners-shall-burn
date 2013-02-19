@@ -1,39 +1,21 @@
 #include "puzzle.h"
-//#include <time.h>
-//Ver. 0.05 ==> 만들기 그리고 보여주기만 가능.
+
 Puzzle::Puzzle(){
 	int i,j;
-	int rd; //랜덤값을 받아두는 변수.
-	int chk[PuzzleSize*PuzzleSize+1]={0,};//체크용 배열.
 
 	//tileset = new TileSet();
 	//addTile("img/puzzle.JPG",50, 50);
 	//sprite.setTexture(texture);
 
-	srand(time(NULL));
 	for(i=0;i<PuzzleSize;i++){//기본 퍼즐 생성.
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));//생성.
-			//printf("%d %d ok.\n",i,j);
-			//---
-
-			while(1){
-				rd=rand()%(PuzzleSize*PuzzleSize);//퍼즐의 사이즈의 제곱범위 내에서 난수 발생.
-
-				if(i >= 2 && rd%PuzzleKind == data[i-2][j]->num && rd%PuzzleKind == data[i-1][j]->num)//세로로 중복되는 경우.
-					continue;
-				if(j >= 2 && rd%PuzzleKind == data[i][j-2]->num && rd%PuzzleKind == data[i][j-1]->num)//가로로 중복되는 경우.
-					continue;
-
-				if(chk[rd] == 0){
-					chk[rd]=1;
-					break;
-				}
-			}
-			data[i][j]->num=rd%PuzzleKind;
-			data[i][j]->init_animation();
+//			data[i][j]->num=rd%PuzzleKind;
+//			data[i][j]->init_animation();
 		}
 	}
+	makePuzzle();//랜덤값 해결...
+	
 	for(i=0;i<StackSize;i++){//스택은 그림 출력부와 num, init_ani 부분만 쓰게 된다.
 		stack[i]=new PData(PStartX+430,((StackSize-1)-i)*50);
 		stack[i]->num=-1;
@@ -44,6 +26,7 @@ Puzzle::Puzzle(){
 	comboNum=0;
 
 	flag=false;//업데이트 정지용.
+	printf("init is end...\nHello,World!");
 }
 
 Puzzle::~Puzzle(){
@@ -110,27 +93,6 @@ void Puzzle::update(){
 			3. 만약 클릭한채로 제 3의 위치로 가면 취소한다.
 			4. 마우스를 떼었을때 2곳에 머물렀다면 둘을 바꾸고, 아니면 취소한다.
 			*/
-			/*
-			if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && (mousePosition.y >= PStartY+(i*PBlockSize) && 
-				mousePosition.y <= PStartY+((i+1)*PBlockSize) && (mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize)){
-			//마우스의 위치를 체크, 특정 버튼이 클릭되었을때의 처리를 한다.
-				if((cx != j || cy != i) && cnum != 0){//다른곳을 누른 후 드래그
-					cnum++;
-				}else if(cnum == 0){
-					cnum++;
-					cx=j;
-					cy=i;
-				}
-				printf("%d %d \n",i,j);
-				
-			}
-			if(!(sf::Mouse::isButtonPressed(sf::Mouse::Left))){//버튼에서 손을 떼었을때.
-				if(cnum == 1 && data[cx][cy] < PuzzleKind){//한곳만 클릭, 이후 마우스를 놓았다면?임. 차후 패치.
-					data[cx][cy]++;
-					printf("good!(%d %d)\n",cx,cy);
-				}
-				cnum=0;
-			}*/
 			if((mousePosition.y >= PStartY+(i*PBlockSize) && mousePosition.y <= PStartY+((i+1)*PBlockSize)) && 
 				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//마우스가 범위 내에 있을때.
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && data[i][j]->is_click == false){//클릭하지 않은곳을 클릭했다. 클릭한 곳을 또 클릭하는건 의미가 없겠지.
@@ -191,7 +153,6 @@ int Puzzle::checkPuzzle(){
 	int i,j;//for문용
 	int k;//예비
 
-	srand(time(NULL));
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){//세로로 3개가 겹칠때.
@@ -331,4 +292,26 @@ void Puzzle::stackInput(int num){
 	}
 	for(i=0;i<StackSize;i++)
 		stack[i]->init_animation();
+}
+void Puzzle::makePuzzle(){
+	int i,j;
+	int rd;
+	deltaTime = eTime.restart();
+	srand(deltaTime.asMicroseconds());
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			while(1){
+				rd=rand()%PuzzleKind;
+				//printf("%d[%d %d]!\n",rd,i,j);
+
+				if(i >= 2 && rd%PuzzleKind == data[i-2][j]->num && rd%PuzzleKind == data[i-1][j]->num)//세로로 중복되는 경우.
+					continue;
+				if(j >= 2 && rd%PuzzleKind == data[i][j-2]->num && rd%PuzzleKind == data[i][j-1]->num)//가로로 중복되는 경우.
+					continue;
+				break;
+			}
+			data[i][j]->num=rd%PuzzleKind;
+			data[i][j]->init_animation();
+		}
+	}
 }

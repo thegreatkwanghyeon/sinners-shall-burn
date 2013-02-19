@@ -5,6 +5,7 @@
 #include "gamescene.h"
 #include "titlescene.h"
 #include "shaderscene.h"
+#include "battle.h"
 
 class SceneManager{
 	private:

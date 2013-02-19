@@ -27,6 +27,13 @@ Puzzle::Puzzle(){
 
 	flag=false;//업데이트 정지용.
 	printf("init is end...\nHello,World!");
+	for(i=0;i<PuzzleSize;i++){
+				printf("\n");
+				for(j=0;j<PuzzleSize;j++){
+					printf("%d ",data[i][j]->num);
+				}
+			}
+			printf("\n");
 }
 
 Puzzle::~Puzzle(){
@@ -55,12 +62,12 @@ void Puzzle::update(){
 		}
 		//---아래에서는 애니메이션이 한바퀴 돌았는지 확인하고 CheckPuzzle을 돌린다.
 		tp = data[temp.y][temp.x]->getLocation();
-		printf("flag is doing now...shit [%d %d ] \nCombo : %d \n",tp,tempNum,comboNum);
+		//printf("flag is doing now...shit [%d %d ] \nCombo : %d \n",tp,tempNum,comboNum);
 		if(tp < tempNum){//플래그 무효화.
-			printf("i dont like error!!!\n");
+			//printf("i dont like error!!!\n");
 
 			flag=false;
-			printf("TEST 01");
+			//printf("TEST 01");
 			if(temp.y >= 2){
 				data[temp.y-2][temp.x]->is_break=false;
 				data[temp.y-2][temp.x]->init_animation();
@@ -76,7 +83,16 @@ void Puzzle::update(){
 			data[temp.y][temp.x]->is_break=false;
 			data[temp.y][temp.x]->init_animation();
 
-			printf("TEST 02");
+			//printf("TEST 02");
+//---------/------------------------------------------------------------------------------------------------------------------
+			for(i=0;i<PuzzleSize;i++){
+				printf("\n");
+				for(j=0;j<PuzzleSize;j++){
+					printf("%d ",data[i][j]->num);
+				}
+			}
+			printf("\n");
+
 
 			checkPuzzle();//만약 콤보가 터지면 체크퍼즐에서 다시 잘 해결해줄거야...
 		}else

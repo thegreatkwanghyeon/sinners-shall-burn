@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "ui.h"
 #include "layer.h"
+#include "collide.h"
 
 int main(void){
 
 	std::string MAPNAME;
 	std::string ground = ".groud";
 	std::string object = ".object";
+	std::string collide = ".col";
 	bool gridView = false;
 	bool viewAll = false;
 	int currentTexture = 0;
@@ -42,6 +44,8 @@ int main(void){
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	UI ui;
+	Collide collideLayer;
+	collideLayer.initialize();
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,6 +53,7 @@ int main(void){
 	scanf("%s",MAPNAME.c_str());
 	ground.insert(0, MAPNAME.c_str());
 	object.insert(0, MAPNAME.c_str());
+	collide.insert(0, MAPNAME.c_str());
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,6 +80,7 @@ int main(void){
 	objectLayer.setTexture(currentTexture, OBJECTTILEWIDTH, OBJECTTILEHEIGHT, 1);
 	groundLayer.save();
 	objectLayer.save();
+	collideLayer.save(collide);
 
 	printf("Left click : Put tile\nRight click : Remove tile, select tile\nG : Show grid\nF : Hide grid\nUp, Down : Change tileset\nNum 1, 2 : groundLayer, objectLayer\nA : View All Layer\nView current layer\nS : Save\nESC : Exit program\n");
 
@@ -101,6 +107,12 @@ int main(void){
 			currentTexture = 0;			
 			currentLayerText.setString(object);
 			mainSprite.setTexture(textures[currentLayer][currentTexture]);	
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+			currentLayer = 2;
+			viewAll = true;
+			currentLayerText.setString(collide);
 		}
 
 		if(currentLayer == 0){
@@ -146,12 +158,13 @@ int main(void){
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			viewAll = true;
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		if(currentLayer !=2 && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 			viewAll = false;		
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			groundLayer.save();
 			objectLayer.save();
+			collideLayer.save(collide);
 		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -167,10 +180,18 @@ int main(void){
 				objectLayer.draw(editorWindow);
 				groundLayer.update(editorWindow, Event);
 			}
+
 			if(currentLayer == 1){
 				groundLayer.draw(editorWindow);
 				objectLayer.draw(editorWindow);
 				objectLayer.update(editorWindow, Event);
+			}
+
+			if(currentLayer == 2){
+				groundLayer.draw(editorWindow);
+				objectLayer.draw(editorWindow);
+				collideLayer.check(sf::Mouse::getPosition(editorWindow).x, sf::Mouse::getPosition(editorWindow).y);
+				collideLayer.draw(editorWindow);
 			}				
 		}
 		else {
@@ -184,6 +205,8 @@ int main(void){
 			}
 		}
 
+	
+
 		ui.draw(editorWindow);
 
 		editorWindow.draw(mainSprite);	
@@ -193,7 +216,8 @@ int main(void){
 			editorWindow.draw(mapGridSprite);
 
 		editorWindow.draw(currentLayerText);
-		currentTextureText.setString(texturePaths[currentLayer][currentTexture]);
+		if(currentLayer != 2)
+			currentTextureText.setString(texturePaths[currentLayer][currentTexture]);
 		editorWindow.draw(currentTextureText);
 
 

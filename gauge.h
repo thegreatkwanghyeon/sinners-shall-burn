@@ -1,8 +1,8 @@
 #ifndef __gauge__
 #define __gauge__
 
-#include <SFML/Graphics.hpp>
-#include <cstdio>
+#include "stdafx.h"
+
 #include "tileset.h"
 
 class Gauge {

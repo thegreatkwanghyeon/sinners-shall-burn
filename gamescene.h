@@ -6,7 +6,7 @@
 #include "uiscene.h"
 #include "player.h"
 
-#include <cstdio>
+
 
 class GameScene : public SceneBase{
 	private:
@@ -17,7 +17,7 @@ class GameScene : public SceneBase{
 
 	public:
 		GameScene();
-		~GameScene(){delete map; delete uiscene;}
+		~GameScene(){delete map; delete uiscene; delete player;}
 		void update();
 		void draw(sf::RenderWindow &window);
 		

@@ -1,7 +1,7 @@
 #ifndef __entity__
 #define __entity__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 #include "animation.h"
 
 #define SPEED 200
@@ -35,7 +35,7 @@ class Entity {
 
 	public:
 		Entity(const char *_path, sf::Vector2i _position);
-		virtual ~Entity(){}
+		virtual ~Entity(){delete animation;}
 		virtual void update();
 		virtual void draw(sf::RenderWindow &window);
 };

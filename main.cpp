@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "scenemanager.h"
 
 
@@ -13,6 +12,9 @@ int main(void){
 			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 				window.close();
 			}
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+			sceneManager->setScene(new ShaderScene());
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){

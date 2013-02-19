@@ -2,8 +2,8 @@
 #define __puzzle__
 //첫 sfml 코딩이라 일단 버튼 헤더랑 cpp 참조해서 만들었다. 수정 필요.
 //구현 : 퍼즐 생성, 출력.
-#include <SFML/Graphics.hpp>
-#include <cstdio>
+#include "stdafx.h"
+
 #include <stdlib.h>
 #include <time.h>
 
@@ -39,7 +39,7 @@ class PData{//퍼즐로 쓸 클래스. 딱히 다른 파일까지 갈꺼없이 �
 			is_break=false;
 		}
 		~PData(){
-			
+			delete animation;
 		}
 		void init_animation(){
 			if(is_break == true){

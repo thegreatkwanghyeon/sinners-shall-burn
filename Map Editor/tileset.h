@@ -1,7 +1,7 @@
 #ifndef __tileset__
 #define __tileset__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 
 class TileSet{
 	private:

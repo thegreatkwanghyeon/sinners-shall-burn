@@ -1,7 +1,7 @@
 #ifndef __ui__
 #define __ui__
 
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 #include "global.h"
 
 class UI{

@@ -32,6 +32,12 @@ void TilePutter::initialize(int num, int currentLayer){
 	}
 }
 
+void TilePutter::setTexture(int num, int currentLayer){
+	number = num;
+	_currentLayer = currentLayer;
+	saveTexture = texturePaths[currentLayer][number];
+}
+
 void TilePutter::putTile(int x, int y, sf::IntRect textureRect){
 	if(mapArea.contains(x, y)){
 		for(i=0;i<containRects.size();i++){

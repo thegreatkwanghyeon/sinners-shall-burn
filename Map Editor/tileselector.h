@@ -19,6 +19,7 @@ class TileSelector{
 		TileSelector(){};
 		~TileSelector(){}
 		void initialize(int num, int width, int height, int currentLayer);
+		void setTexture(int num, int width, int height, int currentLayer);
 		void select(int x, int y, sf::Event &event);
 		sf::IntRect getSelectedTile();
 		void draw(sf::RenderWindow &window);

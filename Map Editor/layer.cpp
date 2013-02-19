@@ -4,9 +4,14 @@ Layer::Layer(std::string string){
 	saveName = string;
 }
 
-void Layer::setTexture(int num, int width, int height, int currentLayer){
+void Layer::initialize(int num, int width, int height, int currentLayer){
 	selector.initialize(num, width, height, currentLayer);
 	putter.initialize(num, currentLayer);
+}
+
+void Layer::setTexture(int num, int width, int height, int currentLayer){
+	selector.setTexture(num, width, height, currentLayer);
+	putter.setTexture(num, currentLayer);
 }
 
 void Layer::update(sf::RenderWindow &window, sf::Event &event){

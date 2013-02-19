@@ -76,8 +76,8 @@ int main(void){
 
 	Layer groundLayer(ground);
 	Layer objectLayer(object);
-	groundLayer.setTexture(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, 0);
-	objectLayer.setTexture(currentTexture, OBJECTTILEWIDTH, OBJECTTILEHEIGHT, 1);
+	groundLayer.initialize(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, 0);
+	objectLayer.initialize(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, 0);	
 	groundLayer.save();
 	objectLayer.save();
 	collideLayer.save(collide);

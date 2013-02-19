@@ -25,6 +25,32 @@ void TileSelector::initialize(int num, int width, int height, int currentLayer){
 
 }
 
+void TileSelector::setTexture(int num, int width, int height, int currentLayer){
+
+	tiles.clear();
+
+	_width = width;
+	_height = height;
+
+	tileset.tileSet(textures[currentLayer][num], width, height);
+
+	textureArea.left = TEXTUREPOSX;
+	textureArea.width = textures[currentLayer][num].getSize().x;
+	textureArea.top = 0;
+	textureArea.height = textures[currentLayer][num].getSize().y;
+
+	selectedSprite.setTexture(textures[currentLayer][num]);
+	selectedSprite.setTextureRect(tileset.getTileSet(0));
+
+	for(int i=0;i<tileset.getTileNum();i++){
+		tmpRect.left = tileset.getTileSet(i).left + TEXTUREPOSX;
+		tmpRect.width = width;
+		tmpRect.height = height;
+		tmpRect.top = tileset.getTileSet(i).top;
+		tiles.push_back(tmpRect);
+	}
+}
+
 void TileSelector::select(int x, int y, sf::Event &event){
 
 	for(i=0;i<=tiles.size();i++){

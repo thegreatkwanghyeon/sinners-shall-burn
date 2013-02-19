@@ -22,6 +22,7 @@ class TilePutter{
 		TilePutter(){}
 		~TilePutter(){}
 		void initialize(int num, int currentLayer);
+		void setTexture(int num, int currentLayer);
 		void putTile(int x, int y, sf::IntRect textureRect);
 		void revert();
 		void clear();

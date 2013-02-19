@@ -7,6 +7,8 @@
 class UI{
 	private:
 		sf::RectangleShape vLine, hLine;
+		sf::Texture bottomTexture, rightTexture;
+		sf::Sprite bottom, right;
 	public:
 		UI();
 		~UI(){};

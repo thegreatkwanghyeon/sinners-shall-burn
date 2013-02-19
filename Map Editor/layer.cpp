@@ -4,19 +4,19 @@ Layer::Layer(std::string string){
 	saveName = string;
 }
 
-void Layer::setTexture(int num){
-	selector.initialize(num);
-	putter.initialize(num);
+void Layer::setTexture(int num, int width, int height, int currentLayer){
+	selector.initialize(num, width, height, currentLayer);
+	putter.initialize(num, currentLayer);
 }
 
 void Layer::update(sf::RenderWindow &window, sf::Event &event){
 	selector.select(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y, event);
 	putter.putTile(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y, selector.getSelectedTile());	
+	selector.draw(window);
 }
 
 void Layer::draw(sf::RenderWindow &window){
 	putter.draw(window);
-	selector.draw(window);
 }
 
 void Layer::save(){

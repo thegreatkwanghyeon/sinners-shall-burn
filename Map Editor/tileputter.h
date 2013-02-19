@@ -17,11 +17,11 @@ class TilePutter{
 		sf::IntRect mapArea;
 		bool able, contain;
 		std::string saveTexture;
-		int number;
+		int number, _currentLayer;
 	public:
 		TilePutter(){}
 		~TilePutter(){}
-		void initialize(int num);
+		void initialize(int num, int currentLayer);
 		void putTile(int x, int y, sf::IntRect textureRect);
 		void revert();
 		void clear();

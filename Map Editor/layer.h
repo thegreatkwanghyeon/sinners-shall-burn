@@ -14,7 +14,7 @@ class Layer{
 	public:
 		Layer(std::string string);
 		~Layer(){}
-		void setTexture(int num);
+		void setTexture(int num, int width, int height, int currentLayer);
 		void update(sf::RenderWindow &window, sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		void save();

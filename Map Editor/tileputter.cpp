@@ -1,10 +1,11 @@
 #include "tileputter.h"
 
-void TilePutter::initialize(int num){
+void TilePutter::initialize(int num, int currentLayer){
 
 	number = num;
+	_currentLayer = currentLayer;
 
-	saveTexture = texturePaths[number];
+	saveTexture = texturePaths[currentLayer][number];
 
 	able = true;
 	contain = false;
@@ -14,18 +15,18 @@ void TilePutter::initialize(int num){
 	mapArea.top = 0;
 	mapArea.height = MAPHEIGHT;
 
-	for(unsigned int i = 0; i <= MAPHEIGHT/TILEHEIGHT-1; i++){
-		for(unsigned int j = 0; j <= MAPWIDTH/TILEWIDTH-1; j++){
-			tmpRect.left = j * TILEWIDTH;
-			tmpRect.top = i * TILEHEIGHT;
-			tmpRect.width = TILEWIDTH;
-			tmpRect.height = TILEHEIGHT;
+	for(unsigned int i = 0; i <= MAPHEIGHT/MAPTILEHEIGHT-1; i++){
+		for(unsigned int j = 0; j <= MAPWIDTH/MAPTILEWIDTH-1; j++){
+			tmpRect.left = j * MAPTILEWIDTH;
+			tmpRect.top = i * MAPTILEHEIGHT;
+			tmpRect.width = MAPTILEWIDTH;
+			tmpRect.height = MAPTILEHEIGHT;
 			rects.push_back(tmpRect);
 
-			tmpContainRect.left = (j * TILEWIDTH) + TILEWIDTH/6;
-			tmpContainRect.top = (i * TILEHEIGHT) + TILEHEIGHT/6;
-			tmpContainRect.width = TILEWIDTH/6*4;
-			tmpContainRect.height = TILEHEIGHT/6*4;
+			tmpContainRect.left = (j * MAPTILEWIDTH) + MAPTILEWIDTH/6;
+			tmpContainRect.top = (i * MAPTILEHEIGHT) + MAPTILEHEIGHT/6;
+			tmpContainRect.width = MAPTILEWIDTH/6*4;
+			tmpContainRect.height = MAPTILEHEIGHT/6*4;
 			containRects.push_back(tmpContainRect);			
 		}
 	}
@@ -50,14 +51,14 @@ void TilePutter::putTile(int x, int y, sf::IntRect textureRect){
 
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				if(able){
-					tmpSprite.sprite.setTexture(textures[number]);				
+					tmpSprite.sprite.setTexture(textures[_currentLayer][number]);				
 					tmpSprite.sprite.setPosition(rects[i].left, rects[i].top);
 					tmpSprite.sprite.setTextureRect(textureRect);
 					tmpSprite.string = saveTexture;
 					mapSprites.push_back(tmpSprite);
 				}
 				else{
-					mapSprites[j].sprite.setTexture(textures[number]);
+					mapSprites[j].sprite.setTexture(textures[_currentLayer][number]);
 					mapSprites[j].sprite.setTextureRect(textureRect);
 					mapSprites[j].string = saveTexture;
 				}

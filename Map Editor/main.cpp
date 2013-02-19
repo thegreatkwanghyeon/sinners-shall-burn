@@ -9,6 +9,7 @@ int main(void){
 	std::string ground = ".groud";
 	std::string object = ".object";
 	bool gridView = false;
+	bool viewAll = false;
 	int currentTexture = 0;
 	int currentLayer = 0;
 
@@ -20,7 +21,7 @@ int main(void){
 
 	sf::Sprite mainSprite;
 	mainSprite.setPosition(TEXTUREPOSX, 0);
-	mainSprite.setTexture(textures[currentTexture]);	
+	mainSprite.setTexture(textures[currentLayer][currentTexture]);	
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -64,20 +65,20 @@ int main(void){
 	sf::Text currentTextureText;
 	currentTextureText.setFont(font);
 	currentTextureText.setPosition(10, MAPHEIGHT + 80);
-	currentTextureText.setString(texturePaths[currentTexture]);	
+	currentTextureText.setString(texturePaths[currentLayer][currentTexture]);	
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	Layer groundLayer(ground);
 	Layer objectLayer(object);
-	groundLayer.setTexture(currentTexture);
-	objectLayer.setTexture(currentTexture);
+	groundLayer.setTexture(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, 0);
+	objectLayer.setTexture(currentTexture, OBJECTTILEWIDTH, OBJECTTILEHEIGHT, 1);
 	groundLayer.save();
 	objectLayer.save();
 
-	printf("Left click : Put tile\nRight click : Remove tile, select tile\nG : Show grid\nC : Hide grid\nUp, Down : Change tileset\nNum 1, 2 : groundLayer, objectLayer\nS : Save\nESC : Exit program\n");
+	printf("Left click : Put tile\nRight click : Remove tile, select tile\nG : Show grid\nF : Hide grid\nUp, Down : Change tileset\nNum 1, 2 : groundLayer, objectLayer\nA : View All Layer\nView current layer\nS : Save\nESC : Exit program\n");
 
-	sf::RenderWindow editorWindow(sf::VideoMode(MAPWIDTH + textures[currentTexture].getSize().x + 15, MAPHEIGHT + 150), "Tile Map Editor");	
+	sf::RenderWindow editorWindow(sf::VideoMode(MAPWIDTH + 500, MAPHEIGHT + 150), "Tile Map Editor");	
 	editorWindow.setKeyRepeatEnabled(false);
 
 	while(editorWindow.isOpen()){
@@ -88,38 +89,65 @@ int main(void){
 			}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------			
-		
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && currentTexture < MAXTEXTURES-1){
-			++currentTexture;
-			groundLayer.setTexture(currentTexture);
-			objectLayer.setTexture(currentTexture);
-			mainSprite.setTexture(textures[currentTexture]);	
-			printf("%d\n",currentTexture);
-		}
-
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && currentTexture > 0){
-			--currentTexture;
-			groundLayer.setTexture(currentTexture);
-			objectLayer.setTexture(currentTexture);
-			mainSprite.setTexture(textures[currentTexture]);				
-			printf("%d\n",currentTexture);
-		}
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
 			currentLayer = 0;
+			currentTexture = 0;
 			currentLayerText.setString(ground);
+			mainSprite.setTexture(textures[currentLayer][currentTexture]);	
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
-			currentLayer = 1;
+			currentLayer = 1;		
+			currentTexture = 0;			
 			currentLayerText.setString(object);
+			mainSprite.setTexture(textures[currentLayer][currentTexture]);	
 		}
+
+		if(currentLayer == 0){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && currentTexture < MAXMAPTEXTURES - 1){
+				++currentTexture;
+				groundLayer.setTexture(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, currentLayer);	
+				mainSprite.setTexture(textures[currentLayer][currentTexture]);
+				printf("%d\n", currentTexture);
+			}
+
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && currentTexture > 0){
+				--currentTexture;
+				groundLayer.setTexture(currentTexture, MAPTILEWIDTH, MAPTILEHEIGHT, currentLayer);
+				mainSprite.setTexture(textures[currentLayer][currentTexture]);
+				printf("%d\n", currentTexture);
+			}
+		}
+
+		if(currentLayer == 1){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && currentTexture < MAXOBJECTTEXTURES - 1){
+				++currentTexture;
+				objectLayer.setTexture(currentTexture, OBJECTTILEWIDTH, OBJECTTILEHEIGHT, currentLayer);			
+				mainSprite.setTexture(textures[currentLayer][currentTexture]);
+				printf("%d\n", currentTexture);
+			}
+
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && currentTexture > 0){
+				--currentTexture;
+				objectLayer.setTexture(currentTexture, OBJECTTILEWIDTH, OBJECTTILEHEIGHT, currentLayer);
+				mainSprite.setTexture(textures[currentLayer][currentTexture]);
+				printf("%d\n", currentTexture);
+			}
+		}		
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------			
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
 			gridView = true;
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 			gridView = false;		
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			viewAll = true;
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+			viewAll = false;		
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			groundLayer.save();
@@ -132,24 +160,43 @@ int main(void){
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------		
 
+
+		if(viewAll){
+			if(currentLayer == 0){
+				groundLayer.draw(editorWindow);
+				objectLayer.draw(editorWindow);
+				groundLayer.update(editorWindow, Event);
+			}
+			if(currentLayer == 1){
+				groundLayer.draw(editorWindow);
+				objectLayer.draw(editorWindow);
+				objectLayer.update(editorWindow, Event);
+			}				
+		}
+		else {
+			if(currentLayer == 0){
+				groundLayer.draw(editorWindow);
+				groundLayer.update(editorWindow, Event);
+			}
+			if(currentLayer == 1){
+				objectLayer.draw(editorWindow);
+				objectLayer.update(editorWindow, Event);
+			}
+		}
+
 		ui.draw(editorWindow);
+
 		editorWindow.draw(mainSprite);	
 		editorWindow.draw(gridSprite);	
-		if(currentLayer == 0){
-			groundLayer.update(editorWindow, Event);
-			groundLayer.draw(editorWindow);
-		}
-		if(currentLayer == 1){
-			objectLayer.update(editorWindow, Event);
-			objectLayer.draw(editorWindow);
-		}
 
 		if(gridView)
 			editorWindow.draw(mapGridSprite);
 
 		editorWindow.draw(currentLayerText);
-		currentTextureText.setString(texturePaths[currentTexture]);
+		currentTextureText.setString(texturePaths[currentLayer][currentTexture]);
 		editorWindow.draw(currentTextureText);
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------		
 

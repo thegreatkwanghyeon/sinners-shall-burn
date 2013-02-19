@@ -1,21 +1,24 @@
 #include "tileselector.h"
 
-void TileSelector::initialize(int num){
+void TileSelector::initialize(int num, int width, int height, int currentLayer){
 
-	tileset.tileSet(textures[num], TILEWIDTH, TILEHEIGHT);
+	_width = width;
+	_height = height;
+
+	tileset.tileSet(textures[currentLayer][num], width, height);
 
 	textureArea.left = TEXTUREPOSX;
-	textureArea.width = textures[num].getSize().x;
+	textureArea.width = textures[currentLayer][num].getSize().x;
 	textureArea.top = 0;
-	textureArea.height = textures[num].getSize().y;
+	textureArea.height = textures[currentLayer][num].getSize().y;
 
-	selectedSprite.setTexture(textures[num]);
+	selectedSprite.setTexture(textures[currentLayer][num]);
 	selectedSprite.setTextureRect(tileset.getTileSet(0));
 
 	for(int i=0;i<tileset.getTileNum();i++){
 		tmpRect.left = tileset.getTileSet(i).left + TEXTUREPOSX;
-		tmpRect.width = TILEWIDTH;
-		tmpRect.height = TILEHEIGHT;
+		tmpRect.width = width;
+		tmpRect.height = height;
 		tmpRect.top = tileset.getTileSet(i).top;
 		tiles.push_back(tmpRect);
 	}
@@ -29,7 +32,7 @@ void TileSelector::select(int x, int y, sf::Event &event){
 			break;
 	}
 
-	selectedSprite.setPosition(x - TILEWIDTH/2, y - TILEHEIGHT/2);
+	selectedSprite.setPosition(x - (_width/2), y - (_height/2));
 
 	if(mouseRight && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right && textureArea.contains(x, y)){
 		selectedSprite.setTextureRect(tileset.getTileSet(i));	

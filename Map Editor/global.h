@@ -5,14 +5,17 @@
 #include <SFML/Graphics.hpp>
 #define MAPWIDTH 800
 #define MAPHEIGHT 600
-#define TILEWIDTH 40
-#define TILEHEIGHT 40
+#define MAPTILEWIDTH 40
+#define MAPTILEHEIGHT 40
+#define OBJECTTILEWIDTH 80
+#define OBJECTTILEHEIGHT 120
 #define TEXTUREPOSX 800 + 10
-#define MAXTEXTURES 2
+#define MAXMAPTEXTURES 2
+#define MAXOBJECTTEXTURES 1
 
-extern sf::Texture textures[50];
+extern sf::Texture textures[2][50];
 
-extern std::string texturePaths[50];
+extern std::string texturePaths[2][50];
 
 extern void initialize();
 

@@ -2,7 +2,7 @@
 #define __global__
 
 #include <stdio.h>
-#include "stdafx.h"
+#include <SFML/Graphics.hpp>
 #define MAPWIDTH 800
 #define MAPHEIGHT 600
 #define TILEWIDTH 40

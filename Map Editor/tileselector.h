@@ -1,7 +1,7 @@
 #ifndef __tileselector__
 #define __tileselector__
 
-#include "stdafx.h"
+#include <SFML/Graphics.hpp>
 
 #include "tileset.h"
 #include "global.h"

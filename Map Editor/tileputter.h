@@ -1,7 +1,7 @@
 #ifndef __tileputter__
 #define __tileputter__
 
-#include "stdafx.h"
+#include <SFML/Graphics.hpp>
 #include "global.h"
 
 class TilePutter{

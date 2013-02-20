@@ -32,14 +32,14 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
 
                  if(isPlay){
                         if(tmpElapsedTime > _speed){
-                                 printf("tileNum : %d\n", tileNum);
+                          //       printf("tileNum : %d\n", tileNum);
                                 ++tileNum;
                                 tmpElapsedTime = 0;
                         }
                 }
 
                 if(tileNum == endTileNum || ((texture.getSize().x / tileSizeX) * (texture.getSize().y / tileSizeY)) == tileNum){
-                        printf("change\n");
+                        //printf("change\n");
                         tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
                 }
         }

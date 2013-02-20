@@ -19,7 +19,7 @@ void Animation::addTile(std::string path, int _tileWidth, int _tileHeight){
 void Animation::setTileRange(sf::Vector2i _intervalPosition, int _numberOfTile){
         interval = _intervalPosition;
         tileNum = (_intervalPosition.x -1) + ((_intervalPosition.y-1)*(texture.getSize().x/tileSizeX));
-        endTileNum = tileNum + _numberOfTile - 1;
+        endTileNum = tileNum + _numberOfTile;
 }
 
 void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
@@ -30,24 +30,21 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
                 sprite->setTexture(texture);
                 sprite->setTextureRect(tileSet->getTileSet(tileNum));
 
-                        if(tileNum == endTileNum || ((texture.getSize().x / tileSizeX) * (texture.getSize().y / tileSizeY)) == tileNum){
-
-                                tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
+                 if(isPlay){
+                        if(tmpElapsedTime > _speed){
+                                 printf("tileNum : %d\n", tileNum);
+                                ++tileNum;
+                                tmpElapsedTime = 0;
                         }
+                }
 
-                        if(isPlay){
-                                if(tmpElapsedTime > _speed){
-                                        tileNum++;
-                                        //printf("tileNum : %d\n", tileNum);
-                                        tmpElapsedTime = 0;
-                                }
+                if(tileNum == endTileNum || ((texture.getSize().x / tileSizeX) * (texture.getSize().y / tileSizeY)) == tileNum){
+                        printf("change\n");
+                        tileNum = (interval.x -1) + ((interval.y-1)*(texture.getSize().x/tileSizeX));
                 }
         }
 
         else{
-                if((unsigned int)currentTexture == textures.size())
-                        currentTexture=0;
-
                 sprite->setTexture(textures[currentTexture]);
                 if(isPlay){
                         if(tmpElapsedTime > _speed){
@@ -55,6 +52,9 @@ void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){
                                 tmpElapsedTime = 0;
                         }
                 }
+
+                if((unsigned int)currentTexture == textures.size())
+                        currentTexture=0;
         }
 }
 

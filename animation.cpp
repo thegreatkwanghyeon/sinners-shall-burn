@@ -19,7 +19,7 @@ void Animation::addTile(std::string path, int _tileWidth, int _tileHeight){
 void Animation::setTileRange(sf::Vector2i _intervalPosition, int _numberOfTile){
         interval = _intervalPosition;
         tileNum = (_intervalPosition.x -1) + ((_intervalPosition.y-1)*(texture.getSize().x/tileSizeX));
-        endTileNum = tileNum + _numberOfTile;
+        endTileNum = tileNum + _numberOfTile - 1;
 }
 
 void Animation::play(sf::Sprite *sprite, bool tile, sf::Time deltaTime){

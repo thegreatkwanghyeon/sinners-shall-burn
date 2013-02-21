@@ -2,9 +2,13 @@
 #define __player__
 
 #include "entity.h"
+#include "tinyxml.h"
 
 class Player : public Entity {
 	private:
+		TiXmlDocument stats;
+		sf::Text txtStats;
+		sf::Font font;
 
 	public:
 		enum Stat{

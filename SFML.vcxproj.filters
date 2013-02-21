@@ -53,6 +53,18 @@
     <ClCompile Include="scenemanager.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
@@ -109,6 +121,12 @@
     <ClInclude Include="scenemanager.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>system\XMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>system\XMLParser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">
@@ -119,6 +137,9 @@
     </Filter>
     <Filter Include="scene">
       <UniqueIdentifier>{ca5c0f4f-8861-4d8d-a493-9fd21a9b399f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\XMLParser">
+      <UniqueIdentifier>{95cdff59-c964-4423-8983-bd988e1e43dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

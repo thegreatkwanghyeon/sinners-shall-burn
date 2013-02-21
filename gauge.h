@@ -21,8 +21,8 @@ class Gauge {
 		float gaugeValue;
 		float gaugeLimit;
 
-		int gaugeType; //0ì´ë©´ ê°€ë¡œ 1ì´ë©´ ì„¸ë¡œ 
-		int textPercentage; //0ì´ë©´ ìˆ«ìë¡œ 1ì´ë©´ í¼ì„¼íŠ¸ë¡œ ë³´ì—¬ì¤Œ
+		int gaugeType; //0ÀÌ¸é °¡·Î 1ÀÌ¸é ¼¼·Î 
+		int textPercentage; //0ÀÌ¸é ¼ıÀÚ·Î 1ÀÌ¸é ÆÛ¼¾Æ®·Î º¸¿©ÁÜ
 
 		void setGaugeTextureRect();
 		void setText();

@@ -5,7 +5,7 @@ PData::PData(float _x, float _y){
 	sprite.setPosition(_x, _y);
 	animation->addTile("img/PuzzleAnimation.PNG",PBlockSize,PBlockSize);
 	animation->setSpeed(0.2);
-	animation->setTileRange(sf::Vector2i(1,1), 4);//ë””í´íŠ¸.
+	animation->setTileRange(sf::Vector2i(1,1), 4);//µğÆúÆ®.
 	is_click=false;
 	is_break=false;
 }
@@ -17,7 +17,7 @@ void PData::init_animation(){
 		animation->setTileRange(sf::Vector2i(1,5),3);
 	}else{
 		switch(num){
-			case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //ë¹ˆ ìŠ¤íƒ í‘œì‹œìš©.
+			case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //ºó ½ºÅÃ Ç¥½Ã¿ë.
 			case 0 : animation->setTileRange(sf::Vector2i(1,1),4);break;
 			case 1 : animation->setTileRange(sf::Vector2i(1,2),4);break;
 			case 2 : animation->setTileRange(sf::Vector2i(1,3),4);break;
@@ -32,7 +32,7 @@ void PData::init_animation(){
 void PData::update(){
 	animation->update(&sprite, true);
 }
-void PData::draw(sf::RenderWindow &window){//ì•„ë¬´ë˜ë„ í¼ì¦ ê° ì¹¸ì˜ ì• ë‹ˆë©”ì´ì…˜ ë“±ì„ ê·¸ ì¹¸ì´ ì•Œì•„ì„œ í•˜ë©´ ì¬ë¯¸ìˆì„ê±° ê°™ì•„ì„œ í•´ë´„.
+void PData::draw(sf::RenderWindow &window){//¾Æ¹«·¡µµ ÆÛÁñ °¢ Ä­ÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç µîÀ» ±× Ä­ÀÌ ¾Ë¾Æ¼­ ÇÏ¸é Àç¹ÌÀÖÀ»°Å °°¾Æ¼­ ÇØº½.
 	window.draw(sprite);
 }
 int PData::getLocation(){

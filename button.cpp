@@ -11,13 +11,13 @@ Button::Button(sf::String _path) : isButtonEnable(true) {
 }
 
 void Button::setPosition(int _x, int _y){
-	//ì´ê±´ ê± ë²„íŠ¼ ì´ë¯¸ì§€ì˜ ìœ„ì¹˜ì™€ ì‚¬ì´ì¦ˆë¥¼ ì¡ëŠ”ê²ƒ ì‹ ê²½ ã„´ã„´í•´ 
+	//ÀÌ°Ç °Á ¹öÆ° ÀÌ¹ÌÁöÀÇ À§Ä¡¿Í »çÀÌÁî¸¦ Àâ´Â°Í ½Å°æ ¤¤¤¤ÇØ 
 	position = sf::Vector2i(_x,_y);
 	buttonRect = sf::IntRect(position, sf::Vector2i(texture.getSize().x, texture.getSize().y/4));
 	sprite.setPosition(_x, _y);
 }
 
-void Button::setText(sf::String _name, unsigned int _size){ //_size ì— ê°’ì„ ì•ˆì£¼ë©´ 14ë¡œ ì§€ì •
+void Button::setText(sf::String _name, unsigned int _size){ //_size ¿¡ °ªÀ» ¾ÈÁÖ¸é 14·Î ÁöÁ¤
 	buttonName.setFont(font);
 	buttonName.setString(_name);
 	buttonName.setCharacterSize(_size);
@@ -26,7 +26,7 @@ void Button::setText(sf::String _name, unsigned int _size){ //_size ì— ê°’ì„ ì
 }
 
 bool Button::isMouseOver(sf::Vector2i _mousePosition){
-	//buttonRect ë²”ìœ„ ì•ˆì— _mousePosition ì´ ìˆëŠ”ê°€
+	//buttonRect ¹üÀ§ ¾È¿¡ _mousePosition ÀÌ ÀÖ´Â°¡
 	return buttonRect.contains(_mousePosition);
 }
 
@@ -63,11 +63,11 @@ void Button::draw(sf::RenderWindow &window){
 
 bool Button::checkMouseClick(){
 	/*
-		if ì¡°ê±´ ì„¤ëª… :
+		if Á¶°Ç ¼³¸í :
 
-		isButtonEnable ì€ ì¼ë‹¨ ë¬´ì¡°ê±´ TRUE ì—¬ì•¼ í•˜ê³  (ë²„íŠ¼ì´ í™œì„±í™” ë˜ìˆê³ )
-			1.isMouseOver(mousePosition) && isMouseClick() ê°€ TRUE ì´ê±°ë‚˜ (ë§ˆìš°ìŠ¤ë¡œ ëˆŒë €ê±°ë‚˜)
-			2.sf::Keyboard::isKeyPressed(hotkey) ê°€ TRUE ì¼ë•Œ (í‚¤ë³´ë“œë¡œ ëˆŒë €ì„ë•Œ)
+		isButtonEnable Àº ÀÏ´Ü ¹«Á¶°Ç TRUE ¿©¾ß ÇÏ°í (¹öÆ°ÀÌ È°¼ºÈ­ µÇÀÖ°í)
+			1.isMouseOver(mousePosition) && isMouseClick() °¡ TRUE ÀÌ°Å³ª (¸¶¿ì½º·Î ´­·¶°Å³ª)
+			2.sf::Keyboard::isKeyPressed(hotkey) °¡ TRUE ÀÏ¶§ (Å°º¸µå·Î ´­·¶À»¶§)
 	*/
 	if(isButtonEnable && (((isMouseOver(mousePosition)) && isMouseClicked()) || sf::Keyboard::isKeyPressed(hotkey))){ 
 		return true;

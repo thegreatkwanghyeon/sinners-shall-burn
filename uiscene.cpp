@@ -8,7 +8,7 @@ UiScene::UiScene(){
 	button->setText("Enabler", 18);
 	button->setHotkey(sf::Keyboard::Return);
 	button2->setPosition(300,380);
-	button2->setText(L"í´ë¦­ ë¯¸ ì´í”„ìœ  ìº”");
+	//button2->setText(L"Å¬¸¯ ¹Ì ÀÌÇÁÀ¯ Äµ");
 	button2->disableButton();
 
 	gauge = new Gauge("img/expgauge.png", 5000, 0, 0);
@@ -20,7 +20,7 @@ UiScene::UiScene(){
 	gauge2->setTextElement(30);
 
 	tooltip = new Tooltip("img/tooltip.png");
-	tooltip->setTooltip(L"í† ë¼ë„ë¼!", L"ã€Ší† ë¼ë„ë¼!ã€‹(ã¨ã‚‰ãƒ‰ãƒ©!)ëŠ” íƒ€ì¼€ë¯¸ì•¼ ìœ ìœ ì½”ê°€ ì“°ê³  ì•¼ìŠ¤ê°€ ì¼ëŸ¬ìŠ¤íŠ¸ë¥¼ ë§¡ì€ ë¼ì´íŠ¸ ë…¸ë²¨ì´ìž ì´ë¥¼ ì›ìž‘ìœ¼ë¡œ í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´ë‹¤. ì¼ë³¸ì—ì„œëŠ” ì „ê²©ë¬¸ê³ ë¥¼ í†µí•˜ì—¬ 2006ë…„ 3ì›”ë¶€í„° ì¶œíŒë˜ì—ˆê³ , ëŒ€í•œë¯¼êµ­ì—ì„œëŠ” í•™ì‚°ë¬¸í™”ì‚¬(ìµìŠ¤íŠ¸ë¦¼ ë…¸ë²¨)ë¥¼ í†µí•´ 2010ë…„ 4ì›” í˜„ìž¬ ë³¸íŽ¸ 10ê¶Œ(ì™„ê²°), ìŠ¤í•€ì˜¤í”„ 3ê¶Œê¹Œì§€ ì¶œíŒë˜ì—ˆë‹¤. ", sf::IntRect(200,200,300,300), 350);
+	tooltip->setTooltip(L"Åä¶óµµ¶ó!", L"¡¶Åä¶óµµ¶ó!¡·(ªÈªé«É«é!)´Â Å¸ÄÉ¹Ì¾ß À¯À¯ÄÚ°¡ ¾²°í ¾ß½º°¡ ÀÏ·¯½ºÆ®¸¦ ¸ÃÀº ¶óÀÌÆ® ³ëº§ÀÌÀÚ ÀÌ¸¦ ¿øÀÛÀ¸·Î ÇÏ´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ´Ù. ÀÏº»¿¡¼­´Â Àü°Ý¹®°í¸¦ ÅëÇÏ¿© 2006³â 3¿ùºÎÅÍ ÃâÆÇµÇ¾ú°í, ´ëÇÑ¹Î±¹¿¡¼­´Â ÇÐ»ê¹®È­»ç(ÀÍ½ºÆ®¸² ³ëº§)¸¦ ÅëÇØ 2010³â 4¿ù ÇöÀç º»Æí 10±Ç(¿Ï°á), ½ºÇÉ¿ÀÇÁ 3±Ç±îÁö ÃâÆÇµÇ¾ú´Ù. ", sf::IntRect(200,200,300,300), 350);
 }
 
 void UiScene::update(){

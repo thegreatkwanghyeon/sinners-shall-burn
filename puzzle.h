@@ -14,7 +14,7 @@
 //---
 #define PStartX 30
 #define PStartY 30
-#define PBlockSize 50//ì´ê±° pdataì—ë„ ìˆìŒ...
+#define PBlockSize 50//ÀÌ°Å pdata¿¡µµ ÀÖÀ½...
 
 class Puzzle{
 	private:
@@ -43,11 +43,11 @@ class Puzzle{
 		void makePuzzle();
 		void movePuzzle(sf::Vector2i tp, int d);
 
-//---ìŠ¤íƒ
+//---½ºÅÃ
 		PData *stack[StackSize];
 		int stackNum;
 		void stackInput(int num);
-//---ì½¤ë³´
+//---ÄŞº¸
 		int combo[10];
 		int comboNum;
 };

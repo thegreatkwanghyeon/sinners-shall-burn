@@ -5,7 +5,7 @@ Tooltip::Tooltip(sf::String _path) : tooltipWidth(300), tooltipHeight(300){
 	texture.loadFromFile(_path);
 
 	individualTextureWidth = texture.getSize().x/3;
-	individualTextureHeight = texture.getSize().y/3; //3X3 = 9ë“±ë¶„ í•˜ê¸° ìœ„í•œê²ƒ 
+	individualTextureHeight = texture.getSize().y/3; //3X3 = 9µîºĞ ÇÏ±â À§ÇÑ°Í 
 
 	texture = tileset->tileSet(_path, individualTextureWidth, individualTextureHeight); 
 
@@ -17,7 +17,7 @@ Tooltip::Tooltip(sf::String _path) : tooltipWidth(300), tooltipHeight(300){
 	font.loadFromFile("font/spike.ttf");
 }
 
-void Tooltip::defineSpriteScales(){ //í…ìŠ¤íŠ¸ ì–‘ì— ë”°ë¼ì„œ ìŠ¤í”„ë¼ì´íŠ¸ í¬ê¸° ì¡°ì ˆí•´ì¤€ë‹¤ ì‹ ê²½ ã„´ã„´ 
+void Tooltip::defineSpriteScales(){ //ÅØ½ºÆ® ¾ç¿¡ µû¶ó¼­ ½ºÇÁ¶óÀÌÆ® Å©±â Á¶ÀıÇØÁØ´Ù ½Å°æ ¤¤¤¤ 
 
 	sprite[Top].setScale(((float)tooltipWidth/individualTextureWidth),1);
 	sprite[Left].setScale(1,((float)tooltipHeight/individualTextureHeight));
@@ -26,7 +26,7 @@ void Tooltip::defineSpriteScales(){ //í…ìŠ¤íŠ¸ ì–‘ì— ë”°ë¼ì„œ ìŠ¤í”„ë¼ì´íŠ¸
 	sprite[Bottom].setScale(((float)tooltipWidth/individualTextureWidth),1);
 }
 
-void Tooltip::defineSpritePositions(){ //9ë“±ë¶„í•œ ìŠ¤í”„ë¼ì´íŠ¸ ìœ„ì¹˜ ì¬ë°°ì¹˜ ì‹ ê²½ ã„´ã„´
+void Tooltip::defineSpritePositions(){ //9µîºĞÇÑ ½ºÇÁ¶óÀÌÆ® À§Ä¡ Àç¹èÄ¡ ½Å°æ ¤¤¤¤
 	position = mousePosition;
 
 	sprite[TopLeft].setPosition(position.x, position.y-(2*individualTextureHeight)-tooltipHeight);
@@ -45,7 +45,7 @@ void Tooltip::defineSpritePositions(){ //9ë“±ë¶„í•œ ìŠ¤í”„ë¼ì´íŠ¸ ìœ„ì¹˜ ì¬ë°
 	description.setPosition(sprite[Center].getPosition().x, sprite[Center].getPosition().y+title.getLocalBounds().height+5);
 }
 
-std::vector<std::wstring> Tooltip::splitWords (std::wstring &_str){ //description ë¬¸ìì—´ ë°ì´í„°ë¥¼ ê³µë°± ê¸°ì¤€ìœ¼ë¡œ ë‚˜ëˆ ì¤€ë‹¤ 
+std::vector<std::wstring> Tooltip::splitWords (std::wstring &_str){ //description ¹®ÀÚ¿­ µ¥ÀÌÅÍ¸¦ °ø¹é ±âÁØÀ¸·Î ³ª´²ÁØ´Ù 
 	size_t n = _str.length();
 	size_t start, stop;
 	std::vector<std::wstring> words;
@@ -63,7 +63,7 @@ std::vector<std::wstring> Tooltip::splitWords (std::wstring &_str){ //descriptio
 	return words;
 }
 
-std::wstring Tooltip::getEntireDescription (std::wstring _description){ //ìµœì¢…ì ìœ¼ë¡œ ìë™ ì¤„ë°”ê¿ˆì„ ì ìš©í•œ í…ìŠ¤íŠ¸ ìë£Œë¥¼ ë¦¬í„´í•¨.
+std::wstring Tooltip::getEntireDescription (std::wstring _description){ //ÃÖÁ¾ÀûÀ¸·Î ÀÚµ¿ ÁÙ¹Ù²ŞÀ» Àû¿ëÇÑ ÅØ½ºÆ® ÀÚ·á¸¦ ¸®ÅÏÇÔ.
 	std::vector<std::wstring> _words = splitWords(_description);
 	std::wstring entireDescription = L"";
 	std::vector<std::wstring>::iterator iter = _words.begin();
@@ -88,12 +88,12 @@ std::wstring Tooltip::getEntireDescription (std::wstring _description){ //ìµœì¢…
 	return entireDescription;
 }
 
-void Tooltip::setTitle(sf::String _stringTitle){ //íƒ€ì´í‹€ í…ìŠ¤íŠ¸ ì…‹íŒ… 
+void Tooltip::setTitle(sf::String _stringTitle){ //Å¸ÀÌÆ² ÅØ½ºÆ® ¼ÂÆÃ 
 	title.setString(_stringTitle);
 	title.setFont(font);
 }
 
-void Tooltip::setDescription(sf::String _stringDescription){ //ì„¤ëª… í…ìŠ¤íŠ¸ ì…‹íŒ…
+void Tooltip::setDescription(sf::String _stringDescription){ //¼³¸í ÅØ½ºÆ® ¼ÂÆÃ
 
 	_stringDescription = getEntireDescription(_stringDescription);
  	
@@ -106,7 +106,7 @@ void Tooltip::setDescription(sf::String _stringDescription){ //ì„¤ëª… í…ìŠ¤íŠ¸ 
 	tooltipHeight = title.getLocalBounds().height + description.getLocalBounds().height;
 }
 
-void Tooltip::setScope(sf::IntRect _rect){ //hoverRect ëŠ” ì—¬ê¸°ì„œ ì–´ë””ì— ë§ˆìš°ìŠ¤ë¥¼ ì˜¬ë ¤ì•¼ ì´ íˆ´íŒì´ ë‚˜íƒ€ë‚˜ëŠ”ê°€? ì´ê±° ë²”ìœ„ 
+void Tooltip::setScope(sf::IntRect _rect){ //hoverRect ´Â ¿©±â¼­ ¾îµğ¿¡ ¸¶¿ì½º¸¦ ¿Ã·Á¾ß ÀÌ ÅøÆÁÀÌ ³ªÅ¸³ª´Â°¡? ÀÌ°Å ¹üÀ§ 
 	hoverRect = _rect;
 }
 

@@ -8,14 +8,14 @@ class Player : public Entity {
 
 	public:
 		enum Stat{
-			hp,//ì²´ë ¥ 
-			attack,//ê³µê²©ë ¥
-			defense,//ë°©ì–´ë ¥
-			critical,//ì¹˜ëª…íƒ€ìœ¨
-			agility,//ê³µê²©ì†ë„
-			accuracy,//ëª…ì¤‘ìœ¨
+			hp,//Ã¼·Â 
+			attack,//°ø°İ·Â
+			defense,//¹æ¾î·Â
+			critical,//Ä¡¸íÅ¸À²
+			agility,//°ø°İ¼Óµµ
+			accuracy,//¸íÁßÀ²
 		};
-		int status[7];//í•œì¹¸ì€ ì—¬ìœ ë¶„
+		int status[7];//ÇÑÄ­Àº ¿©À¯ºĞ
 		Player(const char *_path , sf::Vector2i _position);
 		virtual ~Player(){}
 

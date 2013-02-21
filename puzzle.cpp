@@ -81,21 +81,21 @@ void Puzzle::update(){
 		for(j=0;j<PuzzleSize;j++){
 
 			if((mousePosition.y >= PStartY+(i*PBlockSize) && mousePosition.y <= PStartY+((i+1)*PBlockSize)) && 
-				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//ë§ˆìš°ìŠ¤ê°€ ë²”ìœ„ ë‚´ì— ìžˆì„ë•Œ.
+				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//¸¶¿ì½º°¡ ¹üÀ§ ³»¿¡ ÀÖÀ»¶§.
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && data[i][j]->is_click == false){
 					data[i][j]->is_click = true;
 					data[i][j]->init_animation();
 
 					clickStack[clickN].x=j;
 					clickStack[clickN++].y=i;
-				}else if(!(sf::Mouse::isButtonPressed(sf::Mouse::Left)) && clickN != 0){//í‚¤ë¥¼ ì†ì—ì„œ ë–¼ì—ˆì„ë•Œ.
-					if(clickN == 2){//ë‘ê³³ì„ ê±°ì³¤ì„ ë•Œ.
+				}else if(!(sf::Mouse::isButtonPressed(sf::Mouse::Left)) && clickN != 0){//Å°¸¦ ¼Õ¿¡¼­ ¶¼¾úÀ»¶§.
+					if(clickN == 2){//µÎ°÷À» °ÅÃÆÀ» ¶§.
 
 						tp = data[clickStack[0].y][clickStack[0].x]->num;
 						data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 						data[clickStack[1].y][clickStack[1].x]->num = tp;
 
-						if(checkPuzzle() == 0){//í—›ì†ì§ˆì‹œ
+						if(checkPuzzle() == 0){//Çê¼ÕÁú½Ã
 							tp = data[clickStack[0].y][clickStack[0].x]->num;
 							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
 							data[clickStack[1].y][clickStack[1].x]->num = tp;
@@ -129,12 +129,12 @@ void Puzzle::draw(sf::RenderWindow &window){
 		stack[i]->draw(window);
 	}
 }
-int Puzzle::checkPuzzle(){//direction | 1 : ê°€ë¡œ | 2 : ì„¸ë¡œ |
+int Puzzle::checkPuzzle(){//direction | 1 : °¡·Î | 2 : ¼¼·Î |
 	int i,j;
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
-			if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){//ì„¸ë¡œë¡œ 3ê°œê°€ ê²¹ì¹ ë•Œ.
+			if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){//¼¼·Î·Î 3°³°¡ °ãÄ¥¶§.
 				comboNum++;
 				direction=1;
 
@@ -158,7 +158,7 @@ int Puzzle::checkPuzzle(){//direction | 1 : ê°€ë¡œ | 2 : ì„¸ë¡œ |
 
 				return 1;
 			}
-			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//ê°€ë¡œë¡œ 3ê°œê°€ ê²¹ì¹ ë•Œ.
+			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//°¡·Î·Î 3°³°¡ °ãÄ¥¶§.
 				comboNum++;
 				direction=0;
 
@@ -198,7 +198,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 	i=tp.y;
 	j=tp.x;
 	//---
-	if(d == 0){//ê°€ë¡œ
+	if(d == 0){//°¡·Î
 		while(1){
 			if(i <= 0)
 				break;
@@ -215,7 +215,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 		rd=rand()%PuzzleKind;
 		data[0][j]->num=rd;
 		data[0][j]->init_animation();
-		while(1){//ì¤‘ë³µë°©ì§€
+		while(1){//Áßº¹¹æÁö
 			rd=rand()%PuzzleKind;
 			data[0][j-1]->num=rd;
 			if(data[0][j]->num != data[0][j-1]->num){
@@ -223,7 +223,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 				break;
 			}
 		}
-		while(1){//ì¤‘ë³µë°©ì§€
+		while(1){//Áßº¹¹æÁö
 			rd=rand()%PuzzleKind;
 			data[0][j-2]->num=rd;
 			if(data[0][j]->num != data[0][j-2]->num){
@@ -231,7 +231,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 				break;
 			}
 		}
-	}else{//ì„¸ë¡œ
+	}else{//¼¼·Î
 		while(1){
 			if(i <= 2)
 				break;
@@ -244,7 +244,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 		rd=rand()%PuzzleKind;
 		data[0][j]->num=rd;
 		data[0][j]->init_animation();
-		while(1){//ì¤‘ë³µë°©ì§€
+		while(1){//Áßº¹¹æÁö
 			rd=rand()%PuzzleKind;
 			data[1][j]->num=rd;
 			if(data[0][j]->num != data[1][j]->num){
@@ -252,7 +252,7 @@ void Puzzle::movePuzzle(sf::Vector2i tp, int d){
 				break;
 			}
 		}
-		while(1){//ì¤‘ë³µë°©ì§€
+		while(1){//Áßº¹¹æÁö
 			rd=rand()%PuzzleKind;
 			data[2][j]->num=rd;
 			if(data[0][j]->num != data[2][j]->num){
@@ -288,9 +288,9 @@ void Puzzle::makePuzzle(){
 			while(1){
 				rd=rand()%PuzzleKind;
 
-				if(i >= 2 && rd%PuzzleKind == data[i-2][j]->num && rd%PuzzleKind == data[i-1][j]->num)//ì„¸ë¡œë¡œ ì¤‘ë³µë˜ëŠ” ê²½ìš°.
+				if(i >= 2 && rd%PuzzleKind == data[i-2][j]->num && rd%PuzzleKind == data[i-1][j]->num)//¼¼·Î·Î Áßº¹µÇ´Â °æ¿ì.
 					continue;
-				if(j >= 2 && rd%PuzzleKind == data[i][j-2]->num && rd%PuzzleKind == data[i][j-1]->num)//ê°€ë¡œë¡œ ì¤‘ë³µë˜ëŠ” ê²½ìš°.
+				if(j >= 2 && rd%PuzzleKind == data[i][j-2]->num && rd%PuzzleKind == data[i][j-1]->num)//°¡·Î·Î Áßº¹µÇ´Â °æ¿ì.
 					continue;
 
 				break;

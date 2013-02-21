@@ -3,7 +3,7 @@
 TitleScene::TitleScene(){
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font);
-	text.setString(L"num1 : íƒ€ì´í‹€ ì”¬ \nnum2 : ê»˜ì„ì”¬ \nnum3 : ì…°ì´ë”ì”¬\nnum4 : í¼ì¦");
+	text.setString(L"num1 : Å¸ÀÌÆ² ¾À \nnum2 : ²²ÀÓ¾À \nnum3 : ¼ÎÀÌ´õ¾À\nnum4 : ÆÛÁñ");
 	text.setPosition(450.0f, 250.0f);
 
 }

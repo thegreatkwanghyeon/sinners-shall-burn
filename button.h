@@ -8,10 +8,10 @@ class Button {
 	private:
 
 		enum State{
-			NormalState, //ì¼ë°˜ì ì¸ ìƒíƒœ
-			HoverState,  //ë§ˆìš°ìŠ¤ ì˜¬ë ¸ì„ë•Œ
-			ClickedState,//í´ë¦­ë˜ì—ˆì„ë•Œ 
-			DisableState,//í´ë¦­í• ìˆ˜ ì—†ëŠ” ìƒíƒœì¼ë•Œ 
+			NormalState, //ÀÏ¹İÀûÀÎ »óÅÂ
+			HoverState,  //¸¶¿ì½º ¿Ã·ÈÀ»¶§
+			ClickedState,//Å¬¸¯µÇ¾úÀ»¶§ 
+			DisableState,//Å¬¸¯ÇÒ¼ö ¾ø´Â »óÅÂÀÏ¶§ 
 		};
 
 		sf::Sprite    sprite;

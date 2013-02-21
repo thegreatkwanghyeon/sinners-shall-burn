@@ -26,10 +26,10 @@ void Gauge::setGaugeTextureRect(){
 	sf::IntRect tmpRect;
 	float tmpTextureSize = texture.getSize().y/3;
 	tmpRect = middleSprite.getTextureRect();
-	if(gaugeType == 0){ //ê°€ë¡œí˜• ê²Œì´ì§€ì¼ ê²½ìš° 
+	if(gaugeType == 0){ //°¡·ÎÇü °ÔÀÌÁöÀÏ °æ¿ì 
 		tmpRect.width = (int)(texture.getSize().x * (gaugeValue / gaugeLimit));
 	}
-	else if(gaugeType == 1){ //ì„¸ë¡œí˜• ê²Œì´ì§€ì¼ ê²½ìš°
+	else if(gaugeType == 1){ //¼¼·ÎÇü °ÔÀÌÁöÀÏ °æ¿ì
 		tmpRect.top = (int)(tmpTextureSize * ((gaugeLimit*2) - gaugeValue) / gaugeLimit);
 		tmpRect.height = (int)(tmpTextureSize*gaugeValue/gaugeLimit);
 		middleSprite.setPosition(position.x, position.y + tmpTextureSize*(gaugeLimit - gaugeValue)/gaugeLimit);
@@ -41,9 +41,9 @@ void Gauge::setGaugeTextureRect(){
 void Gauge::setText(){
 
 	char tmpBuffer[100]; 
-	if(textPercentage == 0){ //í…ìŠ¤íŠ¸ë¥¼ í¼ì„¼íŠ¸ë¡œ í‘œí˜„í•˜ì§€ ì•Šìœ¼ë©´
+	if(textPercentage == 0){ //ÅØ½ºÆ®¸¦ ÆÛ¼¾Æ®·Î Ç¥ÇöÇÏÁö ¾ÊÀ¸¸é
 		_snprintf(tmpBuffer, sizeof(tmpBuffer), "%.0f / %.0f", gaugeValue, gaugeLimit);
-	}else if(textPercentage == 1){ //í…ìŠ¤íŠ¸ë¥¼ í¼ì„¼íŠ¸ë¡œ í‘œí˜„í•˜ë©´ 
+	}else if(textPercentage == 1){ //ÅØ½ºÆ®¸¦ ÆÛ¼¾Æ®·Î Ç¥ÇöÇÏ¸é 
 		_snprintf(tmpBuffer, sizeof(tmpBuffer), "%.0f%%", gaugeValue / gaugeLimit * 100);
 	}
 	text.setFont(font);

@@ -1,5 +1,4 @@
 #include "animation.h"
-#include "stdio.h"
 
 Animation::Animation() : currentTexture(0), currentTileX(0), currentTileY(0), tileNum(0),  endTileNum(-1),tmpElapsedTime(0){
         tileSet = new TileSet();
@@ -85,5 +84,5 @@ void Animation::update(sf::Sprite *sprite, bool tile){
         deltaTime = eTime.restart();
 }
 int Animation::getLocation(){
-	return tileNum;//í¼ì¦ì—ì„œ ì“°ë ¤ê³  ë§Œë“¬.
+	return tileNum;//ÆÛÁñ¿¡¼­ ¾²·Á°í ¸¸µë.
 }

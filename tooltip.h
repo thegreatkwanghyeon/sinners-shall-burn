@@ -9,7 +9,7 @@ class Tooltip {
 
 	private:
 
-		enum Position{ //이것은 텍스쳐를 9 등분 할것인데 그 위치를 알려주는것이다 
+		enum Position{ //�̰��� �ؽ��ĸ� 9 ��� �Ұ��ε� �� ��ġ�� �˷��ִ°��̴� 
 			TopLeft,
 			Top,
 			TopRight,

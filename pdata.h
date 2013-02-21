@@ -9,7 +9,7 @@
 
 #define PBlockSize 50
 
-class PData{//í¼ì¦ ì• ë‹ˆë©”ì´ì…˜ ë‹´ë‹¹.
+class PData{//ÆÛÁñ ¾Ö´Ï¸ŞÀÌ¼Ç ´ã´ç.
 	private:
 		sf::Sprite sprite;
 		Animation *animation;

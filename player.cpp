@@ -1,13 +1,14 @@
 #include "player.h"
 
+
 Player::Player(const char *_path , sf::Vector2i _position) : Entity(_path, _position){
 	stats.LoadFile("xmls/text.xml");
 	TiXmlElement *pElement = stats.FirstChildElement("Enemy");
 	font.loadFromFile("font/spike.ttf");
 	txtStats.setFont(font);
-	txtStats.setString(pElement->Attribute("hp"));
+	txtStats.setString(/*pElement->Attribute("hp")*/MTW(pElement->GetText()));
 	txtStats.setColor(sf::Color(0,0,0,255));
-	txtStats.setPosition(100.0f,100.0f);
+	txtStats.setPosition(350.0f,50.0f);
 }
 
 void Player::update(){

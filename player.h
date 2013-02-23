@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "tinyxml.h"
+#include "global.h"
 
 class Player : public Entity {
 	private:

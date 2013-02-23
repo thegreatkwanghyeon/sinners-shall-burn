@@ -1,4 +1,3 @@
-#include <windows.h>
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 
 extern std::wstring MTW(const char* string);

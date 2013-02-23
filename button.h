@@ -17,9 +17,9 @@ class Button {
 		sf::Sprite    sprite;
 		//sf::Sprite    sprites[4];
 		sf::Texture   texture;
-		sf::Vector2i  position;
-		sf::Vector2i  mousePosition;
-		sf::IntRect   buttonRect;
+		sf::Vector2f  position;
+		sf::Vector2f  mousePosition;
+		sf::FloatRect   buttonRect;
 		sf::Font      font;
 		sf::Text      buttonName;
 
@@ -28,7 +28,7 @@ class Button {
 
 		bool isButtonEnable;
 
-		bool isMouseOver (sf::Vector2i _mousePosition);
+		bool isMouseOver (sf::Vector2f _mousePosition);
 		bool isMouseClicked ();
 
 
@@ -38,7 +38,7 @@ class Button {
 		~Button(){delete tileset;}
 		void update();
 		void draw(sf::RenderWindow &window);
-		void setPosition(int _x, int _y);
+		void setPosition(float _x, float _y);
 		void setText (sf::String _name, unsigned int _size = 14);
 		void enableButton();
 		void disableButton();

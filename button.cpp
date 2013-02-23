@@ -10,10 +10,10 @@ Button::Button(sf::String _path) : isButtonEnable(true) {
 
 }
 
-void Button::setPosition(int _x, int _y){
+void Button::setPosition(float _x, float _y){
 	//이건 걍 버튼 이미지의 위치와 사이즈를 잡는것 신경 ㄴㄴ해 
-	position = sf::Vector2i(_x,_y);
-	buttonRect = sf::IntRect(position, sf::Vector2i(texture.getSize().x, texture.getSize().y/4));
+	position = sf::Vector2f(_x, _y);
+	buttonRect = sf::FloatRect(position, sf::Vector2f((float)texture.getSize().x, (float)texture.getSize().y/4));
 	sprite.setPosition(_x, _y);
 }
 
@@ -25,7 +25,7 @@ void Button::setText(sf::String _name, unsigned int _size){ //_size 에 값을 안주
 
 }
 
-bool Button::isMouseOver(sf::Vector2i _mousePosition){
+bool Button::isMouseOver(sf::Vector2f _mousePosition){
 	//buttonRect 범위 안에 _mousePosition 이 있는가
 	return buttonRect.contains(_mousePosition);
 }
@@ -55,7 +55,7 @@ void Button::update(){
 }
 
 void Button::draw(sf::RenderWindow &window){
-	mousePosition = sf::Mouse::getPosition(window);
+	mousePosition = (sf::Vector2f)sf::Mouse::getPosition(window);
 	window.draw(sprite);
 	window.draw(buttonName);
 }

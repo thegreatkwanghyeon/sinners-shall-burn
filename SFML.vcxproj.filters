@@ -65,6 +65,7 @@
     <ClCompile Include="tinystr.cpp">
       <Filter>system\XMLParser</Filter>
     </ClCompile>
+    <ClCompile Include="global.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
@@ -112,9 +113,6 @@
     <ClInclude Include="scenebase.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="map.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -127,6 +125,8 @@
     <ClInclude Include="tinystr.h">
       <Filter>system\XMLParser</Filter>
     </ClInclude>
+    <ClInclude Include="global.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">

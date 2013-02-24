@@ -24,7 +24,14 @@ class Puzzle{
 
 		sf::Clock eTime;
 		sf::Time deltaTime;
-		bool flag,direction;
+
+		sf::Text text;
+		sf::Font font;
+
+		int limit;
+
+		bool flag;
+		bool change;
 		int tempNum;
 
 	public:
@@ -41,7 +48,8 @@ class Puzzle{
 
 		int checkPuzzle();
 		void makePuzzle();
-		void movePuzzle(sf::Vector2i tp, int d);
+		void movePuzzle();
+		void checkPuzzleMore();//더 터질게 있나? 걍 그런거
 
 //---스택
 		PData *stack[StackSize];

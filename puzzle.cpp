@@ -3,6 +3,11 @@
 Puzzle::Puzzle(){
 	int i,j;
 
+	font.loadFromFile("font/spike.ttf");
+	text.setFont(font);
+	text.setString(L"더 터질 게 없다능;;교체하겠다능!");
+	text.setPosition(450.0f, 250.0f);
+
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));
@@ -20,7 +25,12 @@ Puzzle::Puzzle(){
 	comboNum=0;
 
 	flag=false;
-	direction=0;
+	change=false;
+
+	tempNum=0;
+	limit=0;
+	
+	deltaTime=eTime.restart();
 }
 
 Puzzle::~Puzzle(){
@@ -38,6 +48,18 @@ Puzzle::~Puzzle(){
 void Puzzle::update(){
 	int i,j,tp=0;
 
+	if(change == true){
+		//printf("%d %d!\n",deltaTime.asMilliseconds(),time_limit);
+		limit-=1;
+		//printf("[[[%d]]]\n",limit);
+		if(limit <= 0){
+			limit=0;
+			change = false;
+			makePuzzle();
+		}
+		deltaTime=eTime.restart();
+		return;
+	}
 	if(flag == true){
 		for(i=0;i<PuzzleSize;i++){
 			for(j=0;j<PuzzleSize;j++){
@@ -49,12 +71,14 @@ void Puzzle::update(){
 		}
 		
 		tp = data[temp.y][temp.x]->getLocation();
+		//printf("%d %d\n",tp,tempNum);
 		
 		if(tp < tempNum){
 			flag=false;
+			tempNum=0;
 
-			movePuzzle(temp,direction);
-			
+			movePuzzle();
+			/*
 			if(direction == 1){
 				data[temp.y-2][temp.x]->is_break=false;
 				data[temp.y-2][temp.x]->init_animation();
@@ -67,7 +91,7 @@ void Puzzle::update(){
 				data[temp.y][temp.x-2]->init_animation();
 			}
 			data[temp.y][temp.x]->is_break=false;
-			data[temp.y][temp.x]->init_animation();
+			data[temp.y][temp.x]->init_animation();*/
 			//---
 
 			checkPuzzle();
@@ -128,6 +152,9 @@ void Puzzle::draw(sf::RenderWindow &window){
 	for(i=0;i<StackSize;i++){
 		stack[i]->draw(window);
 	}
+	if(change == true){
+		window.draw(text);
+	}
 }
 int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 	int i,j;
@@ -136,18 +163,78 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 		for(j=0;j<PuzzleSize;j++){
 			if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){//세로로 3개가 겹칠때.
 				comboNum++;
-				direction=1;
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
 				}else{
 					stackInput(data[i][j]->num);
 				}
+				//---
+				if(i >= 3 && data[i-3][j]->num == data[i][j]->num){
+					printf("[4]");
+					data[i-3][j]->is_break=true;
+					data[i-3][j]->init_animation();
+					if(i >= 4 && data[i-4][j]->num == data[i][j]->num){
+						printf("[5]");
+						data[i-4][j]->is_break=true;
+						data[i-4][j]->init_animation();
+					}
+				}
+				if(i+1 < PuzzleSize && data[i+1][j]->num == data[i][j]->num){
+					printf("[4]");
+					data[i+1][j]->is_break=true;
+					data[i+1][j]->init_animation();
+					if(i+2 < PuzzleSize && data[i+2][j]->num == data[i][j]->num){
+						printf("[5]");
+						data[i+2][j]->is_break=true;
+						data[i+2][j]->init_animation();
+					}
+				}
+				//---
+				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){
+					printf("cross 01");
+					data[i][j-1]->is_break=true;
+					data[i][j-1]->init_animation();
+					data[i][j-2]->is_break=true;
+					data[i][j-2]->init_animation();
+				}
+				if(j >= 2 && data[i-1][j]->num == data[i-1][j-1]->num && data[i-1][j]->num == data[i-1][j-2]->num){
+					printf("cross 02");
+					data[i-1][j-1]->is_break=true;
+					data[i-1][j-1]->init_animation();
+					data[i-1][j-2]->is_break=true;
+					data[i-1][j-2]->init_animation();
+				}
+				if(j >= 2 && data[i-2][j]->num == data[i-2][j-1]->num && data[i-2][j]->num == data[i-2][j-2]->num){
+					printf("cross 03");
+					data[i-2][j-1]->is_break=true;
+					data[i-2][j-1]->init_animation();
+					data[i-2][j-2]->is_break=true;
+					data[i-2][j-2]->init_animation();
+				}
+				if(j+2 < PuzzleSize && data[i][j]->num == data[i][j+1]->num && data[i][j]->num == data[i][j+2]->num){
+					printf("cross 04");
+					data[i][j+1]->is_break=true;
+					data[i][j+1]->init_animation();
+					data[i][j+2]->is_break=true;
+					data[i][j+2]->init_animation();
+				}
+				if(j+2 < PuzzleSize  && data[i-1][j]->num == data[i-1][j+1]->num && data[i-1][j]->num == data[i-1][j+2]->num){
+					printf("cross 05");
+					data[i-1][j+1]->is_break=true;
+					data[i-1][j+1]->init_animation();
+					data[i-1][j+2]->is_break=true;
+					data[i-1][j+2]->init_animation();
+				}
+				if(j+2 < PuzzleSize  && data[i-2][j]->num == data[i-2][j+1]->num && data[i-2][j]->num == data[i-2][j+2]->num){
+					printf("cross 06");
+					data[i-2][j+1]->is_break=true;
+					data[i-2][j+1]->init_animation();
+					data[i-2][j+2]->is_break=true;
+					data[i-2][j+2]->init_animation();
+				}
 
 				flag=true;
-				temp.x=j;
-				temp.y=i;
-				tempNum=-1;
 
 				data[i-2][j]->is_break=true;
 				data[i-2][j]->init_animation();
@@ -156,22 +243,86 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 				data[i][j]->is_break=true;
 				data[i][j]->init_animation();
 
+				temp.x=j;
+				temp.y=i;
+
 				return 1;
 			}
 			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//가로로 3개가 겹칠때.
 				comboNum++;
-				direction=0;
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
 				}else{
 					stackInput(data[i][j]->num);
 				}
+				//---
+				if(j >= 3 && data[i][j-3]->num == data[i][j]->num){
+					printf("[4]");
+					data[i][j-3]->is_break=true;
+					data[i][j-3]->init_animation();
+					if(j >= 4 && data[i][j-4]->num == data[i][j]->num){
+						printf("[5]");
+						data[i][j-4]->is_break=true;
+						data[i][j-4]->init_animation();
+					}
+				}
+				if(j+1 < PuzzleSize && data[i][j+1]->num == data[i][j]->num){
+					printf("[4]");
+					data[i][j+1]->is_break=true;
+					data[i][j+1]->init_animation();
+					if(j+2 < PuzzleSize && data[i][j+2]->num == data[i][j]->num){
+						printf("[5]");
+						data[i][j+2]->is_break=true;
+						data[i][j+2]->init_animation();
+					}
+				}
+				//---
+				if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num){
+					printf("cross 01");
+					data[i-1][j]->is_break=true;
+					data[i-1][j]->init_animation();
+					data[i-2][j]->is_break=true;
+					data[i-2][j]->init_animation();
+				}
+				if(i >= 2 && data[i][j-1]->num == data[i-1][j-1]->num && data[i][j-1]->num == data[i-2][j-1]->num){
+					printf("cross 02");
+					data[i-1][j-1]->is_break=true;
+					data[i-1][j-1]->init_animation();
+					data[i-2][j-1]->is_break=true;
+					data[i-2][j-1]->init_animation();
+				}
+				if(i >= 2 && data[i][j-2]->num == data[i-1][j-2]->num && data[i][j-2]->num == data[i-2][j-2]->num){
+					printf("cross 03");
+					data[i-1][j-2]->is_break=true;
+					data[i-1][j-2]->init_animation();
+					data[i-2][j-2]->is_break=true;
+					data[i-2][j-2]->init_animation();
+				}
+				if(i+2 < PuzzleSize && data[i][j]->num == data[i+1][j]->num && data[i][j]->num == data[i+2][j]->num){
+					printf("cross 04");
+					data[i+1][j]->is_break=true;
+					data[i+1][j]->init_animation();
+					data[i+2][j]->is_break=true;
+					data[i+2][j]->init_animation();
+				}
+				if(i+2 < PuzzleSize && data[i][j-1]->num == data[i+1][j-1]->num && data[i][j-1]->num == data[i+2][j-1]->num){
+					printf("cross 05");
+					data[i+1][j-1]->is_break=true;
+					data[i+1][j-1]->init_animation();
+					data[i+2][j-1]->is_break=true;
+					data[i+2][j-1]->init_animation();
+				}
+				if(i+2 < PuzzleSize && data[i][j-2]->num == data[i+1][j-2]->num && data[i][j-2]->num == data[i+2][j-2]->num){
+					printf("cross 06");
+					data[i+1][j-2]->is_break=true;
+					data[i+1][j-2]->init_animation();
+					data[i+2][j-2]->is_break=true;
+					data[i+2][j-2]->init_animation();
+				}
+				//-------
 
 				flag=true;
-				temp.x=j;
-				temp.y=i;
-				tempNum=-1;
 
 				data[i][j-2]->is_break=true;
 				data[i][j-2]->init_animation();
@@ -179,6 +330,9 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 				data[i][j-1]->init_animation();
 				data[i][j]->is_break=true;
 				data[i][j]->init_animation();
+
+				temp.x=j;
+				temp.y=i;
 
 				return 1;
 			}
@@ -189,78 +343,107 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 	return 0;
 }
 
-void Puzzle::movePuzzle(sf::Vector2i tp, int d){
-	int i,j;
-	int rd;
+void Puzzle::movePuzzle(){
+	int i,j,k;
+	int rd,tp,cnt=0;
 
 	deltaTime=eTime.restart();
 	srand(deltaTime.asMilliseconds());
-	i=tp.y;
-	j=tp.x;
+
+	while(1){
+		for(i=PuzzleSize-2;i>=0;i--){//밑에서 두번쨰부터 시작. 아래가 비었으면 내린다.
+			for(j=0;j<PuzzleSize;j++){
+				if(data[i+1][j]->is_break == true && data[i][j]->is_break == false){
+					cnt++;
+					for(k=i+1;k<PuzzleSize;k++){
+						if(data[k][j]->is_break == false)
+							break;
+						data[k][j]->num=data[k-1][j]->num;
+						data[k][j]->is_break=false;
+						data[k-1][j]->is_break=true;
+					}
+				}
+			}
+		}
+		if(cnt == 0)
+			break;
+		cnt=0;
+	}
 	//---
-	if(d == 0){//가로
-		while(1){
-			if(i <= 0)
-				break;
-
-			data[i][j]->num=data[i-1][j]->num;
+	tp=-1;
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			if(data[i][j]->is_break == true){
+				printf("<%d %d break cancle>\n",i,j);
+				data[i][j]->is_break=false;
+				while(1){
+					rd=rand()%PuzzleKind;
+					if(rd != tp){
+						data[i][j]->num=rd;
+						tp=rd;
+						break;
+					}
+				}
+			}
 			data[i][j]->init_animation();
-			data[i][j-1]->num=data[i-1][j-1]->num;
-			data[i][j-1]->init_animation();
-			data[i][j-2]->num=data[i-1][j-2]->num;
-			data[i][j-2]->init_animation();
+		}
+	}
+}
+void Puzzle::checkPuzzleMore(){
+	int i,j;
 
-			i--;			
-		}
-		rd=rand()%PuzzleKind;
-		data[0][j]->num=rd;
-		data[0][j]->init_animation();
-		while(1){//중복방지
-			rd=rand()%PuzzleKind;
-			data[0][j-1]->num=rd;
-			if(data[0][j]->num != data[0][j-1]->num){
-				data[0][j-1]->init_animation();
-				break;
-			}
-		}
-		while(1){//중복방지
-			rd=rand()%PuzzleKind;
-			data[0][j-2]->num=rd;
-			if(data[0][j]->num != data[0][j-2]->num){
-				data[0][j-2]->init_animation();
-				break;
-			}
-		}
-	}else{//세로
-		while(1){
-			if(i <= 2)
-				break;
+	//startTime=0.0;
+	//limit=100;
 
-			data[i][j]->num=data[i-3][j]->num;
-			data[i][j]->init_animation();
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			if(i+1 < PuzzleSize && data[i][j]->num == data[i+1][j]->num){//케이스 1. 세로로 둘 겹칠 때
+				if(i-2 >= 0 && data[i-2][j]->num == data[i][j]->num)
+					return;
+				if(i-1 >= 0 && j+1 < PuzzleSize && data[i-1][j+1]->num == data[i][j]->num)
+					return;
+				if(i-1 >= 0 && j-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num)
+					return;
 
-			i--;
-		}
-		rd=rand()%PuzzleKind;
-		data[0][j]->num=rd;
-		data[0][j]->init_animation();
-		while(1){//중복방지
-			rd=rand()%PuzzleKind;
-			data[1][j]->num=rd;
-			if(data[0][j]->num != data[1][j]->num){
-				data[1][j]->init_animation();
-				break;
+				if(i+3 < PuzzleSize && data[i+3][j]->num == data[i][j]->num)
+					return;
+				if(i+2 < PuzzleSize && j+1 < PuzzleSize && data[i+2][j+1]->num == data[i][j]->num)
+					return;
+				if(i+2 < PuzzleSize && j-1 >= 0 && data[i+2][j-1]->num == data[i][j]->num)
+					return;
 			}
-		}
-		while(1){//중복방지
-			rd=rand()%PuzzleKind;
-			data[2][j]->num=rd;
-			if(data[0][j]->num != data[2][j]->num){
-				data[2][j]->init_animation();
-				break;
+			if(j+1 < PuzzleSize && data[i][j]->num == data[i][j+1]->num){//케이스 2. 가로로 둘 겹칠때
+				if(j-2 >= 0 && data[i][j-2]->num == data[i][j]->num)
+					return;
+				if(j-1 >= 0 && i+1 < PuzzleSize && data[i+1][j-1]->num == data[i][j]->num)
+					return;
+				if(j-1 >= 0 && i-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num)
+					return;
+
+				if(j+3 < PuzzleSize && data[i][j+3]->num == data[i][j]->num)
+					return;
+				if(j+2 >= 0 && i-1 >= 0 && data[i-1][j+2]->num == data[i][j]->num)
+					return;
+				if(j+2 >= 0 && i+1 < PuzzleSize && data[i+1][j+2]->num == data[i][j]->num)
+					return;
+			}
+			if(i+2 < PuzzleSize && data[i][j]->num == data[i+2][j]->num){//케이스 3. 하나 띄고 세로
+				if(j-1 >= 0 && data[i+1][j-1]->num == data[i][j]->num)
+					return;
+				if(j+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num)
+					return;
+			}
+			if(j+2 < PuzzleSize && data[i][j]->num == data[i][j+2]->num){//케이스 4. 하나 띄고 가로
+				if(i-1 >= 0 && data[i-1][j+1]->num == data[i][j]->num)
+					return;
+				if(i+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num)
+					return;
 			}
 		}
 	}
+	//deltaTime=eTime.restart();
+	limit=100;
+	change=true;
 }
 
 void Puzzle::stackInput(int num){

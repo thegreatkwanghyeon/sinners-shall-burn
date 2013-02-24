@@ -5,8 +5,8 @@ Puzzle::Puzzle(){
 
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font);
-	text.setString(L"더 터질 게 없다능;;교체하겠다능!");
-	text.setPosition(450.0f, 250.0f);
+	text.setString(L"모든 블록이 터졌습니다...교대합니다");
+	text.setPosition(0.0f, 0.0f);
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
@@ -170,6 +170,14 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 					stackInput(data[i][j]->num);
 				}
 				//---
+				if(j-1 >= 0 && j+1 < PuzzleSize && data[i-1][j-1]->num == data[i][j]->num && data[i-1][j+1]->num == data[i][j]->num){
+					printf("+");
+					data[i-1][j-1]->is_break=true;
+					data[i-1][j-1]->init_animation();
+					data[i-1][j+1]->is_break=true;
+					data[i-1][j+1]->init_animation();
+				}
+				//---
 				if(i >= 3 && data[i-3][j]->num == data[i][j]->num){
 					printf("[4]");
 					data[i-3][j]->is_break=true;
@@ -255,6 +263,14 @@ int Puzzle::checkPuzzle(){//direction | 1 : 가로 | 2 : 세로 |
 					combo[comboNum-1]=data[i][j]->num;
 				}else{
 					stackInput(data[i][j]->num);
+				}
+				//---
+				if(i-1 >= 0 && i+1 < PuzzleSize && data[i-1][j-1]->num == data[i][j]->num && data[i+1][j-1]->num == data[i][j]->num){
+					printf("+");
+					data[i-1][j-1]->is_break=true;
+					data[i-1][j-1]->init_animation();
+					data[i+1][j-1]->is_break=true;
+					data[i+1][j-1]->init_animation();
 				}
 				//---
 				if(j >= 3 && data[i][j-3]->num == data[i][j]->num){
@@ -356,12 +372,12 @@ void Puzzle::movePuzzle(){
 				if(data[i+1][j]->is_break == true && data[i][j]->is_break == false){
 					cnt++;
 					for(k=i+1;k<PuzzleSize;k++){
-						if(data[k][j]->is_break == false)
+						if(data[k][j]->is_break == false || k+1 == PuzzleSize)
 							break;
-						data[k][j]->num=data[k-1][j]->num;
-						data[k][j]->is_break=false;
-						data[k-1][j]->is_break=true;
 					}
+					data[k][j]->num=data[i][j]->num;
+					data[k][j]->is_break=false;
+					data[i][j]->is_break=true;
 				}
 			}
 		}

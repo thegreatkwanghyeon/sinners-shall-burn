@@ -175,7 +175,7 @@ int Puzzle::checkPuzzle(){
 					&& (data[i][j]->is_break == true || data[i][j-1]->is_break == true || data[i][j-2]->is_break == true)){//가로로 3개가 겹칠때.
 					data[i][j]->is_break=true;
 					data[i][j]->init_animation();
-					data[1][j-1]->is_break=true;
+					data[i][j-1]->is_break=true;
 					data[i][j-1]->init_animation();
 					data[i][j-2]->is_break=true;
 					data[i][j-2]->init_animation();
@@ -253,31 +253,26 @@ void Puzzle::movePuzzle(){
 	deltaTime=eTime.restart();
 	srand(deltaTime.asMilliseconds());
 
-	while(1){
-		for(i=PuzzleSize-2;i>=0;i--){//밑에서 두번쨰부터 시작. 아래가 비었으면 내린다.
-			for(j=0;j<PuzzleSize;j++){
-				if(data[i+1][j]->is_break == true && data[i][j]->is_break == false){
-					cnt++;
-					for(k=i+1;k<PuzzleSize;k++){
-						if(k+1 == PuzzleSize || data[k+1][j]->is_break == false)
-							break;
-					}
-					data[k][j]->num=data[i][j]->num;
-					data[k][j]->is_break=false;
-					data[i][j]->is_break=true;
+
+	for(i=PuzzleSize-2;i>=0;i--){//밑에서 두번쨰부터 시작. 아래가 비었으면 내린다.
+		for(j=0;j<PuzzleSize;j++){
+			if(data[i+1][j]->is_break == true && data[i][j]->is_break == false){
+				cnt++;
+				for(k=i+1;k<PuzzleSize;k++){
+					if(k+1 == PuzzleSize || data[k+1][j]->is_break == false)
+						break;
 				}
+				data[k][j]->num=data[i][j]->num;
+				data[k][j]->is_break=false;
+				data[i][j]->is_break=true;
 			}
 		}
-		if(cnt == 0)
-			break;
-		cnt=0;
 	}
 	//---
 	tp=-1;
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			if(data[i][j]->is_break == true){
-				printf("<%d %d break cancle>\n",i,j);
 				data[i][j]->is_break=false;
 				while(1){
 					rd=rand()%PuzzleKind;

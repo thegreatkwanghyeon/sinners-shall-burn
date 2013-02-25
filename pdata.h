@@ -19,10 +19,12 @@ class PData{//퍼즐 애니메이션 담당.
 		int num;
 		bool is_click;
 		bool is_break;
+		int x,y;
 
-		PData(float _x, float _y);
+		PData(int _x, int _y);
 		~PData(){delete animation;};
 		void init_animation();
+		void init_position(int _x, int _y);
 		void update();
 		void draw(sf::RenderWindow &window);
 		int getLocation();

@@ -26,6 +26,7 @@ Puzzle::Puzzle(){
 
 	flag=false;
 	change=false;
+	move=true;
 
 	tempNum=0;
 	limit=0;
@@ -48,6 +49,26 @@ Puzzle::~Puzzle(){
 void Puzzle::update(){
 	int i,j,tp=0;
 
+	if(move == true){
+		for(i=0;i<PuzzleSize;i++){
+			for(j=0;j<PuzzleSize;j++){
+				if(chkBreak[i][j] > 0){
+					if(data[i][j]->y == PStartY+(i*PBlockSize)){
+						chkBreak[i][j]=0;
+					}else{
+						data[i][j]->init_position(data[i][j]->x,data[i][j]->y+PBlockSize/5);
+					}
+					
+					tp++;
+				}
+			}
+		}
+		if(tp == 0){
+			move=false;
+			checkPuzzle();
+		}
+		tp=0;
+	}
 	if(change == true){
 		//printf("%d %d!\n",deltaTime.asMilliseconds(),time_limit);
 		limit-=1;
@@ -94,7 +115,8 @@ void Puzzle::update(){
 			data[temp.y][temp.x]->init_animation();*/
 			//---
 
-			checkPuzzle();
+			//checkPuzzle();
+			move=true;
 		}else
 			tempNum=tp;
 		
@@ -253,6 +275,34 @@ void Puzzle::movePuzzle(){
 	deltaTime=eTime.restart();
 	srand(deltaTime.asMilliseconds());
 
+	for(i=0;i<PuzzleSize;i++){
+		breakStack[i]=0;
+		for(j=0;j<PuzzleSize;j++)
+			chkBreak[i][j]=0;
+	}
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			if(data[i][j]->is_break == true){
+				chkBreak[i][j]++;
+				breakStack[j]++;
+			}
+		}
+	}
+	for(i=PuzzleSize-1;i>=1;i--){
+		for(j=0;j<PuzzleSize;j++){
+			if(chkBreak[i][j] > 0){
+				chkBreak[i][j]=breakStack[j];
+				chkBreak[i-1][j]=chkBreak[i][j];
+			}
+		}
+	}
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			printf("%d ",chkBreak[i][j]);
+		}
+		printf("\n");
+	}
+
 
 	for(i=PuzzleSize-2;i>=0;i--){//밑에서 두번쨰부터 시작. 아래가 비었으면 내린다.
 		for(j=0;j<PuzzleSize;j++){
@@ -284,6 +334,14 @@ void Puzzle::movePuzzle(){
 				}
 			}
 			data[i][j]->init_animation();
+		}
+	}
+	//---
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			if(chkBreak[i][j] > 0){
+				data[i][j]->init_position(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize)-(chkBreak[i][j]*PBlockSize));
+			}
 		}
 	}
 }

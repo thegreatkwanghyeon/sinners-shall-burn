@@ -1,8 +1,10 @@
 #include "pdata.h"
 
-PData::PData(float _x, float _y){
+PData::PData(int _x, int _y){
 	animation=new Animation();
 	sprite.setPosition(_x, _y);
+	x=_x;
+	y=_y;
 	animation->addTile("img/PuzzleAnimation.PNG",PBlockSize,PBlockSize);
 	animation->setSpeed(0.2);
 	animation->setTileRange(sf::Vector2i(1,1), 4);//디폴트.
@@ -37,4 +39,9 @@ void PData::draw(sf::RenderWindow &window){//아무래도 퍼즐 각 칸의 애니메이션 등
 }
 int PData::getLocation(){
 	return animation->getLocation();
+}
+void PData::init_position(int _x, int _y){
+	sprite.setPosition(_x, _y);
+	x=_x;
+	y=_y;
 }

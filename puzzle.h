@@ -31,8 +31,11 @@ class Puzzle{
 		int limit;
 
 		bool flag;
+		bool move;
 		bool change;
 		int tempNum;
+		int breakStack[PuzzleSize];
+		int chkBreak[PuzzleSize][PuzzleSize];
 
 	public:
 		Puzzle();

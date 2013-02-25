@@ -14,10 +14,13 @@ PData::PData(int _x, int _y){
 
 void PData::init_animation(){
 	if(is_break == true){
+		animation->setSpeed(0.1);
 		animation->setTileRange(sf::Vector2i(5,5),4);
 	}else if(is_click == true){
+		animation->setSpeed(0.2);
 		animation->setTileRange(sf::Vector2i(1,5),3);
 	}else{
+		animation->setSpeed(0.2);
 		switch(num){
 			case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //빈 스택 표시용.
 			case 0 : animation->setTileRange(sf::Vector2i(1,1),4);break;

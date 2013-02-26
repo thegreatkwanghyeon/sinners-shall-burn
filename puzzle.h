@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-//#include "tileset.h"
+#include "tileset.h"
 #include "pdata.h"
 
 #define PuzzleSize 8
@@ -22,6 +22,9 @@ class Puzzle{
 		sf::Vector2i  mousePosition;
 		sf::Vector2i temp;
 
+		sf::Sprite    sprite;
+		sf::Texture   texture;
+
 		sf::Clock eTime;
 		sf::Time deltaTime;
 
@@ -29,7 +32,7 @@ class Puzzle{
 		sf::Font font;
 
 		float limit1;
-		bool limit2, limit3;//텍스트 3개에 사용되는, 각각의 카운터?
+		bool limit2, limit3;
 
 		bool flag;
 		bool move;
@@ -47,6 +50,7 @@ class Puzzle{
 		int tileSizeX, tileSizeY;
 
 		PData *data[PuzzleSize+1][PuzzleSize+1];
+		TileSet *tileset;
 		int clickN;
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
 

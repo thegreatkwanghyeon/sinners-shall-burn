@@ -3,6 +3,13 @@
 Puzzle::Puzzle(){
 	int i,j;
 
+	//타일셋. 힌트용
+	tileset = new TileSet();
+	texture.loadFromFile("img/hint.png");
+	texture = tileset->tileSet("img/hint.png",100,100);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(tileset->getTileSet(0));
+
 	font.loadFromFile("font/spike.ttf");
 	text1.setFont(font);
 	text2.setFont(font);
@@ -148,6 +155,7 @@ void Puzzle::update(){
 	}
 	for(i=0;i<StackSize;i++)
 		stack[i]->update();
+	checkPuzzleMore();
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -167,6 +175,8 @@ void Puzzle::draw(sf::RenderWindow &window){
 		window.draw(text2);
 	if(limit3 == true)
 		window.draw(text3);
+
+	window.draw(sprite);
 }
 int Puzzle::checkPuzzle(){
 	int i,j;
@@ -197,7 +207,7 @@ int Puzzle::checkPuzzle(){
 					data[i][j-2]->init_animation();
 
 					text2.setString(L"추가타!");
-					limit2=false;
+					limit2=true;
 				}
 			}
 		}
@@ -351,46 +361,78 @@ void Puzzle::checkPuzzleMore(){
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			if(i+1 < PuzzleSize && data[i][j]->num == data[i+1][j]->num){//케이스 1. 세로로 둘 겹칠 때
-				if(i-2 >= 0 && data[i-2][j]->num == data[i][j]->num)
+				if(i-2 >= 0 && data[i-2][j]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(i-1 >= 0 && j+1 < PuzzleSize && data[i-1][j+1]->num == data[i][j]->num)
+				}
+				if(i-1 >= 0 && j+1 < PuzzleSize && data[i-1][j+1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(i-1 >= 0 && j-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num)
+				}
+				if(i-1 >= 0 && j-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 
-				if(i+3 < PuzzleSize && data[i+3][j]->num == data[i][j]->num)
+				if(i+3 < PuzzleSize && data[i+3][j]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(i+2 < PuzzleSize && j+1 < PuzzleSize && data[i+2][j+1]->num == data[i][j]->num)
+				}
+				if(i+2 < PuzzleSize && j+1 < PuzzleSize && data[i+2][j+1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(i+2 < PuzzleSize && j-1 >= 0 && data[i+2][j-1]->num == data[i][j]->num)
+				}
+				if(i+2 < PuzzleSize && j-1 >= 0 && data[i+2][j-1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 			}
 			if(j+1 < PuzzleSize && data[i][j]->num == data[i][j+1]->num){//케이스 2. 가로로 둘 겹칠때
-				if(j-2 >= 0 && data[i][j-2]->num == data[i][j]->num)
+				if(j-2 >= 0 && data[i][j-2]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(j-1 >= 0 && i+1 < PuzzleSize && data[i+1][j-1]->num == data[i][j]->num)
+				}
+				if(j-1 >= 0 && i+1 < PuzzleSize && data[i+1][j-1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(j-1 >= 0 && i-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num)
+				}
+				if(j-1 >= 0 && i-1 >= 0 && data[i-1][j-1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 
-				if(j+3 < PuzzleSize && data[i][j+3]->num == data[i][j]->num)
+				if(j+3 < PuzzleSize && data[i][j+3]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(j+2 >= 0 && i-1 >= 0 && data[i-1][j+2]->num == data[i][j]->num)
+				}
+				if(j+2 < PuzzleSize && i-1 >= 0 && data[i-1][j+2]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(j+2 >= 0 && i+1 < PuzzleSize && data[i+1][j+2]->num == data[i][j]->num)
+				}
+				if(j+2 < PuzzleSize && i+1 < PuzzleSize && data[i+1][j+2]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 			}
 			if(i+2 < PuzzleSize && data[i][j]->num == data[i+2][j]->num){//케이스 3. 하나 띄고 세로
-				if(j-1 >= 0 && data[i+1][j-1]->num == data[i][j]->num)
+				if(j-1 >= 0 && data[i+1][j-1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(j+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num)
+				}
+				if(j+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 			}
 			if(j+2 < PuzzleSize && data[i][j]->num == data[i][j+2]->num){//케이스 4. 하나 띄고 가로
-				if(i-1 >= 0 && data[i-1][j+1]->num == data[i][j]->num)
+				if(i-1 >= 0 && data[i-1][j+1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
-				if(i+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num)
+				}
+				if(i+1 < PuzzleSize && data[i+1][j+1]->num == data[i][j]->num){
+					sprite.setPosition(PStartX+(j*PBlockSize)-(PBlockSize/2),PStartY+(i*PBlockSize)-(PBlockSize/2));
 					return;
+				}
 			}
 		}
 	}

@@ -8,9 +8,6 @@
     <ClCompile Include="animation.cpp">
       <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="button.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>system</Filter>
     </ClCompile>
@@ -20,14 +17,8 @@
     <ClCompile Include="shaderscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="uiscene.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="titlescene.cpp">
       <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="gauge.cpp">
-      <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>contents</Filter>
@@ -39,9 +30,6 @@
       <Filter>contents</Filter>
     </ClCompile>
     <ClCompile Include="tileset.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="tooltip.cpp">
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="scenebase.cpp">
@@ -66,15 +54,27 @@
       <Filter>system\XMLParser</Filter>
     </ClCompile>
     <ClCompile Include="global.cpp" />
+    <ClCompile Include="button.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="gauge.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="tooltip.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="uiscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="windowentity.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="animation.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
@@ -86,14 +86,8 @@
     <ClInclude Include="shaderscene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="uiscene.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="titlescene.h">
       <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="gauge.h">
-      <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>contents</Filter>
@@ -103,9 +97,6 @@
     </ClInclude>
     <ClInclude Include="puzzle.h">
       <Filter>contents</Filter>
-    </ClInclude>
-    <ClInclude Include="tooltip.h">
-      <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="tileset.h">
       <Filter>system</Filter>
@@ -127,6 +118,21 @@
     </ClInclude>
     <ClInclude Include="global.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="button.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="gauge.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="tooltip.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="uiscene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="windowentity.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">
@@ -140,6 +146,9 @@
     </Filter>
     <Filter Include="system\XMLParser">
       <UniqueIdentifier>{95cdff59-c964-4423-8983-bd988e1e43dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\UI">
+      <UniqueIdentifier>{947cad30-9bf6-4d33-871d-f08a51f3d899}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

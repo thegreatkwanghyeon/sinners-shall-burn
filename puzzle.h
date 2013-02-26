@@ -25,10 +25,11 @@ class Puzzle{
 		sf::Clock eTime;
 		sf::Time deltaTime;
 
-		sf::Text text;
+		sf::Text text1,text2,text3;
 		sf::Font font;
 
-		int limit;
+		float limit1;
+		bool limit2, limit3;//텍스트 3개에 사용되는, 각각의 카운터?
 
 		bool flag;
 		bool move;

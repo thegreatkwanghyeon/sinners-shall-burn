@@ -4,9 +4,13 @@ Puzzle::Puzzle(){
 	int i,j;
 
 	font.loadFromFile("font/spike.ttf");
-	text.setFont(font);
-	text.setString(L"모든 블록이 터졌습니다...교대합니다");
-	text.setPosition(0.0f, 0.0f);
+	text1.setFont(font);
+	text2.setFont(font);
+	text3.setFont(font);
+	//text1.setString(L"12345");
+	text1.setPosition(0.0f, 0.0f);
+	text2.setPosition(200.0f, 0.0f);
+	text3.setPosition(400.0f, 0.0f);
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
@@ -26,10 +30,12 @@ Puzzle::Puzzle(){
 
 	flag=false;
 	change=false;
-	move=true;
+	move=false;
 
 	tempNum=0;
-	limit=0;
+	limit1=false;
+	limit2=false;
+	limit3=false;
 	
 	deltaTime=eTime.restart();
 }
@@ -65,20 +71,19 @@ void Puzzle::update(){
 		}
 		if(tp == 0){
 			move=false;
+			limit2=false;
+			limit3=false;
 			checkPuzzle();
 		}
 		tp=0;
 	}
 	if(change == true){
-		//printf("%d %d!\n",deltaTime.asMilliseconds(),time_limit);
-		limit-=1;
-		//printf("[[[%d]]]\n",limit);
-		if(limit <= 0){
-			limit=0;
+		limit1+=deltaTime.asSeconds();
+		if(limit1 >= 10.0){
+			limit1=0;
 			change = false;
 			makePuzzle();
 		}
-		deltaTime=eTime.restart();
 		return;
 	}
 	if(flag == true){
@@ -92,30 +97,12 @@ void Puzzle::update(){
 		}
 		
 		tp = data[temp.y][temp.x]->getLocation();
-		//printf("%d %d\n",tp,tempNum);
 		
 		if(tp < tempNum){
 			flag=false;
 			tempNum=0;
 
 			movePuzzle();
-			/*
-			if(direction == 1){
-				data[temp.y-2][temp.x]->is_break=false;
-				data[temp.y-2][temp.x]->init_animation();
-				data[temp.y-1][temp.x]->is_break=false;
-				data[temp.y-1][temp.x]->init_animation();
-			}else{
-				data[temp.y][temp.x-1]->is_break=false;
-				data[temp.y][temp.x-1]->init_animation();
-				data[temp.y][temp.x-2]->is_break=false;
-				data[temp.y][temp.x-2]->init_animation();
-			}
-			data[temp.y][temp.x]->is_break=false;
-			data[temp.y][temp.x]->init_animation();*/
-			//---
-
-			//checkPuzzle();
 			move=true;
 		}else
 			tempNum=tp;
@@ -174,17 +161,21 @@ void Puzzle::draw(sf::RenderWindow &window){
 	for(i=0;i<StackSize;i++){
 		stack[i]->draw(window);
 	}
-	if(change == true){
-		window.draw(text);
-	}
+	if(limit1 != 0)
+		window.draw(text1);
+	if(limit2 == true)
+		window.draw(text2);
+	if(limit3 == true)
+		window.draw(text3);
 }
 int Puzzle::checkPuzzle(){
 	int i,j;
+	char ComString[100];
 
 	if(flag == true){//추가타 체크는 귀찮아서 걍 나눔...
 		for(i=0;i<PuzzleSize;i++){
 			for(j=0;j<PuzzleSize;j++){
-				if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num
+				if(i >= 2 && data[i][j]->num == data[i-1][j]->num && data[i][j]->num == data[i-2][j]->num && (data[i][j]->is_break+data[i-1][j]->is_break+data[i-2][j]->is_break < 3)
 					&& (data[i][j]->is_break == true || data[i-1][j]->is_break == true || data[i-2][j]->is_break == true)){//세로로 3개가 겹칠때.
 					data[i][j]->is_break=true;
 					data[i][j]->init_animation();
@@ -192,8 +183,11 @@ int Puzzle::checkPuzzle(){
 					data[i-1][j]->init_animation();
 					data[i-2][j]->is_break=true;
 					data[i-2][j]->init_animation();
+
+					text2.setString(L"추가타!");
+					limit2=true;
 				}
-				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num
+				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num && (data[i][j]->is_break+data[i][j-1]->is_break+data[i][j-2]->is_break < 3)
 					&& (data[i][j]->is_break == true || data[i][j-1]->is_break == true || data[i][j-2]->is_break == true)){//가로로 3개가 겹칠때.
 					data[i][j]->is_break=true;
 					data[i][j]->init_animation();
@@ -201,6 +195,9 @@ int Puzzle::checkPuzzle(){
 					data[i][j-1]->init_animation();
 					data[i][j-2]->is_break=true;
 					data[i][j-2]->init_animation();
+
+					text2.setString(L"추가타!");
+					limit2=false;
 				}
 			}
 		}
@@ -217,6 +214,9 @@ int Puzzle::checkPuzzle(){
 				}else{
 					stackInput(data[i][j]->num);
 				}
+				_snprintf(ComString, sizeof(ComString), "COMBO %d!!", comboNum);
+				text3.setString(ComString);
+				limit3=true;
 				//---
 
 				flag=true;
@@ -237,6 +237,10 @@ int Puzzle::checkPuzzle(){
 			}
 			if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num){//가로로 3개가 겹칠때.
 				comboNum++;
+
+				_snprintf(ComString, sizeof(ComString), "COMBO %d!!", comboNum);
+				text3.setString(ComString);
+				limit3=true;
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
@@ -296,13 +300,6 @@ void Puzzle::movePuzzle(){
 			}
 		}
 	}
-	for(i=0;i<PuzzleSize;i++){
-		for(j=0;j<PuzzleSize;j++){
-			printf("%d ",chkBreak[i][j]);
-		}
-		printf("\n");
-	}
-
 
 	for(i=PuzzleSize-2;i>=0;i--){//밑에서 두번쨰부터 시작. 아래가 비었으면 내린다.
 		for(j=0;j<PuzzleSize;j++){
@@ -397,9 +394,10 @@ void Puzzle::checkPuzzleMore(){
 			}
 		}
 	}
-	//deltaTime=eTime.restart();
-	limit=100;
+	deltaTime=eTime.restart();
+	limit1=0.01f;
 	change=true;
+	text1.setString(L"진행불가!");
 }
 
 void Puzzle::stackInput(int num){
@@ -421,7 +419,7 @@ void Puzzle::makePuzzle(){
 	int i,j;
 	int rd;
 	deltaTime = eTime.restart();
-	srand(deltaTime.asMicroseconds());
+	srand(deltaTime.asMilliseconds());
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			while(1){

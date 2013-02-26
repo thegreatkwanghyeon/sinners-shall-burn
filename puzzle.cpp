@@ -19,6 +19,11 @@ Puzzle::Puzzle(){
 	text2.setPosition(200.0f, 0.0f);
 	text3.setPosition(400.0f, 0.0f);
 
+	button = new Button("img/button.png");
+	button->setPosition(50,(PuzzleSize*PBlockSize)+PStartY+20);
+	button->setText("HINT", 18);
+	button->setHotkey(sf::Keyboard::H);
+
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));
@@ -40,9 +45,10 @@ Puzzle::Puzzle(){
 	move=false;
 
 	tempNum=0;
-	limit1=false;
+	limit1=0.0;
 	limit2=false;
 	limit3=false;
+	hint=false;
 	
 	deltaTime=eTime.restart();
 }
@@ -94,6 +100,8 @@ void Puzzle::update(){
 		return;
 	}
 	if(flag == true){
+		if(hint == true)
+			hint=false;
 		for(i=0;i<PuzzleSize;i++){
 			for(j=0;j<PuzzleSize;j++){
 				data[i][j]->update();
@@ -156,6 +164,10 @@ void Puzzle::update(){
 	for(i=0;i<StackSize;i++)
 		stack[i]->update();
 	checkPuzzleMore();
+
+	if(button->checkMouseClick()){
+		hint=true;
+	}
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -176,7 +188,9 @@ void Puzzle::draw(sf::RenderWindow &window){
 	if(limit3 == true)
 		window.draw(text3);
 
-	window.draw(sprite);
+	if(hint == true)
+		window.draw(sprite);
+	button->draw(window);
 }
 int Puzzle::checkPuzzle(){
 	int i,j;

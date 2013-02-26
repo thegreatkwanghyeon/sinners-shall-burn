@@ -7,6 +7,7 @@
 
 #include "tileset.h"
 #include "pdata.h"
+#include "button.h"
 
 #define PuzzleSize 8
 #define PuzzleKind 7
@@ -37,9 +38,13 @@ class Puzzle{
 		bool flag;
 		bool move;
 		bool change;
+		bool hint;
 		int tempNum;
 		int breakStack[PuzzleSize];
 		int chkBreak[PuzzleSize][PuzzleSize];
+
+		TileSet *tileset;
+		Button *button;
 
 	public:
 		Puzzle();
@@ -50,7 +55,6 @@ class Puzzle{
 		int tileSizeX, tileSizeY;
 
 		PData *data[PuzzleSize+1][PuzzleSize+1];
-		TileSet *tileset;
 		int clickN;
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
 

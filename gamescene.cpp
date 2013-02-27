@@ -3,7 +3,9 @@
 
 GameScene::GameScene(){
 	//character = new Character(0.0f, 0.0f);
-	map = new Map("img/map.jpg");
+	map = new Map();
+	map->initialize();
+	map->load("test");
 	uiscene = new UiScene();
 	player = new Player("img/male_walkcycle.png", sf::Vector2i(200.0f, 200.0f));
 
@@ -17,9 +19,11 @@ void GameScene::update(){
 }
 
 void GameScene::draw(sf::RenderWindow &window){
-	map->draw(window);
+	map->ground_Draw(window);
 	//character->draw(window);
-	uiscene->draw(window);
 	player->draw(window);
+	map->object_Draw(window);
+	uiscene->draw(window);
+	
 
 }

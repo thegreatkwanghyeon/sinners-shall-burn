@@ -10,5 +10,6 @@
 #include <vector>
 #include <map>
 #include <list>
+#include <string>
 
 #include <windows.h>

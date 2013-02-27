@@ -66,10 +66,10 @@
     <ClCompile Include="uiscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="dialog.cpp">
+    <ClCompile Include="windowentity.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
-    <ClCompile Include="windowentity.cpp">
+    <ClCompile Include="dialog.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,10 +133,10 @@
     <ClInclude Include="uiscene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="dialog.h">
+    <ClInclude Include="windowentity.h">
       <Filter>system\UI</Filter>
     </ClInclude>
-    <ClInclude Include="windowentity.h">
+    <ClInclude Include="dialog.h">
       <Filter>system\UI</Filter>
     </ClInclude>
   </ItemGroup>

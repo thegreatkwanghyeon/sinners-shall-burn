@@ -51,10 +51,6 @@ void WindowEntity::setWindowSize(float _width, float _height){
 
 }
 
-sf::Vector2f WindowEntity::getPositionOfCenterSprite(){
-	return sprite[Center].getPosition();
-}
-
 void WindowEntity::update(){
 	defineSpriteScales();
 	defineSpritePositions();

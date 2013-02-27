@@ -86,8 +86,8 @@ void Tooltip::setTooltip(sf::String _title, sf::String _description, sf::FloatRe
 
 void Tooltip::update(){
 	WindowEntity::update();
-	title.setPosition(WindowEntity::getPositionOfCenterSprite());
-	description.setPosition(WindowEntity::getPositionOfCenterSprite().x, WindowEntity::getPositionOfCenterSprite().y+title.getLocalBounds().height+5);
+	title.setPosition(sprite[Center].getPosition());
+	description.setPosition(sprite[Center].getPosition().x, sprite[Center].getPosition().y+title.getLocalBounds().height+5);
 }
 
 void Tooltip::draw(sf::RenderWindow &window){

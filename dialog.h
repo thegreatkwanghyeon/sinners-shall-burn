@@ -5,17 +5,29 @@
 
 class Dialog : public WindowEntity {
 	private:
+		unsigned int windowWidth;
+		unsigned int windowHeight;
+		unsigned int dialogHeight;
+		unsigned int currentScriptCursor;
+
+		sf::Text script;
+		sf::Font font;
+		std::wstring wStrScript;
 
 
+		std::wstring Dialog::getEntireDescription (std::wstring _description);
+		std::vector<std::wstring> Dialog::splitWords (std::wstring &_str);
+
+
+		
 	public:
 		Dialog(const char *_path);
 		virtual ~Dialog(){}
 		virtual void update();
 		virtual void draw(sf::RenderWindow &window);
 
-
+		void setScript(sf::String _script);
 };
-
 
 
 #endif

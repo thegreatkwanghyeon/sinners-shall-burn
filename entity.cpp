@@ -24,7 +24,7 @@ void Entity::setState(int _state){
 	currentState = _state;
 }
 
-void Entity::update(){
+void Entity::update(std::vector<sf::IntRect> collideRects){
 	animation->update(&sprite, true);
 	animation->playAnimation();
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
@@ -35,4 +35,8 @@ void Entity::update(){
 
 void Entity::draw(sf::RenderWindow &window){
 	window.draw(sprite);
+}
+
+sf::Sprite Entity::getSprite(){
+	return sprite;
 }

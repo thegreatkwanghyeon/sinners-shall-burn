@@ -2,11 +2,16 @@
 #define __map__
 
 #include "stdafx.h"
+#include "tinyxml.h"
 #include <SFML/Graphics.hpp>
 
 class Map{
 
 	private:
+
+		TiXmlDocument mapTextureList;
+		TiXmlNode * pNode;
+		int num;
 
 		sf::Sprite tmpSprite;
 		sf::Texture tmpTexture;

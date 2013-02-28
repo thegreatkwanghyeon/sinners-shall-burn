@@ -6,22 +6,23 @@ Map::Map(){
 }
 
 void Map::initialize(){
-	for(unsigned int j=0;j<GetPrivateProfileIntA("GROUND_TEXTURE_LIST", "numberOfGroundTextures", 1, "ini/mapTextures.ini");j++){
-		itoa(j, tmpChar, 10);
-		ground.push_back(tmpChar[0]);
-		GetPrivateProfileStringA("GROUND_TEXTURE_LIST", ground.c_str(), "NOT_FOUND", tmpString, 100, "ini/mapTextures.ini");
-		ground.pop_back();
-		tmpTexture.loadFromFile(tmpString);
+	mapTextureList.LoadFile("xmls/map_texture_list.xml");
+	pNode = mapTextureList.FirstChild("Ground");
+	pNode->ToElement()->Attribute("num", &num);
+	pNode = pNode->FirstChild("TEXTURE");
+	for(int i=0;i<num;i++){
+		tmpTexture.loadFromFile(pNode->ToElement()->GetText());
 		groundTextures.push_back(tmpTexture);
+		pNode->NextSibling();
 	}
-
-	for(unsigned int i=0;i<GetPrivateProfileIntA("OBJECT_TEXTURE_LIST", "numberOfObjectTextures", 1, "ini/mapTextures.ini");i++){
-		itoa(i, tmpChar, 10);
-		object.push_back(tmpChar[0]);
-		GetPrivateProfileStringA("OBJECT_TEXTURE_LIST", object.c_str(), "NOT_FOUND", tmpString, 100, "ini/mapTextures.ini");
-		object.pop_back();
-		tmpTexture.loadFromFile(tmpString);
+	
+	pNode = mapTextureList.FirstChild("Object");
+	pNode->ToElement()->Attribute("num", &num);
+	pNode = pNode->FirstChild("TEXTURE");
+	for(int i=0;i<num;i++){
+		tmpTexture.loadFromFile(pNode->ToElement()->GetText());
 		objectTextures.push_back(tmpTexture);
+		pNode->NextSibling();
 	}
 }
 

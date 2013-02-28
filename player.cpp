@@ -11,8 +11,8 @@ Player::Player(const char *_path , sf::Vector2i _position) : Entity(_path, _posi
 	txtStats.setPosition(350.0f,50.0f);
 }
 
-void Player::update(){
-	Entity::update();
+void Player::update(std::vector<sf::IntRect> collideRects){
+	Entity::update(collideRects);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		Entity::setDirection(Left);

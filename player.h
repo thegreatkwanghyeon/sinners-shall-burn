@@ -24,7 +24,7 @@ class Player : public Entity {
 		Player(const char *_path , sf::Vector2i _position);
 		virtual ~Player(){}
 
-		virtual void update();
+		virtual void update(std::vector<sf::IntRect> collideRects);
 		virtual void draw(sf::RenderWindow &window);
 };
 

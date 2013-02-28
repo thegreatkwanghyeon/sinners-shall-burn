@@ -15,7 +15,7 @@ GameScene::GameScene(){
 void GameScene::update(){
 	//character->update();
 	uiscene->update();
-	player->update();
+	player->update(map->getCollideRects());
 }
 
 void GameScene::draw(sf::RenderWindow &window){

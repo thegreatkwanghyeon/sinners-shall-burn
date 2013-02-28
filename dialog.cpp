@@ -3,15 +3,17 @@
 Dialog::Dialog(const char *_path) : WindowEntity(_path){
 	dialogHeight = 150;
 	currentScriptCursor = 0;
+	currentScriptNumber = 0;
 	font.loadFromFile("font/spike.ttf");
 	windowWidth = 800;
-}
 
-void Dialog::setScript(sf::String _script){
-	wStrScript = getEntireDescription(_script);
 	script.setFont(font);
 	script.setColor(sf::Color(200,200,200,255));
 	script.setCharacterSize(19);
+}
+
+void Dialog::setScript(sf::String _script){
+	wStrScripts.push_back(getEntireDescription(_script));
 }
 
 std::vector<std::wstring> Dialog::splitWords (std::wstring &_str){ //문자열 데이터를 공백 기준으로 나눠준다 
@@ -46,7 +48,7 @@ std::wstring Dialog::getEntireDescription (std::wstring _description){ //최종적�
 
 	for(; iter != iter_end; iter++){
 		tmpText.setString(*iter + L"  ");
-		currentLineWidth += (tmpText.getLocalBounds().width);
+		currentLineWidth += (tmpText.getLocalBounds().width + 7);
 		if(currentLineWidth > lineLimit){
 			entireDescription += L"\n";
 			currentLineWidth = 0;
@@ -65,9 +67,24 @@ void Dialog::update(){
 	script.setPosition(individualTextureWidth,windowHeight - dialogHeight - individualTextureHeight*1.5);
 	WindowEntity::update();
 
-	
-	script.setString(wStrScript.substr(0,currentScriptCursor));
-	currentScriptCursor++;
+
+	script.setString(wStrScripts[currentScriptNumber].substr(0,currentScriptCursor));
+
+	if(currentScriptCursor<wStrScripts[currentScriptNumber].size())
+		currentScriptCursor++;
+	//아직 글자가 전부 로딩이 안됐을경우, 계속 로딩시킨다.
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+		printf("%d < %d\n",currentScriptNumber, wStrScripts.size());
+		if(currentScriptCursor<wStrScripts[currentScriptNumber].size()){
+			currentScriptCursor = wStrScripts[currentScriptNumber].size();
+		} //아직 글자가 전부 로딩이 안됐을경우, 한번에 다 로딩시킨다.
+		else if(currentScriptNumber<wStrScripts.size()-1){
+			currentScriptCursor = 0;
+			currentScriptNumber++;
+		} //글자가 전부 로딩 됐고, 현재 스크립트 번호가 마지막 스크립트 번호보다 작으면 다음 번호의 스크립트로
+		
+	}
 }
 
 void Dialog::draw(sf::RenderWindow &window){

@@ -8,7 +8,7 @@ UiScene::UiScene(){
 	button->setText("Enabler", 18);
 	button->setHotkey(sf::Keyboard::Return);
 	button2->setPosition(300,380);
-	//button2->setText(L"클릭 미 이프유 캔");
+	button2->setText(L"클릭 미 이프유 캔",14);
 	button2->disableButton();
 
 	gauge = new Gauge("img/expgauge.png", 5000, 0, 0);
@@ -24,6 +24,7 @@ UiScene::UiScene(){
 
 	dialog = new Dialog("img/tooltip.png");
 	dialog->setScript(L"야, 이 반란군 놈의 새끼야! 니들 거기 꼼짝 말고 있어! 내가 지금 전차를 몰고 가서 네놈들의 머리통을 다 날려버리겠어!");
+	dialog->setScript(L"계란을 주먹으로 꽉 쥐어서 깨트릴 사람은 지구상에 존재하지 않는다. 따라서 그것을 쥐어서 압력을 받은 뒤 가격한다면,엄청난 타격이 된다. 풍호는 언제나 달걀을 가지고 다닌다. 따라서 그의 싸움 뒤에는 ,김이 모락모락 나는 2개 으깨진 노른자가 항상 있는 것이다.");
 
 }
 

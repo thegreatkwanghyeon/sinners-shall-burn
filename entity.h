@@ -36,7 +36,7 @@ class Entity {
 	public:
 		Entity(const char *_path, sf::Vector2i _position);
 		virtual ~Entity(){delete animation;}
-		virtual void update(std::vector<sf::IntRect> collideRects);
+		virtual void update(std::vector<sf::FloatRect> collideRects);
 		virtual void draw(sf::RenderWindow &window);
 		virtual sf::Sprite getSprite();
 };

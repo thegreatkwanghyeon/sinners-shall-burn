@@ -16,10 +16,12 @@ class Map{
 		sf::Sprite tmpSprite;
 		sf::Texture tmpTexture;
 		sf::IntRect tmpRect;
+		sf::FloatRect tmpCollideRect;
 		std::string ground, object;
 
 			float tmpData_posX, tmpData_posY;
 			int tmpData_left, tmpData_width, tmpData_top, tmpData_height;
+			float float_tmpData_left, float_tmpData_width, float_tmpData_top, float_tmpData_height;
 			int tmpData_textureNum;
 			int tempData_colNum;
 
@@ -32,7 +34,7 @@ class Map{
 		std::vector<sf::Sprite> objectSprites;
 		std::vector<sf::Texture> groundTextures;
 		std::vector<sf::Texture> objectTextures;
-		std::vector<sf::IntRect> collideRects;
+		std::vector<sf::FloatRect> collideRects;
 
 		FILE* loadMap;
 		std::string loadMapName;
@@ -45,7 +47,7 @@ class Map{
 		void load(const char* MAPNAME);
 		void ground_Draw(sf::RenderWindow &window);
 		void object_Draw(sf::RenderWindow &window);
-		std::vector<sf::IntRect> getCollideRects(){return collideRects;};
+		std::vector<sf::FloatRect> getCollideRects(){return collideRects;};
 };
 
 #endif

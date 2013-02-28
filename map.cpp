@@ -60,9 +60,9 @@ void Map::load(const char* MAPNAME){
 	printf("%s\n", loadMapName.c_str());
 	loadMap = fopen(loadMapName.c_str(), "rt");
 	while(!feof(loadMap)){
-		fscanf(loadMap, "%d %d %d %d\n", &tmpData_left, &tmpData_width, &tmpData_top, &tmpData_height);
-		tmpRect.left = tmpData_left;tmpRect.width = tmpData_width;tmpRect.top = tmpData_top;tmpRect.height = tmpData_height;
-		collideRects.push_back(tmpRect);
+		fscanf(loadMap, "%f %f %f %f\n", &float_tmpData_left, &float_tmpData_width, &float_tmpData_top, &float_tmpData_height);
+		tmpCollideRect.left = float_tmpData_left;tmpCollideRect.width = float_tmpData_width;tmpCollideRect.top = float_tmpData_top;tmpCollideRect.height = float_tmpData_height;
+		collideRects.push_back(tmpCollideRect);
 	}
 	fclose(loadMap);
 }

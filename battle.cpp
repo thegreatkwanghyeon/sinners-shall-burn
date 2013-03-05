@@ -5,7 +5,7 @@ Battle::Battle(){
 	puzzle = new Puzzle();
 }
 
-void Battle::update(){
+void Battle::update(sf::Event &event){
 	puzzle->update();
 }
 

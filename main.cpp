@@ -29,7 +29,7 @@ int main(void){
 		}
 
 		window.clear();
-		sceneManager->update();
+		sceneManager->update(Event);
 		sceneManager->draw(window);
 		window.display();
 	}

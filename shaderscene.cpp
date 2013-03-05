@@ -13,7 +13,7 @@ ShaderScene::ShaderScene() : mousePosition(0.0f,0.0f){
 ShaderScene::~ShaderScene(){
 }
 
-void ShaderScene::update(){
+void ShaderScene::update(sf::Event &event){
 	shader.setParameter("center",sf::Vector2f(mousePosition));
 
 }

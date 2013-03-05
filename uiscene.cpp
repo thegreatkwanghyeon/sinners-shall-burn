@@ -28,7 +28,7 @@ UiScene::UiScene(){
 
 }
 
-void UiScene::update(){
+void UiScene::update(sf::Event &event){
 
 
 	button->update();

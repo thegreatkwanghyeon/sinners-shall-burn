@@ -15,7 +15,7 @@ class ShaderScene : public SceneBase{
 	public:
 		ShaderScene();
 		virtual ~ShaderScene();
-		virtual void update();
+		virtual void update(sf::Event &event);
 		virtual void draw(sf::RenderWindow &window);
 
 };

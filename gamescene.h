@@ -18,7 +18,7 @@ class GameScene : public SceneBase{
 	public:
 		GameScene();
 		~GameScene(){delete map; delete uiscene; delete player;}
-		void update();
+		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		
 };

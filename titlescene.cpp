@@ -10,7 +10,7 @@ TitleScene::TitleScene(){
 TitleScene::~TitleScene(){
 	
 }
-void TitleScene::update(){
+void TitleScene::update(sf::Event &event){
 }
 
 void TitleScene::draw(sf::RenderWindow &window){

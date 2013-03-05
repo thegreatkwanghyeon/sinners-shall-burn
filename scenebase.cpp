@@ -8,7 +8,7 @@ SceneBase::~SceneBase(){
 	
 }
 
-void SceneBase::update(){
+void SceneBase::update(sf::Event &event){
 
 }
 

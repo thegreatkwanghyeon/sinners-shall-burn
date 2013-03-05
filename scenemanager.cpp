@@ -13,8 +13,8 @@ void SceneManager::setScene(SceneBase *scene){
 	currentScene = scene;
 }
 
-void SceneManager::update(){
-	currentScene->update();
+void SceneManager::update(sf::Event &event){
+	currentScene->update(event);
 }
 
 void SceneManager::draw(sf::RenderWindow &window){

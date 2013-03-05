@@ -13,7 +13,7 @@ class Battle : public SceneBase{
 	public:
 		Battle();
 		~Battle(){delete puzzle;}
-		void update();
+		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		
 };

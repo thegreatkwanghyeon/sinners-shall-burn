@@ -11,7 +11,7 @@ class TitleScene : public SceneBase{
 	public:
 		TitleScene();
 		virtual ~TitleScene();
-		virtual void update();
+		virtual void update(sf::Event &event);
 		virtual void draw(sf::RenderWindow &window);
 
 };

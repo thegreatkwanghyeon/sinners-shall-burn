@@ -12,9 +12,9 @@ GameScene::GameScene(){
 
 }
 
-void GameScene::update(){
+void GameScene::update(sf::Event &event){
 	//character->update();
-	uiscene->update();
+	uiscene->update(event);
 	player->update(map->getCollideRects());
 }
 

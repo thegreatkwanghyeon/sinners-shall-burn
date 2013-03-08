@@ -22,7 +22,7 @@ class Dialog : public WindowEntity {
 	public:
 		Dialog(const char *_path);
 		virtual ~Dialog(){}
-		virtual void update();
+		virtual void update(sf::Event &event);
 		virtual void draw(sf::RenderWindow &window);
 
 		void setScript(sf::String _script);

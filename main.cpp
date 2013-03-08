@@ -14,20 +14,20 @@ int main(void){
 			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 				window.close();
 			}
+		
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+					sceneManager->setScene(new TitleScene());
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+					sceneManager->setScene(new GameScene());
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
+				sceneManager->setScene(new ShaderScene());
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
+					sceneManager->setScene(new Battle());
+			}	
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
-				sceneManager->setScene(new TitleScene());
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
-				sceneManager->setScene(new GameScene());
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
-			sceneManager->setScene(new ShaderScene());
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
-				sceneManager->setScene(new Battle());
-		}
-
 		window.clear();
 		sceneManager->update(Event);
 		sceneManager->draw(window);

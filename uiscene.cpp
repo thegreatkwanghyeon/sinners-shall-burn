@@ -51,7 +51,7 @@ void UiScene::update(sf::Event &event){
 
 	tooltip->update();
 
-	dialog->update();
+	dialog->update(event);
 
 }
 

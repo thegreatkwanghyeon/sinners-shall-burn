@@ -61,7 +61,7 @@ std::wstring Dialog::getEntireDescription (std::wstring _description){ //최종적�
 }
 
 
-void Dialog::update(){
+void Dialog::update(sf::Event &event){
 	WindowEntity::setWindowSize(windowWidth-((float)individualTextureHeight*2),150);
 	WindowEntity::setPosition(sf::Vector2f(0.0f,(float)windowHeight));
 	script.setPosition(individualTextureWidth,windowHeight - dialogHeight - individualTextureHeight*1.5);
@@ -74,7 +74,7 @@ void Dialog::update(){
 		currentScriptCursor++;
 	//아직 글자가 전부 로딩이 안됐을경우, 계속 로딩시킨다.
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+	if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Return)){
 		printf("%d < %d\n",currentScriptNumber, wStrScripts.size());
 		if(currentScriptCursor<wStrScripts[currentScriptNumber].size()){
 			currentScriptCursor = wStrScripts[currentScriptNumber].size();

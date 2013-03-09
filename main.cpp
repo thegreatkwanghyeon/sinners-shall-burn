@@ -10,6 +10,8 @@ int main(void){
 	while(window.isOpen()){
 		sf::Event Event;
 
+		
+
 		while (window.pollEvent(Event)){
 			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 				window.close();
@@ -27,7 +29,10 @@ int main(void){
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
 					sceneManager->setScene(new Battle());
 			}	
+			sceneManager->update(Event);
+			
 		}
+		
 		window.clear();
 		sceneManager->update(Event);
 		sceneManager->draw(window);

@@ -7,7 +7,7 @@ GameScene::GameScene(){
 	map->initialize();
 	map->load("test");
 	uiscene = new UiScene();
-	player = new Player("img/male_walkcycle.png", sf::Vector2i(80.0f, 90.0f));
+	player = new Player("img/male_walkcycle.png", sf::Vector2i(100.0f, 120.0f));
 
 
 }

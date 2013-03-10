@@ -9,8 +9,18 @@ Entity::Entity(const char *_path , sf::Vector2i _position) : currentDirection(Up
 	animation->setTileRange(sf::Vector2i(2,1),8);
 }
 
-void Entity::move(sf::Vector2i _direction){
+void Entity::move(sf::Vector2f _direction){
 	sprite.move(_direction.x*SPEED*deltaTime.asSeconds(),_direction.y*SPEED*deltaTime.asSeconds());
+}
+
+bool Entity::isCollision(sf::Vector2f _direction, std::vector<sf::FloatRect> collideRects){
+	collisionCheckSprite = sprite;
+	collisionCheckSprite.move(_direction.x*SPEED*deltaTime.asSeconds(),_direction.y*SPEED*deltaTime.asSeconds());
+	for(int i=0;i<collideRects.size();i++){
+		if(collisionCheckSprite.getGlobalBounds().intersects(collideRects[i]))
+			return false;
+	}
+	return true;
 }
 
 void Entity::setDirection(int _direction){

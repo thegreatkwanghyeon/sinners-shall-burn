@@ -35,6 +35,7 @@ class Map{
 		std::vector<sf::Texture> groundTextures;
 		std::vector<sf::Texture> objectTextures;
 		std::vector<sf::FloatRect> collideRects;
+		std::vector<sf::FloatRect> depthRects;
 
 		FILE* loadMap;
 		std::string loadMapName;
@@ -47,6 +48,7 @@ class Map{
 		void load(const char* MAPNAME);
 		void ground_Draw(sf::RenderWindow &window);
 		void object_Draw(sf::RenderWindow &window);
+		bool isDepth(sf::Sprite sprite);
 		std::vector<sf::FloatRect> getCollideRects(){return collideRects;};
 };
 

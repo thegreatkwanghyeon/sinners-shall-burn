@@ -65,8 +65,28 @@ void Map::load(const char* MAPNAME){
 		collideRects.push_back(tmpCollideRect);
 	}
 	fclose(loadMap);
+
+	loadMapName = MAPNAME;
+	loadMapName.insert(loadMapName.size(), ".dep");
+	printf("%s\n", loadMapName.c_str());
+	loadMap = fopen(loadMapName.c_str(), "rt");
+	while(!feof(loadMap)){
+		fscanf(loadMap, "%f %f %f %f\n", &float_tmpData_left, &float_tmpData_width, &float_tmpData_top, &float_tmpData_height);
+		tmpCollideRect.left = float_tmpData_left;tmpCollideRect.width = float_tmpData_width;tmpCollideRect.top = float_tmpData_top;tmpCollideRect.height = float_tmpData_height;
+		depthRects.push_back(tmpCollideRect);
+		printf("%f\n", depthRects[0].left);
+	}
+	fclose(loadMap);
 }
 	
+bool Map::isDepth(sf::Sprite sprite){
+	for(int i=0;i<depthRects.size();i++){
+		if(sprite.getGlobalBounds().intersects(depthRects[i]))
+			return false;
+	}
+	return true;
+}
+
 
 void Map::ground_Draw(sf::RenderWindow &window){
 	for(int i=0;i<groundSprites.size();i++){

@@ -21,8 +21,11 @@ void GameScene::update(sf::Event &event){
 void GameScene::draw(sf::RenderWindow &window){
 	map->ground_Draw(window);
 	//character->draw(window);
-	player->draw(window);
+	if(map->isDepth(player->getSprite()))
+		player->draw(window);
 	map->object_Draw(window);
+	if(!map->isDepth(player->getSprite()))
+		player->draw(window);
 	uiscene->draw(window);
 	
 

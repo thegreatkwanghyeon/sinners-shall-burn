@@ -9,6 +9,7 @@ Player::Player(const char *_path , sf::Vector2i _position) : Entity(_path, _posi
 	txtStats.setString(MTW(pElement->GetText()));
 	txtStats.setColor(sf::Color(0,0,0,255));
 	txtStats.setPosition(350.0f,50.0f);
+	Entity::setCollisionBoxMargin(40,20,0,20);
 }
 
 void Player::update(std::vector<sf::FloatRect> collideRects){

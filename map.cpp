@@ -81,7 +81,7 @@ void Map::load(const char* MAPNAME){
 	
 bool Map::isDepth(sf::Sprite sprite){
 	for(int i=0;i<depthRects.size();i++){
-		if(sprite.getGlobalBounds().intersects(depthRects[i]))
+		if(sprite.getGlobalBounds().intersects(depthRects[i]) && sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > depthRects[i].top + depthRects[i].height)
 			return false;
 	}
 	return true;

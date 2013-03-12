@@ -92,7 +92,7 @@ void Puzzle::update(){
 	}
 	if(change == true){
 		limit1+=deltaTime.asSeconds();
-		if(limit1 >= 10.0){
+		if(limit1 >= 2.0){
 			limit1=0;
 			change = false;
 			makePuzzle();
@@ -127,7 +127,7 @@ void Puzzle::update(){
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
-
+			/*
 			if((mousePosition.y >= PStartY+(i*PBlockSize) && mousePosition.y <= PStartY+((i+1)*PBlockSize)) && 
 				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//마우스가 범위 내에 있을때.
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && data[i][j]->is_click == false){
@@ -136,6 +136,56 @@ void Puzzle::update(){
 
 					clickStack[clickN].x=j;
 					clickStack[clickN++].y=i;
+				}else if(!(sf::Mouse::isButtonPressed(sf::Mouse::Left)) && clickN != 0){//키를 손에서 떼었을때.
+					if(clickN == 2){//두곳을 거쳤을 때.
+
+						tp = data[clickStack[0].y][clickStack[0].x]->num;
+						data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
+						data[clickStack[1].y][clickStack[1].x]->num = tp;
+
+						if(checkPuzzle() == 0){//헛손질시
+							tp = data[clickStack[0].y][clickStack[0].x]->num;
+							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
+							data[clickStack[1].y][clickStack[1].x]->num = tp;
+						}
+					}
+					while(1){
+						clickN--;
+						data[clickStack[clickN].y][clickStack[clickN].x]->is_click=false;
+						data[clickStack[clickN].y][clickStack[clickN].x]->init_animation();
+						if(clickN <= 0)
+							break;
+					}
+				}
+			}*/
+			if((mousePosition.y >= PStartY+(i*PBlockSize) && mousePosition.y <= PStartY+((i+1)*PBlockSize)) && 
+				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//마우스가 범위 내에 있을때.
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && data[i][j]->is_click == false){
+					if(clickN == 2){//두곳을 거쳤을 때.
+
+						tp = data[clickStack[0].y][clickStack[0].x]->num;
+						data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
+						data[clickStack[1].y][clickStack[1].x]->num = tp;
+
+						if(checkPuzzle() == 0){//헛손질시
+							tp = data[clickStack[0].y][clickStack[0].x]->num;
+							data[clickStack[0].y][clickStack[0].x]->num = data[clickStack[1].y][clickStack[1].x]->num;
+							data[clickStack[1].y][clickStack[1].x]->num = tp;
+						}
+						while(1){
+							clickN--;
+							data[clickStack[clickN].y][clickStack[clickN].x]->is_click=false;
+							data[clickStack[clickN].y][clickStack[clickN].x]->init_animation();
+							if(clickN <= 0)
+								break;
+						}
+					}else{
+						data[i][j]->is_click = true;
+						data[i][j]->init_animation();
+
+						clickStack[clickN].x=j;
+						clickStack[clickN++].y=i;
+					}
 				}else if(!(sf::Mouse::isButtonPressed(sf::Mouse::Left)) && clickN != 0){//키를 손에서 떼었을때.
 					if(clickN == 2){//두곳을 거쳤을 때.
 

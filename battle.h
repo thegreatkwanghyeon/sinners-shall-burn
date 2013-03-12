@@ -29,11 +29,13 @@ class Battle : public SceneBase{
 
 		Monster list[100];
 
+		int code;
+
 		//Character *character;
 		Puzzle *puzzle;
 
 	public:
-		Battle();
+		Battle(int Code);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);

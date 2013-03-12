@@ -74,7 +74,6 @@ void Map::load(const char* MAPNAME){
 		fscanf(loadMap, "%f %f %f %f\n", &float_tmpData_left, &float_tmpData_width, &float_tmpData_top, &float_tmpData_height);
 		tmpCollideRect.left = float_tmpData_left;tmpCollideRect.width = float_tmpData_width;tmpCollideRect.top = float_tmpData_top;tmpCollideRect.height = float_tmpData_height;
 		depthRects.push_back(tmpCollideRect);
-		printf("%f\n", depthRects[0].left);
 	}
 	fclose(loadMap);
 }

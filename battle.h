@@ -38,6 +38,7 @@ class Battle : public SceneBase{
 		Battle(int Code);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
+		int GetResult();
 		void draw(sf::RenderWindow &window);
 		
 };

@@ -6,6 +6,9 @@
 #include "uiscene.h"
 #include "player.h"
 
+#include "button.h"
+#include "battle.h"
+
 
 
 class GameScene : public SceneBase{
@@ -14,6 +17,10 @@ class GameScene : public SceneBase{
 		Map *map;
 		UiScene *uiscene;
 		Entity *player;
+
+		Button *button;
+		Battle *battle;
+		bool flag;
 
 	public:
 		GameScene();

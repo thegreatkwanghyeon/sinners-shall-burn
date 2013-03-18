@@ -215,6 +215,7 @@ void Puzzle::update(){
 		stack[i]->update();
 	checkPuzzleMore();
 
+	button->update();
 	if(button->checkMouseClick()){
 		hint=true;
 	}

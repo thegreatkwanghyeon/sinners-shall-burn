@@ -36,6 +36,13 @@ Battle::Battle(int Code){
 void Battle::update(sf::Event &event){
 	puzzle->update();
 }
+int Battle::GetResult(){
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		return -1;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+		return 1;
+	return 0;
+}
 
 void Battle::draw(sf::RenderWindow &window){
 	puzzle->draw(window);

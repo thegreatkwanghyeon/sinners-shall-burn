@@ -38,7 +38,7 @@ void GameScene::update(sf::Event &event){
 	}
 
 	button->update();
-	if(button->checkMouseClick()){
+	if(button->checkMouseClick() && flag == false){
 		flag=true;
 		battle=new Battle(1);
 	}

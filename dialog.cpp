@@ -4,6 +4,7 @@ Dialog::Dialog(const char *_path) : WindowEntity(_path){
 	dialogHeight = 150;
 	currentScriptCursor = 0;
 	currentScriptNumber = 0;
+
 	font.loadFromFile("font/spike.ttf");
 	windowWidth = 800;
 
@@ -56,8 +57,16 @@ std::wstring Dialog::getEntireDescription (std::wstring _description){ //최종적�
 		entireDescription += (*iter + L" ");
 	}
 
-
 	return entireDescription;
+}
+
+void Dialog::setRealScript(const char *_path, unsigned int _code){
+	TiXmlDocument xmlScript;
+	xmlScript.LoadFile(_path);
+
+	TiXmlElement *pElement = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
+	//wStrScripts.push_back(getEntireDescription(MTW(pNode->ToElement()->GetText())));
+
 }
 
 

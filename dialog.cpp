@@ -64,8 +64,8 @@ void Dialog::setRealScript(const char *_path, unsigned int _code){
 	TiXmlDocument xmlScript;
 	xmlScript.LoadFile(_path);
 
-	TiXmlElement *pElement = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
-	//wStrScripts.push_back(getEntireDescription(MTW(pNode->ToElement()->GetText())));
+	TiXmlElement *pNode = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
+	wStrScripts.push_back(getEntireDescription(MTW(pNode->ToElement()->GetText())));
 
 }
 

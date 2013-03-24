@@ -14,9 +14,12 @@ class Dialog : public WindowEntity {
 		unsigned int currentScriptNumber;
 
 		sf::Text script;
+		sf::Text name;
 		sf::Font font;
 		std::wstring wStrScript;
+		std::wstring wstrName;
 		std::vector<std::wstring> wStrScripts;
+		std::vector<std::wstring> wStrNames;
 
 
 		std::wstring Dialog::getEntireDescription (std::wstring _description);

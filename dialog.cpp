@@ -11,6 +11,10 @@ Dialog::Dialog(const char *_path) : WindowEntity(_path){
 	script.setFont(font);
 	script.setColor(sf::Color(200,200,200,255));
 	script.setCharacterSize(19);
+
+	name.setFont(font);
+	name.setColor(sf::Color(255,255,255,255));
+	name.setCharacterSize(24);
 }
 
 void Dialog::setScript(sf::String _script){
@@ -63,9 +67,23 @@ std::wstring Dialog::getEntireDescription (std::wstring _description){ //최종적�
 void Dialog::setRealScript(const char *_path, unsigned int _code){
 	TiXmlDocument xmlScript;
 	xmlScript.LoadFile(_path);
+	TiXmlElement *scriptNode = xmlScript.FirstChildElement("script");
+	TiXmlElement *dialogNode = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
 
-	TiXmlElement *pNode = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
-	wStrScripts.push_back(getEntireDescription(MTW(pNode->ToElement()->GetText())));
+	for(; scriptNode; scriptNode = scriptNode->NextSiblingElement()){
+		int _tmpCode;
+		scriptNode->Attribute("code",&_tmpCode) ;
+		if(_tmpCode== _code)
+			break;
+	}
+
+	dialogNode = scriptNode->FirstChildElement("dialog");
+	
+
+	for(; dialogNode; dialogNode = dialogNode->NextSiblingElement()){
+		wStrScripts.push_back(getEntireDescription(MTW(dialogNode->ToElement()->GetText())));
+		wStrNames.push_back(MTW(dialogNode->Attribute("name")));
+	}
 
 }
 
@@ -73,11 +91,14 @@ void Dialog::setRealScript(const char *_path, unsigned int _code){
 void Dialog::update(sf::Event &event){
 	WindowEntity::setWindowSize(windowWidth-((float)individualTextureHeight*2),150);
 	WindowEntity::setPosition(sf::Vector2f(0.0f,(float)windowHeight));
-	script.setPosition(individualTextureWidth,windowHeight - dialogHeight - individualTextureHeight*1.5);
+	
+	name.setPosition(individualTextureWidth,windowHeight - dialogHeight - individualTextureHeight*1.5);
+	script.setPosition(individualTextureWidth,windowHeight - dialogHeight - individualTextureHeight*1.5 + name.getLocalBounds().height + 10);
 	WindowEntity::update();
 
 
 	script.setString(wStrScripts[currentScriptNumber].substr(0,currentScriptCursor));
+	name.setString(wStrNames[currentScriptNumber]);
 
 	if(currentScriptCursor<wStrScripts[currentScriptNumber].size())
 		currentScriptCursor++;
@@ -101,4 +122,5 @@ void Dialog::draw(sf::RenderWindow &window){
 	windowHeight = window.getSize().y;
 	WindowEntity::draw(window);
 	window.draw(script);
+	window.draw(name);
 }

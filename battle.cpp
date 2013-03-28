@@ -1,10 +1,11 @@
 #include "battle.h"
 #include <string.h>
 
-Battle::Battle(int Code){
+Battle::Battle(int Code, Player* player){
 	int i;
 	int tp;
 	puzzle = new Puzzle();
+	puzzle->setElement(player->useElement);
 
 	stats.LoadFile("xmls/Monster.xml");
 	font.loadFromFile("font/spike.ttf");

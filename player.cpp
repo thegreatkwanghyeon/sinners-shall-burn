@@ -10,6 +10,11 @@ Player::Player(const char *_path , sf::Vector2i _position) : Entity(_path, _posi
 	txtStats.setColor(sf::Color(0,0,0,255));
 	txtStats.setPosition(350.0f,50.0f);
 	Entity::setCollisionBoxMargin(40,20,10,20);
+
+	for(int i=0;i<7;i++){//기본 원소
+		element[i]=1;
+		useElement[i]=i;
+	}
 }
 
 void Player::update(std::vector<sf::FloatRect> collideRects){

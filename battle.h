@@ -5,7 +5,7 @@
 #include "tinyxml.h"
 #include "puzzle.h"
 #include "global.h"
-//#include "player.h"
+#include "player.h"
 
 enum Stat{
 	hp,//Ã¼·Â 
@@ -35,7 +35,7 @@ class Battle : public SceneBase{
 		Puzzle *puzzle;
 
 	public:
-		Battle(int Code);
+		Battle(int Code, Player* p);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int GetResult();

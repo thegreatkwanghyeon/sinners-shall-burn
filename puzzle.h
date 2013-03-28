@@ -23,8 +23,8 @@ class Puzzle{
 		sf::Vector2i  mousePosition;
 		sf::Vector2i temp;
 
-		sf::Sprite    sprite;
-		sf::Texture   texture;
+		sf::Sprite   sprite;
+		sf::Texture  texture;
 
 		sf::Clock eTime;
 		sf::Time deltaTime;
@@ -42,6 +42,8 @@ class Puzzle{
 		int tempNum;
 		int breakStack[PuzzleSize];
 		int chkBreak[PuzzleSize][PuzzleSize];
+
+		int PuzzleElement[PuzzleKind+1];
 
 		TileSet *tileset;
 		Button *button;
@@ -62,6 +64,7 @@ class Puzzle{
 		void makePuzzle();
 		void movePuzzle();
 		void checkPuzzleMore();//더 터질게 있나? 걍 그런거
+		void setElement(int Element[]);
 
 //---스택
 		PData *stack[StackSize];

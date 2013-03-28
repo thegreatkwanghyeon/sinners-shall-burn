@@ -29,7 +29,7 @@ Puzzle::Puzzle(){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));
 		}
 	}
-	makePuzzle();
+	//makePuzzle();
 	
 	for(i=0;i<StackSize;i++){
 		stack[i]=new PData(PStartX+(PBlockSize*PuzzleSize)+20,((StackSize-1)-i)*50+PStartY);
@@ -539,8 +539,15 @@ void Puzzle::makePuzzle(){
 
 				break;
 			}
-			data[i][j]->num=rd%PuzzleKind;
+			data[i][j]->num=PuzzleElement[rd%PuzzleKind];
 			data[i][j]->init_animation();
 		}
 	}
+}
+void Puzzle::setElement(int Element[]){
+	int i;
+	for(i=0;i<PuzzleKind;i++){
+		PuzzleElement[i] = Element[i];
+	}
+	makePuzzle();
 }

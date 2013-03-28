@@ -16,7 +16,7 @@ class GameScene : public SceneBase{
 		//Character *character;
 		Map *map;
 		UiScene *uiscene;
-		Entity *player;
+		Player *player;
 
 		Button *button;
 		Battle *battle;

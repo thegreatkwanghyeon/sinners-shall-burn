@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <script code="1">
-	<dialog name="김덕배">미안하지만 난 자네와 대화 할 시간이 없다네</dialog>
-	<dialog name="김덕배">왜냐면 난 기능반이거든</dialog>
+  <dialog name="김덕배">미안하지만 난 자네와 대화 할 시간이 없다네</dialog>
+  <dialog name="김덕배">왜냐면 난 기능반이거든</dialog>
 </script>
 <script code="2">
-	<dialog name="권덕배">내 맥북어디갔다냐</dialog>
-	<dialog name="진덕배">어이 권덕배 니 맥북 여기있다...랄까</dialog>
+  <dialog name="권덕배">내 맥북 어디갔다냐</dialog>
+  <dialog name="진덕배">어이 권덕배 니 맥북 여기있다...랄까</dialog>
 </script>

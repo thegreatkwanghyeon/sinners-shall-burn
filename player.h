@@ -21,6 +21,7 @@ class Player : public Entity {
 			accuracy,//명중율
 		};
 		int status[7];//한칸은 여유분
+		int element[30],useElement[10];
 		Player(const char *_path , sf::Vector2i _position);
 		virtual ~Player(){}
 

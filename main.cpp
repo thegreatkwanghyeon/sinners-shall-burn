@@ -25,7 +25,7 @@ int main(void){
 				sceneManager->setScene(new ShaderScene());
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
-					sceneManager->setScene(new Battle(2));
+					//sceneManager->setScene(new Battle(2));
 			}	
 		sceneManager->update(Event);
 		}

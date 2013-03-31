@@ -39,6 +39,7 @@ Puzzle::Puzzle(){
 	clickN=0;
 	stackNum=0;
 	comboNum=0;
+	hitNum=0;
 
 	flag=false;
 	change=false;
@@ -520,6 +521,8 @@ void Puzzle::stackInput(int num){
 	}
 	for(i=0;i<StackSize;i++)
 		stack[i]->init_animation();
+
+	hitNum++;
 }
 
 void Puzzle::makePuzzle(){

@@ -58,6 +58,7 @@ class Puzzle{
 
 		PData *data[PuzzleSize+1][PuzzleSize+1];
 		int clickN;
+		int hitNum;
 		sf::Vector2i clickStack[PuzzleSize*PuzzleSize+1];
 
 		int checkPuzzle();

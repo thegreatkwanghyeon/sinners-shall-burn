@@ -21,15 +21,27 @@ struct Monster{
 	//char name[100];
 	int status[7];//한칸은 여유분
 };
+struct Skill{
+	sf::Text name;
+	sf::Text intro;
+	sf::Text effect;
+	int need[30];
+	int damage;
+	int heal, poison;
+	int Estat[30],Pstat[30];
+	int code;
+};
 
 class Battle : public SceneBase{
 	private:
 		TiXmlDocument stats;
 		sf::Font font;
 
-		Monster list[100];
+		Monster monster;
+		Skill skill[100];
 
 		int code;
+		int check[100];
 
 		//Character *character;
 		Puzzle *puzzle;
@@ -39,8 +51,9 @@ class Battle : public SceneBase{
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int GetResult();
-		void draw(sf::RenderWindow &window);
-		
+		void translate(int num, int m[]);
+		void draw(sf::RenderWindow &window);		
+		int skillNum;
 };
 
 #endif

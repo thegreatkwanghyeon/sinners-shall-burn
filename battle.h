@@ -7,6 +7,8 @@
 #include "global.h"
 #include "player.h"
 
+#define StackNum 5
+
 enum Stat{
 	hp,//체력 
 	attack,//공격력
@@ -25,11 +27,13 @@ struct Skill{
 	sf::Text name;
 	sf::Text intro;
 	sf::Text effect;
-	int need[30];
+	int need[30],needCode;
 	int damage;
 	int heal, poison;
 	int Estat[30],Pstat[30];
 	int code;
+
+	bool use;
 };
 
 class Battle : public SceneBase{
@@ -52,6 +56,7 @@ class Battle : public SceneBase{
 		void update(sf::Event &event);
 		int GetResult();
 		void translate(int num, int m[]);
+		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);		
 		int skillNum;
 };

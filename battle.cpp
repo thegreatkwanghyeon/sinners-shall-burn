@@ -57,8 +57,9 @@ Battle::Battle(int Code, Player* player){
 			skill[i].Estat[j]=0;
 			skill[i].Pstat[j]=0;
 		}
+		skill[i].use=false;
 		pNode->ToElement()->Attribute("code",&skill[i].code);
-		printf("%d\n",skill[i].code);
+		//printf("%d\n",skill[i].code);
 
 		skill[i].name.setString(MTW(pNode->ToElement()->Attribute("name")));
 		skill[i].intro.setString(MTW(pNode->ToElement()->Attribute("intro")));
@@ -71,24 +72,44 @@ Battle::Battle(int Code, Player* player){
 		translate(tp,skill[i].Estat);
 		pNode->ToElement()->Attribute("Pstat",&tp);
 		translate(tp,skill[i].Pstat);
-		pNode->ToElement()->Attribute("need",&tp);
-		translate(tp,skill[i].need);
+		pNode->ToElement()->Attribute("need",&skill[i].needCode);
+		translate(skill[i].needCode,skill[i].need);
 		
 		if(pNode->NextSibling() == NULL)
 			break;
 		pNode = pNode->NextSibling();
 	}
-	skillNum=i;
-	for(i=0;i<=skillNum;i++){
-		printf("F : %d W : %d\n",skill[i].need[0],skill[i].need[1]);
-	}
+	skillNum=i+1;
 }
 
 void Battle::update(sf::Event &event){
+	int i,j,k;
+	int temp;//코드값 임시 저장소
+
+	for(i=0;i<skillNum;i++)
+		skill[i].use = false;
+
 	puzzle->update();
 	/*if(puzzle->hitNum > 5){
 		printf("적의 턴...퍼즐 시간 초과");
 	}*/
+
+	for(i=1;i<=StackNum;i++){
+		for(j=0;j+i<StackNum;j++){
+			temp = makeCode(j,j+i);
+			for(k=0;k<skillNum;k++){
+				if(temp == skill[k].needCode){
+					skill[k].use = true;
+					break;
+				}
+			}
+		}
+	}
+
+	for(i=0;i<skillNum;i++){
+		if(skill[i].use == true)
+			printf("No.%d\n",i);
+	}
 
 	//사용가능 스킬 검사
 	//스킬 사용. 데미지 계산
@@ -135,4 +156,14 @@ void Battle::translate(int num, int m[]){
 		if(num <= 1)
 			break;
 	}
+}
+int Battle::makeCode(int s, int e){
+	int i,re=1;
+
+	if(e >= StackNum)
+		return -1;
+	for(i=s;i<e;i++){
+		re *= check[puzzle->stack[i]->num];
+	}
+	return re;
 }

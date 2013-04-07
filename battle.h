@@ -6,6 +6,7 @@
 #include "puzzle.h"
 #include "global.h"
 #include "player.h"
+#include "skill.h"
 
 #define StackNum 5
 
@@ -23,18 +24,6 @@ struct Monster{
 	//char name[100];
 	int status[7];//한칸은 여유분
 };
-struct Skill{
-	sf::Text name;
-	sf::Text intro;
-	sf::Text effect;
-	int need[30],needCode;
-	int damage;
-	int heal, poison;
-	int Estat[30],Pstat[30];
-	int code;
-
-	bool use;
-};
 
 class Battle : public SceneBase{
 	private:
@@ -42,10 +31,9 @@ class Battle : public SceneBase{
 		sf::Font font;
 
 		Monster monster;
-		Skill skill[100];
+		Skill *skill;
 
 		int code;
-		int check[100];
 
 		//Character *character;
 		Puzzle *puzzle;
@@ -55,10 +43,8 @@ class Battle : public SceneBase{
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int GetResult();
-		void translate(int num, int m[]);
 		int makeCode(int s, int e);
-		void draw(sf::RenderWindow &window);		
-		int skillNum;
+		void draw(sf::RenderWindow &window);
 };
 
 #endif

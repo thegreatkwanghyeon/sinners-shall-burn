@@ -2,25 +2,18 @@
 #include <string.h>
 
 Battle::Battle(int Code, Player* player){
-	int i,j;
+	int i;
 	int tp;
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
+
+	skill = player->skill;
 
 	stats.LoadFile("xmls/Monster.xml");
 	font.loadFromFile("font/spike.ttf");
 	TiXmlNode *pNode = stats.FirstChildElement("Monster")->FirstChildElement("Enemy");
 
-	check[0]=2;
-	tp=1;
-	for(i=3;i<100;i+=2){
-		for(j=3;j<=sqrt(i);j+=2){
-			if(i%j == 0)
-				break;
-		}
-		if(j > sqrt(i))
-			check[tp++]=i;
-	}
+	
 
 	for(i=0;;i++){
 		pNode->ToElement()->Attribute("code",&tp);
@@ -47,7 +40,7 @@ Battle::Battle(int Code, Player* player){
 		
 		pNode = pNode->NextSibling();
 	}
-
+	/*
 	stats.LoadFile("xmls/skill.xml");
 	pNode = stats.FirstChildElement("List")->FirstChildElement("skill");
 
@@ -79,15 +72,15 @@ Battle::Battle(int Code, Player* player){
 			break;
 		pNode = pNode->NextSibling();
 	}
-	skillNum=i+1;
+	skillNum=i+1;*/
 }
 
 void Battle::update(sf::Event &event){
 	int i,j,k;
 	int temp;//코드값 임시 저장소
 
-	for(i=0;i<skillNum;i++)
-		skill[i].use = false;
+	for(i=0;i<skill->skillNum;i++)
+		skill->data[i].use = false;
 
 	puzzle->update();
 	/*if(puzzle->hitNum > 5){
@@ -97,18 +90,18 @@ void Battle::update(sf::Event &event){
 	for(i=1;i<=StackNum;i++){
 		for(j=0;j+i<StackNum;j++){
 			temp = makeCode(j,j+i);
-			for(k=0;k<skillNum;k++){
-				if(temp == skill[k].needCode){
-					skill[k].use = true;
+			for(k=0;k<skill->skillNum;k++){
+				if(temp == skill->data[k].needCode){
+					skill->data[k].use = true;
 					break;
 				}
 			}
 		}
 	}
 
-	for(i=0;i<skillNum;i++){
-		if(skill[i].use == true)
-			printf("No.%d\n",i);
+	for(i=0;i<skill->skillNum;i++){
+		//if(skill->data[i].use == true)
+			//printf("No.%d\n",i);
 	}
 
 	//사용가능 스킬 검사
@@ -130,40 +123,13 @@ void Battle::draw(sf::RenderWindow &window){
 	puzzle->draw(window);
 	window.draw(monster.name);
 }
-void Battle::translate(int num, int m[]){
-	int i;
-	bool flag=false;
-
-	printf("num : %d\n",num);
-
-	if(num == 0)
-		return;
-	if(num < 0){
-		flag = true;
-		num*=-1;
-	}
-
-	while(1){
-		for(i=0;;i++){
-			if(num%check[i] == 0)
-				break;
-		}
-		num /= check[i];
-		if(flag == true)
-			m[i]--;
-		else
-			m[i]++;
-		if(num <= 1)
-			break;
-	}
-}
 int Battle::makeCode(int s, int e){
 	int i,re=1;
 
 	if(e >= StackNum)
 		return -1;
 	for(i=s;i<e;i++){
-		re *= check[puzzle->stack[i]->num];
+		re *= skill->check[puzzle->stack[i]->num];
 	}
 	return re;
 }

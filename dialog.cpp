@@ -105,7 +105,6 @@ void Dialog::update(sf::Event &event){
 	//아직 글자가 전부 로딩이 안됐을경우, 계속 로딩시킨다.
 
 	if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Return)){
-		printf("%d < %d\n",currentScriptNumber, wStrScripts.size());
 		if(currentScriptCursor<wStrScripts[currentScriptNumber].size()){
 			currentScriptCursor = wStrScripts[currentScriptNumber].size();
 		} //아직 글자가 전부 로딩이 안됐을경우, 한번에 다 로딩시킨다.

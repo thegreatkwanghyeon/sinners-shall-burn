@@ -38,7 +38,7 @@ void Button::setHotkey(sf::Keyboard::Key _hotkey){
 	hotkey = _hotkey;
 }
 
-void Button::update(){
+void Button::update(sf::Event &event){
 	if(!isButtonEnable){ 
 		sprite.setTextureRect(tileset->getTileSet(DisableState));
 	}else if(isMouseOver(mousePosition) && isButtonEnable){
@@ -61,7 +61,7 @@ void Button::draw(sf::RenderWindow &window){
 }
 
 
-bool Button::checkMouseClick(){
+bool Button::checkMouseClick(sf::Event &event){
 	/*
 		if 조건 설명 :
 
@@ -69,11 +69,19 @@ bool Button::checkMouseClick(){
 			1.isMouseOver(mousePosition) && isMouseClick() 가 TRUE 이거나 (마우스로 눌렀거나)
 			2.sf::Keyboard::isKeyPressed(hotkey) 가 TRUE 일때 (키보드로 눌렀을때)
 	*/
-	if(isButtonEnable && (((isMouseOver(mousePosition)) && isMouseClicked()) || sf::Keyboard::isKeyPressed(hotkey))){ 
+	if(isButtonEnable && (((isMouseOver(mousePosition)) && (event.type == sf::Event::MouseButtonPressed)) && (event.mouseButton.button == sf::Mouse::Left) || ((event.type == sf::Event::KeyPressed) && (event.key.code == hotkey)) )){ 
+		printf("콤프리또");
 		return true;
 	}else{
 		return false;
 	}
+}
+
+void Button::setSprite(sf::String _path){
+	texture.loadFromFile(_path);
+	texture = tileset->tileSet(_path, texture.getSize().x, (texture.getSize().y)/4);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(tileset->getTileSet(NormalState));
 }
 
 

@@ -36,14 +36,15 @@ class Button {
 	public:
 		Button(sf::String _path);
 		~Button(){delete tileset;}
-		void update();
+		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		void setPosition(float _x, float _y);
 		void setText (sf::String _name, unsigned int _size = 14);
 		void enableButton();
 		void disableButton();
-		bool checkMouseClick();
+		bool checkMouseClick(sf::Event &event);
 		void setHotkey(sf::Keyboard::Key _hotkey);
+		void setSprite(sf::String _path);
 
 };
 #endif

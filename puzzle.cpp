@@ -66,7 +66,7 @@ Puzzle::~Puzzle(){
 		delete stack[i];
 }
 
-void Puzzle::update(){
+void Puzzle::update(sf::Event &event){
 	int i,j,tp=0;
 
 	if(move == true){
@@ -216,8 +216,8 @@ void Puzzle::update(){
 		stack[i]->update();
 	checkPuzzleMore();
 
-	button->update();
-	if(button->checkMouseClick()){
+	button->update(event);
+	if(button->checkMouseClick(event)){
 		hint=true;
 	}
 }

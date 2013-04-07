@@ -51,7 +51,7 @@ class Puzzle{
 	public:
 		Puzzle();
 		~Puzzle();
-		void update();
+		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 
 		int tileSizeX, tileSizeY;

@@ -37,8 +37,8 @@ void GameScene::update(sf::Event &event){
 		player->update(map->getCollideRects());
 	}
 
-	button->update();
-	if(button->checkMouseClick() && flag == false){
+	button->update(event);
+	if(button->checkMouseClick(event) && flag == false){
 		flag=true;
 		battle=new Battle(1,player);
 	}

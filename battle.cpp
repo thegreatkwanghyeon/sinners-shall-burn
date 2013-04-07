@@ -89,7 +89,7 @@ void Battle::update(sf::Event &event){
 	for(i=0;i<skillNum;i++)
 		skill[i].use = false;
 
-	puzzle->update();
+	puzzle->update(event);
 	/*if(puzzle->hitNum > 5){
 		printf("적의 턴...퍼즐 시간 초과");
 	}*/

@@ -30,9 +30,9 @@ UiScene::UiScene(){
 void UiScene::update(sf::Event &event){
 
 
-	button->update();
-	button2->update();
-	if(button->checkMouseClick()){
+	button->update(event);
+	button2->update(event);
+	if(button->checkMouseClick(event)){
 		button2->enableButton();
 	}
 

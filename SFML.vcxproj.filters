@@ -72,6 +72,9 @@
     <ClCompile Include="dialog.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
+    <ClCompile Include="skill.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
@@ -138,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="dialog.h">
       <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="skill.h">
+      <Filter>contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

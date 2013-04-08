@@ -4,12 +4,10 @@
 #include "entity.h"
 #include "tinyxml.h"
 #include "global.h"
+#include "skill.h"
 
 class Player : public Entity {
 	private:
-		TiXmlDocument stats;
-		sf::Text txtStats;
-		sf::Font font;
 
 	public:
 		enum Stat{
@@ -23,10 +21,12 @@ class Player : public Entity {
 		int status[7];//한칸은 여유분
 		int element[30],useElement[10];
 		Player(const char *_path , sf::Vector2i _position);
-		virtual ~Player(){}
+		virtual ~Player(){delete skill;};
 
 		virtual void update(std::vector<sf::FloatRect> collideRects);
 		virtual void draw(sf::RenderWindow &window);
+
+		Skill *skill;
 };
 
 #endif

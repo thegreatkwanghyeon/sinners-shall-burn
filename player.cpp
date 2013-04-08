@@ -2,19 +2,19 @@
 
 
 Player::Player(const char *_path , sf::Vector2i _position) : Entity(_path, _position){
-	stats.LoadFile("xmls/text.xml");
-	TiXmlElement *pElement = stats.FirstChildElement("Enemy");
-	font.loadFromFile("font/spike.ttf");
-	txtStats.setFont(font);
-	txtStats.setString(MTW(pElement->GetText()));
-	txtStats.setColor(sf::Color(0,0,0,255));
-	txtStats.setPosition(350.0f,50.0f);
 	Entity::setCollisionBoxMargin(40,20,10,20);
+
+	skill = new Skill();
 
 	for(int i=0;i<7;i++){//기본 원소
 		element[i]=1;
 		useElement[i]=i;
 	}
+	skill->setHave(1);
+	skill->setHave(2);
+	skill->setHave(3);
+	skill->setHave(4);
+	skill->setHave(5);
 }
 
 void Player::update(std::vector<sf::FloatRect> collideRects){
@@ -46,5 +46,4 @@ void Player::update(std::vector<sf::FloatRect> collideRects){
 
 void Player::draw(sf::RenderWindow &window){
 	Entity::draw(window);
-	window.draw(txtStats);
 }

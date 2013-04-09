@@ -35,13 +35,14 @@ void GameScene::update(sf::Event &event){
 	}else{
 		uiscene->update(event);
 		player->update(map->getCollideRects());
+
+		button->update(event);
+		if(button->checkMouseClick(event) && flag == false){
+			flag=true;
+			battle=new Battle(1,player);
+		}
 	}
 
-	button->update(event);
-	if(button->checkMouseClick(event) && flag == false){
-		flag=true;
-		battle=new Battle(1,player);
-	}
 }
 
 void GameScene::draw(sf::RenderWindow &window){

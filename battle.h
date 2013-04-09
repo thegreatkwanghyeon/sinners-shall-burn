@@ -7,8 +7,10 @@
 #include "global.h"
 #include "player.h"
 #include "skill.h"
+#include "button.h"
 
 #define StackNum 5
+#define ViewSkill 5
 
 enum Stat{
 	hp,//Ã¼·Â 
@@ -32,8 +34,10 @@ class Battle : public SceneBase{
 
 		Monster monster;
 		Skill *skill;
+		Button *button[ViewSkill+1];
 
 		int code;
+		int canUseSkill[ViewSkill+1];
 
 		//Character *character;
 		Puzzle *puzzle;

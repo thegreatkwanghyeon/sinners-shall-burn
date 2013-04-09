@@ -32,7 +32,7 @@ Puzzle::Puzzle(){
 	//makePuzzle();
 	
 	for(i=0;i<StackSize;i++){
-		stack[i]=new PData(PStartX+(PBlockSize*PuzzleSize)+20,((StackSize-1)-i)*50+PStartY);
+		stack[i]=new PData(PStartX+(PBlockSize+PBlockSize/2)+(i*PBlockSize),PStartY-(PBlockSize+(PBlockSize/5)));
 		stack[i]->num=-1;
 		stack[i]->init_animation();
 	}

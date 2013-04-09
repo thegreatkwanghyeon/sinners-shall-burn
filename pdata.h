@@ -7,7 +7,7 @@
 
 #include "animation.h"
 
-#define PBlockSize 50
+#define PBlockSize 25
 
 class PData{//퍼즐 애니메이션 담당.
 	private:

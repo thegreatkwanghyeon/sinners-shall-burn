@@ -7,6 +7,13 @@ Battle::Battle(int Code, Player* player){
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
 
+	for(i=0;i<ViewSkill;i++){
+		canUseSkill[i]=0;
+		button[i] = new Button("img/button.png");
+		button[i]->setPosition(50,500+i*50);
+		//button->setText("HINT", 18);
+	}
+
 	skill = player->skill;
 
 	stats.LoadFile("xmls/Monster.xml");
@@ -78,9 +85,10 @@ Battle::Battle(int Code, Player* player){
 void Battle::update(sf::Event &event){
 	int i,j,k;
 	int temp;//코드값 임시 저장소
+	int useCnt=0;
 
-	for(i=0;i<skill->skillNum;i++)
-		skill->data[i].use = false;
+	//for(i=0;i<skill->skillNum;i++)
+	//	skill->data[i].use = false;
 
 	puzzle->update(event);
 	/*if(puzzle->hitNum > 5){
@@ -91,13 +99,21 @@ void Battle::update(sf::Event &event){
 		for(j=0;j+i<StackNum;j++){
 			temp = makeCode(j,j+i);
 			for(k=0;k<skill->skillNum;k++){
-				if(temp == skill->data[k].needCode){
-					skill->data[k].use = true;
+				if(temp == skill->data[k].needCode && useCnt < ViewSkill){
+					//skill->data[k].use = true;
+					canUseSkill[useCnt++]=skill->data[k].code;
 					break;
 				}
 			}
 		}
 	}
+	for(i=useCnt;i<ViewSkill;i++)
+		canUseSkill[i]=0;
+
+	for(i=0;i<ViewSkill;i++){
+		button[i]->update(event);
+	}
+
 
 	for(i=0;i<skill->skillNum;i++){
 		//if(skill->data[i].use == true)
@@ -120,8 +136,13 @@ int Battle::GetResult(){
 }
 
 void Battle::draw(sf::RenderWindow &window){
+	int i;
 	puzzle->draw(window);
 	window.draw(monster.name);
+
+	for(i=0;i<ViewSkill;i++){
+		button[i]->draw(window);
+	}
 }
 int Battle::makeCode(int s, int e){
 	int i,re=1;

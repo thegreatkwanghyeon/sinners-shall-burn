@@ -25,7 +25,7 @@ Skill::Skill(){
 			data[i].Estat[j]=0;
 			data[i].Pstat[j]=0;
 		}
-		data[i].use=false;
+		//data[i].use=false;
 		pNode->ToElement()->Attribute("code",&data[i].code);
 		//printf("%d\n",skill[i].code);
 

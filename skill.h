@@ -23,7 +23,7 @@ struct SkillData{
 	int acc;
 	int field;
 
-	bool use;
+	//bool use;
 	bool have;
 };
 

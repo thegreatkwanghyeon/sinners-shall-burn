@@ -13,9 +13,9 @@
 #define PuzzleKind 7
 #define StackSize 5
 //---
-#define PStartX 30
-#define PStartY 30
-#define PBlockSize 50//이거 pdata에도 있음...
+#define PStartX 200
+#define PStartY 320
+//#define PBlockSize 50//이거 pdata에도 있음...
 
 class Puzzle{
 	private:

@@ -12,6 +12,7 @@ class Dialog : public WindowEntity {
 		unsigned int dialogHeight;
 		unsigned int currentScriptCursor;
 		unsigned int currentScriptNumber;
+		bool visible;
 
 		sf::Text script;
 		sf::Text name;

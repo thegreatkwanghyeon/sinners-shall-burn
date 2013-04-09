@@ -1,6 +1,7 @@
 #include "dialog.h"
 
 Dialog::Dialog(const char *_path) : WindowEntity(_path){
+	visible = false;
 	dialogHeight = 150;
 	currentScriptCursor = 0;
 	currentScriptNumber = 0;
@@ -53,7 +54,7 @@ std::wstring Dialog::getEntireDescription (std::wstring _description){ //최종적�
 
 	for(; iter != iter_end; iter++){
 		tmpText.setString(*iter + L"  ");
-		currentLineWidth += (tmpText.getLocalBounds().width + 7);
+		currentLineWidth += (int)(tmpText.getLocalBounds().width + 7);
 		if(currentLineWidth > lineLimit){
 			entireDescription += L"\n";
 			currentLineWidth = 0;
@@ -69,6 +70,8 @@ void Dialog::setRealScript(const char *_path, unsigned int _code){
 	xmlScript.LoadFile(_path);
 	TiXmlElement *scriptNode = xmlScript.FirstChildElement("script");
 	TiXmlElement *dialogNode = xmlScript.FirstChildElement("script")->FirstChildElement("dialog");
+
+	visible = true;
 
 	for(; scriptNode; scriptNode = scriptNode->NextSiblingElement()){
 		int _tmpCode;
@@ -112,14 +115,18 @@ void Dialog::update(sf::Event &event){
 			currentScriptCursor = 0;
 			currentScriptNumber++;
 		} //글자가 전부 로딩 됐고, 현재 스크립트 번호가 마지막 스크립트 번호보다 작으면 다음 번호의 스크립트로
-		
+		else if(currentScriptNumber==wStrScripts.size()-1){
+			visible = false;
+		}
 	}
 }
 
 void Dialog::draw(sf::RenderWindow &window){
-	windowWidth = window.getSize().x;
-	windowHeight = window.getSize().y;
-	WindowEntity::draw(window);
-	window.draw(script);
-	window.draw(name);
+	if(visible){
+		windowWidth = window.getSize().x;
+		windowHeight = window.getSize().y;
+		WindowEntity::draw(window);
+		window.draw(script);
+		window.draw(name);
+	}
 }

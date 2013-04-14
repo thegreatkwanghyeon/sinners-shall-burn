@@ -19,7 +19,7 @@ Skill::Skill(){
 			check[tp++]=i;
 	}
 
-	for(i=0;;i++){
+	for(i=1;;i++){
 		for(j=0;j<30;j++){
 			data[i].need[j]=0;
 			data[i].Estat[j]=0;
@@ -48,6 +48,7 @@ Skill::Skill(){
 		translate(tp,data[i].Pstat);
 		pNode->ToElement()->Attribute("need",&data[i].needCode);
 		translate(data[i].needCode,data[i].need);
+		printf("code %d : %d %d %d\n",i,data[i].need[0],data[i].need[1],data[i].need[2]);
 		
 		if(pNode->NextSibling() == NULL)
 			break;

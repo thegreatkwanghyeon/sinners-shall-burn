@@ -7,18 +7,19 @@
 
 #define StackNum 5
 #define SkillMax 200
+#define ElementNum 15
 
 struct SkillData{
 	sf::Text name;
 	sf::Text intro;
 	sf::Text effect;
-	int need[30],needCode;
+	int need[ElementNum],needCode;
 	int damage;
 	int heal, poison;
 	int guard;
 	int distance;
 	int distanceACK;//입력받을때의 형식상 int로 했음.
-	int Estat[30],Pstat[30];
+	int Estat[ElementNum],Pstat[ElementNum];
 	int code;
 	int acc;
 	int field;

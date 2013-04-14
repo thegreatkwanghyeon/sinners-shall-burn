@@ -7,10 +7,17 @@ Battle::Battle(int Code, Player* player){
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
 
+	tileset = new TileSet();
+	texture.loadFromFile("img/skill2.png");
+	printf("???");
+	texture = tileset->tileSet("img/skill2.png",30,30);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(tileset->getTileSet(0));
+
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
-		button[i] = new Button("img/button.png");
-		button[i]->setPosition(50,500+i*50);
+		button[i] = new Button("img/sbutton.png");
+		button[i]->setPosition(10,300+i*55);
 		//button->setText("HINT", 18);
 	}
 
@@ -86,6 +93,7 @@ void Battle::update(sf::Event &event){
 	int i,j,k;
 	int temp;//코드값 임시 저장소
 	int useCnt=0;
+	int chk[200]={0,};
 
 	//for(i=0;i<skill->skillNum;i++)
 	//	skill->data[i].use = false;
@@ -94,31 +102,38 @@ void Battle::update(sf::Event &event){
 	/*if(puzzle->hitNum > 5){
 		printf("적의 턴...퍼즐 시간 초과");
 	}*/
+	for(i=0;i<ViewSkill;i++)
+		canUseSkill[i]=0;
+	for(i=0;i<200;i++){
+		chk[i]=0;
+	}
 
-	for(i=1;i<=StackNum;i++){
+	for(i=StackNum;i>=1;i--){
 		for(j=0;j+i<StackNum;j++){
 			temp = makeCode(j,j+i);
 			for(k=0;k<skill->skillNum;k++){
-				if(temp == skill->data[k].needCode && useCnt < ViewSkill){
+				if(temp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
 					//skill->data[k].use = true;
+					chk[skill->data[k].code]=1;
 					canUseSkill[useCnt++]=skill->data[k].code;
 					break;
 				}
 			}
 		}
 	}
-	for(i=useCnt;i<ViewSkill;i++)
-		canUseSkill[i]=0;
 
 	for(i=0;i<ViewSkill;i++){
 		button[i]->update(event);
+		if(canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
+			useSkill(canUseSkill[i]);
+		}
 	}
 
 
-	for(i=0;i<skill->skillNum;i++){
+	//for(i=0;i<skill->skillNum;i++){
 		//if(skill->data[i].use == true)
 			//printf("No.%d\n",i);
-	}
+	//}
 
 	//사용가능 스킬 검사
 	//스킬 사용. 데미지 계산
@@ -143,6 +158,11 @@ void Battle::draw(sf::RenderWindow &window){
 	for(i=0;i<ViewSkill;i++){
 		button[i]->draw(window);
 	}
+	for(i=0;i<ViewSkill;i++){
+		sprite.setPosition(150,310+i*55);
+		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
+		window.draw(sprite);
+	}
 }
 int Battle::makeCode(int s, int e){
 	int i,re=1;
@@ -153,4 +173,24 @@ int Battle::makeCode(int s, int e){
 		re *= skill->check[puzzle->stack[i]->num];
 	}
 	return re;
+}
+void Battle::useSkill(int num){
+	int i,j,k,l;
+	int cnt=0;
+	//printf("SKILL CODE : %d\nneed[0] : %d need[1] : %d\n\n",num,skill->data[num].need[0],skill->data[num].need[1]);
+	for(i=0;i<ElementNum;i++){
+		for(j=0;j<skill->data[num].need[i];j++){
+			for(k=0;k<puzzle->stackNum;k++){
+				if(puzzle->stack[k]->num == i){
+					for(l=k;l<puzzle->stackNum-1;l++){
+						puzzle->stack[l]->num=puzzle->stack[l+1]->num;
+						puzzle->stack[l]->init_animation();
+					}
+					puzzle->stack[puzzle->stackNum-1]->num=-1;
+					puzzle->stack[puzzle->stackNum-1]->init_animation();
+					puzzle->stackNum--;
+				}
+			}
+		}
+	}
 }

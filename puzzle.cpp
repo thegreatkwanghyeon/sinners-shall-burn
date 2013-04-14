@@ -528,8 +528,7 @@ void Puzzle::stackInput(int num){
 void Puzzle::makePuzzle(){
 	int i,j;
 	int rd;
-	deltaTime = eTime.restart();
-	srand(deltaTime.asMilliseconds());
+	srand(time(NULL));
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			while(1){

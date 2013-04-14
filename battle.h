@@ -8,6 +8,7 @@
 #include "player.h"
 #include "skill.h"
 #include "button.h"
+#include "tileset.h"
 
 #define StackNum 5
 #define ViewSkill 5
@@ -32,12 +33,17 @@ class Battle : public SceneBase{
 		TiXmlDocument stats;
 		sf::Font font;
 
+		sf::Sprite   sprite;
+		sf::Texture  texture;
+		TileSet *tileset;
+
 		Monster monster;
 		Skill *skill;
 		Button *button[ViewSkill+1];
 
 		int code;
 		int canUseSkill[ViewSkill+1];
+		//int useCnt;
 
 		//Character *character;
 		Puzzle *puzzle;
@@ -49,6 +55,7 @@ class Battle : public SceneBase{
 		int GetResult();
 		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);
+		void useSkill(int num);
 };
 
 #endif

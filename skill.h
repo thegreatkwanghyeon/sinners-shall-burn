@@ -10,9 +10,9 @@
 #define ElementNum 15
 
 struct SkillData{
-	sf::Text name;
-	sf::Text intro;
-	sf::Text effect;
+	sf::String name;
+	sf::String intro;
+	sf::String effect;
 	int need[ElementNum],needCode;
 	int damage;
 	int heal, poison;

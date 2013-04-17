@@ -9,6 +9,7 @@
 #include "skill.h"
 #include "button.h"
 #include "tileset.h"
+#include "tooltip.h"
 
 #define StackNum 5
 #define ViewSkill 5
@@ -40,6 +41,7 @@ class Battle : public SceneBase{
 		Monster monster;
 		Skill *skill;
 		Button *button[ViewSkill+1];
+		Tooltip *tooltip[5];
 
 		int code;
 		int canUseSkill[ViewSkill+1];

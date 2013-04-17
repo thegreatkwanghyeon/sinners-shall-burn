@@ -29,9 +29,10 @@ Skill::Skill(){
 		pNode->ToElement()->Attribute("code",&data[i].code);
 		//printf("%d\n",skill[i].code);
 
-		data[i].name.setString(MTW(pNode->ToElement()->Attribute("name")));
-		data[i].intro.setString(MTW(pNode->ToElement()->Attribute("intro")));
-		data[i].effect.setString(MTW(pNode->ToElement()->GetText()));
+		data[i].name = (MTW(pNode->ToElement()->Attribute("name")));
+		data[i].intro = (MTW(pNode->ToElement()->Attribute("intro")));
+		data[i].effect = (MTW(pNode->ToElement()->GetText()));
+
 		pNode->ToElement()->Attribute("damage",&data[i].damage);
 		pNode->ToElement()->Attribute("poison",&data[i].poison);
 		pNode->ToElement()->Attribute("heal",&data[i].heal);

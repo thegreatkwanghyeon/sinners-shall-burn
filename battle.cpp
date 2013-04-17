@@ -14,13 +14,6 @@ Battle::Battle(int Code, Player* player){
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
 
-	for(i=0;i<ViewSkill;i++){
-		canUseSkill[i]=0;
-		button[i] = new Button("img/sbutton.png");
-		button[i]->setPosition(10,300+i*55);
-		//button->setText("HINT", 18);
-	}
-
 	skill = player->skill;
 
 	stats.LoadFile("xmls/Monster.xml");
@@ -54,39 +47,15 @@ Battle::Battle(int Code, Player* player){
 		
 		pNode = pNode->NextSibling();
 	}
-	/*
-	stats.LoadFile("xmls/skill.xml");
-	pNode = stats.FirstChildElement("List")->FirstChildElement("skill");
 
-	for(i=0;;i++){
-		for(j=0;j<30;j++){
-			skill[i].need[j]=0;
-			skill[i].Estat[j]=0;
-			skill[i].Pstat[j]=0;
-		}
-		skill[i].use=false;
-		pNode->ToElement()->Attribute("code",&skill[i].code);
-		//printf("%d\n",skill[i].code);
-
-		skill[i].name.setString(MTW(pNode->ToElement()->Attribute("name")));
-		skill[i].intro.setString(MTW(pNode->ToElement()->Attribute("intro")));
-		skill[i].effect.setString(MTW(pNode->ToElement()->GetText()));
-		pNode->ToElement()->Attribute("damage",&skill[i].damage);
-		pNode->ToElement()->Attribute("poison",&skill[i].poison);
-		pNode->ToElement()->Attribute("heal",&skill[i].heal);
-
-		pNode->ToElement()->Attribute("Estat",&tp);
-		translate(tp,skill[i].Estat);
-		pNode->ToElement()->Attribute("Pstat",&tp);
-		translate(tp,skill[i].Pstat);
-		pNode->ToElement()->Attribute("need",&skill[i].needCode);
-		translate(skill[i].needCode,skill[i].need);
-		
-		if(pNode->NextSibling() == NULL)
-			break;
-		pNode = pNode->NextSibling();
+	for(i=0;i<ViewSkill;i++){
+		canUseSkill[i]=0;
+		button[i] = new Button("img/sbutton.png");
+		button[i]->setPosition(10,300+i*55);
+		//button->setText("HINT", 18);
+		tooltip[i] = new Tooltip("img/tooltip.png");
+		tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
 	}
-	skillNum=i+1;*/
 }
 
 void Battle::update(sf::Event &event){
@@ -127,6 +96,9 @@ void Battle::update(sf::Event &event){
 		if(canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
 			useSkill(canUseSkill[i]);
 		}
+		if(canUseSkill[i] != 0)			
+			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(150,310+i*55,30,30), 350);
+		tooltip[i]->update();
 	}
 
 
@@ -162,6 +134,7 @@ void Battle::draw(sf::RenderWindow &window){
 		sprite.setPosition(150,310+i*55);
 		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
 		window.draw(sprite);
+		tooltip[i]->draw(window);
 	}
 }
 int Battle::makeCode(int s, int e){

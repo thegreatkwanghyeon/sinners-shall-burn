@@ -77,8 +77,8 @@ void Battle::update(sf::Event &event){
 		chk[i]=0;
 	}
 
-	for(i=StackNum;i>=1;i--){
-		for(j=0;j+i<StackNum;j++){
+	for(i=StackNum-1;i>=0;i--){
+		for(j=0;j+i<=StackNum;j++){
 			temp = makeCode(j,j+i);
 			for(k=0;k<skill->skillNum;k++){
 				if(temp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
@@ -98,6 +98,8 @@ void Battle::update(sf::Event &event){
 		}
 		if(canUseSkill[i] != 0)			
 			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(150,310+i*55,30,30), 350);
+		else 
+			tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
 		tooltip[i]->update();
 	}
 

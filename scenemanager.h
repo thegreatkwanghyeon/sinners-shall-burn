@@ -6,6 +6,7 @@
 #include "titlescene.h"
 #include "shaderscene.h"
 #include "battle.h"
+#include "raycastingscene.h"
 
 class SceneManager{
 	private:

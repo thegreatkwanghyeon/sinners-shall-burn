@@ -2,7 +2,7 @@
 
 
 int main(void){
-	sf::RenderWindow window(sf::VideoMode(800,600), "SFML");	
+	sf::RenderWindow window(sf::VideoMode(1280,720), "SFML");	
 	SceneManager *sceneManager = new SceneManager();
 
 	 window.setFramerateLimit(60);
@@ -26,6 +26,9 @@ int main(void){
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
 					//sceneManager->setScene(new Battle(2));
+			}	
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)){
+					sceneManager->setScene(new RayCastingScene());
 			}	
 		sceneManager->update(Event);
 		}

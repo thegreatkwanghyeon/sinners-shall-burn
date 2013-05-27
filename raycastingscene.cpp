@@ -45,6 +45,8 @@ RayCastingScene::RayCastingScene(){
 		  }
 	  }
 
+	  drawingBuffer.create(1280,720,sf::Color::Black);
+
 }
 
 sf::Color RayCastingScene::setRGB(sf::Color color){
@@ -67,11 +69,11 @@ void RayCastingScene::verLine(int x, int y1, int y2, sf::Color color, sf::Render
 }
 
 void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window){
-	sf::RectangleShape point;
-	point.setPosition(x,y);
-	point.setSize(sf::Vector2f(1.0,1.0));
+	/*point.setPosition(x,y);
 	point.setFillColor(color);
-	window.draw(point);
+	window.draw(point);*/
+
+	drawingBuffer.setPixel(x,y,color);
 }
 
 void RayCastingScene::update(sf::Event &event){
@@ -198,12 +200,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		  buffer[x][y] = color;
 
 
-		 // drawPoint(x,y,buffer[x][y],window);
+		  drawPoint(x,y,buffer[x][y],window);
 
-		 
-		  point.setPosition(x,y);
-	      point.setFillColor(color);
-	      window.draw(point);
 	  }
 	  
 	  
@@ -212,18 +210,15 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	  //여기까지 texture rendering 이었습니다!
 
-      switch(worldMap[map.x][map.y]){
-	    case 1:  color = sf::Color::Red;  break; 
-        case 2:  color = sf::Color::Green;  break;
-        case 3:  color = sf::Color::Blue;   break;
-        case 4:  color = sf::Color::White;  break;
-        default: color = sf::Color::Yellow; break;
-      }
-       
-      if (side == 1) 
-		  color = setRGB(color);
-
-	  //verLine(x, drawStart, drawEnd, color, window);
-
+      
 	}
+
+	sf::Texture drawingTex;
+	drawingTex.loadFromImage(drawingBuffer);
+	sf::Sprite drawingSprite;
+	drawingSprite.setTexture(drawingTex);
+
+	window.draw(drawingSprite);
+
+	drawingBuffer.create(1280,720,sf::Color::Black);
 }

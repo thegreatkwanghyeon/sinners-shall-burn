@@ -106,6 +106,8 @@ void RayCastingScene::update(sf::Event &event){
 }
 
 void RayCastingScene::draw(sf::RenderWindow &window){
+	sf::RectangleShape point;
+	point.setSize(sf::Vector2f(1.0,1.0));
 
     for(x = 0; x < width; x++){
       cameraX = 2 * x / double(width) - 1;
@@ -198,9 +200,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 		 // drawPoint(x,y,buffer[x][y],window);
 
-		  sf::RectangleShape point;
+		 
 		  point.setPosition(x,y);
-	      point.setSize(sf::Vector2f(1.0,1.0));
 	      point.setFillColor(color);
 	      window.draw(point);
 	  }

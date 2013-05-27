@@ -3,6 +3,8 @@
 
 #define mapWidth 24
 #define mapHeight 24
+#define texWidth 64
+#define texHeight 64
 
 #include "scenebase.h"
 
@@ -37,7 +39,14 @@ class RayCastingScene : public SceneBase{
 
 		 sf::Color color;
 
+		 //texture rendering 관련 변수들
+
+		 sf::Color buffer[1280][720];
+		 std::vector<sf::Color> texture[8];
+
 		 void verLine(int x, int y1, int y2, sf::Color color, sf::RenderWindow &window);
+		 void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window);
+
 		 sf::Color setRGB(sf::Color color);
 
 	public:

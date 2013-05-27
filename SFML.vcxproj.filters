@@ -75,6 +75,9 @@
     <ClCompile Include="skill.cpp">
       <Filter>contents</Filter>
     </ClCompile>
+    <ClCompile Include="raycastingscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="skill.h">
       <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="raycastingscene.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

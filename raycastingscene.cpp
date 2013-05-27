@@ -27,6 +27,24 @@ RayCastingScene::RayCastingScene(){
 	  moveSpeed = 0.05;
 	  rotSpeed = 0.03;
 
+	  for(int i=0; i<8; i++){
+		  texture[i].resize(texWidth * texHeight);
+	  }
+
+	  for(int x = 0; x < texWidth; x++){
+		  for(int y = 0; y < texHeight; y++){
+			  texture[0][texWidth*y + x] = sf::Color(255,x+y, x+y);
+			  texture[1][texWidth*y + x] = sf::Color(x+y,255, x+y);
+			  texture[2][texWidth*y + x] = sf::Color(x+y,x+y, 255);
+			  texture[3][texWidth*y + x] = sf::Color(255,x+y, x+y);
+
+			  texture[4][texWidth*y + x] = sf::Color(255,x+y, x+y);
+			  texture[5][texWidth*y + x] = sf::Color(255,x+y, x+y);
+			  texture[6][texWidth*y + x] = sf::Color(255,x+y, x+y);
+			  texture[7][texWidth*y + x] = sf::Color(255,x+y, x+y);
+		  }
+	  }
+
 }
 
 sf::Color RayCastingScene::setRGB(sf::Color color){
@@ -46,6 +64,14 @@ void RayCastingScene::verLine(int x, int y1, int y2, sf::Color color, sf::Render
 	vLine.setSize(sf::Vector2f(1.0, y2- y1));
 	vLine.setFillColor(color);
 	window.draw(vLine);
+}
+
+void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window){
+	sf::RectangleShape point;
+	point.setPosition(x,y);
+	point.setSize(sf::Vector2f(1.0,1.0));
+	point.setFillColor(color);
+	window.draw(point);
 }
 
 void RayCastingScene::update(sf::Event &event){
@@ -141,6 +167,50 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
       if(drawEnd >= height)drawEnd = height - 1;
 
+	  int texNum = worldMap[map.x][map.y] - 1;
+
+
+	  //texture rendering 에 사용되는 코드
+	  double wallX;
+	  if(side == 1)
+		  wallX = rayPos.x + ((map.y - rayPos.y + (1 - step.y) / 2) / rayDir.y) * rayDir.x;
+	  else
+		  wallX = rayPos.y + ((map.x - rayPos.x + (1 - step.x) / 2) / rayDir.x) * rayDir.y;
+
+	  wallX -= floor(wallX);
+
+	  int texX = int(wallX * double(texWidth));
+	  if(side == 0 && rayDir.x > 0)
+		  texX = texWidth - texX - 1;
+	  if(side == 1 && rayDir.y < 0)
+		  texX = texX = texWidth - texX -1;
+
+	  for(int y = drawStart; y<drawEnd; y++){
+		  int d = y * 256 - height * 128 + lineHeight * 128;
+		  int texY = ((d*texHeight)/lineHeight) / 256;
+
+		  sf::Color color = texture[texNum][texHeight * texY + texX];
+
+		  if(side == 1)
+			  color = setRGB(color);
+		  buffer[x][y] = color;
+
+
+		 // drawPoint(x,y,buffer[x][y],window);
+
+		  sf::RectangleShape point;
+		  point.setPosition(x,y);
+	      point.setSize(sf::Vector2f(1.0,1.0));
+	      point.setFillColor(color);
+	      window.draw(point);
+	  }
+	  
+	  
+
+
+
+	  //여기까지 texture rendering 이었습니다!
+
       switch(worldMap[map.x][map.y]){
 	    case 1:  color = sf::Color::Red;  break; 
         case 2:  color = sf::Color::Green;  break;
@@ -152,7 +222,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
       if (side == 1) 
 		  color = setRGB(color);
 
-	  verLine(x, drawStart, drawEnd, color, window);
+	  //verLine(x, drawStart, drawEnd, color, window);
 
 	}
 }

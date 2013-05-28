@@ -1,5 +1,7 @@
 #include "scenemanager.h"
 
+
+
 SceneManager::SceneManager(){
 	currentScene = new TitleScene();
 }

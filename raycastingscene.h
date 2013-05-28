@@ -41,10 +41,13 @@ class RayCastingScene : public SceneBase{
 
 		 //texture rendering 관련 변수들
 
+		 sf::Uint8 realBuffer[1280*720*4];
 		 sf::Color buffer[1280][720];
 		 std::vector<sf::Color> texture[8];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
+		 sf::Texture drawingTex;
+		 sf::Sprite drawingSprite;
 
 		 void verLine(int x, int y1, int y2, sf::Color color, sf::RenderWindow &window);
 		 void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window);

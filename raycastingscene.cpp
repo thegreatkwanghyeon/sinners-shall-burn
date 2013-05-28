@@ -188,19 +188,27 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		  texX = texWidth - texX - 1;
 	  if(side == 1 && rayDir.y < 0)
 		  texX = texX = texWidth - texX -1;
-
+	  
 	  for(int y = drawStart; y<drawEnd; y++){
+		  
 		  int d = y * 256 - height * 128 + lineHeight * 128;
 		  int texY = ((d*texHeight)/lineHeight) / 256;
-
+		  
 		  sf::Color color = texture[texNum][texHeight * texY + texX];
-
+		  
 		  if(side == 1)
 			  color = setRGB(color);
+			  
 		  buffer[x][y] = color;
-
-
-		  drawPoint(x,y,buffer[x][y],window);
+		
+		  
+		  //drawPoint(x,y,buffer[x][y],window);
+		  realBuffer[y*1280*4 + x*4 + 0] = color.r;
+		  realBuffer[y*1280*4 + x*4 + 1] = color.g;
+		  realBuffer[y*1280*4 + x*4 + 2] = color.b;
+		  realBuffer[y*1280*4 + x*4 + 3] = color.a;
+		  
+		  
 
 	  }
 	  
@@ -213,12 +221,16 @@ void RayCastingScene::draw(sf::RenderWindow &window){
       
 	}
 
-	sf::Texture drawingTex;
+	drawingBuffer.create(1280,720,realBuffer);
 	drawingTex.loadFromImage(drawingBuffer);
-	sf::Sprite drawingSprite;
 	drawingSprite.setTexture(drawingTex);
 
 	window.draw(drawingSprite);
 
 	drawingBuffer.create(1280,720,sf::Color::Black);
+
+	for(int i=0; i<sizeof(realBuffer); i++){
+		realBuffer[i] = 0;
+	}
+
 }

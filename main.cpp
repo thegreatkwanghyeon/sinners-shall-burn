@@ -6,6 +6,8 @@ int main(void){
 	SceneManager *sceneManager = new SceneManager();
 
 	 window.setFramerateLimit(60);
+	 sf::Clock clock;
+	 float lastTime = 0;
 
 	while(window.isOpen()){
 		sf::Event Event;
@@ -32,10 +34,19 @@ int main(void){
 			}	
 		sceneManager->update(Event);
 		}
+
+		float currentTime = clock.restart().asSeconds();
+        float fps = 1.f / currentTime ;
+        lastTime = currentTime;
+
 		window.clear();
 		sceneManager->update(Event);
 		sceneManager->draw(window);
+		printf("%f\n", fps);
 		window.display();
+
+		
+
 	}
 	return EXIT_SUCCESS;
 }

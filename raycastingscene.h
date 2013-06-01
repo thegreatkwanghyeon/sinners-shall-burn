@@ -37,22 +37,16 @@ class RayCastingScene : public SceneBase{
 		 double moveSpeed; //상수는 squares/second
 		 double rotSpeed; //상수는 radians/second
 
-		 sf::Color color;
-
 		 //texture rendering 관련 변수들
 
+		 sf::Uint32 color;
 		 sf::Uint8 realBuffer[1280*720*4];
-		 sf::Color buffer[1280][720];
-		 std::vector<sf::Color> texture[8];
+		 std::vector<sf::Uint32> realTexture[8];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
 		 sf::Sprite drawingSprite;
 
-		 void verLine(int x, int y1, int y2, sf::Color color, sf::RenderWindow &window);
-		 void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window);
-
-		 sf::Color setRGB(sf::Color color);
 
 	public:
 		RayCastingScene();

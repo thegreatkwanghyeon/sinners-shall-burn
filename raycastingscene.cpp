@@ -28,20 +28,21 @@ RayCastingScene::RayCastingScene(){
 	  rotSpeed = 0.03;
 
 	  for(int i=0; i<8; i++){
-		  texture[i].resize(texWidth * texHeight);
+		  realTexture[i].resize(texWidth * texHeight);
 	  }
 
 	  for(int x = 0; x < texWidth; x++){
 		  for(int y = 0; y < texHeight; y++){
-			  texture[0][texWidth*y + x] = sf::Color(255,x+y, x+y);
-			  texture[1][texWidth*y + x] = sf::Color(x+y,255, x+y);
-			  texture[2][texWidth*y + x] = sf::Color(x+y,x+y, 255);
-			  texture[3][texWidth*y + x] = sf::Color(255,x+y, x+y);
 
-			  texture[4][texWidth*y + x] = sf::Color(255,x+y, x+y);
-			  texture[5][texWidth*y + x] = sf::Color(255,x+y, x+y);
-			  texture[6][texWidth*y + x] = sf::Color(255,x+y, x+y);
-			  texture[7][texWidth*y + x] = sf::Color(255,x+y, x+y);
+			  realTexture[0][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[1][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[2][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[3][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+
+			  realTexture[4][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[5][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[6][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+			  realTexture[7][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
 		  }
 	  }
 
@@ -49,32 +50,6 @@ RayCastingScene::RayCastingScene(){
 
 }
 
-sf::Color RayCastingScene::setRGB(sf::Color color){
-	sf::Color returnColor;
-
-	returnColor.r = color.r/2;
-	returnColor.g = color.g/2;
-	returnColor.b = color.b/2;
-
-	return returnColor;
-}
-
-
-void RayCastingScene::verLine(int x, int y1, int y2, sf::Color color, sf::RenderWindow &window){
-	sf::RectangleShape vLine;
-	vLine.setPosition(x, y1);
-	vLine.setSize(sf::Vector2f(1.0, y2- y1));
-	vLine.setFillColor(color);
-	window.draw(vLine);
-}
-
-void RayCastingScene::drawPoint(int x, int y, sf::Color color, sf::RenderWindow &window){
-	/*point.setPosition(x,y);
-	point.setFillColor(color);
-	window.draw(point);*/
-
-	drawingBuffer.setPixel(x,y,color);
-}
 
 void RayCastingScene::update(sf::Event &event){
 
@@ -189,27 +164,25 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	  if(side == 1 && rayDir.y < 0)
 		  texX = texX = texWidth - texX -1;
 	  
+
+	  //퍼포먼스에 가장 영향을 많이 주는 부분 (이 for문이 부하가 가장 많다)
+	  //특히 realBuffer 에 값을 대입할때
 	  for(int y = drawStart; y<drawEnd; y++){
 		  
 		  int d = y * 256 - height * 128 + lineHeight * 128;
 		  int texY = ((d*texHeight)/lineHeight) / 256;
 		  
-		  sf::Color color = texture[texNum][texHeight * texY + texX];
+		  color = realTexture[texNum][texHeight * texY + texX];
 		  
 		  if(side == 1)
-			  color = setRGB(color);
-			  
-		  buffer[x][y] = color;
-		
-		  
-		  //drawPoint(x,y,buffer[x][y],window);
-		  realBuffer[y*1280*4 + x*4 + 0] = color.r;
-		  realBuffer[y*1280*4 + x*4 + 1] = color.g;
-		  realBuffer[y*1280*4 + x*4 + 2] = color.b;
-		  realBuffer[y*1280*4 + x*4 + 3] = color.a;
-		  
-		  
-
+			  color = (color >> 1) & 8355711;
+			 
+		  realBuffer[y*1280*4 + x*4 + 2] = color%256;
+		  color >>=8;
+		  realBuffer[y*1280*4 + x*4 + 1] = color%256;
+		  color >>=8;
+		  realBuffer[y*1280*4 + x*4 + 0] = color%256;
+		  realBuffer[y*1280*4 + x*4 + 3] = 255;  
 	  }
 	  
 	  

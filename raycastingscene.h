@@ -6,6 +6,8 @@
 #define texWidth 256
 #define texHeight 256
 
+#define Footstep 1
+
 #include "scenebase.h"
 
 class RayCastingScene : public SceneBase{
@@ -46,6 +48,10 @@ class RayCastingScene : public SceneBase{
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
 		 sf::Sprite drawingSprite;
+
+		 //이동관련변수
+		 //sf::Vector2i player;
+		 int isTurnL,isTurnR,isGoF,isGoR;
 
 
 	public:

@@ -1,5 +1,6 @@
 #include "raycastingscene.h"
-#include "stdio.h"
+#include <stdio.h>
+#include <math.h>
 
 RayCastingScene::RayCastingScene(){
 	FILE *in = fopen("map.txt","r");
@@ -14,18 +15,27 @@ RayCastingScene::RayCastingScene(){
 	  height = 720;
 	  width = 1280;
 		
-	  pos.x = 22; 
-	  pos.y = 12;
+	  pos.x = 1.5; 
+	  pos.y = 1.5;
 	  dir.x = -1; 
 	  dir.y = 0;
 	  plane.x = 0; 
 	  plane.y = 0.66;
+
+	  //---¿Ãµø---//
+	  //player.x = 1.5;
+	  //player.y = 1.5;
+	  isTurnL=0;
+	  isTurnR=0;
+	  isGoF=0;
+	  isGoR=0;
+	  //---
   
 	  time = 0;
 	  oldTime = 0;
 
-	  moveSpeed = 0.05;
-	  rotSpeed = 0.03;
+	  moveSpeed = 0.1;
+	  rotSpeed = 0.1575;
 
 	  for(int i=0; i<8; i++){
 		  realTexture[i].resize(texWidth * texHeight);
@@ -52,7 +62,72 @@ RayCastingScene::RayCastingScene(){
 
 
 void RayCastingScene::update(sf::Event &event){
+	if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+		isGoF=10;
+		//player.x += ceil(dir.x);
+		//player.y += ceil(dir.y);
+		printf("===[%f %f]===\n",pos.x,pos.y);
+    }
+    if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+		isGoR=10;
+		//player.x -= ceil(dir.x);
+		//player.y -= ceil(dir.y);
+		printf("===[%f %f]===\n",pos.x,pos.y);
+      
+    }/*
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+      if(worldMap[int(pos.x + dir.x * moveSpeed)][int(pos.y)] == false) pos.x += dir.x * moveSpeed;
+      if(worldMap[int(pos.x)][int(pos.y + dir.y * moveSpeed)] == false) pos.y += dir.y * moveSpeed;
+    }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+      if(worldMap[int(pos.x - dir.x * moveSpeed)][int(pos.y)] == false) pos.x -= dir.x * moveSpeed;
+      if(worldMap[int(pos.x)][int(pos.y - dir.y * moveSpeed)] == false) pos.y -= dir.y * moveSpeed;
+    }*/
+	//----------
+	if(isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+		isTurnL=10;
+	}
+	if(isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+		isTurnR=10;
+	}
+	//printf("[%.2f %.2f | %.2f %.2f]",dir.x,dir.y,plane.x,plane.y);
+	if(isTurnR != 0){
+		isTurnR--;
 
+		double oldDirX = dir.x;
+		dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
+		dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
+		double oldplaneX = plane.x;
+		plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
+		plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
+	}else if(isTurnL != 0){
+		isTurnL--;
+
+		double oldDirX = dir.x;
+		dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
+		dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
+		double oldplaneX = plane.x;
+		plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
+		plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
+	}else if(isGoF != 0){
+		isGoF--;
+		pos.x += dir.x * moveSpeed;
+		pos.y += dir.y * moveSpeed;
+		if(isGoF == 0){
+			pos.x=(int)pos.x+0.5;
+			pos.y=(int)pos.y+0.5;
+		}
+	}else if(isGoR != 0){
+		isGoR--;
+		pos.x -= dir.x * moveSpeed;
+		pos.y -= dir.y * moveSpeed;
+		if(isGoR == 0){
+			pos.x=(int)pos.x+0.5;
+			pos.y=(int)pos.y+0.5;
+		}
+	}
+	/*
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
       if(worldMap[int(pos.x + dir.x * moveSpeed)][int(pos.y)] == false) pos.x += dir.x * moveSpeed;
       if(worldMap[int(pos.x)][int(pos.y + dir.y * moveSpeed)] == false) pos.y += dir.y * moveSpeed;
@@ -79,7 +154,7 @@ void RayCastingScene::update(sf::Event &event){
       double oldplaneX = plane.x;
       plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
       plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-    }
+    }*/
 }
 
 void RayCastingScene::draw(sf::RenderWindow &window){

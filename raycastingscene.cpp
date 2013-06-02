@@ -62,39 +62,23 @@ RayCastingScene::RayCastingScene(){
 
 
 void RayCastingScene::update(sf::Event &event){
-	if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-		isGoF=10;
-		//player.x += ceil(dir.x);
-		//player.y += ceil(dir.y);
-		printf("===[%f %f]===\n",pos.x,pos.y);
-    }
-    if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-		isGoR=10;
-		//player.x -= ceil(dir.x);
-		//player.y -= ceil(dir.y);
-		printf("===[%f %f]===\n",pos.x,pos.y);
-      
-    }/*
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-      if(worldMap[int(pos.x + dir.x * moveSpeed)][int(pos.y)] == false) pos.x += dir.x * moveSpeed;
-      if(worldMap[int(pos.x)][int(pos.y + dir.y * moveSpeed)] == false) pos.y += dir.y * moveSpeed;
-    }
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-      if(worldMap[int(pos.x - dir.x * moveSpeed)][int(pos.y)] == false) pos.x -= dir.x * moveSpeed;
-      if(worldMap[int(pos.x)][int(pos.y - dir.y * moveSpeed)] == false) pos.y -= dir.y * moveSpeed;
-    }*/
-	//----------
-	if(isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-		isTurnL=10;
+	if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false){//현재 멈춰있는 상태(노 애니메이션)		
+		if(worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+			isGoF=10;
+		}
+		if(worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+			isGoR=10;
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+			isTurnL=10;
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+			isTurnR=10;
+		}
 	}
-	if(isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-		isTurnR=10;
-	}
-	//printf("[%.2f %.2f | %.2f %.2f]",dir.x,dir.y,plane.x,plane.y);
 	if(isTurnR != 0){
 		isTurnR--;
-
+		//---
 		double oldDirX = dir.x;
 		dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
 		dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
@@ -103,7 +87,7 @@ void RayCastingScene::update(sf::Event &event){
 		plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
 	}else if(isTurnL != 0){
 		isTurnL--;
-
+		//---
 		double oldDirX = dir.x;
 		dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
 		dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
@@ -112,49 +96,21 @@ void RayCastingScene::update(sf::Event &event){
 		plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
 	}else if(isGoF != 0){
 		isGoF--;
-		pos.x += dir.x * moveSpeed;
-		pos.y += dir.y * moveSpeed;
+		pos.x += floor(dir.x+0.5) * moveSpeed;
+		pos.y += floor(dir.y+0.5) * moveSpeed;
 		if(isGoF == 0){
 			pos.x=(int)pos.x+0.5;
 			pos.y=(int)pos.y+0.5;
 		}
 	}else if(isGoR != 0){
 		isGoR--;
-		pos.x -= dir.x * moveSpeed;
-		pos.y -= dir.y * moveSpeed;
+		pos.x -= floor(dir.x+0.5) * moveSpeed;
+		pos.y -= floor(dir.y+0.5) * moveSpeed;
 		if(isGoR == 0){
 			pos.x=(int)pos.x+0.5;
 			pos.y=(int)pos.y+0.5;
 		}
 	}
-	/*
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-      if(worldMap[int(pos.x + dir.x * moveSpeed)][int(pos.y)] == false) pos.x += dir.x * moveSpeed;
-      if(worldMap[int(pos.x)][int(pos.y + dir.y * moveSpeed)] == false) pos.y += dir.y * moveSpeed;
-    }
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-      if(worldMap[int(pos.x - dir.x * moveSpeed)][int(pos.y)] == false) pos.x -= dir.x * moveSpeed;
-      if(worldMap[int(pos.x)][int(pos.y - dir.y * moveSpeed)] == false) pos.y -= dir.y * moveSpeed;
-    }
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-      double oldDirX = dir.x;
-      dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
-      dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
-      double oldplaneX = plane.x;
-      plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
-      plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-      double oldDirX = dir.x;
-      dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
-      dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
-      double oldplaneX = plane.x;
-      plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
-      plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-    }*/
 }
 
 void RayCastingScene::draw(sf::RenderWindow &window){

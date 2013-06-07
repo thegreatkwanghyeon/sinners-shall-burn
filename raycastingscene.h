@@ -52,6 +52,7 @@ class RayCastingScene : public SceneBase{
 		 //이동관련변수
 		 //sf::Vector2i player;
 		 int isTurnL,isTurnR,isGoF,isGoR;
+		 bool pressW,pressS,pressD,pressA;
 
 
 	public:

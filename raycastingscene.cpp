@@ -29,13 +29,18 @@ RayCastingScene::RayCastingScene(){
 	  isTurnR=0;
 	  isGoF=0;
 	  isGoR=0;
+
+	  pressS=false;
+	  pressW=false;
+	  pressA=false;
+	  pressD=false;
 	  //---
   
 	  time = 0;
 	  oldTime = 0;
 
-	  moveSpeed = 0.1;
-	  rotSpeed = 0.1575;
+	  moveSpeed = 0.05;
+	  rotSpeed = 0.07875;
 
 	  for(int i=0; i<8; i++){
 		  realTexture[i].resize(texWidth * texHeight);
@@ -62,20 +67,33 @@ RayCastingScene::RayCastingScene(){
 
 
 void RayCastingScene::update(sf::Event &event){
-	if (isGoF == 0 && isGoR == 0 && isTurnL == false && isTurnR == false){//현재 멈춰있는 상태(노 애니메이션)		
-		if(worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-			isGoF=10;
+	if (isGoF == 0 && isGoR == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
+		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+			pressW=true;
+			isGoF=20;
 		}
-		if(worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-			isGoR=10;
+		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+			pressS=true;
+			isGoR=20;
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-			isTurnL=10;
+		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+			pressA=true;
+			isTurnL=20;
 		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-			isTurnR=10;
+		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+			pressD=true;
+			isTurnR=20;
 		}
 	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
+		pressW=false;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
+		pressS=false;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false)
+		pressA=false;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
+		pressD=false;
+
 	if(isTurnR != 0){
 		isTurnR--;
 		//---

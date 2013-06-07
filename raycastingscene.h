@@ -7,6 +7,8 @@
 #define texHeight 256
 
 #define Footstep 1
+#define cntTime 0.5
+#define DEVIDE 20
 
 #include "scenebase.h"
 
@@ -53,6 +55,8 @@ class RayCastingScene : public SceneBase{
 		 //sf::Vector2i player;
 		 int isTurnL,isTurnR,isGoF,isGoR;
 		 bool pressW,pressS,pressD,pressA;
+		 sf::Clock deltaClock;
+		 sf::Time currentTime;
 
 
 	public:

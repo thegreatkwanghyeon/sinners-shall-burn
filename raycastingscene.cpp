@@ -34,6 +34,8 @@ RayCastingScene::RayCastingScene(){
 	  pressW=false;
 	  pressA=false;
 	  pressD=false;
+
+	  deltaClock.restart();
 	  //---
   
 	  time = 0;
@@ -70,19 +72,31 @@ void RayCastingScene::update(sf::Event &event){
 	if (isGoF == 0 && isGoR == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
 		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 			pressW=true;
-			isGoF=20;
+			isGoF=DEVIDE;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			pressS=true;
-			isGoR=20;
+			isGoR=DEVIDE;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
-			isTurnL=20;
+			isTurnL=DEVIDE;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			pressD=true;
-			isTurnR=20;
+			isTurnR=DEVIDE;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
 		}
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
@@ -94,7 +108,8 @@ void RayCastingScene::update(sf::Event &event){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 		pressD=false;
 
-	if(isTurnR != 0){
+	if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnR != 0){
+		currentTime=deltaClock.getElapsedTime();
 		isTurnR--;
 		//---
 		double oldDirX = dir.x;
@@ -103,7 +118,8 @@ void RayCastingScene::update(sf::Event &event){
 		double oldplaneX = plane.x;
 		plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
 		plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
-	}else if(isTurnL != 0){
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnL != 0){
+		currentTime=deltaClock.getElapsedTime();
 		isTurnL--;
 		//---
 		double oldDirX = dir.x;
@@ -112,7 +128,8 @@ void RayCastingScene::update(sf::Event &event){
 		double oldplaneX = plane.x;
 		plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
 		plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-	}else if(isGoF != 0){
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoF != 0){
+		currentTime=deltaClock.getElapsedTime();
 		isGoF--;
 		pos.x += floor(dir.x+0.5) * moveSpeed;
 		pos.y += floor(dir.y+0.5) * moveSpeed;
@@ -120,7 +137,8 @@ void RayCastingScene::update(sf::Event &event){
 			pos.x=(int)pos.x+0.5;
 			pos.y=(int)pos.y+0.5;
 		}
-	}else if(isGoR != 0){
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoR != 0){
+		currentTime=deltaClock.getElapsedTime();
 		isGoR--;
 		pos.x -= floor(dir.x+0.5) * moveSpeed;
 		pos.y -= floor(dir.y+0.5) * moveSpeed;

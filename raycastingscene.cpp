@@ -12,8 +12,8 @@ RayCastingScene::RayCastingScene(){
 	}
 	fclose(in);
 
-	  height = 720;
-	  width = 1280;
+	  height = 360;
+	  width = 640;
 		
 	  pos.x = 1.5; 
 	  pos.y = 1.5;
@@ -56,7 +56,7 @@ RayCastingScene::RayCastingScene(){
 		  }
 	  }
 
-	  drawingBuffer.create(1280,720,sf::Color::Black);
+	  drawingBuffer.create(width,height,sf::Color::Black);
 
 }
 
@@ -208,12 +208,12 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		  if(side == 1)
 			  color = (color >> 1) & 8355711;
 			 
-		  realBuffer[y*1280*4 + x*4 + 2] = color%256;
+		  realBuffer[y*width*4 + x*4 + 2] = color%256;
 		  color >>=8;
-		  realBuffer[y*1280*4 + x*4 + 1] = color%256;
+		  realBuffer[y*width*4 + x*4 + 1] = color%256;
 		  color >>=8;
-		  realBuffer[y*1280*4 + x*4 + 0] = color%256;
-		  realBuffer[y*1280*4 + x*4 + 3] = 255;  
+		  realBuffer[y*width*4 + x*4 + 0] = color%256;
+		  realBuffer[y*width*4 + x*4 + 3] = 255;  
 	  }
 	  
 	  
@@ -225,13 +225,13 @@ void RayCastingScene::draw(sf::RenderWindow &window){
       
 	}
 
-	drawingBuffer.create(1280,720,realBuffer);
+	drawingBuffer.create(width,height,realBuffer);
 	drawingTex.loadFromImage(drawingBuffer);
 	drawingSprite.setTexture(drawingTex);
 
 	window.draw(drawingSprite);
 
-	drawingBuffer.create(1280,720,sf::Color::Black);
+	drawingBuffer.create(width,height,sf::Color::Black);
 
 	for(int i=0; i<sizeof(realBuffer); i++){
 		realBuffer[i] = 0;

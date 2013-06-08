@@ -133,80 +133,76 @@ void RayCastingScene::update(sf::Event &event){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 		pressD=false;
 
-	if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnR != 0){
-		printf("%d %.2f\n",(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)),((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)));
-		if((int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
-			rotSpeed*=(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			isTurnR-=(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			if(isTurnR < 0){
-				rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-				isTurnR=0;
+	float delta=deltaClock.getElapsedTime().asSeconds();
+	float current=currentTime.asSeconds();
+	if(delta-current >= cntTime/DEVIDE){
+		if(isTurnR != 0){
+			if((int)((delta-current)/(cntTime/DEVIDE)) > 1){
+				rotSpeed*=(int)((delta-current)/(cntTime/DEVIDE));
+				isTurnR-=(int)((delta-current)/(cntTime/DEVIDE));
+				if(isTurnR < 0){
+					rotSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					isTurnR=0;
+				}
+			}else
+				isTurnR--;
+			//---
+			double oldDirX = dir.x;
+			dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
+			dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
+			double oldplaneX = plane.x;
+			plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
+			plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
+		}else if(isTurnL != 0){
+			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
+				rotSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
+				isTurnL-=((int)(delta-current)/(cntTime/DEVIDE));
+				if(isTurnL < 0){
+					rotSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					isTurnL=0;
+				}
+			}else
+				isTurnL--;
+			//---
+			double oldDirX = dir.x;
+			dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
+			dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
+			double oldplaneX = plane.x;
+			plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
+			plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
+		}else if(isGoF != 0){
+			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
+				moveSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
+				isGoF-=((int)(delta-current)/(cntTime/DEVIDE));
+				if(isGoF < 0){
+					moveSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					isGoF=0;
+				}
+			}else
+				isGoF--;
+			pos.x += floor(dir.x+0.5) * moveSpeed;
+			pos.y += floor(dir.y+0.5) * moveSpeed;
+			if(isGoF == 0){
+				pos.x=(int)pos.x+0.5;
+				pos.y=(int)pos.y+0.5;
 			}
-		}else
-			isTurnR--;
-		//---
-		double oldDirX = dir.x;
-		dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
-		dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
-		double oldplaneX = plane.x;
-		plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
-		plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
-
-		currentTime=deltaClock.getElapsedTime();
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnL != 0){
-		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
-			rotSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			isTurnL-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			if(isTurnL < 0){
-				rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-				isTurnL=0;
+		}else if(isGoR != 0){
+			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
+				moveSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
+				isGoR-=((int)(delta-current)/(cntTime/DEVIDE));
+				if(isGoR < 0){
+					moveSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					isGoR=0;
+				}
+			}else
+				isGoR--;
+			pos.x -= floor(dir.x+0.5) * moveSpeed;
+			pos.y -= floor(dir.y+0.5) * moveSpeed;
+			if(isGoR == 0){
+				pos.x=(int)pos.x+0.5;
+				pos.y=(int)pos.y+0.5;
 			}
-		}else
-			isTurnL--;
-		//---
-		double oldDirX = dir.x;
-		dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
-		dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
-		double oldplaneX = plane.x;
-		plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
-		plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-
-		currentTime=deltaClock.getElapsedTime();
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoF != 0){
-		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
-			moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			isGoF-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			if(isGoF < 0){
-				moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-				isGoF=0;
-			}
-		}else
-			isGoF--;
-		pos.x += floor(dir.x+0.5) * moveSpeed;
-		pos.y += floor(dir.y+0.5) * moveSpeed;
-		if(isGoF == 0){
-			pos.x=(int)pos.x+0.5;
-			pos.y=(int)pos.y+0.5;
 		}
-
-		currentTime=deltaClock.getElapsedTime();
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoR != 0){
-		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
-			moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			isGoR-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-			if(isGoR < 0){
-				moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
-				isGoR=0;
-			}
-		}else
-			isGoR--;
-		pos.x -= floor(dir.x+0.5) * moveSpeed;
-		pos.y -= floor(dir.y+0.5) * moveSpeed;
-		if(isGoR == 0){
-			pos.x=(int)pos.x+0.5;
-			pos.y=(int)pos.y+0.5;
-		}
-
 		currentTime=deltaClock.getElapsedTime();
 	}
 	moveSpeed = 1/(float)DEVIDE;

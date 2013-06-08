@@ -7,8 +7,8 @@
 #define texHeight 64
 
 #define Footstep 1
-#define cntTime 0.3
-#define DEVIDE 20
+#define cntTime 0.5
+#define DEVIDE 10
 
 #include "scenebase.h"
 

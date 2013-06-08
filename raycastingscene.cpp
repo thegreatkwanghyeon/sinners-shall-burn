@@ -41,8 +41,8 @@ RayCastingScene::RayCastingScene(){
 	  time = 0;
 	  oldTime = 0;
 
-	  moveSpeed = 0.05;
-	  rotSpeed = 0.07875;
+	  moveSpeed = 1/(float)DEVIDE;
+	  rotSpeed = 1.575/(float)DEVIDE;
 
 	  for(int i=0; i<8; i++){
 		  texture[i].resize(texWidth * texHeight);
@@ -134,8 +134,16 @@ void RayCastingScene::update(sf::Event &event){
 		pressD=false;
 
 	if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnR != 0){
-		currentTime=deltaClock.getElapsedTime();
-		isTurnR--;
+		printf("%d %.2f\n",(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)),((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)));
+		if((int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
+			rotSpeed*=(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			isTurnR-=(int)((deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			if(isTurnR < 0){
+				rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+				isTurnR=0;
+			}
+		}else
+			isTurnR--;
 		//---
 		double oldDirX = dir.x;
 		dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
@@ -143,9 +151,18 @@ void RayCastingScene::update(sf::Event &event){
 		double oldplaneX = plane.x;
 		plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
 		plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnL != 0){
+
 		currentTime=deltaClock.getElapsedTime();
-		isTurnL--;
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isTurnL != 0){
+		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
+			rotSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			isTurnL-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			if(isTurnL < 0){
+				rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+				isTurnL=0;
+			}
+		}else
+			isTurnL--;
 		//---
 		double oldDirX = dir.x;
 		dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
@@ -153,25 +170,47 @@ void RayCastingScene::update(sf::Event &event){
 		double oldplaneX = plane.x;
 		plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
 		plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoF != 0){
+
 		currentTime=deltaClock.getElapsedTime();
-		isGoF--;
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoF != 0){
+		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
+			moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			isGoF-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			if(isGoF < 0){
+				moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+				isGoF=0;
+			}
+		}else
+			isGoF--;
 		pos.x += floor(dir.x+0.5) * moveSpeed;
 		pos.y += floor(dir.y+0.5) * moveSpeed;
 		if(isGoF == 0){
 			pos.x=(int)pos.x+0.5;
 			pos.y=(int)pos.y+0.5;
 		}
-	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoR != 0){
+
 		currentTime=deltaClock.getElapsedTime();
-		isGoR--;
+	}else if(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds() >= cntTime/DEVIDE && isGoR != 0){
+		if(((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE)) > 1){
+			moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			isGoR-=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+			if(isGoR < 0){
+				moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds()-currentTime.asSeconds())/(cntTime/DEVIDE));
+				isGoR=0;
+			}
+		}else
+			isGoR--;
 		pos.x -= floor(dir.x+0.5) * moveSpeed;
 		pos.y -= floor(dir.y+0.5) * moveSpeed;
 		if(isGoR == 0){
 			pos.x=(int)pos.x+0.5;
 			pos.y=(int)pos.y+0.5;
 		}
+
+		currentTime=deltaClock.getElapsedTime();
 	}
+	moveSpeed = 1/(float)DEVIDE;
+	rotSpeed = 1.575/(float)DEVIDE;
 }
 
 void RayCastingScene::draw(sf::RenderWindow &window){
@@ -328,11 +367,6 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		  buffer[4*((height-y)*width+x) +0] = color%256;
 		  buffer[4*((height-y)*width+x) +3] = 255;
 	  }
-	 
-
-
-	 
-
 	}
 
 	drawingBuffer.create(width,height,buffer);

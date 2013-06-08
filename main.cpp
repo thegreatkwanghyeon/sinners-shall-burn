@@ -48,7 +48,7 @@ int main(void){
 
 		sf::Text textFps;
 		sf::Font font;
-		char stringFps[10];
+		char stringFps[20];
 
 		font.loadFromFile("font/font.ttf");
 		textFps.setFont(font);

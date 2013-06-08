@@ -53,7 +53,16 @@ class RayCastingScene : public SceneBase{
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
 		 sf::Sprite drawingSprite;
-		 sf::Image beTheTexture;
+		 sf::Image textureImage;
+
+		 //floor casting 관련 변수
+		 Vector2d floorWall;
+		 Vector2d currentFloor;
+		 sf::Vector2i floorTex;
+		 double weight;
+		 double distWall;
+		 double distPlayer;
+		 double currentDist;
 
 		 //이동관련변수
 		 //sf::Vector2i player;

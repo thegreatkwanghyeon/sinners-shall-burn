@@ -48,17 +48,24 @@ RayCastingScene::RayCastingScene(){
 		  texture[i].resize(texWidth * texHeight);
 	  }
 
-	  beTheTexture.loadFromFile("img/textures/redbrick.png");
+	  
+	  textureImage.loadFromFile("img/textures/eagle.png");
+	  texture[0] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/redbrick.png");
+	  texture[1] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/purplestone.png");
+	  texture[2] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/greystone.png");
+	  texture[3] = convertImageToTexture(textureImage);
 
-	  texture[0] = convertImageToTexture(beTheTexture);
-	  texture[1] = convertImageToTexture(beTheTexture);
-	  texture[2] = convertImageToTexture(beTheTexture);
-	  texture[3] = convertImageToTexture(beTheTexture);
-
-	  texture[4] = convertImageToTexture(beTheTexture);
-	  texture[5] = convertImageToTexture(beTheTexture);
-	  texture[6] = convertImageToTexture(beTheTexture);
-	  texture[7] = convertImageToTexture(beTheTexture);
+	  textureImage.loadFromFile("img/textures/bluestone.png");
+	  texture[4] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/mossy.png");
+	  texture[5] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/wood.png");
+	  texture[6] = convertImageToTexture(textureImage);
+	  textureImage.loadFromFile("img/textures/colorstone.png");
+	  texture[7] = convertImageToTexture(textureImage);
 
 	  drawingBuffer.create(width,height,sf::Color::Black);
 
@@ -271,6 +278,60 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	  }
 	  
 	  //여기까지 texture rendering 이었습니다!
+	  //이제 floor rendering 이 시작됩니다!
+
+	  if(side == 0 && rayDir.x > 0){
+		  floorWall.x = map.x;
+		  floorWall.y = map.y + wallX;
+	  }else if(side ==0 && rayDir.x < 0){
+		  floorWall.x = map.x + 1.0;
+		  floorWall.y = map.y + wallX;
+	  }else if(side == 1 && rayDir.y > 0){
+		  floorWall.x = map.x + wallX;
+		  floorWall.y = map.y;
+	  }else{
+		  floorWall.x = map.x + wallX;
+		  floorWall.y = map.y + 1.0;
+	  }
+
+	  distWall = perpWallDist;
+	  distPlayer = 0.0;
+
+	  if(drawEnd < 0)
+		  drawEnd = height;
+
+	  for(int y = drawEnd ; y < height; y++){
+		  currentDist = height/(2.0*y-height);
+
+		  weight = (currentDist - distPlayer) / (distWall - distPlayer);
+		  currentFloor.x = weight * floorWall.x + (1.0 - weight) * pos.x;
+		  currentFloor.y = weight * floorWall.y + (1.0 - weight) * pos.y;
+
+		  floorTex.x = (int)(currentFloor.x * texWidth) % texWidth;
+		  floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
+
+		  //바닥
+		  color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;
+		  buffer[4*(y*width+x) +2] = color%256;
+		  color >>=8;
+		  buffer[4*(y*width+x) +1] = color%256;
+		  color >>=8;
+		  buffer[4*(y*width+x) +0] = color%256;
+		  buffer[4*(y*width+x) +3] = 255;
+		  
+		  //천장
+		  color = texture[6][texWidth * floorTex.y + floorTex.x];
+		  buffer[4*((height-y)*width+x) +2] = color%256;
+		  color >>= 8;
+		  buffer[4*((height-y)*width+x) +1] = color%256;
+		  color >>= 8;
+		  buffer[4*((height-y)*width+x) +0] = color%256;
+		  buffer[4*((height-y)*width+x) +3] = 255;
+	  }
+	 
+
+
+	 
 
 	}
 

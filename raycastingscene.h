@@ -3,32 +3,35 @@
 
 #define mapWidth 24
 #define mapHeight 24
-#define texWidth 256
-#define texHeight 256
+#define texWidth 64
+#define texHeight 64
 
 #define Footstep 1
-#define cntTime 0.5
+#define cntTime 0.3
 #define DEVIDE 20
 
 #include "scenebase.h"
 
 class RayCastingScene : public SceneBase{
+
+	typedef sf::Vector2<double> Vector2d;
+
 	private:
 		int worldMap[mapWidth][mapHeight];
 
 		int height, width, x;
 
-		 sf::Vector2f dir;
-		 sf::Vector2f plane; //촬영용 카메라의 2D 버전
-		 sf::Vector2f pos;
+		 Vector2d dir;
+		 Vector2d plane; //촬영용 카메라의 2D 버전
+		 Vector2d pos;
 		 double time; //현재 프레임의 시간
 		 double oldTime; //바로전 프레임의 시간
 		 double cameraX;
-		 sf::Vector2f rayPos;
-		 sf::Vector2f rayDir;
+		 Vector2d rayPos;
+		 Vector2d rayDir;
 		 sf::Vector2i map;
-		 sf::Vector2f sideDist;
-		 sf::Vector2f deltaDist;
+		 Vector2d sideDist;
+		 Vector2d deltaDist;
 		 double perpWallDist;
 		 sf::Vector2i step;
 		 int hit;
@@ -44,12 +47,13 @@ class RayCastingScene : public SceneBase{
 		 //texture rendering 관련 변수들
 
 		 sf::Uint32 color;
-		 sf::Uint8 realBuffer[1280*720*4];
-		 std::vector<sf::Uint32> realTexture[8];
+		 sf::Uint8 buffer[1280*720*4];
+		 std::vector<sf::Uint32> texture[8];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
 		 sf::Sprite drawingSprite;
+		 sf::Image beTheTexture;
 
 		 //이동관련변수
 		 //sf::Vector2i player;
@@ -57,6 +61,9 @@ class RayCastingScene : public SceneBase{
 		 bool pressW,pressS,pressD,pressA;
 		 sf::Clock deltaClock;
 		 sf::Time currentTime;
+
+		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
+		 std::vector<sf::Uint32> convertImageToTexture(sf::Image image);
 
 
 	public:

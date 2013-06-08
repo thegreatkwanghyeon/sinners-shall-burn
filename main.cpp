@@ -46,11 +46,23 @@ int main(void){
         float fps = 1.f / currentTime ;
         lastTime = currentTime;
 
+		sf::Text textFps;
+		sf::Font font;
+		char stringFps[10];
+
+		font.loadFromFile("font/font.ttf");
+		textFps.setFont(font);
+		sprintf(stringFps, "FPS = %.0f", fps);
+		textFps.setString(stringFps);
+
+	
+
 		window.clear();
 		window.setView(view);
 		sceneManager->update(Event);
 		sceneManager->draw(window);
-		printf("%f\n", fps);
+
+		window.draw(textFps);
 		window.display();
 
 		

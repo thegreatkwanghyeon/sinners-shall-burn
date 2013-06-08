@@ -45,26 +45,44 @@ RayCastingScene::RayCastingScene(){
 	  rotSpeed = 0.07875;
 
 	  for(int i=0; i<8; i++){
-		  realTexture[i].resize(texWidth * texHeight);
+		  texture[i].resize(texWidth * texHeight);
 	  }
 
-	  for(int x = 0; x < texWidth; x++){
-		  for(int y = 0; y < texHeight; y++){
+	  beTheTexture.loadFromFile("img/textures/redbrick.png");
 
-			  realTexture[0][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[1][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[2][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[3][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
+	  texture[0] = convertImageToTexture(beTheTexture);
+	  texture[1] = convertImageToTexture(beTheTexture);
+	  texture[2] = convertImageToTexture(beTheTexture);
+	  texture[3] = convertImageToTexture(beTheTexture);
 
-			  realTexture[4][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[5][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[6][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-			  realTexture[7][texWidth*y + x] = 65536 * 192 * (x % 16 && y % 16);
-		  }
-	  }
+	  texture[4] = convertImageToTexture(beTheTexture);
+	  texture[5] = convertImageToTexture(beTheTexture);
+	  texture[6] = convertImageToTexture(beTheTexture);
+	  texture[7] = convertImageToTexture(beTheTexture);
 
 	  drawingBuffer.create(width,height,sf::Color::Black);
 
+}
+
+
+std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
+	sf::Color color;
+	std::vector<sf::Uint32> texture;
+
+	texture.resize(texWidth * texHeight);
+	
+	for(int x=0; x<texWidth; x++){
+		
+		for(int y=0; y<texHeight; y++){
+			
+			color = image.getPixel(x, y);
+			texture[texWidth*y + x] = color.r * 65536 + color.g * 256 + color.b;
+			
+			
+		} 
+	}
+
+	return texture;
 }
 
 
@@ -233,35 +251,30 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	  
 
 	  //퍼포먼스에 가장 영향을 많이 주는 부분 (이 for문이 부하가 가장 많다)
-	  //특히 realBuffer 에 값을 대입할때
+	  //특히 buffer 에 값을 대입할때
 	  for(int y = drawStart; y<drawEnd; y++){
 		  
 		  int d = y * 256 - height * 128 + lineHeight * 128;
 		  int texY = ((d*texHeight)/lineHeight) / 256;
 		  
-		  color = realTexture[texNum][texHeight * texY + texX];
+		  color = texture[texNum][texHeight * texY + texX];
 		  
 		  if(side == 1)
 			  color = (color >> 1) & 8355711;
 			 
-		  realBuffer[y*width*4 + x*4 + 2] = color%256;
+		  buffer[y*width*4 + x*4 + 2] = color%256;
 		  color >>=8;
-		  realBuffer[y*width*4 + x*4 + 1] = color%256;
+		  buffer[y*width*4 + x*4 + 1] = color%256;
 		  color >>=8;
-		  realBuffer[y*width*4 + x*4 + 0] = color%256;
-		  realBuffer[y*width*4 + x*4 + 3] = 255;  
+		  buffer[y*width*4 + x*4 + 0] = color%256;
+		  buffer[y*width*4 + x*4 + 3] = 255;  
 	  }
 	  
-	  
-
-
-
 	  //여기까지 texture rendering 이었습니다!
 
-      
 	}
 
-	drawingBuffer.create(width,height,realBuffer);
+	drawingBuffer.create(width,height,buffer);
 	drawingTex.loadFromImage(drawingBuffer);
 	drawingSprite.setTexture(drawingTex);
 
@@ -269,8 +282,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 
-	for(int i=0; i<sizeof(realBuffer); i++){
-		realBuffer[i] = 0;
+	for(int i=0; i<sizeof(buffer); i++){
+		buffer[i] = 0;
 	}
 
 }

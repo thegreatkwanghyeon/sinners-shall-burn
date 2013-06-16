@@ -1,8 +1,9 @@
 #include "raycastingscene.h"
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
-RayCastingScene::RayCastingScene(){
+RayCastingScene::RayCastingScene(){/*
 	FILE *in = fopen("map.txt","r");
 	
 	for(int i=0;i<mapHeight;i++){
@@ -10,65 +11,76 @@ RayCastingScene::RayCastingScene(){
 			fscanf(in,"%d",&worldMap[i][j]);
 		}
 	}
-	fclose(in);
+	fclose(in);*/
 
-	  height = 360;
-	  width = 640;
+	makemap = new MakeMap();
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			worldMap[i][j]=makemap->getMap(i,j);
+		}
+	}
+	
+
+	height = 360;
+	width = 640;
 		
-	  pos.x = 1.5; 
-	  pos.y = 1.5;
-	  dir.x = -1; 
-	  dir.y = 0;
-	  plane.x = 0; 
-	  plane.y = 0.66;
+	pos.x = 1.5; 
+	pos.y = 1.5;
+	dir.x = -1; 
+	dir.y = 0;
+	plane.x = 0; 
+	plane.y = 0.66;
 
-	  //---이동---//
-	  //player.x = 1.5;
-	  //player.y = 1.5;
-	  isTurnL=0;
-	  isTurnR=0;
-	  isGoF=0;
-	  isGoR=0;
+	//---이동---//
+	//player.x = 1.5;
+	//player.y = 1.5;
+	isTurnL=0;
+	isTurnR=0;
+	isGoF=0;
+	isGoR=0;
 
-	  pressS=false;
-	  pressW=false;
-	  pressA=false;
-	  pressD=false;
+	pressS=false;
+	pressW=false;
+	pressA=false;
+	pressD=false;
 
-	  deltaClock.restart();
-	  //---
+	deltaClock.restart();
+	//---
   
-	  time = 0;
-	  oldTime = 0;
+	newTime = 0;
+	oldTime = 0;
 
-	  moveSpeed = 1/(float)DEVIDE;
-	  rotSpeed = 1.575/(float)DEVIDE;
+	moveSpeed = 1/(float)Devide;
+	rotSpeed = 1.575/(float)Devide;
 
-	  for(int i=0; i<8; i++){
-		  texture[i].resize(texWidth * texHeight);
-	  }
+	for(int i=0; i<8; i++){
+		texture[i].resize(texWidth * texHeight);
+	}
 
 	  
-	  textureImage.loadFromFile("img/textures/eagle.png");
-	  texture[0] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/redbrick.png");
-	  texture[1] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/purplestone.png");
-	  texture[2] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/greystone.png");
-	  texture[3] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/eagle.png");
+	texture[0] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/redbrick.png");
+	texture[1] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/purplestone.png");
+	texture[2] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/greystone.png");
+	texture[3] = convertImageToTexture(textureImage);
 
-	  textureImage.loadFromFile("img/textures/bluestone.png");
-	  texture[4] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/mossy.png");
-	  texture[5] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/wood.png");
-	  texture[6] = convertImageToTexture(textureImage);
-	  textureImage.loadFromFile("img/textures/colorstone.png");
-	  texture[7] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/bluestone.png");
+	texture[4] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/mossy.png");
+	texture[5] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/wood.png");
+	texture[6] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/colorstone.png");
+	texture[7] = convertImageToTexture(textureImage);
 
-	  drawingBuffer.create(width,height,sf::Color::Black);
+	drawingBuffer.create(width,height,sf::Color::Black);
 
+}
+RayCastingScene::~RayCastingScene(){
+	delete makemap;
 }
 
 
@@ -97,28 +109,28 @@ void RayCastingScene::update(sf::Event &event){
 	if (isGoF == 0 && isGoR == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
 		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 			pressW=true;
-			isGoF=DEVIDE;
+			isGoF=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			pressS=true;
-			isGoR=DEVIDE;
+			isGoR=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
-			isTurnL=DEVIDE;
+			isTurnL=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			pressD=true;
-			isTurnR=DEVIDE;
+			isTurnR=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
@@ -135,13 +147,13 @@ void RayCastingScene::update(sf::Event &event){
 
 	float delta=deltaClock.getElapsedTime().asSeconds();
 	float current=currentTime.asSeconds();
-	if(delta-current >= cntTime/DEVIDE){
+	if(delta-current >= CntTime/Devide){
 		if(isTurnR != 0){
-			if((int)((delta-current)/(cntTime/DEVIDE)) > 1){
-				rotSpeed*=(int)((delta-current)/(cntTime/DEVIDE));
-				isTurnR-=(int)((delta-current)/(cntTime/DEVIDE));
+			if((int)((delta-current)/(CntTime/Devide)) > 1){
+				rotSpeed*=(int)((delta-current)/(CntTime/Devide));
+				isTurnR-=(int)((delta-current)/(CntTime/Devide));
 				if(isTurnR < 0){
-					rotSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					rotSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isTurnR=0;
 				}
 			}else
@@ -154,11 +166,11 @@ void RayCastingScene::update(sf::Event &event){
 			plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
 			plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
 		}else if(isTurnL != 0){
-			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
-				rotSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
-				isTurnL-=((int)(delta-current)/(cntTime/DEVIDE));
+			if(((int)(delta-current)/(CntTime/Devide)) > 1){
+				rotSpeed*=((int)(delta-current)/(CntTime/Devide));
+				isTurnL-=((int)(delta-current)/(CntTime/Devide));
 				if(isTurnL < 0){
-					rotSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					rotSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isTurnL=0;
 				}
 			}else
@@ -171,11 +183,11 @@ void RayCastingScene::update(sf::Event &event){
 			plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
 			plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
 		}else if(isGoF != 0){
-			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
-				moveSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
-				isGoF-=((int)(delta-current)/(cntTime/DEVIDE));
+			if(((int)(delta-current)/(CntTime/Devide)) > 1){
+				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+				isGoF-=((int)(delta-current)/(CntTime/Devide));
 				if(isGoF < 0){
-					moveSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoF=0;
 				}
 			}else
@@ -187,11 +199,11 @@ void RayCastingScene::update(sf::Event &event){
 				pos.y=(int)pos.y+0.5;
 			}
 		}else if(isGoR != 0){
-			if(((int)(delta-current)/(cntTime/DEVIDE)) > 1){
-				moveSpeed*=((int)(delta-current)/(cntTime/DEVIDE));
-				isGoR-=((int)(delta-current)/(cntTime/DEVIDE));
+			if(((int)(delta-current)/(CntTime/Devide)) > 1){
+				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+				isGoR-=((int)(delta-current)/(CntTime/Devide));
 				if(isGoR < 0){
-					moveSpeed/=((int)(delta-current)/(cntTime/DEVIDE));
+					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoR=0;
 				}
 			}else
@@ -205,8 +217,8 @@ void RayCastingScene::update(sf::Event &event){
 		}
 		currentTime=deltaClock.getElapsedTime();
 	}
-	moveSpeed = 1/(float)DEVIDE;
-	rotSpeed = 1.575/(float)DEVIDE;
+	moveSpeed = 1/(float)Devide;
+	rotSpeed = 1.575/(float)Devide;
 }
 
 void RayCastingScene::draw(sf::RenderWindow &window){

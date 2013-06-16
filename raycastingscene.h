@@ -1,30 +1,27 @@
 #ifndef __raycastingscene__
 #define __raycastingscene__
 
-#define mapWidth 24
-#define mapHeight 24
 #define texWidth 64
 #define texHeight 64
 
-#define Footstep 1
-#define cntTime 0.2
-#define DEVIDE 10
+#define FootStep 1
+#define CntTime 0.2
+#define Devide 10
 
 #include "scenebase.h"
+#include "makemap.h"
 
 class RayCastingScene : public SceneBase{
 
 	typedef sf::Vector2<double> Vector2d;
 
 	private:
-		int worldMap[mapWidth][mapHeight];
-
 		int height, width, x;
 
 		 Vector2d dir;
 		 Vector2d plane; //촬영용 카메라의 2D 버전
 		 Vector2d pos;
-		 double time; //현재 프레임의 시간
+		 double newTime; //현재 프레임의 시간
 		 double oldTime; //바로전 프레임의 시간
 		 double cameraX;
 		 Vector2d rayPos;
@@ -71,13 +68,16 @@ class RayCastingScene : public SceneBase{
 		 sf::Clock deltaClock;
 		 sf::Time currentTime;
 
+		 //맵관련변수
+		int worldMap[MapX+100][MapY+100];
+		MakeMap *makemap;
+		
+
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
 		 std::vector<sf::Uint32> convertImageToTexture(sf::Image image);
-
-
 	public:
 		RayCastingScene();
-		~RayCastingScene(){}
+		~RayCastingScene();
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		

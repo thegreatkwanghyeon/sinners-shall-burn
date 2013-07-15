@@ -3,26 +3,30 @@
 #include <math.h>
 #include <time.h>
 
-RayCastingScene::RayCastingScene(){/*
+RayCastingScene::RayCastingScene(){
 	FILE *in = fopen("map.txt","r");
 	
-	for(int i=0;i<mapHeight;i++){
-		for(int j=0;j<mapWidth;j++){
+	for(int i=0;i<20;i++){
+		for(int j=0;j<20;j++){
 			fscanf(in,"%d",&worldMap[i][j]);
 		}
 	}
-	fclose(in);*/
+	fclose(in);
 
-	makemap = new MakeMap();
+	/*makemap = new MakeMap();
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			worldMap[i][j]=makemap->getMap(i,j);
 		}
-	}
-	
+	}*/
 
-	height = 360;
-	width = 640;
+	sprite[0].x = 1.5;
+	sprite[0].y = 2.5;
+	sprite[0].texture = 8;
+
+
+	height = screenHeight;
+	width = screenWidth;
 		
 	pos.x = 1.5; 
 	pos.y = 1.5;
@@ -75,6 +79,8 @@ RayCastingScene::RayCastingScene(){/*
 	texture[6] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/colorstone.png");
 	texture[7] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/pillar.png");
+	texture[8] = convertImageToTexture(textureImage);
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 
@@ -221,6 +227,29 @@ void RayCastingScene::update(sf::Event &event){
 	rotSpeed = 1.575/(float)Devide;
 }
 
+void RayCastingScene::combSort(int* order, double* dist, int amount){
+	int gap = amount;
+  bool swapped = false;
+  while(gap > 1 || swapped)
+  {
+    //shrink factor 1.3
+    gap = (gap * 10) / 13;
+    if(gap == 9 || gap == 10) gap = 11;
+    if (gap < 1) gap = 1;
+    swapped = false;
+    for (int i = 0; i < amount - gap; i++)
+    {
+      int j = i + gap;
+      if (dist[i] < dist[j])
+      {
+        std::swap(dist[i], dist[j]);
+        std::swap(order[i], order[j]);
+        swapped = true;
+      }
+    }
+  }
+}
+
 void RayCastingScene::draw(sf::RenderWindow &window){
 	sf::RectangleShape point;
 	point.setSize(sf::Vector2f(1.0,1.0));
@@ -325,6 +354,10 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	  }
 	  
 	  //여기까지 texture rendering 이었습니다!
+
+	  //스프라이트 캐스팅을 위한 ZBuffer 계산
+      ZBuffer[x] = perpWallDist; //수직거리가 사용된다
+
 	  //이제 floor rendering 이 시작됩니다!
 
 	  if(side == 0 && rayDir.x > 0){
@@ -376,6 +409,49 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		  buffer[4*((height-y)*width+x) +3] = 255;
 	  }
 	}
+	//플로어캐스팅 끝났습니다!
+	//스프라이트 캐스팅 시작!
+	
+	for(int i=0;i<numSprites;i++){
+		spriteOrder[i] = i;
+		spriteDistance[i] = ((pos.x - sprite[i].x) * (pos.x - sprite[i].x) + (pos.y - sprite[i].y) * (pos.y - sprite[i].y));
+	}
+	combSort(spriteOrder, spriteDistance, numSprites);
+	
+	//정렬이 끝났고, 이제 존나 그릴거다.
+	for(int i=0; i<numSprites;i++){
+		sf::Vector2f spritePos;
+		spritePos.x = sprite[spriteOrder[i]].x - pos.x;
+		spritePos.y = sprite[spriteOrder[i]].y - pos.y;
+
+		double invDet = 1.0 / (plane.x * dir.y - dir.x * plane.y);
+		sf::Vector2f transform;
+		transform.x = invDet * (dir.y * spritePos.x - dir.x * spritePos.y);
+		transform.y = invDet * (-plane.y * spritePos.x + plane.y * spritePos.y);
+		
+		int spriteScreenX = (int)((width/2) * (1+transform.x / transform.y));
+
+		int spriteHeight = abs((int)(height/transform.y));
+		sf::Vector2i renderStart;
+		sf::Vector2i renderEnd;
+		
+		renderStart.y = -spriteHeight/2 + height/2;
+		if(renderStart.y < 0) renderStart.y = 0;
+		renderEnd.y = spriteHeight/2 + height/2;
+		if(renderEnd.y >= height) renderEnd.y = height - 1;
+
+		//너비계산
+		int spriteWidth = abs((int)(height/transform.y));
+		renderStart.x = -spriteWidth / 2 + spriteScreenX;
+		if(renderStart.x < 0) renderStart.x = 0;
+		renderEnd.x = spriteWidth/2 + spriteScreenX;
+		if(renderEnd.x >= width) renderEnd.x = width - 1;
+	}
+	
+	
+
+
+	//sprite casting 긑 ();
 
 	drawingBuffer.create(width,height,buffer);
 	drawingTex.loadFromImage(drawingBuffer);

@@ -4,9 +4,14 @@
 #define texWidth 64
 #define texHeight 64
 
+#define screenWidth 640
+#define screenHeight 360
+
 #define FootStep 1
 #define CntTime 0.2
 #define Devide 10
+
+#define numSprites 1
 
 #include "scenebase.h"
 #include "makemap.h"
@@ -45,7 +50,7 @@ class RayCastingScene : public SceneBase{
 
 		 sf::Uint32 color;
 		 sf::Uint8 buffer[1280*720*4];
-		 std::vector<sf::Uint32> texture[8];
+		 std::vector<sf::Uint32> texture[9];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
@@ -75,6 +80,23 @@ class RayCastingScene : public SceneBase{
 
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
 		 std::vector<sf::Uint32> convertImageToTexture(sf::Image image);
+
+		 //스프라이트 관련 변수
+		 
+		 struct Sprite{
+			 double x;
+			 double y;
+			 int texture;
+		 };
+
+		 Sprite sprite[numSprites];
+		 double ZBuffer[screenWidth];
+		 int spriteOrder[numSprites];
+		 double spriteDistance[numSprites];
+		 void combSort(int* order, double* dist, int amount);
+
+
+
 	public:
 		RayCastingScene();
 		~RayCastingScene();

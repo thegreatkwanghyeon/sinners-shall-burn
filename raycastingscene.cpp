@@ -12,24 +12,24 @@ RayCastingScene::RayCastingScene(){
 		}
 	}
 	fclose(in);
-
-	/*makemap = new MakeMap();
+	/*
+	makemap = new MakeMap();
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			worldMap[i][j]=makemap->getMap(i,j);
 		}
-	}*/
-
-	sprite[0].x = 1.5;
-	sprite[0].y = 2.5;
+	}
+	*/
+	sprite[0].x = 0.5;
+	sprite[0].y = 0.5;
 	sprite[0].texture = 8;
 
 
 	height = screenHeight;
 	width = screenWidth;
 		
-	pos.x = 1.5; 
-	pos.y = 1.5;
+	pos.x = 2.5; 
+	pos.y = 2.5;
 	dir.x = -1; 
 	dir.y = 0;
 	plane.x = 0; 
@@ -446,12 +446,35 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		if(renderStart.x < 0) renderStart.x = 0;
 		renderEnd.x = spriteWidth/2 + spriteScreenX;
 		if(renderEnd.x >= width) renderEnd.x = width - 1;
+
+		for(int stripe = renderStart.x; stripe < renderEnd.x; stripe++){
+			sf::Vector2i tex;
+			tex.x = (int)(256 * (stripe - (-spriteWidth / 2  + spriteScreenX)) * texWidth / spriteWidth) / 256;
+
+			if(transform.y > 0 && stripe > 0 && stripe < width && transform.y < ZBuffer[stripe]){
+			
+				for(int y = renderStart.y; y < renderEnd.y; y++){
+					int d = y * 256 - height * 128 + spriteHeight * 128;
+					tex.y = ((d*texHeight)/spriteHeight)/256;
+					color = texture[sprite[spriteOrder[i]].texture][texWidth * tex.y + tex.x];
+					
+					if((color & 0x00FFFFFF) != 0){
+						buffer[y*width*4 + stripe*4 + 2] = color%256;
+						color >>=8;
+						buffer[y*width*4 + stripe*4 + 1] = color%256;
+						color >>=8;
+						buffer[y*width*4 + stripe*4 + 0] = color%256;
+						buffer[y*width*4 + stripe*4 + 3] = 255;  
+					}
+				}
+			}
+		}
 	}
 	
 	
 
 
-	//sprite casting ÉP ();
+	//sprite casting ≥° ();
 
 	drawingBuffer.create(width,height,buffer);
 	drawingTex.loadFromImage(drawingBuffer);

@@ -449,7 +449,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 		for(int stripe = renderStart.x; stripe < renderEnd.x; stripe++){
 			sf::Vector2i tex;
-			tex.x = (int)(256 * (stripe - (-spriteWidth / 2  + spriteScreenX)) * texWidth / spriteWidth) / 256;
+			tex.x = (int)((256 * (stripe - (-spriteWidth / 2  + spriteScreenX)) * texWidth / spriteWidth) / 256);
 
 			if(transform.y > 0 && stripe > 0 && stripe < width && transform.y < ZBuffer[stripe]){
 			

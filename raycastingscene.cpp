@@ -20,8 +20,8 @@ RayCastingScene::RayCastingScene(){
 		}
 	}
 	*/
-	sprite[0].x = 0.5;
-	sprite[0].y = 0.5;
+	sprite[0].x = 1.5;
+	sprite[0].y = 1.5;
 	sprite[0].texture = 8;
 
 

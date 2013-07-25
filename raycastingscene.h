@@ -68,8 +68,8 @@ class RayCastingScene : public SceneBase{
 
 		 //이동관련변수
 		 //sf::Vector2i player;
-		 int isTurnL,isTurnR,isGoF,isGoR;
-		 bool pressW,pressS,pressD,pressA;
+		 int isTurnL,isTurnR,isGoF,isGoB, isGoR,isGoL;
+		 bool pressW,pressS,pressD,pressA,pressL,pressR;
 		 sf::Clock deltaClock;
 		 sf::Time currentTime;
 

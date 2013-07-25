@@ -41,12 +41,16 @@ RayCastingScene::RayCastingScene(){
 	isTurnL=0;
 	isTurnR=0;
 	isGoF=0;
+	isGoB=0;
+	isGoL=0;
 	isGoR=0;
 
 	pressS=false;
 	pressW=false;
 	pressA=false;
 	pressD=false;
+	pressL=false;
+	pressR=false;
 
 	deltaClock.restart();
 	//---
@@ -112,21 +116,56 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 
 void RayCastingScene::update(sf::Event &event){
-	if (isGoF == 0 && isGoR == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
-		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+	int tempX, tempY;//좌우이동용 temp변수
+
+	if(dir.x < 0.9 && dir.x > -0.9)
+		if(dir.y < 0)
+			tempX = -1;
+		else
+			tempX = 1;
+	else
+		tempX = 0;	
+	//------
+	if(dir.y < 0.9 && dir.y > -0.9)
+		if(dir.x < 0)
+			tempY = 1;
+		else
+			tempY = -1;
+	else
+		tempY = 0;
+	//---
+
+	if (isGoF == 0 && isGoB == 0 && isTurnL == 0 && isTurnR == 0 && isGoR == 0 && isGoL == 0){//현재 멈춰있는 상태(노 애니메이션)		
+		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))){
 			pressW=true;
 			isGoF=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
-		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))){
 			pressS=true;
+			isGoB=Devide;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
+		}
+		//-----
+		if(pressL == false && worldMap[int(pos.x-tempX)][int(pos.y-tempY)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+			pressL=true;
+			isGoL=Devide;
+			//---
+			deltaClock.restart();
+			currentTime = deltaClock.getElapsedTime();
+		}
+		if(pressR == false && worldMap[int(pos.x+tempX)][int(pos.y+tempY)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+			pressR=true;
 			isGoR=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
+		//---
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
 			isTurnL=Devide;
@@ -142,14 +181,18 @@ void RayCastingScene::update(sf::Event &event){
 			currentTime = deltaClock.getElapsedTime();
 		}
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false && sf::Keyboard::isKeyPressed(sf::Keyboard::Up) == false)
 		pressW=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false && sf::Keyboard::isKeyPressed(sf::Keyboard::Down) == false)
 		pressS=false;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false)
 		pressA=false;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 		pressD=false;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) == false)
+		pressR=false;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) == false)
+		pressL=false;
 
 	float delta=deltaClock.getElapsedTime().asSeconds();
 	float current=currentTime.asSeconds();
@@ -200,11 +243,44 @@ void RayCastingScene::update(sf::Event &event){
 				isGoF--;
 			pos.x += floor(dir.x+0.5) * moveSpeed;
 			pos.y += floor(dir.y+0.5) * moveSpeed;
+
 			if(isGoF == 0){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
 			}
-		}else if(isGoR != 0){
+		}else if(isGoB != 0){
+			if(((int)(delta-current)/(CntTime/Devide)) > 1){
+				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+				isGoB-=((int)(delta-current)/(CntTime/Devide));
+				if(isGoB < 0){
+					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+					isGoB=0;
+				}
+			}else
+				isGoB--;
+			pos.x -= floor(dir.x+0.5) * moveSpeed;
+			pos.y -= floor(dir.y+0.5) * moveSpeed;
+			if(isGoB == 0){
+				pos.x=(int)pos.x+0.5;
+				pos.y=(int)pos.y+0.5;
+			}
+		}else if(isGoL != 0){
+			if(((int)(delta-current)/(CntTime/Devide)) > 1){
+				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+				isGoL-=((int)(delta-current)/(CntTime/Devide));
+				if(isGoL < 0){
+					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+					isGoL=0;
+				}
+			}else
+				isGoL--;
+			pos.x -= tempX * moveSpeed;
+			pos.y -= tempY * moveSpeed;
+			if(isGoL == 0){
+				pos.x=(int)pos.x+0.5;
+				pos.y=(int)pos.y+0.5;
+			}
+		}else if(isGoR != 0){															   
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
 				isGoR-=((int)(delta-current)/(CntTime/Devide));
@@ -214,8 +290,8 @@ void RayCastingScene::update(sf::Event &event){
 				}
 			}else
 				isGoR--;
-			pos.x -= floor(dir.x+0.5) * moveSpeed;
-			pos.y -= floor(dir.y+0.5) * moveSpeed;
+			pos.x += tempX * moveSpeed;
+			pos.y += tempY * moveSpeed;
 			if(isGoR == 0){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
@@ -225,6 +301,26 @@ void RayCastingScene::update(sf::Event &event){
 	}
 	moveSpeed = 1/(float)Devide;
 	rotSpeed = 1.575/(float)Devide;
+	//---
+	if(dir.x > 0.0 && dir.x < 0.1)
+		dir.x=0.0;
+	if(dir.y > 0.0 && dir.y < 0.1)
+		dir.y=0.0;
+
+	if(dir.x < 0.0 && dir.x > -0.1)
+		dir.x=0.0;
+	if(dir.y < 0.0 && dir.y > -0.1)
+		dir.y=0.0;
+
+	if(dir.x < 1.0 && dir.x > 0.99)
+		dir.x=1.0;
+	if(dir.y < 1.0 && dir.y > 0.99)
+		dir.y=1.0;
+
+	if(dir.x > -1.0 && dir.x < -0.99)
+		dir.x=-1.0;
+	if(dir.y > -1.0 && dir.y < -0.99)
+		dir.y=-1.0;
 }
 
 void RayCastingScene::combSort(int* order, double* dist, int amount){

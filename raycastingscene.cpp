@@ -217,7 +217,7 @@ void RayCastingScene::update(sf::Event &event){
 		}else if(isTurnL != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				rotSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isTurnL-=((int)(delta-current)/(CntTime/Devide));
+				isTurnL-=(int)((delta-current)/(CntTime/Devide));
 				if(isTurnL < 0){
 					rotSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isTurnL=0;
@@ -234,7 +234,7 @@ void RayCastingScene::update(sf::Event &event){
 		}else if(isGoF != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoF-=((int)(delta-current)/(CntTime/Devide));
+				isGoF-=(int)((delta-current)/(CntTime/Devide));
 				if(isGoF < 0){
 					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoF=0;
@@ -243,15 +243,15 @@ void RayCastingScene::update(sf::Event &event){
 				isGoF--;
 			pos.x += floor(dir.x+0.5) * moveSpeed;
 			pos.y += floor(dir.y+0.5) * moveSpeed;
-
+			/*
 			if(isGoF == 0){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
-			}
+			}*/
 		}else if(isGoB != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoB-=((int)(delta-current)/(CntTime/Devide));
+				isGoB-=(int)((delta-current)/(CntTime/Devide));
 				if(isGoB < 0){
 					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoB=0;
@@ -260,6 +260,7 @@ void RayCastingScene::update(sf::Event &event){
 				isGoB--;
 			pos.x -= floor(dir.x+0.5) * moveSpeed;
 			pos.y -= floor(dir.y+0.5) * moveSpeed;
+			//---
 			if(isGoB == 0){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
@@ -267,7 +268,7 @@ void RayCastingScene::update(sf::Event &event){
 		}else if(isGoL != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoL-=((int)(delta-current)/(CntTime/Devide));
+				isGoL-=(int)((delta-current)/(CntTime/Devide));
 				if(isGoL < 0){
 					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoL=0;
@@ -276,6 +277,7 @@ void RayCastingScene::update(sf::Event &event){
 				isGoL--;
 			pos.x -= tempX * moveSpeed;
 			pos.y -= tempY * moveSpeed;
+			//---
 			if(isGoL == 0){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
@@ -283,7 +285,7 @@ void RayCastingScene::update(sf::Event &event){
 		}else if(isGoR != 0){															   
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoR-=((int)(delta-current)/(CntTime/Devide));
+				isGoR-=(int)((delta-current)/(CntTime/Devide));
 				if(isGoR < 0){
 					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
 					isGoR=0;
@@ -302,6 +304,7 @@ void RayCastingScene::update(sf::Event &event){
 	moveSpeed = 1/(float)Devide;
 	rotSpeed = 1.575/(float)Devide;
 	//---
+	
 	if(dir.x > 0.0 && dir.x < 0.1)
 		dir.x=0.0;
 	if(dir.y > 0.0 && dir.y < 0.1)
@@ -517,13 +520,13 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	//정렬이 끝났고, 이제 존나 그릴거다.
 	for(int i=0; i<numSprites;i++){
 		sf::Vector2f spritePos;
-		spritePos.x = sprite[spriteOrder[i]].x - pos.x;
-		spritePos.y = sprite[spriteOrder[i]].y - pos.y;
+		spritePos.x = (float)sprite[spriteOrder[i]].x - (float)pos.x;
+		spritePos.y = (float)sprite[spriteOrder[i]].y - (float)pos.y;
 
 		double invDet = 1.0 / (plane.x * dir.y - dir.x * plane.y);
 		sf::Vector2f transform;
-		transform.x = invDet * (dir.y * spritePos.x - dir.x * spritePos.y);
-		transform.y = invDet * (-plane.y * spritePos.x + plane.y * spritePos.y);
+		transform.x = (float)invDet * (float)(dir.y * spritePos.x - dir.x * spritePos.y);
+		transform.y = (float)invDet * (float)(-plane.y * spritePos.x + plane.y * spritePos.y);
 		
 		int spriteScreenX = (int)((width/2) * (1+transform.x / transform.y));
 

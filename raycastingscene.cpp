@@ -20,8 +20,8 @@ RayCastingScene::RayCastingScene(){
 		}
 	}
 	*/
-	sprite[0].x = 1.5;
-	sprite[0].y = 1.5;
+	sprite[0].x = 3.5;
+	sprite[0].y = 3.5;
 	sprite[0].texture = 8;
 
 
@@ -324,6 +324,29 @@ void RayCastingScene::update(sf::Event &event){
 		dir.x=-1.0;
 	if(dir.y > -1.0 && dir.y < -0.99)
 		dir.y=-1.0;
+	//---
+	if(plane.x > 0.0 && plane.x < 0.1)
+		plane.x=0.0;
+	if(plane.y > 0.0 && plane.y < 0.1)
+		plane.y=0.0;
+
+	if(plane.x < 0.0 && plane.x > -0.1)
+		plane.x=0.0;
+	if(plane.y < 0.0 && plane.y > -0.1)
+		plane.y=0.0;
+
+	if(plane.x < 0.67 && plane.x > 0.65)
+		plane.x=0.66;
+	if(plane.y < 0.67 && plane.y > 0.65)
+		plane.y=0.66;
+
+	if(plane.x > -0.67 && plane.x < -0.65)
+		plane.x=-0.66;
+	if(plane.y > -0.67 && plane.y < -0.65)
+		plane.y=-0.66;
+	//---
+
+	printf("%lf * %lf - %lf * %lf\n",plane.x, dir.y, dir.x, plane.y);
 }
 
 void RayCastingScene::combSort(int* order, double* dist, int amount){

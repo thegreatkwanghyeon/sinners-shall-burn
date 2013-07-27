@@ -553,7 +553,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		
 		int spriteScreenX = (int)((width/2) * (1+transform.x / transform.y));
 
-		int spriteHeight = abs((int)(height/transform.y));
+		int spriteHeight = abs((int)(height/transform.y)); //이 값이 비정상적으로커지는게 문제 (transform.y 가 너무 작음)
+		printf("%f * %f + %f * %f\n", -plane.y, spritePos.x, plane.y, spritePos.y);
 		sf::Vector2i renderStart;
 		sf::Vector2i renderEnd;
 		

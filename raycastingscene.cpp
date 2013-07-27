@@ -42,15 +42,11 @@ RayCastingScene::RayCastingScene(){
 	isTurnR=0;
 	isGoF=0;
 	isGoB=0;
-	isGoL=0;
-	isGoR=0;
 
 	pressS=false;
 	pressW=false;
 	pressA=false;
 	pressD=false;
-	pressL=false;
-	pressR=false;
 
 	deltaClock.restart();
 	//---
@@ -135,15 +131,15 @@ void RayCastingScene::update(sf::Event &event){
 		tempY = 0;
 	//---
 
-	if (isGoF == 0 && isGoB == 0 && isTurnL == 0 && isTurnR == 0 && isGoR == 0 && isGoL == 0){//현재 멈춰있는 상태(노 애니메이션)		
-		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))){
+	if (isGoF == 0 && isGoB == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
+		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 			pressW=true;
 			isGoF=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
-		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))){
+		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			pressS=true;
 			isGoB=Devide;
 			//---
@@ -151,20 +147,6 @@ void RayCastingScene::update(sf::Event &event){
 			currentTime = deltaClock.getElapsedTime();
 		}
 		//-----
-		if(pressL == false && worldMap[int(pos.x-tempX)][int(pos.y-tempY)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-			pressL=true;
-			isGoL=Devide;
-			//---
-			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
-		}
-		if(pressR == false && worldMap[int(pos.x+tempX)][int(pos.y+tempY)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-			pressR=true;
-			isGoR=Devide;
-			//---
-			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
-		}
 		//---
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
@@ -181,18 +163,14 @@ void RayCastingScene::update(sf::Event &event){
 			currentTime = deltaClock.getElapsedTime();
 		}
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false && sf::Keyboard::isKeyPressed(sf::Keyboard::Up) == false)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
 		pressW=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false && sf::Keyboard::isKeyPressed(sf::Keyboard::Down) == false)
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
 		pressS=false;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false)
 		pressA=false;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 		pressD=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) == false)
-		pressR=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) == false)
-		pressL=false;
 
 	float delta=deltaClock.getElapsedTime().asSeconds();
 	float current=currentTime.asSeconds();
@@ -265,39 +243,6 @@ void RayCastingScene::update(sf::Event &event){
 				pos.x=(int)pos.x+0.5;
 				pos.y=(int)pos.y+0.5;
 			}
-		}else if(isGoL != 0){
-			if(((int)(delta-current)/(CntTime/Devide)) > 1){
-				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoL-=(int)((delta-current)/(CntTime/Devide));
-				if(isGoL < 0){
-					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isGoL=0;
-				}
-			}else
-				isGoL--;
-			pos.x -= tempX * moveSpeed;
-			pos.y -= tempY * moveSpeed;
-			//---
-			if(isGoL == 0){
-				pos.x=(int)pos.x+0.5;
-				pos.y=(int)pos.y+0.5;
-			}
-		}else if(isGoR != 0){															   
-			if(((int)(delta-current)/(CntTime/Devide)) > 1){
-				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoR-=(int)((delta-current)/(CntTime/Devide));
-				if(isGoR < 0){
-					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isGoR=0;
-				}
-			}else
-				isGoR--;
-			pos.x += tempX * moveSpeed;
-			pos.y += tempY * moveSpeed;
-			if(isGoR == 0){
-				pos.x=(int)pos.x+0.5;
-				pos.y=(int)pos.y+0.5;
-			}
 		}
 		currentTime=deltaClock.getElapsedTime();
 	}
@@ -305,46 +250,30 @@ void RayCastingScene::update(sf::Event &event){
 	rotSpeed = 1.575/(float)Devide;
 	//---
 	
-	if(dir.x > 0.0 && dir.x < 0.1)
-		dir.x=0.0;
-	if(dir.y > 0.0 && dir.y < 0.1)
-		dir.y=0.0;
 
-	if(dir.x < 0.0 && dir.x > -0.1)
-		dir.x=0.0;
-	if(dir.y < 0.0 && dir.y > -0.1)
-		dir.y=0.0;
+	dir.x=fixErrorNum(dir.x, -0.1, 0.1, 0.0);
+	dir.y=fixErrorNum(dir.y, -0.1, 0.1, 0.0);
 
-	if(dir.x < 1.0 && dir.x > 0.99)
-		dir.x=1.0;
-	if(dir.y < 1.0 && dir.y > 0.99)
-		dir.y=1.0;
+	dir.x=fixErrorNum(dir.x, 0.99, 1.1, 1.0);
+	dir.y=fixErrorNum(dir.y, 0.99, 1.1, 1.0);
 
-	if(dir.x > -1.0 && dir.x < -0.99)
-		dir.x=-1.0;
-	if(dir.y > -1.0 && dir.y < -0.99)
-		dir.y=-1.0;
+	dir.x=fixErrorNum(dir.x, -1.1, -0.99, -1.0);
+	dir.y=fixErrorNum(dir.y, -1.1, -0.99, -1.0);
 	//---
-	if(plane.x > 0.0 && plane.x < 0.1)
-		plane.x=0.0;
-	if(plane.y > 0.0 && plane.y < 0.1)
-		plane.y=0.0;
+	plane.x=fixErrorNum(plane.x, -0.1, 0.1, 0.0);
+	plane.y=fixErrorNum(plane.y, -0.1, 0.1, 0.0);
 
-	if(plane.x < 0.0 && plane.x > -0.1)
-		plane.x=0.0;
-	if(plane.y < 0.0 && plane.y > -0.1)
-		plane.y=0.0;
+	plane.x=fixErrorNum(plane.x, 0.65, 0.67, 0.66);
+	plane.y=fixErrorNum(plane.y, 0.65, 0.67, 0.66);
 
-	if(plane.x < 0.67 && plane.x > 0.65)
-		plane.x=0.66;
-	if(plane.y < 0.67 && plane.y > 0.65)
-		plane.y=0.66;
-
-	if(plane.x > -0.67 && plane.x < -0.65)
-		plane.x=-0.66;
-	if(plane.y > -0.67 && plane.y < -0.65)
-		plane.y=-0.66;
+	plane.x=fixErrorNum(plane.x, -0.67, -0.65, -0.66);
+	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
+}
+double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
+	if(num > st && num < ed)
+		return setNum;
+	return num;
 }
 
 void RayCastingScene::combSort(int* order, double* dist, int amount){
@@ -552,7 +481,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		int spriteScreenX = (int)((width/2) * (1+transform.x / transform.y));
 
 		int spriteHeight = abs((int)(height/transform.y)); //이 값이 비정상적으로커지는게 문제 (transform.y 가 너무 작음)
-		printf("%f * %f + %f * %f\n", -plane.y, spritePos.x, plane.x, spritePos.y);
+		//printf("%f * %f + %f * %f\n", -plane.y, spritePos.x, plane.x, spritePos.y);
 		sf::Vector2i renderStart;
 		sf::Vector2i renderEnd;
 		

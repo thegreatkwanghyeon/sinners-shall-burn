@@ -345,8 +345,6 @@ void RayCastingScene::update(sf::Event &event){
 	if(plane.y > -0.67 && plane.y < -0.65)
 		plane.y=-0.66;
 	//---
-
-	printf("%lf * %lf - %lf * %lf\n",plane.x, dir.y, dir.x, plane.y);
 }
 
 void RayCastingScene::combSort(int* order, double* dist, int amount){
@@ -549,12 +547,12 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		double invDet = 1.0 / (plane.x * dir.y - dir.x * plane.y);
 		sf::Vector2f transform;
 		transform.x = (float)invDet * (float)(dir.y * spritePos.x - dir.x * spritePos.y);
-		transform.y = (float)invDet * (float)(-plane.y * spritePos.x + plane.y * spritePos.y);
+		transform.y = (float)invDet * (float)(-plane.y * spritePos.x + plane.x * spritePos.y);
 		
 		int spriteScreenX = (int)((width/2) * (1+transform.x / transform.y));
 
 		int spriteHeight = abs((int)(height/transform.y)); //이 값이 비정상적으로커지는게 문제 (transform.y 가 너무 작음)
-		printf("%f * %f + %f * %f\n", -plane.y, spritePos.x, plane.y, spritePos.y);
+		printf("%f * %f + %f * %f\n", -plane.y, spritePos.x, plane.x, spritePos.y);
 		sf::Vector2i renderStart;
 		sf::Vector2i renderEnd;
 		

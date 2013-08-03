@@ -84,6 +84,9 @@ RayCastingScene::RayCastingScene(){
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 
+	//쉐이더
+	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
+
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -109,7 +112,6 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 	return texture;
 }
-
 
 void RayCastingScene::update(sf::Event &event){
 	int tempX, tempY;//좌우이동용 temp변수
@@ -299,6 +301,7 @@ void RayCastingScene::combSort(int* order, double* dist, int amount){
   }
 }
 
+
 void RayCastingScene::draw(sf::RenderWindow &window){
 	sf::RectangleShape point;
 	point.setSize(sf::Vector2f(1.0,1.0));
@@ -384,23 +387,23 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	  //퍼포먼스에 가장 영향을 많이 주는 부분 (이 for문이 부하가 가장 많다)
 	  //특히 buffer 에 값을 대입할때
-	  for(int y = drawStart; y<drawEnd; y++){
+		for(int y = drawStart; y<drawEnd; y++){
 		  
-		  int d = y * 256 - height * 128 + lineHeight * 128;
-		  int texY = ((d*texHeight)/lineHeight) / 256;
+			int d = y * 256 - height * 128 + lineHeight * 128;
+			int texY = ((d*texHeight)/lineHeight) / 256;
 		  
-		  color = texture[texNum][texHeight * texY + texX];
+			color = texture[texNum][texHeight * texY + texX];
 		  
-		  if(side == 1)
-			  color = (color >> 1) & 8355711;
+			if(side == 1)
+				color = (color >> 1) & 8355711;
 			 
-		  buffer[y*width*4 + x*4 + 2] = color%256;
-		  color >>=8;
-		  buffer[y*width*4 + x*4 + 1] = color%256;
-		  color >>=8;
-		  buffer[y*width*4 + x*4 + 0] = color%256;
-		  buffer[y*width*4 + x*4 + 3] = 255;  
-	  }
+			buffer[y*width*4 + x*4 + 2] = color%256;
+			color >>=8;
+			buffer[y*width*4 + x*4 + 1] = color%256;
+			color >>=8;
+			buffer[y*width*4 + x*4 + 0] = color%256;
+			buffer[y*width*4 + x*4 + 3] = 255;  
+		}
 	  
 	  //여기까지 texture rendering 이었습니다!
 
@@ -428,35 +431,36 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	  if(drawEnd < 0)
 		  drawEnd = height;
+	  
+		for(int y = drawEnd ; y < height; y++){
+			currentDist = height/(2.0*y-height);
 
-	  for(int y = drawEnd ; y < height; y++){
-		  currentDist = height/(2.0*y-height);
 
-		  weight = (currentDist - distPlayer) / (distWall - distPlayer);
-		  currentFloor.x = weight * floorWall.x + (1.0 - weight) * pos.x;
-		  currentFloor.y = weight * floorWall.y + (1.0 - weight) * pos.y;
+			weight = (currentDist - distPlayer) / (distWall - distPlayer);
+			currentFloor.x = weight * floorWall.x + (1.0 - weight) * pos.x;
+			currentFloor.y = weight * floorWall.y + (1.0 - weight) * pos.y;
 
-		  floorTex.x = (int)(currentFloor.x * texWidth) % texWidth;
-		  floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
+			floorTex.x = (int)(currentFloor.x * texWidth) % texWidth;
+			floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
 
-		  //바닥
-		  color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;
-		  buffer[4*(y*width+x) +2] = color%256;
-		  color >>=8;
-		  buffer[4*(y*width+x) +1] = color%256;
-		  color >>=8;
-		  buffer[4*(y*width+x) +0] = color%256;
-		  buffer[4*(y*width+x) +3] = 255;
+			//바닥
+			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;
+			buffer[4*(y*width+x) +2] = color%256;
+			color >>=8;
+			buffer[4*(y*width+x) +1] = color%256;
+			color >>=8;
+			buffer[4*(y*width+x) +0] = color%256;
+			buffer[4*(y*width+x) +3] = 255;
 		  
-		  //천장
-		  color = texture[6][texWidth * floorTex.y + floorTex.x];
-		  buffer[4*((height-y)*width+x) +2] = color%256;
-		  color >>= 8;
-		  buffer[4*((height-y)*width+x) +1] = color%256;
-		  color >>= 8;
-		  buffer[4*((height-y)*width+x) +0] = color%256;
-		  buffer[4*((height-y)*width+x) +3] = 255;
-	  }
+			//천장
+			color = texture[6][texWidth * floorTex.y + floorTex.x];
+			buffer[4*((height-y)*width+x) +2] = color%256;
+			color >>= 8;
+			buffer[4*((height-y)*width+x) +1] = color%256;
+			color >>= 8;
+			buffer[4*((height-y)*width+x) +0] = color%256;
+			buffer[4*((height-y)*width+x) +3] = 255;
+		}
 	}
 	//플로어캐스팅 끝났습니다!
 	//스프라이트 캐스팅 시작!
@@ -528,9 +532,17 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	drawingBuffer.create(width,height,buffer);
 	drawingTex.loadFromImage(drawingBuffer);
+
+	sight.setParameter("texture",drawingTex);
+	sight.setParameter("center", sf::Vector2f(0.5, 0.5));
+
 	drawingSprite.setTexture(drawingTex);
 
-	window.draw(drawingSprite);
+	
+
+
+
+	window.draw(drawingSprite, &sight);
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 

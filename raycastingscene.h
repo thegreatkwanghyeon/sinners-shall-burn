@@ -89,11 +89,15 @@ class RayCastingScene : public SceneBase{
 			 int texture;
 		 };
 
+		 //쉐이딩 관련 변수
+		 sf::Shader sight;
+
 		 Sprite sprite[numSprites];
 		 double ZBuffer[screenWidth];
 		 int spriteOrder[numSprites];
 		 double spriteDistance[numSprites];
 		 void combSort(int* order, double* dist, int amount);
+		 double fixErrorNum(double num, double st, double ed, double setNum);
 
 
 

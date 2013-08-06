@@ -3,23 +3,14 @@
 #include <math.h>
 #include <time.h>
 
-RayCastingScene::RayCastingScene(){
-	FILE *in = fopen("map.txt","r");
-	
-	for(int i=0;i<20;i++){
-		for(int j=0;j<20;j++){
-			fscanf(in,"%d",&worldMap[i][j]);
-		}
-	}
-	fclose(in);
-	/*
+RayCastingScene::RayCastingScene(){	
 	makemap = new MakeMap();
+	makemap->buildMap();
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			worldMap[i][j]=makemap->getMap(i,j);
 		}
 	}
-	*/
 	sprite[0].x = 3.5;
 	sprite[0].y = 3.5;
 	sprite[0].texture = 8;

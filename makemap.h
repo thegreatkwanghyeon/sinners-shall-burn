@@ -8,23 +8,19 @@
 
 #define MapX 20
 #define MapY 20
-#define Tile 5
+#define DeathLimit 3
+#define BirthLimit 4
 
 class MakeMap{
 	private:
-		int map[MapY+100][MapX+100];
-		int road[MapY+100][MapX+100];
-		int tile[30][Tile+1][Tile+1];
-		int old;
+		int map[MapY+1][MapX+1],oldmap[MapY+1][MapX+1];
 
-		bool chkMap();
-		void buildMap();
-		void findRoad(int x, int y);
+		void makeRandomMap();
+		int countNeighbours(int x, int y);
 	public:
 		MakeMap();
 		~MakeMap(){}
+		void buildMap();
 		int getMap(int y, int x);
 };
 #endif
-
-	

@@ -1,138 +1,109 @@
 #include "makemap.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "time.h"
 
 MakeMap::MakeMap(){
 	int i,j;
-	old=-1;
-
-	for(i=0;i<MapY/Tile;i++){
-		for(j=0;j<MapX/Tile;j++){
-			road[i][j]=0;
+	for(i=0;i<MapY;i++){
+		for(j=0;j<MapX;j++){
+			oldmap[i][j]=map[i][j]=0;
 		}
-	}
-
-	buildMap();
-}
-
-bool MakeMap::chkMap(){
-	int i,j;
-	for(i=0;i<MapY/Tile;i++){
-		for(j=0;j<MapX/Tile;j++){
-			if(road[i][j] == 0)
-				return false;
-		}
-	}
-	return true;
-}
-void MakeMap::findRoad(int x, int y){
-	int loc;
-	int cnt=0;
-
-    srand(time(NULL));
-
-	while(1){
-		cnt++;
-		if(cnt >= 100)
-			old=-1;
-		while(1){
-			loc=rand()%4;
-			if(old != loc)
-				break;
-		}
-		//printf("%d\n",rand());
-		if(y > 0 && road[y-1][x] == 0 && loc == 0){//위
-			road[y-1][x]+=4;
-			road[y][x]+=1;
-			old=loc;
-			findRoad(x,y-1);
-		}else if(x+1 < MapX/Tile && road[y][x+1] == 0 && loc == 1){//오른쪽
-			road[y][x+1]+=8;
-			road[y][x]+=2;
-			old=loc;
-			findRoad(x+1,y);
-		}else if(y+1 < MapY/Tile && road[y+1][x] == 0 && loc == 2){//아래
-			road[y+1][x]+=1;
-			road[y][x]+=4;
-			old=loc;
-			findRoad(x,y+1);
-		}else if(x > 0 && road[y][x-1] == 0 && loc == 3){//왼쪽
-			road[y][x-1]+=2;
-			road[y][x]+=8;
-			old=loc;
-			findRoad(x-1,y);
-		}
-		if(road[y][x] == 15 || chkMap() == true || ((y == 0 || road[y-1][x] != 0) && (y+1 == MapY/Tile || road[y+1][x] != 0) && (x == 0 || road[y][x-1] != 0) && (x+1 == MapX/Tile || road[y][x+1]) != 0))
-			break;
 	}
 }
 
 void MakeMap::buildMap(){
-	int i,j,k,l;
-	FILE *in = fopen("tile.txt","r");
+	int i,j,k;
+	int nbs;
+	makeRandomMap();
+	//--------------
+	for(k=0;k<6;k++){
+		for(i=0;i<MapY;i++){
+			for(j=0;j<MapX;j++){
+				nbs = countNeighbours(i,j);
 
-	for(i=0;i<16;i++){
-		for(j=0;j<Tile;j++){
-			for(k=0;k<Tile;k++){
-				fscanf(in,"%d",&tile[i][j][k]);
-			}
-		}
-	}
-	fclose(in);
-
-	findRoad(0,0);
-	/*
-	srand(time(NULL));
-	for(i=0;i<10;i++){
-		rdx=rand()%10;
-		while(1){
-			rdy=rand()%10;
-			if(rdy != rdx)
-				break;
-		}
-		if(road[rdy][rdx] == 15){
-			i--;
-			continue;
-		}else{
-			temp=road[rdy][rdx];
-			for(j=0;j<4;j++){
-				check[j]=temp%2;
-				temp /= 2;
-			}
-			printf("변경 : %d %d!%d[%d %d %d %d]-flag %d\n",rdx,rdy,road[rdy][rdx],road[rdy][rdx]&1,road[rdy][rdx]&2,road[rdy][rdx]&4,road[rdy][rdx]&8,road[rdy][rdx]&1==0);
-			if(rdy != 0 && check[0] == 0){
-				road[rdy][rdx]+=1;
-				road[rdy-1][rdx]+=4;
-			}
-			if(rdy != 9 && check[1] == 0){
-				road[rdy][rdx]+=2;
-				road[rdy][rdx+1]+=8;
-			}
-			if(rdy != 9 && check[2] == 0){
-				road[rdy][rdx]+=4;
-				road[rdy+1][rdx]+=1;
-			}
-			if(rdy != 0 && check[3] == 0){
-				road[rdy][rdx]+=8;
-				road[rdy][rdx-1]+=2;
-			}
-			printf("변경 : %d %d!%d[%d %d %d %d]\n",rdx,rdy,road[rdy][rdx],road[rdy][rdx]&1,road[rdy][rdx]&2,road[rdy][rdx]&4,road[rdy][rdx]&8);
-		}
-	}*/
-
-	for(i=0;i<MapY/Tile;i++){
-		for(j=0;j<MapX/Tile;j++){
-			for(k=0;k<Tile;k++){
-				for(l=0;l<Tile;l++){
-					//printf("%d %d [%d %d %d %d] %d\n",i*Tile+k,j*Tile+l,i,j,k,l,road[0][0]);
-					map[i*Tile+k][j*Tile+l]=tile[road[i][j]][k][l];
+				if(oldmap[i][j]){
+					if(nbs < DeathLimit){
+						map[i][j] = false;
+					}
+					else{
+						map[i][j] = true;
+					}
+				}
+				//반대로, 칸이 false 값이면, true 로바뀌기에 적당한 갯수의 true 인 이웃하는 칸이 있는지 체크합시다.
+				else{
+					if(nbs > BirthLimit){
+						map[i][j] = true;
+					}
+					else{
+						map[i][j] = false;
+					}
 				}
 			}
 		}
 	}
+	//---
 	for(i=0;i<MapY;i++){
-		for(j=0;j<MapX;j++)
-			printf("%d ",map[i][j]);
+		for(j=0;j<MapX;j++){
+			if(i == 0 || j == 0 || j == MapX-1 || i == MapY-1)
+				map[i][j]=true;
+		}
+	}
+	
+	for(i=0;i<MapY;i++){
+		for(j=0;j<MapX;j++){
+			if(map[i][j] == 1)
+				printf("■");
+			else
+				printf("□");			
+		}
 		printf("\n");
 	}
+	printf("-=-=-=-=-=-=\n");
+	//--------------
+}
+void MakeMap::makeRandomMap(){
+	int i,j;
+	int old=0,rd;
+	int chanceToStartAlive = 35;
+	srand(time(NULL));
+	for(i=0; i<MapY; i++){
+        for(j=0;j<MapX;j++){
+			while(1){
+				rd = rand()%100;
+				if(rd != old){
+					old=rd;
+					break;
+				}
+			}
+            if(rd < chanceToStartAlive)
+                oldmap[i][j] = true;
+            else
+				oldmap[i][j]=false;
+        }
+    }
+}
+int MakeMap::countNeighbours(int x, int y){
+    int count = 0;
+    for(int i=-1; i<2; i++){
+        for(int j=-1; j<2; j++){
+            int neighbour_x = x+i;
+            int neighbour_y = y+j;
+            //검색할 칸에 있다면
+            if(i == 0 && j == 0){
+                //아무것도 안해요! 우리는 이웃하는 칸을 셀것입니다.
+            }
+            //만약에 우리가 검색할 칸이 맵의 테두리에 있다면
+            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= MapX || neighbour_y >= MapY){
+                count = count + 1;
+            }
+            //그것도 아니면, 일반적으로 검색합니다
+            else if(oldmap[neighbour_x][neighbour_y]){
+                count = count + 1;
+            }
+        }
+    }
+	return count;
 }
 int MakeMap::getMap(int y, int x){
 	return map[y][x];

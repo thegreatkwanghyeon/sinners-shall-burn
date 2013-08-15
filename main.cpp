@@ -24,21 +24,13 @@ int main(void){
 					sceneManager->setScene(new TitleScene());
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
-				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
-					sceneManager->setScene(new GameScene());
+				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
+				sceneManager->setScene(new GameScene());
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 				sceneManager->setScene(new ShaderScene());
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)){
-				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
-					//sceneManager->setScene(new Battle(2));
-			}	
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)){
-					view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
-					sceneManager->setScene(new RayCastingScene());
-			}	
 		sceneManager->update(Event);
 		}
 

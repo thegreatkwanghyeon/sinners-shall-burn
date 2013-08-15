@@ -6,25 +6,19 @@
 #include "global.h"
 #include "skill.h"
 
-class Player : public Entity {
+class Player{
 	private:
+		int hp;
+		int mp;
+		//int status[7]; 걍 날려버릴라고 함.
 
 	public:
-		enum Stat{
-			hp,//체력 
-			attack,//공격력
-			defense,//방어력
-			critical,//치명타율
-			agility,//공격속도
-			accuracy,//명중율
-		};
-		int status[7];//한칸은 여유분
 		int element[30],useElement[10];
-		Player(const char *_path , sf::Vector2i _position);
-		virtual ~Player(){delete skill;};
+		Player();
+		~Player(){delete skill;};
 
-		virtual void update(std::vector<sf::FloatRect> collideRects);
-		virtual void draw(sf::RenderWindow &window);
+		void update();
+		void draw(sf::RenderWindow &window);
 
 		Skill *skill;
 };

@@ -10,19 +10,9 @@ Puzzle::Puzzle(){
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
 
-	font.loadFromFile("font/spike.ttf");
-	text1.setFont(font);
-	text2.setFont(font);
-	text3.setFont(font);
-	//text1.setString(L"12345");
-	text1.setPosition(0.0f, 0.0f);
-	text2.setPosition(200.0f, 0.0f);
-	text3.setPosition(400.0f, 0.0f);
-
-	button = new Button("img/button.png");
-	button->setPosition(50,(PuzzleSize*PBlockSize)+PStartY+20);
+	button = new Button("img/sbutton.png");
+	button->setPosition(0,230);
 	button->setText("HINT", 18);
-	button->setHotkey(sf::Keyboard::H);
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
@@ -46,9 +36,7 @@ Puzzle::Puzzle(){
 	move=false;
 
 	tempNum=0;
-	limit1=0.0;
-	limit2=false;
-	limit3=false;
+	//limit1=0.0;
 	hint=false;
 	
 	deltaTime=eTime.restart();
@@ -67,7 +55,8 @@ Puzzle::~Puzzle(){
 }
 
 void Puzzle::update(sf::Event &event){
-	int i,j,tp=0;
+	int i,j,tp;
+	bool chkBlock=false;
 
 	if(move == true){
 		for(i=0;i<PuzzleSize;i++){
@@ -79,22 +68,20 @@ void Puzzle::update(sf::Event &event){
 						data[i][j]->init_position(data[i][j]->x,data[i][j]->y+PBlockSize/5);
 					}
 					
-					tp++;
+					chkBlock=true;
 				}
 			}
 		}
-		if(tp == 0){
+		if(chkBlock == false){
 			move=false;
-			limit2=false;
-			limit3=false;
 			checkPuzzle();
 		}
-		tp=0;
+		chkBlock=false;
 	}
 	if(change == true){
-		limit1+=deltaTime.asSeconds();
-		if(limit1 >= 2.0){
-			limit1=0;
+		//limit1+=deltaTime.asSeconds();
+		if(deltaTime.asSeconds() >= 2.0){
+			//limit1=0;
 			change = false;
 			makePuzzle();
 		}
@@ -202,12 +189,6 @@ void Puzzle::draw(sf::RenderWindow &window){
 	for(i=0;i<StackSize;i++){
 		stack[i]->draw(window);
 	}
-	if(limit1 != 0)
-		window.draw(text1);
-	if(limit2 == true)
-		window.draw(text2);
-	if(limit3 == true)
-		window.draw(text3);
 
 	if(hint == true)
 		window.draw(sprite);
@@ -228,9 +209,6 @@ int Puzzle::checkPuzzle(){
 					data[i-1][j]->init_animation();
 					data[i-2][j]->is_break=true;
 					data[i-2][j]->init_animation();
-
-					text2.setString(L"추가타!");
-					limit2=true;
 				}
 				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num && (data[i][j]->is_break+data[i][j-1]->is_break+data[i][j-2]->is_break < 3)
 					&& (data[i][j]->is_break == true || data[i][j-1]->is_break == true || data[i][j-2]->is_break == true)){//가로로 3개가 겹칠때.
@@ -240,9 +218,6 @@ int Puzzle::checkPuzzle(){
 					data[i][j-1]->init_animation();
 					data[i][j-2]->is_break=true;
 					data[i][j-2]->init_animation();
-
-					text2.setString(L"추가타!");
-					limit2=true;
 				}
 			}
 		}
@@ -260,8 +235,6 @@ int Puzzle::checkPuzzle(){
 					stackInput(data[i][j]->num);
 				}
 				_snprintf(ComString, sizeof(ComString), "COMBO %d!!", comboNum);
-				text3.setString(ComString);
-				limit3=true;
 				//---
 
 				flag=true;
@@ -284,8 +257,6 @@ int Puzzle::checkPuzzle(){
 				comboNum++;
 
 				_snprintf(ComString, sizeof(ComString), "COMBO %d!!", comboNum);
-				text3.setString(ComString);
-				limit3=true;
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
@@ -472,9 +443,8 @@ void Puzzle::checkPuzzleMore(){
 		}
 	}
 	deltaTime=eTime.restart();
-	limit1=0.01f;
+	//limit1=0.01f;
 	change=true;
-	text1.setString(L"진행불가!");
 }
 
 void Puzzle::stackInput(int num){
@@ -503,9 +473,9 @@ void Puzzle::makePuzzle(){
 			while(1){
 				rd=rand()%PuzzleKind;
 
-				if(i >= 2 && rd%PuzzleKind == data[i-2][j]->num && rd%PuzzleKind == data[i-1][j]->num)//세로로 중복되는 경우.
+				if(i >= 2 && PuzzleElement[rd%PuzzleKind] == data[i-2][j]->num && PuzzleElement[rd%PuzzleKind] == data[i-1][j]->num)//세로로 중복되는 경우.
 					continue;
-				if(j >= 2 && rd%PuzzleKind == data[i][j-2]->num && rd%PuzzleKind == data[i][j-1]->num)//가로로 중복되는 경우.
+				if(j >= 2 && PuzzleElement[rd%PuzzleKind] == data[i][j-2]->num && PuzzleElement[rd%PuzzleKind] == data[i][j-1]->num)//가로로 중복되는 경우.
 					continue;
 
 				break;
@@ -519,6 +489,7 @@ void Puzzle::setElement(int Element[]){
 	int i;
 	for(i=0;i<PuzzleKind;i++){
 		PuzzleElement[i] = Element[i];
+		//printf("%d \n",PuzzleElement[i]);
 	}
 	makePuzzle();
 }

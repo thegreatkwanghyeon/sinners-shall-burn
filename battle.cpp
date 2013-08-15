@@ -64,13 +64,16 @@ void Battle::update(sf::Event &event){
 	int useCnt=0;
 	int chk[200]={0,};
 
-	//for(i=0;i<skill->skillNum;i++)
-	//	skill->data[i].use = false;
+	float delta;
 
 	puzzle->update(event);
-	/*if(puzzle->hitNum > 5){
-		printf("적의 턴...퍼즐 시간 초과");
-	}*/
+
+	if(keyEvent){
+		delta=deltaClock.getElapsedTime().asSeconds();
+		if(delta >= 0.5)
+			keyEvent=false;
+	}
+
 	for(i=0;i<ViewSkill;i++)
 		canUseSkill[i]=0;
 	for(i=0;i<200;i++){
@@ -78,7 +81,7 @@ void Battle::update(sf::Event &event){
 	}
 
 	for(i=StackNum-1;i>=0;i--){
-		for(j=0;j+i<=StackNum;j++){
+		for(j=0;j+i<StackNum;j++){
 			temp = makeCode(j,j+i);
 			for(k=0;k<skill->skillNum;k++){
 				if(temp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
@@ -93,13 +96,15 @@ void Battle::update(sf::Event &event){
 
 	for(i=0;i<ViewSkill;i++){
 		button[i]->update(event);
-		if(canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
+		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
 			useSkill(canUseSkill[i]);
+			deltaClock.restart();
+			keyEvent=true;
 		}
 		if(canUseSkill[i] != 0)			
 			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(150,310+i*55,30,30), 350);
-		else 
-			tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
+		//else 
+		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
 		tooltip[i]->update();
 	}
 
@@ -144,7 +149,7 @@ int Battle::makeCode(int s, int e){
 
 	if(e >= StackNum)
 		return -1;
-	for(i=s;i<e;i++){
+	for(i=s;i<=e;i++){
 		re *= skill->check[puzzle->stack[i]->num];
 	}
 	return re;

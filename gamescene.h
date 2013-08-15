@@ -1,33 +1,21 @@
 #ifndef __gamescene__
 #define __gamescene__
 
-#include "scenebase.h"
-#include "map.h"
-#include "uiscene.h"
-#include "player.h"
-
-#include "button.h"
+#include "raycastingscene.h"
 #include "battle.h"
-
+#include "player.h"
 
 
 class GameScene : public SceneBase{
 	private:
-		//Character *character;
-		Map *map;
-		UiScene *uiscene;
-		Player *player;
-
-		Button *button;
+		RayCastingScene* rayCastingScene;
 		Battle *battle;
-		bool flag;
-
+		Player *player;
 	public:
 		GameScene();
-		~GameScene(){delete map; delete uiscene; delete player;}
+		~GameScene(){}
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
-		
 };
 
 #endif

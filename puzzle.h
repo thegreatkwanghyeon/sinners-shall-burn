@@ -13,9 +13,8 @@
 #define PuzzleKind 7
 #define StackSize 5
 //---
-#define PStartX 200
-#define PStartY 320
-//#define PBlockSize 50//이거 pdata에도 있음...
+#define PStartX 235
+#define PStartY 75
 
 class Puzzle{
 	private:
@@ -29,11 +28,7 @@ class Puzzle{
 		sf::Clock eTime;
 		sf::Time deltaTime;
 
-		sf::Text text1,text2,text3;
-		sf::Font font;
-
-		float limit1;
-		bool limit2, limit3;
+		//float limit1;
 
 		bool flag;
 		bool move;

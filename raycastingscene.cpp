@@ -78,7 +78,7 @@ RayCastingScene::RayCastingScene(){
 	//쉐이더
 	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
 
-	player = new Player("img/male_walkcycle.png", sf::Vector2i(100.0f, 120.0f));//배틀관련, 그냥 스킬저장용. 이동부는 차후 제거할 예정. 회의필요.
+	player = new Player();//배틀관련, 그냥 스킬저장용. 이동부는 차후 제거할 예정. 회의필요.
 	battle=new Battle(1,player);//배틀관련
 }
 RayCastingScene::~RayCastingScene(){

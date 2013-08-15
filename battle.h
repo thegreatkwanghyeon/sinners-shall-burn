@@ -38,6 +38,9 @@ class Battle : public SceneBase{
 		sf::Texture  texture;
 		TileSet *tileset;
 
+		sf::Clock deltaClock;
+		bool keyEvent;
+
 		Monster monster;
 		Skill *skill;
 		Button *button[ViewSkill+1];

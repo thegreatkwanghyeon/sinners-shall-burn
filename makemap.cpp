@@ -15,6 +15,9 @@ MakeMap::MakeMap(){
 void MakeMap::buildMap(){
 	int i,j,k;
 	int nbs;
+	FILE *in = fopen("tile.txt","r");
+
+
 	makeRandomMap();
 	//--------------
 	for(k=0;k<6;k++){
@@ -42,6 +45,18 @@ void MakeMap::buildMap(){
 			}
 		}
 	}
+	//-----
+	for(i=0;i<20;i++){
+		for(j=0;j<20;j++){
+			fscanf(in,"%d",&k);
+			printf("%d ",k);
+			if(k == 0)
+				map[i][j]=0;
+		}
+		printf("\n");
+	}
+	fclose(in);
+
 	//---
 	for(i=0;i<MapY;i++){
 		for(j=0;j<MapX;j++){
@@ -65,7 +80,7 @@ void MakeMap::buildMap(){
 void MakeMap::makeRandomMap(){
 	int i,j;
 	int old=0,rd;
-	int chanceToStartAlive = 35;
+	int chanceToStartAlive = 50;
 	srand(time(NULL));
 	for(i=0; i<MapY; i++){
         for(j=0;j<MapX;j++){

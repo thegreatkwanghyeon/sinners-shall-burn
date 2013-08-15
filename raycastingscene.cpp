@@ -78,6 +78,8 @@ RayCastingScene::RayCastingScene(){
 	//쉐이더
 	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
 
+	player = new Player("img/male_walkcycle.png", sf::Vector2i(100.0f, 120.0f));//배틀관련, 그냥 스킬저장용. 이동부는 차후 제거할 예정. 회의필요.
+	battle=new Battle(1,player);//배틀관련
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -262,6 +264,7 @@ void RayCastingScene::update(sf::Event &event){
 	plane.x=fixErrorNum(plane.x, -0.67, -0.65, -0.66);
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
+	battle->update(event);//배틀관련
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)
@@ -540,5 +543,13 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	for(int i=0; i<sizeof(buffer); i++){
 		buffer[i] = 0;
 	}
+	//---
+	sf::View view;
+	view.reset(sf::FloatRect(0, 0, 1280, 700));
 
+	view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
+	window.setView(view);
+	battle->draw(window);//배틀관련
+	view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
+	window.setView(view);
 }

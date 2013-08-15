@@ -1,3 +1,5 @@
+//배틀관련 : 배틀용 변수. 차후 이동.
+
 #ifndef __raycastingscene__
 #define __raycastingscene__
 
@@ -15,6 +17,9 @@
 
 #include "scenebase.h"
 #include "makemap.h"
+
+#include "battle.h"//배틀관련
+#include "player.h"//배틀관련
 
 class RayCastingScene : public SceneBase{
 
@@ -98,6 +103,9 @@ class RayCastingScene : public SceneBase{
 		 double spriteDistance[numSprites];
 		 void combSort(int* order, double* dist, int amount);
 		 double fixErrorNum(double num, double st, double ed, double setNum);
+
+		 Battle* battle;//배틀관련
+		 Player* player;//배틀관련
 
 
 

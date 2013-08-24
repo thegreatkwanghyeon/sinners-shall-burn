@@ -14,19 +14,9 @@
 #define StackNum 5
 #define ViewSkill 5
 
-enum Stat{
-	hp,//체력 
-	attack,//공격력
-	defense,//방어력
-	critical,//치명타율
-	agility,//공격속도
-	accuracy,//명중율
-};
-
 struct Monster{
 	sf::Text name;
-	//char name[100];
-	int status[7];//한칸은 여유분
+	int hp;
 };
 
 class Battle : public SceneBase{
@@ -40,6 +30,7 @@ class Battle : public SceneBase{
 
 		sf::Clock deltaClock;
 		bool keyEvent;
+		bool isBattle;
 
 		Monster monster;
 		Skill *skill;
@@ -57,10 +48,11 @@ class Battle : public SceneBase{
 		Battle(int Code, Player* p);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
-		int GetResult();
+		int getResult();
 		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);
 		void useSkill(int num);
+		void startBattle(int code);
 };
 
 #endif

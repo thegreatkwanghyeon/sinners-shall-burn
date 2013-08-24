@@ -9,8 +9,6 @@
 class Player{
 	private:
 		int hp;
-		int mp;
-		//int status[7]; 걍 날려버릴라고 함.
 
 	public:
 		int element[30],useElement[10];

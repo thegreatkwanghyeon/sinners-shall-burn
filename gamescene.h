@@ -11,6 +11,8 @@ class GameScene : public SceneBase{
 		RayCastingScene* rayCastingScene;
 		Battle *battle;
 		Player *player;
+
+		bool isBattle;
 	public:
 		GameScene();
 		~GameScene(){}

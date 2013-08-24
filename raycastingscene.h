@@ -18,10 +18,7 @@
 #include "scenebase.h"
 #include "makemap.h"
 
-#include "battle.h"//배틀관련
-#include "player.h"//배틀관련
-
-class RayCastingScene : public SceneBase{
+class RayCastingScene{
 
 	typedef sf::Vector2<double> Vector2d;
 
@@ -98,14 +95,12 @@ class RayCastingScene : public SceneBase{
 		 sf::Shader sight;
 
 		 Sprite sprite[numSprites];
+		 int monsterNum[numSprites];//스프라이트들의 몬스터 번호를 따로 저장해줌.
 		 double ZBuffer[screenWidth];
 		 int spriteOrder[numSprites];
 		 double spriteDistance[numSprites];
 		 void combSort(int* order, double* dist, int amount);
 		 double fixErrorNum(double num, double st, double ed, double setNum);
-
-		 Battle* battle;//배틀관련
-		 Player* player;//배틀관련
 
 
 
@@ -114,7 +109,8 @@ class RayCastingScene : public SceneBase{
 		~RayCastingScene();
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
-		
+		int isBattle();
+		int getAngle();
 };
 
 #endif

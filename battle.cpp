@@ -3,35 +3,39 @@
 
 Battle::Battle(int Code, Player* player){
 	int i;
-	int tp;
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
 
 	tileset = new TileSet();
 	texture.loadFromFile("img/skill2.png");
-	printf("???");
 	texture = tileset->tileSet("img/skill2.png",30,30);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
 
 	skill = player->skill;
 
-	stats.LoadFile("xmls/Monster.xml");
 	font.loadFromFile("font/spike.ttf");
+
+	for(i=0;i<ViewSkill;i++){
+		canUseSkill[i]=0;
+		button[i] = new Button("img/sbutton.png");
+		button[i]->setPosition(20,420+i*55);//dir-------------------------->
+		//button->setText("HINT", 18);
+		tooltip[i] = new Tooltip("img/tooltip.png");
+		tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
+	}
+	isBattle=false;
+}
+void Battle::startBattle(int code){
+	int tp;
+	stats.LoadFile("xmls/Monster.xml");
 	TiXmlNode *pNode = stats.FirstChildElement("Monster")->FirstChildElement("Enemy");
 
-	
-
-	for(i=0;;i++){
+	for(int i=0;;i++){
 		pNode->ToElement()->Attribute("code",&tp);
-		if(tp == Code){
+		if(tp == code){
 			monster.name.setString(MTW(pNode->ToElement()->GetText()));
-			pNode->ToElement()->Attribute("hp",&monster.status[hp]);
-			pNode->ToElement()->Attribute("attack",&monster.status[attack]);
-			pNode->ToElement()->Attribute("defense",&monster.status[defense]);
-			pNode->ToElement()->Attribute("critical",&monster.status[critical]);
-			pNode->ToElement()->Attribute("agility",&monster.status[agility]);
-			pNode->ToElement()->Attribute("accuracy",&monster.status[accuracy]);
+			pNode->ToElement()->Attribute("hp",&monster.hp);
 
 			monster.name.setFont(font);
 			monster.name.setString(MTW(pNode->ToElement()->GetText()));
@@ -40,22 +44,13 @@ Battle::Battle(int Code, Player* player){
 
 			code=i;
 			break;
-		}else if(tp > Code){
+		}else if(tp > code){
 			printf("I Can't find Code...");
 			return;
 		}
-		
 		pNode = pNode->NextSibling();
 	}
-
-	for(i=0;i<ViewSkill;i++){
-		canUseSkill[i]=0;
-		button[i] = new Button("img/sbutton.png");
-		button[i]->setPosition(10,300+i*55);
-		//button->setText("HINT", 18);
-		tooltip[i] = new Tooltip("img/tooltip.png");
-		tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
-	}
+	isBattle=true;
 }
 
 void Battle::update(sf::Event &event){
@@ -102,9 +97,9 @@ void Battle::update(sf::Event &event){
 			keyEvent=true;
 		}
 		if(canUseSkill[i] != 0)			
-			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(150,310+i*55,30,30), 350);
+			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
 		//else 
-		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,310+i*55,30,30), 350);
+		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,360+i*55,30,30), 350);
 		tooltip[i]->update();
 	}
 
@@ -121,24 +116,29 @@ void Battle::update(sf::Event &event){
 	//중독/힐/스탯저하 등을 계산
 	//사망판정. 누구 죽으면 플래그를 조정해서 아래 겟리술트를 할수있게 함
 }
-int Battle::GetResult(){
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+int Battle::getResult(){
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)){
+		isBattle=false;
 		return -1;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)){
+		isBattle=false;
 		return 1;
+	}
 	return 0;
 }
 
 void Battle::draw(sf::RenderWindow &window){
 	int i;
 	puzzle->draw(window);
-	window.draw(monster.name);
+	if(isBattle)
+		window.draw(monster.name);
 
 	for(i=0;i<ViewSkill;i++){
 		button[i]->draw(window);
 	}
 	for(i=0;i<ViewSkill;i++){
-		sprite.setPosition(150,310+i*55);
+		sprite.setPosition(70,430+i*55);//dir-------------------------->
 		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
 		window.draw(sprite);
 		tooltip[i]->draw(window);

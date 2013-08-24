@@ -13,8 +13,8 @@
 #define PuzzleKind 7
 #define StackSize 5
 //---
-#define PStartX 235
-#define PStartY 75
+#define PStartX 500
+#define PStartY 415
 
 class Puzzle{
 	private:

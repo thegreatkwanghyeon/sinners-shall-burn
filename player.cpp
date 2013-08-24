@@ -13,6 +13,8 @@ Player::Player(){
 	skill->setHave(3);
 	skill->setHave(4);
 	skill->setHave(5);
+
+	hp=100;
 }
 
 void Player::update(){

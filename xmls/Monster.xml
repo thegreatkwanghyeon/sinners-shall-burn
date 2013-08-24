@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <Monster>
-  <Enemy code="1" hp="50" attack="10" defence="20" critical="40" agility="120" accuracy="70"> 달팽이</Enemy>
-  <Enemy code="2" hp="100" attack="10" defence="20" critical="40" agility="120" accuracy="70"> 주황버섯</Enemy>
-  <Enemy code="3" hp="500" attack="10" defence="20" critical="40" agility="120" accuracy="70"> 코란도C</Enemy>
-  <Enemy code="4" hp="200" attack="10" defence="20" critical="40" agility="120" accuracy="70"> 1/48 티거</Enemy>
-  <Enemy code="5" hp="5000" attack="10" defence="20" critical="40" agility="120" accuracy="70"> 브루스 윌리스</Enemy>
+  <Enemy code="1" hp="50"> 진승현</Enemy>
+  <Enemy code="2" hp="100"> 주황버섯</Enemy>
+  <Enemy code="3" hp="500"> 코란도C</Enemy>
+  <Enemy code="4" hp="200"> 1/48 티거</Enemy>
+  <Enemy code="5" hp="5000"> 브루스 윌리스</Enemy>
 </Monster>

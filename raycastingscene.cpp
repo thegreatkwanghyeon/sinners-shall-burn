@@ -15,6 +15,8 @@ RayCastingScene::RayCastingScene(){
 	sprite[0].y = 3.5;
 	sprite[0].texture = 8;
 
+	monsterNum[0]=1;
+
 
 	height = screenHeight;
 	width = screenWidth;
@@ -77,9 +79,6 @@ RayCastingScene::RayCastingScene(){
 
 	//쉐이더
 	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
-
-	player = new Player();//배틀관련, 그냥 스킬저장용. 이동부는 차후 제거할 예정. 회의필요.
-	battle=new Battle(1,player);//배틀관련
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -264,7 +263,16 @@ void RayCastingScene::update(sf::Event &event){
 	plane.x=fixErrorNum(plane.x, -0.67, -0.65, -0.66);
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
-	battle->update(event);//배틀관련
+}
+int RayCastingScene::getAngle(){
+	if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
+		return 1;
+	else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
+		return 2;
+	else if(dir.x == 1 && dir.y == 0 && plane.x == 0 && plane.y == -0.66)
+		return 3;
+	else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
+		return 4;
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)
@@ -543,13 +551,21 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	for(int i=0; i<sizeof(buffer); i++){
 		buffer[i] = 0;
 	}
-	//---
-	sf::View view;
-	view.reset(sf::FloatRect(0, 0, 1280, 700));
-
-	view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
-	window.setView(view);
-	battle->draw(window);//배틀관련
-	view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
-	window.setView(view);
+}
+int RayCastingScene::isBattle(){
+	int i;
+	int angle=getAngle();
+	for(i=0;i<numSprites;i++){
+		printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
+		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 4){//몬스터가 전면
+			return monsterNum[i];
+		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 3){//몬스터가 우측
+			return monsterNum[i];
+		}else if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == -1 && angle == 2){//몬스터가 후면
+			return monsterNum[i];
+		}else if(pos.x-sprite[i].x == 1 && (int)pos.y == (int)sprite[i].y && angle == 1){//몬스터가 좌측
+			return monsterNum[i];
+		}
+	}
+	return -1;
 }

@@ -25,6 +25,12 @@ Battle::Battle(int Code, Player* player){
 		tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
 	}
 	isBattle=false;
+
+	hpGauge = new Gauge("img/hpgauge.png",100, 1, 1);
+	hpGauge->setPosition(sf::Vector2i(0,0));
+
+	enemyGauge = new Gauge("img/enemygauge.png",100,0,0);
+	enemyGauge->setPosition(sf::Vector2i(357,150));
 }
 void Battle::startBattle(int code){
 	int tp;
@@ -40,7 +46,7 @@ void Battle::startBattle(int code){
 			monster.name.setFont(font);
 			monster.name.setString(MTW(pNode->ToElement()->GetText()));
 			monster.name.setColor(sf::Color(255,255,255,255));
-			monster.name.setPosition(400.0f,400.0f+(30*i));
+			monster.name.setPosition((float)500,(float)120);
 
 			code=i;
 			break;
@@ -92,9 +98,13 @@ void Battle::update(sf::Event &event){
 	for(i=0;i<ViewSkill;i++){
 		button[i]->update(event);
 		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
-			useSkill(canUseSkill[i]);
-			deltaClock.restart();
-			keyEvent=true;
+			if(isBattle){
+				useSkill(canUseSkill[i]);
+				deltaClock.restart();
+				keyEvent=true;
+			}else{
+				printf("전투중 아님 좆밥아\n");
+			}
 		}
 		if(canUseSkill[i] != 0)			
 			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
@@ -104,10 +114,8 @@ void Battle::update(sf::Event &event){
 	}
 
 
-	//for(i=0;i<skill->skillNum;i++){
-		//if(skill->data[i].use == true)
-			//printf("No.%d\n",i);
-	//}
+	hpGauge->update();
+	enemyGauge->update();
 
 	//사용가능 스킬 검사
 	//스킬 사용. 데미지 계산
@@ -131,8 +139,10 @@ int Battle::getResult(){
 void Battle::draw(sf::RenderWindow &window){
 	int i;
 	puzzle->draw(window);
-	if(isBattle)
+	if(isBattle){
 		window.draw(monster.name);
+		enemyGauge->draw(window);
+	}
 
 	for(i=0;i<ViewSkill;i++){
 		button[i]->draw(window);
@@ -143,6 +153,7 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(sprite);
 		tooltip[i]->draw(window);
 	}
+	hpGauge->draw(window);
 }
 int Battle::makeCode(int s, int e){
 	int i,re=1;

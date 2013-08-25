@@ -556,7 +556,7 @@ int RayCastingScene::isBattle(){
 	int i;
 	int angle=getAngle();
 	for(i=0;i<numSprites;i++){
-		printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
+		//printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
 		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 4){//몬스터가 전면
 			return monsterNum[i];
 		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 3){//몬스터가 우측

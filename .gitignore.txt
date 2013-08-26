@@ -1,0 +1,4 @@
+Debug/
+Release/
+SFML.vcxproj
+.gitignore

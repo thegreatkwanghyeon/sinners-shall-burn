@@ -79,6 +79,7 @@ RayCastingScene::RayCastingScene(){
 
 	//쉐이더
 	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
+	colorizeRGBA[0] = 1.0f; colorizeRGBA[1] = 1.0f; colorizeRGBA[2] = 1.0f; colorizeRGBA[3] = 1.0f;
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -92,16 +93,11 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 	texture.resize(texWidth * texHeight);
 	
 	for(int x=0; x<texWidth; x++){
-		
 		for(int y=0; y<texHeight; y++){
-			
 			color = image.getPixel(x, y);
-			texture[texWidth*y + x] = color.r * 65536 + color.g * 256 + color.b;
-			
-			
+			texture[texWidth*y + x] = color.r * 65536 + color.g * 256 + color.b;	
 		} 
 	}
-
 	return texture;
 }
 
@@ -263,6 +259,14 @@ void RayCastingScene::update(sf::Event &event){
 	plane.x=fixErrorNum(plane.x, -0.67, -0.65, -0.66);
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
+
+	//ColorizeScreen 테스트용
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+		colorizeScreen("r");
+	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
+		colorizeScreen("reset");
+	}
 }
 int RayCastingScene::getAngle(){
 	if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
@@ -273,6 +277,8 @@ int RayCastingScene::getAngle(){
 		return 3;
 	else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
 		return 4;
+	else
+		return -1;
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)
@@ -301,6 +307,24 @@ void RayCastingScene::combSort(int* order, double* dist, int amount){
       }
     }
   }
+}
+
+void RayCastingScene::colorizeScreen(sf::String color){
+	if(color == "R" || color == "r"){
+		colorizeRGBA[1] = 0.0;
+		colorizeRGBA[2] = 0.0;
+	}else if(color == "G" || color == "g"){
+		colorizeRGBA[0] = 0.0;
+		colorizeRGBA[2] = 0.0;
+	}else if(color == "B" || color == "b"){
+		colorizeRGBA[0] = 0.0;
+		colorizeRGBA[1] = 0.0;
+	}
+	else{
+		colorizeRGBA[0] = 1.0;
+		colorizeRGBA[1] = 1.0;
+		colorizeRGBA[2] = 1.0;
+	}
 }
 
 
@@ -537,6 +561,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 	sight.setParameter("texture",drawingTex);
 	sight.setParameter("center", sf::Vector2f(0.5, 0.5));
+	sight.setParameter("colorize", colorizeRGBA[0], colorizeRGBA[1], colorizeRGBA[2], colorizeRGBA[3]);
 
 	drawingSprite.setTexture(drawingTex);
 

@@ -1,0 +1,42 @@
+﻿빌드 시작: 2013-08-26 오후 7:05:28
+     1>2 노드의 "C:\Users\kromking\Desktop\300\SFML\SFML\SFML.vcxproj" 프로젝트(Build 대상)입니다.
+     1>ClCompile:
+         E:\Dev\VS12\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D SFML_STATIC /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt raycastingscene.cpp
+         raycastingscene.cpp
+       Link:
+         E:\Dev\VS12\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\kromking\Desktop\300\SFML\Release\SFML.exe" /INCREMENTAL:NO /NOLOGO "sfml-graphics-s.lib" "sfml-window-s.lib" "sfml-system-s.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\kromking\Desktop\300\SFML\Release\SFML.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\kromking\Desktop\300\SFML\Release\SFML.lib" /MACHINE:X86 /SAFESEH Release\animation.obj
+         Release\battle.obj
+         Release\button.obj
+         Release\dialog.obj
+         Release\entity.obj
+         Release\gamescene.obj
+         Release\gauge.obj
+         Release\global.obj
+         Release\main.obj
+         Release\makemap.obj
+         Release\map.obj
+         Release\pdata.obj
+         Release\player.obj
+         Release\puzzle.obj
+         Release\raycastingscene.obj
+         Release\scenebase.obj
+         Release\scenemanager.obj
+         Release\shaderscene.obj
+         Release\skill.obj
+         Release\tileset.obj
+         Release\tinystr.obj
+         Release\tinyxml.obj
+         Release\tinyxmlerror.obj
+         Release\tinyxmlparser.obj
+         Release\titlescene.obj
+         Release\tooltip.obj
+         Release\uiscene.obj
+         Release\windowentity.obj
+         코드를 생성하고 있습니다.
+         코드를 생성했습니다.
+         SFML.vcxproj -> C:\Users\kromking\Desktop\300\SFML\Release\SFML.exe
+     1>"C:\Users\kromking\Desktop\300\SFML\SFML\SFML.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:04.27

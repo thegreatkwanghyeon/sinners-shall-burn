@@ -48,6 +48,8 @@ class RayCastingScene{
 		 double moveSpeed; //상수는 squares/second
 		 double rotSpeed; //상수는 radians/second
 
+		 float colorizeRGBA[4]; //스크린 컬러 레이어 뽑아낼때 쓰는 변수임!
+
 		 //texture rendering 관련 변수들
 
 		 sf::Uint32 color;
@@ -101,6 +103,7 @@ class RayCastingScene{
 		 double spriteDistance[numSprites];
 		 void combSort(int* order, double* dist, int amount);
 		 double fixErrorNum(double num, double st, double ed, double setNum);
+		 void colorizeScreen(sf::String color);
 
 
 

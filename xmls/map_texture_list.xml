@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+	<Ground num =  "2">
+		<TEXTURE>img/green.png</TEXTURE>
+		<TEXTURE>img/red.png</TEXTURE>
+	</Ground>
+	<Object num = "1">
+		<TEXTURE>img/tree.png</TEXTURE>
+	</Object>

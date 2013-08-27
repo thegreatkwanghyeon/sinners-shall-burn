@@ -15,6 +15,7 @@
     <ClCompile Include="battle.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="dialog.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="gamescene.cpp" />
     <ClCompile Include="gauge.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="battle.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="dialog.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="gamescene.h" />
     <ClInclude Include="gauge.h" />

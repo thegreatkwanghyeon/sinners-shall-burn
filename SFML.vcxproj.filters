@@ -78,6 +78,10 @@
     <ClCompile Include="raycastingscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="makemap.cpp" />
+    <ClCompile Include="enemy.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="battle.h">
@@ -151,6 +155,10 @@
     <ClInclude Include="raycastingscene.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="makemap.h" />
+    <ClInclude Include="enemy.h">
+      <Filter>contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">
@@ -168,5 +176,8 @@
     <Filter Include="system\UI">
       <UniqueIdentifier>{947cad30-9bf6-4d33-871d-f08a51f3d899}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="tile.txt" />
   </ItemGroup>
 </Project>

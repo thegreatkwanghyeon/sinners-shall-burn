@@ -1,10 +1,15 @@
 #include "battle.h"
 #include <string.h>
 
-Battle::Battle(int Code, Player* player){
+Battle::Battle(int Code, Player* _player){
 	int i;
+
+	player=_player;
+
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
+
+	enemy=new Enemy(0);
 
 	tileset = new TileSet();
 	texture.loadFromFile("img/skill2.png");
@@ -18,11 +23,15 @@ Battle::Battle(int Code, Player* player){
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
-		button[i] = new Button("img/sbutton.png");
-		button[i]->setPosition(20,420+i*55);//dir-------------------------->
-		//button->setText("HINT", 18);
+		button[i] = new Button("img/skillButton.png");
 		tooltip[i] = new Tooltip("img/tooltip.png");
-		tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
+		if(i < (ViewSkill/2)){
+			button[i]->setPosition(830+(i*150),450);//dir-------------------------->
+			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(830+(i*150),450,100,100), 350);//dir-------------------------->
+		}else{
+			button[i]->setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
+			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(830+((i-(ViewSkill/2))*150),575,100,100), 350);//dir-------------------------->
+		}
 	}
 	isBattle=false;
 
@@ -32,30 +41,8 @@ Battle::Battle(int Code, Player* player){
 	enemyGauge = new Gauge("img/enemygauge.png",100,0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 }
-void Battle::startBattle(int code){
-	int tp;
-	stats.LoadFile("xmls/Monster.xml");
-	TiXmlNode *pNode = stats.FirstChildElement("Monster")->FirstChildElement("Enemy");
-
-	for(int i=0;;i++){
-		pNode->ToElement()->Attribute("code",&tp);
-		if(tp == code){
-			monster.name.setString(MTW(pNode->ToElement()->GetText()));
-			pNode->ToElement()->Attribute("hp",&monster.hp);
-
-			monster.name.setFont(font);
-			monster.name.setString(MTW(pNode->ToElement()->GetText()));
-			monster.name.setColor(sf::Color(255,255,255,255));
-			monster.name.setPosition((float)500,(float)120);
-
-			code=i;
-			break;
-		}else if(tp > code){
-			printf("I Can't find Code...");
-			return;
-		}
-		pNode = pNode->NextSibling();
-	}
+void Battle::startBattle(Enemy* _enemy){
+	enemy = _enemy;
 	isBattle=true;
 }
 
@@ -103,11 +90,15 @@ void Battle::update(sf::Event &event){
 				deltaClock.restart();
 				keyEvent=true;
 			}else{
-				printf("전투중 아님 좆밥아\n");
+				printf("전투중 아님\n");
 			}
 		}
-		if(canUseSkill[i] != 0)			
-			tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(70,430+i*55,30,30), 350);//dir-------------------------->
+		if(canUseSkill[i] != 0){
+			if(i < (ViewSkill/2))
+				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(830+(i*150),450,100,100), 350);//dir-------------------------->
+			else
+				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(830+((i-(ViewSkill/2))*150),575,100,100), 350);//dir-------------------------->
+		}
 		//else 
 		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,360+i*55,30,30), 350);
 		tooltip[i]->update();
@@ -148,9 +139,14 @@ void Battle::draw(sf::RenderWindow &window){
 		button[i]->draw(window);
 	}
 	for(i=0;i<ViewSkill;i++){
-		sprite.setPosition(70,430+i*55);//dir-------------------------->
+		if(i < (ViewSkill/2))
+			sprite.setPosition(830+(i*150),450);//dir-------------------------->
+		else
+			sprite.setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
 		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
 		window.draw(sprite);
+	}
+	for(i=0;i<ViewSkill;i++){
 		tooltip[i]->draw(window);
 	}
 	hpGauge->draw(window);

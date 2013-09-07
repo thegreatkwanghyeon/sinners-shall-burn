@@ -11,9 +11,10 @@
 #include "tileset.h"
 #include "tooltip.h"
 #include "gauge.h"
+#include "enemy.h"
 
 #define StackNum 5
-#define ViewSkill 5
+#define ViewSkill 6
 
 struct Monster{
 	sf::Text name;
@@ -28,6 +29,8 @@ class Battle : public SceneBase{
 		sf::Sprite   sprite;
 		sf::Texture  texture;
 		TileSet *tileset;
+		Enemy *enemy;
+		Player *player;
 
 		sf::Clock deltaClock;
 		bool keyEvent;
@@ -36,7 +39,7 @@ class Battle : public SceneBase{
 		Monster monster;
 		Skill *skill;
 		Button *button[ViewSkill+1];
-		Tooltip *tooltip[5];
+		Tooltip *tooltip[ViewSkill+1];
 
 		Gauge *hpGauge;
 		Gauge *enemyGauge;
@@ -49,14 +52,14 @@ class Battle : public SceneBase{
 		Puzzle *puzzle;
 
 	public:
-		Battle(int Code, Player* p);
+		Battle(int Code, Player* _player);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int getResult();
 		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);
 		void useSkill(int num);
-		void startBattle(int code);
+		void startBattle(Enemy* _enemy);
 };
 
 #endif

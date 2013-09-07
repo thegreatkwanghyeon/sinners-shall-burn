@@ -5,6 +5,9 @@ GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
 	player = new Player();
 	battle = new Battle(1,player);
+	for(int i=0;i<15;i++){
+		enemy.push_back(new Enemy(1));
+	}
 
 	isBattle=false;
 }
@@ -18,7 +21,7 @@ void GameScene::update(sf::Event &event){
 	temp=rayCastingScene->isBattle();
 	if(temp != -1){
 		isBattle=true;
-		battle->startBattle(temp);
+		battle->startBattle(enemy[temp]);
 	}
 
 	if(battle->getResult() != 0){

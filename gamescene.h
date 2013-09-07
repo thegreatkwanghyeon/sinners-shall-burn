@@ -4,6 +4,7 @@
 #include "raycastingscene.h"
 #include "battle.h"
 #include "player.h"
+#include "enemy.h"
 
 
 class GameScene : public SceneBase{
@@ -11,6 +12,8 @@ class GameScene : public SceneBase{
 		RayCastingScene* rayCastingScene;
 		Battle *battle;
 		Player *player;
+
+		std::vector <Enemy*> enemy;
 
 		bool isBattle;
 	public:

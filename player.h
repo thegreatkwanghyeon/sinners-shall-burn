@@ -17,6 +17,8 @@ class Player{
 
 		void update();
 		void draw(sf::RenderWindow &window);
+		void setHP(int num);
+		int getHP();
 
 		Skill *skill;
 };

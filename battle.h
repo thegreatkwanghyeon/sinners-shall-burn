@@ -26,9 +26,10 @@ class Battle : public SceneBase{
 		TiXmlDocument stats;
 		sf::Font font;
 
-		sf::Sprite   sprite;
-		sf::Texture  texture;
+		sf::Sprite   sprite,faceSprite;
+		sf::Texture  texture, face;
 		TileSet *tileset;
+		TileSet *faceTileset;
 		Enemy *enemy;
 		Player *player;
 

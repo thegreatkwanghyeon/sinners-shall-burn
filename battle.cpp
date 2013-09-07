@@ -12,10 +12,20 @@ Battle::Battle(int Code, Player* _player){
 	enemy=new Enemy(0);
 
 	tileset = new TileSet();
+	faceTileset = new TileSet();
+
 	texture.loadFromFile("img/skill2.png");
 	texture = tileset->tileSet("img/skill2.png",30,30);
+
+	face.loadFromFile("img/face.PNG");
+	face = faceTileset->tileSet("img/face.PNG",150,200);
+
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
+
+	faceSprite.setTexture(face);
+	faceSprite.setTextureRect(faceTileset->getTileSet(0));
+	faceSprite.setPosition(325,455);
 
 	skill = player->skill;
 
@@ -90,6 +100,8 @@ void Battle::update(sf::Event &event){
 				deltaClock.restart();
 				keyEvent=true;
 			}else{
+				player->setHP(player->getHP()-1);
+				hpGauge->setValue(-1);
 				printf("전투중 아님\n");
 			}
 		}
@@ -103,7 +115,6 @@ void Battle::update(sf::Event &event){
 		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,360+i*55,30,30), 350);
 		tooltip[i]->update();
 	}
-
 
 	hpGauge->update();
 	enemyGauge->update();
@@ -150,6 +161,9 @@ void Battle::draw(sf::RenderWindow &window){
 		tooltip[i]->draw(window);
 	}
 	hpGauge->draw(window);
+	//---face---//
+	faceSprite.setTextureRect(faceTileset->getTileSet((100-player->getHP())/20));
+	window.draw(faceSprite);
 }
 int Battle::makeCode(int s, int e){
 	int i,re=1;

@@ -24,3 +24,9 @@ void Player::update(){
 void Player::draw(sf::RenderWindow &window){
 
 }
+int Player::getHP(){
+	return hp;
+}
+void Player::setHP(int num){
+	hp=num;
+}

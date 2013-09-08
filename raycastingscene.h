@@ -57,8 +57,8 @@ class RayCastingScene{
 		 std::vector<sf::Uint32> texture[9];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
-		 sf::Texture drawingTex;
-		 sf::Sprite drawingSprite;
+		 sf::Texture drawingTex,compassTexture;
+		 sf::Sprite drawingSprite,compass;
 		 sf::Image textureImage;
 
 		 //floor casting 관련 변수
@@ -83,6 +83,8 @@ class RayCastingScene{
 
 		sf::RectangleShape rec;
 		int fog[MapY+100][MapX+100];
+		int fov;//시야 변수
+		int angle,tempAngle;//각도. 1,2,3,4;
 		
 
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
@@ -116,7 +118,10 @@ class RayCastingScene{
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		int isBattle();
-		int getAngle();
+		//int getAngle();
+
+		int getFOV();
+		void setFOV(int _fov);
 };
 
 #endif

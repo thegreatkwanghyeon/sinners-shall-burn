@@ -49,7 +49,7 @@ Skill::Skill(){
 		translate(tp,data[i].Pstat);
 		pNode->ToElement()->Attribute("need",&data[i].needCode);
 		translate(data[i].needCode,data[i].need);
-		printf("code %d : %d %d %d\n",i,data[i].need[0],data[i].need[1],data[i].need[2]);
+	//	printf("code %d : %d %d %d\n",i,data[i].need[0],data[i].need[1],data[i].need[2]);
 		
 		if(pNode->NextSibling() == NULL)
 			break;
@@ -62,7 +62,7 @@ void Skill::translate(int num, int m[]){
 	int i;
 	bool flag=false;
 
-	printf("num : %d\n",num);
+//	printf("num : %d\n",num);
 
 	if(num == 0)
 		return;

@@ -46,14 +46,12 @@ void MakeMap::buildMap(){
 		}
 	}
 	//-----
-	for(i=0;i<20;i++){
-		for(j=0;j<20;j++){
+	for(i=0;i<MapY;i++){
+		for(j=0;j<MapX;j++){
 			fscanf(in,"%d",&k);
-			printf("%d ",k);
 			if(k == 0)
 				map[i][j]=0;
 		}
-		printf("\n");
 	}
 	fclose(in);
 
@@ -70,7 +68,7 @@ void MakeMap::buildMap(){
 			if(map[i][j] == 1)
 				printf("бс");
 			else
-				printf("бр");			
+				printf("бр");		
 		}
 		printf("\n");
 	}

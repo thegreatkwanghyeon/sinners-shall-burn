@@ -9,6 +9,7 @@ RayCastingScene::RayCastingScene(){
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			worldMap[i][j]=makemap->getMap(i,j);
+			fog[i][j]=1;
 		}
 	}
 	sprite[0].x = 3.5;
@@ -80,6 +81,8 @@ RayCastingScene::RayCastingScene(){
 	//쉐이더
 	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
 	colorizeRGBA[0] = 1.0f; colorizeRGBA[1] = 1.0f; colorizeRGBA[2] = 1.0f; colorizeRGBA[3] = 1.0f;
+
+	rec.setSize(sf::Vector2f(10,10));
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -103,6 +106,14 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 void RayCastingScene::update(sf::Event &event){
 	int tempX, tempY;//좌우이동용 temp변수
+
+	for(int i=pos.y-1;i<=pos.y+1;i++){
+		for(int j=pos.x-1;j<=pos.x+1;j++){
+			if(i < 0 || j < 0)
+				continue;
+			fog[i][j]=0;
+		}
+	}
 
 	if(dir.x < 0.9 && dir.x > -0.9)
 		if(dir.y < 0)
@@ -576,6 +587,41 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	for(int i=0; i<sizeof(buffer); i++){
 		buffer[i] = 0;
 	}
+	//미니
+	rec.setScale(0.5,0.5);
+	rec.setSize(sf::Vector2f(10,10));
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			rec.setPosition(20+(j*5),215+(i*5));
+			if(worldMap[j][i] == 0){
+				rec.setFillColor(sf::Color::White);		
+			}else if(worldMap[j][i] == 1){
+				rec.setFillColor(sf::Color::Black);
+			}
+			window.draw(rec);
+			if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
+				if(fog[i][j] == 1){
+					rec.setFillColor(sf::Color::Color(40,40,40,255));
+					window.draw(rec);
+				}else if(abs(j-int(pos.x)) >= 2 || abs(i-int(pos.y)) >= 2){
+					rec.setFillColor(sf::Color::Color(220,220,220,100));
+					window.draw(rec);
+				}
+			}
+		}
+	}
+	rec.setFillColor(sf::Color::Red);
+	for(int i=0;i<numSprites;i++){
+		if(abs(sprite[i].x-pos.x) >= 2 || abs(sprite[i].y-pos.y) >= 2)
+			continue;
+		rec.setPosition(20+(int(sprite[i].x)*5),215+(int(sprite[i].y)*5));
+		//rec.setPosition((int(sprite[i].x)),(int(sprite[i].y)));
+		window.draw(rec);
+	}
+	rec.setPosition(20+(int(pos.x)*5),215+(int(pos.y)*5));
+	rec.setFillColor(sf::Color::Green);
+	window.draw(rec);
+	//---
 }
 int RayCastingScene::isBattle(){
 	int i;

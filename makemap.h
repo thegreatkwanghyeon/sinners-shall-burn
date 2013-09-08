@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MapX 20
-#define MapY 20
+#define MapX 25
+#define MapY 25
 #define DeathLimit 3
 #define BirthLimit 4
 

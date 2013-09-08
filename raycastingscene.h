@@ -78,8 +78,11 @@ class RayCastingScene{
 		 sf::Time currentTime;
 
 		 //맵관련변수
-		int worldMap[MapX+100][MapY+100];
+		int worldMap[MapY+100][MapX+100];
 		MakeMap *makemap;
+
+		sf::RectangleShape rec;
+		int fog[MapY+100][MapX+100];
 		
 
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다

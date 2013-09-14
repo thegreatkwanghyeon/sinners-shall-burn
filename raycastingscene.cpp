@@ -89,7 +89,7 @@ RayCastingScene::RayCastingScene(){
 	compass.setPosition(130,200);
 
 	fov=2;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
-	//angle=1;//초기값.
+	angle=1;//초기값.
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -139,8 +139,7 @@ void RayCastingScene::update(sf::Event &event){
 		tempY = 0;
 	//---
 
-	if (isGoF == 0 && isGoB == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)
-		//---
+	if (isGoF == 0 && isGoB == 0 && isTurnL == 0 && isTurnR == 0){//현재 멈춰있는 상태(노 애니메이션)		
 		if(pressW == false && worldMap[int(pos.x+dir.x)][int(pos.y+dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 			pressW=true;
 			isGoF=Devide;
@@ -159,6 +158,8 @@ void RayCastingScene::update(sf::Event &event){
 		//---
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
+			tempAngle=angle;
+			angle=-1;
 			isTurnL=Devide;
 			//---
 			deltaClock.restart();
@@ -166,21 +167,37 @@ void RayCastingScene::update(sf::Event &event){
 		}
 		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			pressD=true;
+			tempAngle=angle;
+			angle=-1;
 			isTurnR=Devide;
 			//---
 			deltaClock.restart();
 			currentTime = deltaClock.getElapsedTime();
 		}
 		//---
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
+			pressW=false;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
+			pressS=false;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false){
+			if(pressA){
+				angle=tempAngle;
+				angle--;
+				if(angle <= 0)
+					angle=4;
+			}
+			pressA=false;
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false){
+			if(pressD){
+				angle=tempAngle;
+				angle++;
+				if(angle > 4)
+					angle=1;
+			}
+			pressD=false;
+		}
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
-		pressW=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
-		pressS=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false)
-		pressA=false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
-		pressD=false;
 	float delta=deltaClock.getElapsedTime().asSeconds();
 	float current=currentTime.asSeconds();
 	if(delta-current >= CntTime/Devide){
@@ -286,7 +303,7 @@ void RayCastingScene::update(sf::Event &event){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
 		colorizeScreen("reset");
 	}
-}
+}/*
 int RayCastingScene::getAngle(){
 	if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
 		return 1;
@@ -298,7 +315,7 @@ int RayCastingScene::getAngle(){
 		return 4;
 	else
 		return -1;
-}
+}*/
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)
 		return setNum;
@@ -630,31 +647,28 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	window.draw(rec);
 	//---미니맵 끝--//
 	compass.setOrigin(5,25);
-	int angle=getAngle();
 	switch(angle){
-		case 1 : compass.setRotation(90);break;
-		case 2 : compass.setRotation(180);break;
-		case 3 : compass.setRotation(270);break;
-		case 4 : compass.setRotation(0);break;
+		case 1 : compass.setRotation(0);break;
+		case 2 : compass.setRotation(90);break;
+		case 3 : compass.setRotation(180);break;
+		case 4 : compass.setRotation(270);break;
 		default :compass.setRotation(compass.getRotation()+30);//-1
 	}
 	window.draw(compass);
 }
 int RayCastingScene::isBattle(){
 	int i;
-	int angle = getAngle();
 	if(angle == -1)
 		return -1;
 	for(i=0;i<numSprites;i++){
-		//printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
-	//	printf("%d\t",angle);
-		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 4){//몬스터가 전면
+	//	printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
+		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 1){//몬스터가 전면
 			return monsterNum[i];
-		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 3){//몬스터가 우측
+		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 4){//몬스터가 우측
 			return monsterNum[i];
-		}else if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == -1 && angle == 2){//몬스터가 후면
+		}else if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == -1 && angle == 3){//몬스터가 후면
 			return monsterNum[i];
-		}else if(pos.x-sprite[i].x == 1 && (int)pos.y == (int)sprite[i].y && angle == 1){//몬스터가 좌측
+		}else if(pos.x-sprite[i].x == 1 && (int)pos.y == (int)sprite[i].y && angle == 2){//몬스터가 좌측
 			return monsterNum[i];
 		}
 	}

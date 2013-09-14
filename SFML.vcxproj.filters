@@ -1,99 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="battle.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="animation.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="gamescene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="shaderscene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="titlescene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>contents</Filter>
-    </ClCompile>
-    <ClCompile Include="pdata.cpp">
-      <Filter>contents</Filter>
-    </ClCompile>
-    <ClCompile Include="puzzle.cpp">
-      <Filter>contents</Filter>
-    </ClCompile>
-    <ClCompile Include="tileset.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="scenebase.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="scenemanager.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>system\XMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>system\XMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>system\XMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>system\XMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="global.cpp" />
-    <ClCompile Include="button.cpp">
-      <Filter>system\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="gauge.cpp">
-      <Filter>system\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="tooltip.cpp">
-      <Filter>system\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="uiscene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="windowentity.cpp">
-      <Filter>system\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="dialog.cpp">
-      <Filter>system\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="skill.cpp">
-      <Filter>contents</Filter>
-    </ClCompile>
-    <ClCompile Include="raycastingscene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="makemap.cpp" />
-    <ClCompile Include="enemy.cpp">
-      <Filter>contents</Filter>
-    </ClCompile>
+    <Filter Include="contents">
+      <UniqueIdentifier>{c3bdff2a-1576-4cb7-94f1-cc89d93701a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{498c9087-0c12-4272-88a6-906ddfab5c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{094390d0-1583-4a25-83ec-caa844d3adcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\UI">
+      <UniqueIdentifier>{28647769-ed01-41f2-83ea-9f2f101257fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\XMLParser">
+      <UniqueIdentifier>{08be4ba6-5475-4245-bc3c-8a9bb98ecb68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="enemy.h">
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="pdata.h">
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="puzzle.h">
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="skill.h">
+      <Filter>contents</Filter>
+    </ClInclude>
     <ClInclude Include="battle.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="gamescene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="raycastingscene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scenemanager.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="shaderscene.h">
@@ -102,36 +51,13 @@
     <ClInclude Include="titlescene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>contents</Filter>
-    </ClInclude>
-    <ClInclude Include="pdata.h">
-      <Filter>contents</Filter>
-    </ClInclude>
-    <ClInclude Include="puzzle.h">
-      <Filter>contents</Filter>
-    </ClInclude>
-    <ClInclude Include="tileset.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="scenebase.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="scenemanager.h">
+    <ClInclude Include="uiscene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>system\XMLParser</Filter>
-    </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>system\XMLParser</Filter>
-    </ClInclude>
-    <ClInclude Include="global.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="button.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="dialog.h">
       <Filter>system\UI</Filter>
     </ClInclude>
     <ClInclude Include="gauge.h">
@@ -140,42 +66,116 @@
     <ClInclude Include="tooltip.h">
       <Filter>system\UI</Filter>
     </ClInclude>
-    <ClInclude Include="uiscene.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="windowentity.h">
       <Filter>system\UI</Filter>
     </ClInclude>
-    <ClInclude Include="dialog.h">
-      <Filter>system\UI</Filter>
+    <ClInclude Include="tinystr.h">
+      <Filter>system\XMLParser</Filter>
     </ClInclude>
-    <ClInclude Include="skill.h">
-      <Filter>contents</Filter>
+    <ClInclude Include="tinyxml.h">
+      <Filter>system\XMLParser</Filter>
     </ClInclude>
-    <ClInclude Include="raycastingscene.h">
-      <Filter>scene</Filter>
+    <ClInclude Include="animation.h">
+      <Filter>system</Filter>
     </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="scenebase.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="tileset.h">
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h" />
     <ClInclude Include="makemap.h" />
-    <ClInclude Include="enemy.h">
-      <Filter>contents</Filter>
-    </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="system">
-      <UniqueIdentifier>{a6bc1b56-795d-439b-a20b-8d98075f14e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="contents">
-      <UniqueIdentifier>{2fd6a664-e0a9-470f-b88f-21f0cf75fff8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scene">
-      <UniqueIdentifier>{ca5c0f4f-8861-4d8d-a493-9fd21a9b399f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="system\XMLParser">
-      <UniqueIdentifier>{95cdff59-c964-4423-8983-bd988e1e43dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="system\UI">
-      <UniqueIdentifier>{947cad30-9bf6-4d33-871d-f08a51f3d899}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="enemy.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="pdata.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="puzzle.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="skill.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="battle.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="gamescene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="raycastingscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scenemanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="titlescene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="uiscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="gauge.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="tooltip.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="windowentity.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>system\XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="animation.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="scenebase.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="tileset.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="makemap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="tile.txt" />

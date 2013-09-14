@@ -1,5 +1,5 @@
 #include "tooltip.h"
-
+ 
 Tooltip::Tooltip(const char *_path) : WindowEntity(_path){
 	font.loadFromFile("font/spike.ttf");
 }

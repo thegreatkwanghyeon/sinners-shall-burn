@@ -79,8 +79,9 @@ RayCastingScene::RayCastingScene(){
 	drawingBuffer.create(width,height,sf::Color::Black);
 
 	//쉐이더
-	sight.loadFromFile("shaders/shader.glsl",sf::Shader::Fragment);
-	colorizeRGBA[0] = 1.0f; colorizeRGBA[1] = 1.0f; colorizeRGBA[2] = 1.0f; colorizeRGBA[3] = 1.0f;
+	sight.loadFromFile("shaders/darker.glsl",sf::Shader::Fragment);
+	sight.setParameter("texture",drawingTex);
+	sight.setParameter("center", sf::Vector2f(0.5, 0.5));
 
 	rec.setSize(sf::Vector2f(10,10));
 
@@ -296,30 +297,30 @@ void RayCastingScene::update(sf::Event &event){
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
 
-	//ColorizeScreen 테스트용
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-		colorizeScreen("r");
+		setShader((std::string)"blood");
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
-		colorizeScreen("reset");
+		setShader((std::string)"darker");
 	}
-}/*
-int RayCastingScene::getAngle(){
-	if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
-		return 1;
-	else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
-		return 2;
-	else if(dir.x == 1 && dir.y == 0 && plane.x == 0 && plane.y == -0.66)
-		return 3;
-	else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
-		return 4;
-	else
-		return -1;
-}*/
+
+}
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)
 		return setNum;
 	return num;
+}
+
+//setShader 함수의 매개변수는 blood 이거나 darker 이여야합니다
+void RayCastingScene::setShader(const std::string &shader){
+	
+	if(shader == "darker")
+		sight.loadFromFile("shaders/darker.glsl",sf::Shader::Fragment);
+	else if(shader == "blood")
+		sight.loadFromFile("shaders/blood.glsl",sf::Shader::Fragment);
+	sight.setParameter("texture",drawingTex);
+	sight.setParameter("center", sf::Vector2f(0.5, 0.5));
+
 }
 
 void RayCastingScene::combSort(int* order, double* dist, int amount){
@@ -343,24 +344,6 @@ void RayCastingScene::combSort(int* order, double* dist, int amount){
       }
     }
   }
-}
-
-void RayCastingScene::colorizeScreen(sf::String color){
-	if(color == "R" || color == "r"){
-		colorizeRGBA[1] = 0.0;
-		colorizeRGBA[2] = 0.0;
-	}else if(color == "G" || color == "g"){
-		colorizeRGBA[0] = 0.0;
-		colorizeRGBA[2] = 0.0;
-	}else if(color == "B" || color == "b"){
-		colorizeRGBA[0] = 0.0;
-		colorizeRGBA[1] = 0.0;
-	}
-	else{
-		colorizeRGBA[0] = 1.0;
-		colorizeRGBA[1] = 1.0;
-		colorizeRGBA[2] = 1.0;
-	}
 }
 
 
@@ -595,9 +578,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	drawingBuffer.create(width,height,buffer);
 	drawingTex.loadFromImage(drawingBuffer);
 
-	sight.setParameter("texture",drawingTex);
-	sight.setParameter("center", sf::Vector2f(0.5, 0.5));
-	sight.setParameter("colorize", colorizeRGBA[0], colorizeRGBA[1], colorizeRGBA[2], colorizeRGBA[3]);
+	//sight.setParameter("colorize", colorizeRGBA[0], colorizeRGBA[1], colorizeRGBA[2], colorizeRGBA[3]);
 
 	drawingSprite.setTexture(drawingTex);
 

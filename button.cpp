@@ -106,7 +106,6 @@ bool Button::checkMouseClick(sf::Event &event){
 			2.sf::Keyboard::isKeyPressed(hotkey) 가 TRUE 일때 (키보드로 눌렀을때)
 	*/
 	if(isButtonEnable && (((isMouseOver(mousePosition)) && (event.type == sf::Event::MouseButtonPressed)) && (event.mouseButton.button == sf::Mouse::Left) || ((event.type == sf::Event::KeyPressed) && (event.key.code == hotkey)) )){ 
-		printf("콤프리또");
 		return true;
 	}else{
 		return false;

@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "tileset.h"
+#include "SFML/Audio.hpp"
+#include "global.h"
 
 class Button {
 	private:
@@ -25,6 +27,15 @@ class Button {
 
 		TileSet *tileset;
 		sf::Keyboard::Key hotkey;
+
+		sf::SoundBuffer hoverSoundBuffer;
+		sf::Sound hoverSound;
+
+		sf::SoundBuffer clickSoundBuffer;
+		sf::Sound clickSound;
+
+		bool playClickSound;
+		bool playHoverSound;
 
 		bool isButtonEnable;
 

@@ -8,6 +8,18 @@ Button::Button(sf::String _path) : isButtonEnable(true) {
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(NormalState));
 
+	hoverSoundBuffer.loadFromFile("sounds/button/hover.wav");
+	clickSoundBuffer.loadFromFile("sounds/button/click.wav");
+
+	hoverSound.setBuffer(hoverSoundBuffer);
+	clickSound.setBuffer(clickSoundBuffer);
+
+	clickSound.setLoop(false);
+	hoverSound.setLoop(false);
+
+	playClickSound = true;
+	playHoverSound = true;
+
 }
 
 void Button::setPosition(float _x, float _y){
@@ -39,19 +51,43 @@ void Button::setHotkey(sf::Keyboard::Key _hotkey){
 }
 
 void Button::update(sf::Event &event){
+
+	hoverSound.setVolume(soundVolume);
+	clickSound.setVolume(soundVolume);
+
 	if(!isButtonEnable){ 
 		sprite.setTextureRect(tileset->getTileSet(DisableState));
 	}else if(isMouseOver(mousePosition) && isButtonEnable){
 		if(isMouseClicked()){
+			if(playClickSound){
+				clickSound.stop();
+				clickSound.play();
+				playClickSound = false;
+			}
 			sprite.setTextureRect(tileset->getTileSet(ClickedState));
 		}else{
+			playClickSound = true;
+			if(playHoverSound){
+				hoverSound.stop();
+				hoverSound.play();
+				playHoverSound = false;
+			}
 			sprite.setTextureRect(tileset->getTileSet(HoverState));
 		}
-	}else if(sf::Keyboard::isKeyPressed(hotkey)){
-		sprite.setTextureRect(tileset->getTileSet(ClickedState));
 	}else{
-		sprite.setTextureRect(tileset->getTileSet(NormalState));
+		playHoverSound = true;
+		if(sf::Keyboard::isKeyPressed(hotkey)){
+			sprite.setTextureRect(tileset->getTileSet(ClickedState));
+		}
+		else{
+			sprite.setTextureRect(tileset->getTileSet(NormalState));
+		}
 	}
+	//}else if(sf::Keyboard::isKeyPressed(hotkey)){
+	//	sprite.setTextureRect(tileset->getTileSet(ClickedState));
+	//}else{
+	//	sprite.setTextureRect(tileset->getTileSet(NormalState));
+	//}
 }
 
 void Button::draw(sf::RenderWindow &window){

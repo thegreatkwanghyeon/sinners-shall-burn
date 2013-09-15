@@ -36,6 +36,8 @@ class WindowEntity {
 		void setPosition(sf::Vector2f _position);
 		void setWindowSize(float _width, float _height);
 
+		float getWidth();
+
 	public:
 		WindowEntity(const char *_path);
 		virtual ~WindowEntity(){delete tileset;}

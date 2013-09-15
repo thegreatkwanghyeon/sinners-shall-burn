@@ -51,6 +51,10 @@ void WindowEntity::setWindowSize(float _width, float _height){
 
 }
 
+float WindowEntity::getWidth(){
+	return (individualTextureWidth+tooltipWidth);
+}
+
 void WindowEntity::update(){
 	defineSpriteScales();
 	defineSpritePositions();

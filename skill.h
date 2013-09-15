@@ -11,18 +11,13 @@
 
 struct SkillData{
 	sf::String name;
-	sf::String intro;
 	sf::String effect;
 	int need[ElementNum],needCode;
 	int damage;
-	int heal, poison;
 	int guard;
-	int distance;
-	int distanceACK;//입력받을때의 형식상 int로 했음.
-	int Estat[ElementNum],Pstat[ElementNum];
 	int code;
 	int acc;
-	int field;
+	int animationNum;
 
 	//bool use;
 	bool have;

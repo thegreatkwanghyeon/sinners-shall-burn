@@ -15,6 +15,7 @@ Enemy::Enemy(int code){
 		if(tmpCode == code){
 			pNode->ToElement()->Attribute("hp",&maxHp);
 			currentHp = maxHp;
+			pNode->ToElement()->Attribute("damage",&damage);
 			name = MTW(pNode->ToElement()->GetText());
 			code=i; break;
 		}else if(tmpCode > code){
@@ -40,6 +41,15 @@ int Enemy::getMaxHp(){
 }
 int Enemy::getCurrentHp(){
 	return currentHp;
+}
+int Enemy::getAnimationNum(){
+	return animationNum;
+}
+int Enemy::getDamage(){
+	return damage;
+}
+void Enemy::setCurrentHp(int num){
+	currentHp=num;
 }
 sf::Vector2f Enemy::getPosition(){
 	return position;

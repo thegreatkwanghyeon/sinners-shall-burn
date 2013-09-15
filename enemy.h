@@ -11,7 +11,9 @@ class Enemy{
 		sf::String name;
 		int code;
 		int maxHp;
+		int damage;//юс╫ц
 		int currentHp;
+		int animationNum;
 		sf::Vector2f position;
 
 		TiXmlDocument enemyData;
@@ -23,7 +25,10 @@ class Enemy{
 
 		sf::String getName();
 		int getMaxHp();
+		int getDamage();
+		int getAnimationNum();
 		int getCurrentHp();
+		void setCurrentHp(int num);
 		sf::Vector2f getPosition();
 		sf::Sprite getSprite();
 

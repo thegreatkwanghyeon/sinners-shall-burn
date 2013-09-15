@@ -12,9 +12,14 @@
 #include "tooltip.h"
 #include "gauge.h"
 #include "enemy.h"
+#include "animation.h"
 
 #define StackNum 5
 #define ViewSkill 6
+
+enum{
+	normal,playerSkill,enemySkill
+};
 
 struct Monster{
 	sf::Text name;
@@ -26,16 +31,22 @@ class Battle : public SceneBase{
 		TiXmlDocument stats;
 		sf::Font font;
 
-		sf::Sprite   sprite,faceSprite;
+		sf::Sprite   sprite,faceSprite,skillSprite;
 		sf::Texture  texture, face;
 		TileSet *tileset;
 		TileSet *faceTileset;
 		Enemy *enemy;
 		Player *player;
 
+		Animation *skillEffect;
+		int useSkillNow;
+		bool battleResult;
+		int temp,oldtemp;//코드값 임시 저장소
+
 		sf::Clock deltaClock;
 		bool keyEvent;
 		bool isBattle;
+		int useCnt;
 
 		Monster monster;
 		Skill *skill;
@@ -47,6 +58,8 @@ class Battle : public SceneBase{
 
 		int code;
 		int canUseSkill[ViewSkill+1];
+
+		int sceneNum;
 		//int useCnt;
 
 		//Character *character;

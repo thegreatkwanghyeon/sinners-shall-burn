@@ -20,35 +20,24 @@ Skill::Skill(){
 	}
 
 	for(i=1;;i++){
-		for(j=0;j<30;j++){
+		for(j=0;j<30;j++)
 			data[i].need[j]=0;
-			data[i].Estat[j]=0;
-			data[i].Pstat[j]=0;
-		}
+		
 		//data[i].use=false;
 		pNode->ToElement()->Attribute("code",&data[i].code);
-		//printf("%d\n",skill[i].code);
 
 		data[i].name = (MTW(pNode->ToElement()->Attribute("name")));
-		data[i].intro = (MTW(pNode->ToElement()->Attribute("intro")));
 		data[i].effect = (MTW(pNode->ToElement()->GetText()));
 
 		pNode->ToElement()->Attribute("damage",&data[i].damage);
-		pNode->ToElement()->Attribute("poison",&data[i].poison);
-		pNode->ToElement()->Attribute("heal",&data[i].heal);
-		pNode->ToElement()->Attribute("distance",&data[i].distance);
-		pNode->ToElement()->Attribute("distanceACK",&data[i].distanceACK);
 		pNode->ToElement()->Attribute("guard",&data[i].guard);
-		pNode->ToElement()->Attribute("field",&data[i].field);
 		pNode->ToElement()->Attribute("acc",&data[i].acc);
 
-
-		pNode->ToElement()->Attribute("Estat",&tp);
-		translate(tp,data[i].Estat);
-		pNode->ToElement()->Attribute("Pstat",&tp);
-		translate(tp,data[i].Pstat);
 		pNode->ToElement()->Attribute("need",&data[i].needCode);
+		pNode->ToElement()->Attribute("animation",&data[i].animationNum);
 		translate(data[i].needCode,data[i].need);
+
+		printf("%d need : %d damage : %d\n",data[i].code,data[i].needCode,data[i].damage);
 	//	printf("code %d : %d %d %d\n",i,data[i].need[0],data[i].need[1],data[i].need[2]);
 		
 		if(pNode->NextSibling() == NULL)

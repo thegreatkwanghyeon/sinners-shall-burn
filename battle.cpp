@@ -29,6 +29,14 @@ Battle::Battle(int Code, Player* _player){
 
 	skill = player->skill;
 
+	skillEffect=new Animation();
+
+	skillEffect->addTile("img/skill01.PNG",250,250);
+	skillEffect->setSpeed(0.5);
+	skillEffect->setTileRange(sf::Vector2i(1,1),3);//디폴트.
+
+	skillSprite.setPosition(515,215);
+
 	font.loadFromFile("font/spike.ttf");
 
 	for(i=0;i<ViewSkill;i++){
@@ -50,6 +58,8 @@ Battle::Battle(int Code, Player* _player){
 
 	enemyGauge = new Gauge("img/enemygauge.png",100,0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
+
+	sceneNum=normal;//기본 상태
 }
 void Battle::startBattle(Enemy* _enemy){
 	enemy = _enemy;
@@ -57,32 +67,63 @@ void Battle::startBattle(Enemy* _enemy){
 }
 
 void Battle::update(sf::Event &event){
-	int i,j,k;
-	int temp;//코드값 임시 저장소
-	int useCnt=0;
+	int i,j,k,tp;
 	int chk[200]={0,};
 
 	float delta;
-
-	puzzle->update(event);
-
-	if(keyEvent){
-		delta=deltaClock.getElapsedTime().asSeconds();
-		if(delta >= 0.5)
-			keyEvent=false;
-	}
-
+	
 	for(i=0;i<ViewSkill;i++)
 		canUseSkill[i]=0;
 	for(i=0;i<200;i++){
 		chk[i]=0;
 	}
 
-	for(i=StackNum-1;i>=0;i--){
-		for(j=0;j+i<StackNum;j++){
-			temp = makeCode(j,j+i);
+	puzzle->update(event);
+
+	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
+		//애니메이션 업데이트
+		skillEffect->update(&skillSprite, true);
+		oldtemp=temp;
+		temp = skillEffect->getLocation();
+		if(temp < oldtemp){
+			printf("oh sexy");
+			enemyGauge->setValue(-1*skill->data[useSkillNow].damage);
+			enemy->setCurrentHp(enemy->getCurrentHp()-skill->data[useSkillNow].damage);
+			sceneNum=enemySkill;
+		}
+		hpGauge->update();
+		enemyGauge->update();
+		//에니메이션 끝 -> enemyskill로 sceneNum 바꿔줌
+		return;//리턴시킴?
+	}else if(sceneNum == enemySkill){
+		//애니메이션 업데이트
+		skillEffect->update(&skillSprite, true);
+		oldtemp=temp;
+		temp = skillEffect->getLocation();
+		if(temp < oldtemp){
+			player->setHP(player->getHP()-enemy->getDamage());
+			hpGauge->setValue(-1*enemy->getDamage());
+			//sceneNum=endBattle;
+			sceneNum=normal;
+		}
+		hpGauge->update();
+		enemyGauge->update();
+		return;
+	}
+
+	if(keyEvent){
+		delta=deltaClock.getElapsedTime().asSeconds();
+		if(delta >= 0.5)
+			keyEvent=false;
+	}
+	
+	useCnt=0;
+	for(i=puzzle->stackNum-1;i>=0;i--){
+		for(j=0;j+i<puzzle->stackNum;j++){
+			tp = makeCode(j,j+i);
+			printf("%d\t",tp);
 			for(k=0;k<skill->skillNum;k++){
-				if(temp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
+				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
 					//skill->data[k].use = true;
 					chk[skill->data[k].code]=1;
 					canUseSkill[useCnt++]=skill->data[k].code;
@@ -91,14 +132,23 @@ void Battle::update(sf::Event &event){
 			}
 		}
 	}
-
-	for(i=0;i<ViewSkill;i++){
+	for(i=0;i<useCnt;i++){
 		button[i]->update(event);
-		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){
+		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){//클릭
 			if(isBattle){
+				useSkillNow=canUseSkill[i];
 				useSkill(canUseSkill[i]);
 				deltaClock.restart();
 				keyEvent=true;
+
+				canUseSkill[i]=0;
+				useCnt--;
+
+				skillEffect->setSpeed(0.5);
+				skillEffect->setTileRange(sf::Vector2i(1,1),3);
+				tp = skillEffect->getLocation();
+
+				sceneNum=playerSkill;
 			}else{
 				player->setHP(player->getHP()-1);
 				hpGauge->setValue(-1);
@@ -111,27 +161,20 @@ void Battle::update(sf::Event &event){
 			else
 				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(830+((i-(ViewSkill/2))*150),575,100,100), 350);//dir-------------------------->
 		}
-		//else 
-		//	tooltip[i]->setTooltip(L"디폴트", L"디폴트", sf::FloatRect(150,360+i*55,30,30), 350);
 		tooltip[i]->update();
 	}
 
 	hpGauge->update();
 	enemyGauge->update();
-
-	//사용가능 스킬 검사
-	//스킬 사용. 데미지 계산
-	//중독/힐/스탯저하 등을 계산
-	//스킬 사용했거나 위처럼 5 넘으면 몬스터도 공격
-	//중독/힐/스탯저하 등을 계산
-	//사망판정. 누구 죽으면 플래그를 조정해서 아래 겟리술트를 할수있게 함
 }
 int Battle::getResult(){
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)){
+	if(sceneNum != normal)
+		return 0;
+	if(player->getHP() <= 0){
 		isBattle=false;
 		return -1;
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)){
+	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;
 		return 1;
 	}
@@ -140,6 +183,10 @@ int Battle::getResult(){
 
 void Battle::draw(sf::RenderWindow &window){
 	int i;
+	if(sceneNum == playerSkill || sceneNum == enemySkill){
+		window.draw(skillSprite);
+		//return;
+	}
 	puzzle->draw(window);
 	if(isBattle){
 		window.draw(monster.name);
@@ -157,7 +204,7 @@ void Battle::draw(sf::RenderWindow &window){
 		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
 		window.draw(sprite);
 	}
-	for(i=0;i<ViewSkill;i++){
+	for(i=0;i<useCnt;i++){
 		tooltip[i]->draw(window);
 	}
 	hpGauge->draw(window);

@@ -1,29 +1,32 @@
 ﻿<?xml version="1.0"?>
 <List>
-  <skill code ="1" need ="2" name ="화염구" damage ="10" turn="0"  guard ="0" acc ="100" intro ="화염구는 비록 작지만, 그 열기로 살을 태운다">뜨거운 불꽃으로 적에게 50의 데미지를 준다</skill>
-  <skill code ="2" need ="4" name ="타오르는 화염" damege ="100" turn="0"   guard ="0" acc ="100" intro ="타오르는 화염은 10일 밤낮을 꺼지지 않고 타오른다">꺼지지 않는 타오르는 화염으로 100의 데미지를 준다</skill>
-  <skill code ="3" need ="8" name ="지옥불" damege ="0" turn="40"  guard ="0"  acc ="100" intro="지옥불은 가늠할 수 없는 열기를 언제나 뿜어낸다">지옥의 열기를 뿜어내어 적에게 3턴간 40의 데미지를 준다</skill>
-  <skill code ="4" need ="16" name ="살라맨더의 불꽃" damege ="0" turn="40"  guard ="0"  acc ="100" intro ="화염의 정령이 가호를 내리어 불꽃이 몸을 감싸고 적을 불살랐다">불의 정령의 힘을 빌려 턴당 30을 회복하고, 50의 데미지를 준다</skill>
-  <skill code ="5" need ="32" name ="세상을 멸하는 화염" damege ="0" turn="40"  guard ="0"  acc ="100" intro="불꽃은 뜨거울수록 강하지만, 그만큼 제어하기도 힘들다">세상을 멸하는 화염으로 적에게 500의 데미지와 턴당 100의 데미지를 주고, 300의 데미지를 받는다</skill>
+  <skill code ="1" need ="2" name ="화염구" damage ="10" turn="0"  guard ="0" acc ="100" animation="1">뜨거운 불꽃으로 적에게 50의 데미지를 준다</skill>
+  <skill code ="2" need ="4" name ="타오르는 화염" damage ="100" turn="0"   guard ="0" acc ="100" animation="1">꺼지지 않는 타오르는 화염으로 100의 데미지를 준다</skill>
+  <skill code ="3" need ="8" name ="지옥불" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">지옥의 열기를 뿜어내어 적에게 3턴간 40의 데미지를 준다</skill>
+  <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="0" turn="40"  guard ="0" acc ="100" animation="1">세상을 멸하는 화염으로 적에게 500의 데미지와 턴당 100의 데미지를 주고, 300의 데미지를 받는다</skill>
 
-  <skill code ="6" need ="3" name ="기우제" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="몰아치는 비바람은 적들의 시야를 가린다">비바람을 불러내어 적에게 턴당 25의 데미지를 주고 공격속도를 1랭크 낮춘다</skill>
-  <skill code ="7" need ="9" name ="폭풍우" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="폭풍우에 갇힌 자들은 그저 자신의 비극적인 운명을 탓할 뿐이다">폭풍을 불러내어 적에게 턴당 40의 데미지를 주고 공격속도와 명중률을 1랭크 낮춘다</skill>
-  <skill code ="8" need ="27" name ="해일" damege ="0" turn="40"  guard ="0"  acc ="100" intro="해일은 눈앞에 보이는 모든 것을 집어삼킨다">거대한 해일로 적에게 150의 데미지를 주고 공격속도를 1 낮춘다</skill>
-  <skill code ="9" need ="81" name ="운디네의 비바람" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="물의 정령이 가호를 내리어 파도가 길을 인도하고 비바람이 적을 붙잡았다">물의 정령의 힘을 빌려 턴당 20을 회복하고, 50의 데미지를 주며, 적의 스피드를 1랭크 내리고 스피드를 1랭크 높힌다</skill>
-  <skill code ="10" need ="247" name ="포세이돈의 삼지창" damege ="0" turn="40"  guard ="0"  acc ="100"  intro="바다의 신이 물벼락을 내리시니 모든 것이 잠기었다">엄청난 해일을 불러내어 적에게 400의 데미지를 주고, 공격속도와 명중률, 그리고 적의 공격속도와 명중률을 모두 1랭크 낮춘다</skill>
-  
-  <skill code ="11" need ="5" name ="약초" damege ="0" turn="40"  guard ="0"  acc ="100" intro ="진짜 약은 우리의 발밑에 있다">약초를 먹어 체력을 50 회복한다</skill>
-  <skill code ="12" need ="25" name ="식충식물" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="거대한 \'조금 공격적인\'식물 앞에 있는 사람은 그저 큰 벌레다.">식충식물을 불러내어 적에게 100의 데미지와 턴당 30의 데미지를 준다</skill>
-  <skill code ="13" need ="125" name ="거대화" damege ="0" turn="40"  guard ="0"  acc ="100" intro ="자연의 힘 앞에 있어 \'아주 약간\' 커지는 것은 일도 아니다">자연의 힘으로 몸을 거대화시켜 공격력과 방어력을 상승시킨다</skill>
-  <skill code ="14" need ="625" name ="광활림" damege ="0" turn="40"  guard ="0"  acc ="100" intro ="광활한 자연 앞에서 우리는 그저 작은 피조물일 뿐이다">광활한 숲으로 전장을 둘러싸 적에게 턴당 100의 피해를 주고 턴당 100을 회복한다. 또한 적의 공격력과 방어력을 1랭크 떨어트린다.</skill>
+  <skill code ="5" need ="3" name ="기우제" damage ="100" turn="40"  guard ="0"  acc ="100" animation="1">비바람을 불러내어 적에게 턴당 25의 데미지를 주고 공격속도를 1랭크 낮춘다</skill>
+  <skill code ="6" need ="9" name ="폭풍우" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">폭풍을 불러내어 적에게 턴당 40의 데미지를 주고 공격속도와 명중률을 1랭크 낮춘다</skill>
+  <skill code ="7" need ="27" name ="해일" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">거대한 해일로 적에게 150의 데미지를 주고 공격속도를 1 낮춘다</skill>
+  <skill code ="8" need ="81" name ="제왕의 삼지창" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">엄청난 해일을 불러내어 적에게 400의 데미지를 주고, 공격속도와 명중률, 그리고 적의 공격속도와 명중률을 모두 1랭크 낮춘다</skill>
 
-  <skill code ="15" need ="11" name ="얼음창" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="날카로운 고드름은 가히 칼날에 비할 만하다">얼음창을 던져 30의 데미지를 준다</skill>
-  <skill code ="16" need ="121" name ="눈보라" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="눈보라 속에 들어가 본다면, 살을 에는 추위가 무엇인지 잘 알게 될 것이다.">번개를 떨어뜨려 적에게 70의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
-  <skill code ="17" need ="1331" name ="빙하 방패" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="그것은 방패라기에는 너무나 컸다">전자기파를 쏘아, 적의 명중률을 2랭크 낮춘다.</skill>
-  <skill code ="18" need ="14641" name ="절대영도" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="바람조차 얼어버리는 고요한 추위 앞에서는 시간마저 얼어붙어 멈추었다고 생각하기 쉽다.">엄청난 냉기를 내뿜어 상대에게 턴당 100의 데미지를 준다</skill>
-  
-  <skill code ="19" need ="7" name ="전기 쇼크" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="약간의 쇼크는 정신이 번쩍 들게 하는데에 좋다">전기 쇼크로 30의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
-  <skill code ="20" need ="49" name ="낙뢰" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="내리치는 벼락은 천둥조차 치기 전에 적을 태운다">번개를 떨어뜨려 적에게 70의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
-  <skill code ="21" need ="343" name ="전자기파" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="처음에는 약간 머리가 아프겠지만, 곧 몸조차 가누지 못할 것이다">전자기파를 쏘아, 적의 명중률을 2랭크 낮춘다.</skill>
-  <skill code ="22" need ="2401" name ="전기 폭풍" damege ="0" turn="40"  guard ="0"  acc ="100"  intro ="일반적으로는 폭풍이 불면 번개가 따라 치지만, 가끔은 우뢰가 폭풍처럼 불기도 한다">번개 폭풍을 떨어뜨려 적의 명중률을 2랭크 낮추고 자신의 치명타율을 1랭크 높히며 100의 데미지를 준다.</skill>
+  <skill code ="9" need ="5" name ="약초" damage ="10" turn="40"  guard ="0"  acc ="100" animation="1">약초를 먹어 체력을 50 회복한다</skill>
+  <skill code ="10" need ="25" name ="식충식물" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">식충식물을 불러내어 적에게 100의 데미지와 턴당 30의 데미지를 준다</skill>
+  <skill code ="11" need ="125" name ="거대화" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">자연의 힘으로 몸을 거대화시켜 공격력과 방어력을 상승시킨다</skill>
+  <skill code ="12" need ="625" name ="광활림" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">광활한 숲으로 전장을 둘러싸 적에게 턴당 100의 피해를 주고 턴당 100을 회복한다. 또한 적의 공격력과 방어력을 1랭크 떨어트린다.</skill>
+
+  <skill code ="13" need ="7" name ="전기 쇼크" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전기 쇼크로 30의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
+  <skill code ="14" need ="49" name ="낙뢰" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">번개를 떨어뜨려 적에게 70의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
+  <skill code ="15" need ="343" name ="전자기파" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전자기파를 쏘아, 적의 명중률을 2랭크 낮춘다.</skill>
+  <skill code ="16" need ="2401" name ="전기 폭풍" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">번개 폭풍을 떨어뜨려 적의 명중률을 2랭크 낮추고 자신의 치명타율을 1랭크 높히며 100의 데미지를 준다.</skill>
+
+  <skill code ="17" need ="11" name ="얼음창" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">얼음창을 던져 30의 데미지를 준다</skill>
+  <skill code ="18" need ="121" name ="눈보라" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">번개를 떨어뜨려 적에게 70의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
+  <skill code ="19" need ="1331" name ="빙하 방패" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전자기파를 쏘아, 적의 명중률을 2랭크 낮춘다.</skill>
+  <skill code ="20" need ="14641" name ="절대영도" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">엄청난 냉기를 내뿜어 상대에게 턴당 100의 데미지를 준다</skill>
+
+  <skill code ="21" need ="13" name ="땅가르기" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전기 쇼크로 30의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
+  <skill code ="22" need ="169" name ="대지의 사슬" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전기 쇼크로 30의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
+  <skill code ="23" need ="2197" name ="모래바람" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">모래의 폭풍에 숨어 10의 데미지를 주고 일정 확률로 적의 공격을 회피한다</skill>
+  <skill code ="24" need ="28561" name ="지진" damage ="0" turn="40"  guard ="0"  acc ="100" animation="1">전기 쇼크로 30의 데미지를 주고 치명타 확률을 1랭크 높힌다.</skill>
 </List>

@@ -43,7 +43,6 @@ class Button {
 		bool isMouseClicked ();
 
 
-
 	public:
 		Button(sf::String _path);
 		~Button(){delete tileset;}
@@ -56,6 +55,9 @@ class Button {
 		bool checkMouseClick(sf::Event &event);
 		void setHotkey(sf::Keyboard::Key _hotkey);
 		void setSprite(sf::String _path);
+
+		void setClickSound(std::string path);
+		void setHoverSound(std::string path);
 
 };
 #endif

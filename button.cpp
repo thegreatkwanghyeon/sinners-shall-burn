@@ -8,12 +8,12 @@ Button::Button(sf::String _path) : isButtonEnable(true) {
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(NormalState));
 
-	hoverSoundBuffer.loadFromFile("sounds/button/hover.wav");
-	clickSoundBuffer.loadFromFile("sounds/button/click.wav");
+	//hoverSoundBuffer.loadFromFile("sounds/button/hover.wav");
+	//clickSoundBuffer.loadFromFile("sounds/button/click.wav");
 
-	hoverSound.setBuffer(hoverSoundBuffer);
-	clickSound.setBuffer(clickSoundBuffer);
-
+	//hoverSound.setBuffer(hoverSoundBuffer);
+	//clickSound.setBuffer(clickSoundBuffer);
+	
 	clickSound.setLoop(false);
 	hoverSound.setLoop(false);
 
@@ -48,6 +48,16 @@ bool Button::isMouseClicked(){
 
 void Button::setHotkey(sf::Keyboard::Key _hotkey){
 	hotkey = _hotkey;
+}
+
+void Button::setClickSound(std::string path){
+	clickSoundBuffer.loadFromFile(path);
+	clickSound.setBuffer(clickSoundBuffer);
+}
+
+void Button::setHoverSound(std::string path){
+	hoverSoundBuffer.loadFromFile(path);
+	hoverSound.setBuffer(hoverSoundBuffer);
 }
 
 void Button::update(sf::Event &event){

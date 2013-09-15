@@ -2,6 +2,7 @@
 #define __titlescene__
 
 #include "scenebase.h"
+#include "particleemitter.h"
 
 class TitleScene : public SceneBase{
 	private:
@@ -13,6 +14,8 @@ class TitleScene : public SceneBase{
 		virtual ~TitleScene();
 		virtual void update(sf::Event &event);
 		virtual void draw(sf::RenderWindow &window);
+
+		ParticleEmitter* particle;
 
 };
 

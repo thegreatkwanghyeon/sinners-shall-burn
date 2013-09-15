@@ -96,10 +96,10 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="makemap.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="particle.h">
+    <ClInclude Include="particleemitter.h">
       <Filter>system\particle</Filter>
     </ClInclude>
-    <ClInclude Include="particleemitter.h">
+    <ClInclude Include="particle.h">
       <Filter>system\particle</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,10 +185,10 @@
     <ClCompile Include="global.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="makemap.cpp" />
-    <ClCompile Include="particle.cpp">
+    <ClCompile Include="particleemitter.cpp">
       <Filter>system\particle</Filter>
     </ClCompile>
-    <ClCompile Include="particleemitter.cpp">
+    <ClCompile Include="particle.cpp">
       <Filter>system\particle</Filter>
     </ClCompile>
   </ItemGroup>

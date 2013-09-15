@@ -95,7 +95,6 @@ void Tooltip::draw(sf::RenderWindow &window){
 
 	if(mousePosition.x + getWidth() > 1280){
 		WindowEntity::setPosition(sf::Vector2f(mousePosition.x - WindowEntity::getWidth(), mousePosition.y));
-		printf("overWhelmed!!! %f\n",WindowEntity::getWidth());
 	}
 	else
 		WindowEntity::setPosition(mousePosition);

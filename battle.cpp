@@ -50,6 +50,8 @@ Battle::Battle(int Code, Player* _player){
 
 	enemyGauge = new Gauge("img/enemygauge.png",100,0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
+
+
 }
 void Battle::startBattle(Enemy* _enemy){
 	enemy = _enemy;

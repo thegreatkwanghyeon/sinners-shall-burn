@@ -13,6 +13,8 @@ Puzzle::Puzzle(){
 	button = new Button("img/sbutton.png");
 	button->setPosition(0,230);
 	button->setText("HINT", 18);
+	button->setClickSound("sounds/button/click.wav");
+	button->setHoverSound("sounds/button/hover.wav");
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){

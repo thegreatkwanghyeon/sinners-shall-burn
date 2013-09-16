@@ -10,6 +10,7 @@ Particle::Particle(sf::Texture texture, sf::Vector2f position, sf::Vector2f velo
 
 	sprite.setColor(color);
 	sprite.setPosition(position);
+	sprite.setTexture(texture);
 
 }
 

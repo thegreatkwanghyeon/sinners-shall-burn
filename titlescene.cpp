@@ -2,24 +2,30 @@
 
 TitleScene::TitleScene(){
 	font.loadFromFile("font/spike.ttf");
-	text.setFont(font);
+	text.setFont(font); 
 	text.setString(L"num1 : Å¸ÀÌÆ² ¾À \nnum2 : ²²ÀÓ¾À \nnum3 : ¼ÎÀÌ´õ¾À\nnum4 : ÆÛÁñ");
 	text.setPosition(450.0f, 250.0f);
-	particle = new ParticleEmitter(100);
-	particle->setEmissionRate(0.1);
-	particle->setAngleRange(30, 70);
-	particle->setLifeRange(1, 2);
-	particle->setSizeRange(10, 20);
-	particle->setSpeedRange(100, 300);
-	particle->setPositionRange(sf::Vector2i(500, 500),sf::Vector2i(500, 500));
-	particle->setTexture("img/textures/particle.png");
+
+	std::vector<sf::Texture> textureList;
+	sf::Texture circle;
+	sf::Texture star;
+	sf::Texture diamond;
+	circle.loadFromFile("img/particles/circle.png");
+	star.loadFromFile("img/particles/star.png");
+	diamond.loadFromFile("img/particles/diamond.png");
+	textureList.push_back(circle);
+	textureList.push_back(star);
+	textureList.push_back(diamond);
+
+	particle = new ParticleEngine(textureList, sf::Vector2f(sf::Mouse::getPosition().x * 1.f, sf::Mouse::getPosition().y * 1.f) ,100);
 
 }
 TitleScene::~TitleScene(){
 	
 }
 void TitleScene::update(sf::Event &event){
-	particle->update(event);
+	particle->setLocation(sf::Vector2f(sf::Mouse::getPosition().x * 1.f, sf::Mouse::getPosition().y * 1.f));
+	particle->update();
 }
 
 void TitleScene::draw(sf::RenderWindow &window){

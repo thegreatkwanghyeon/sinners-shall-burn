@@ -1,72 +1,55 @@
 #include "particle.h"
 
-Particle::Particle(){
-		life = 0;
-		speed = 0;
-		angle = 0;
-		tmpElapsedTime = 0;
+Particle::Particle(sf::Texture texture, sf::Vector2f position, sf::Vector2f velocity, float angle, sf::Color color, int life){
+	this->texture = texture;
+	this->position = position;
+	this->velocity = velocity;
+	this->angle = angle;
+	this->color = color;
+	this->life = life;
+
+	sprite.setColor(color);
+	sprite.setPosition(position);
+
 }
 
-Particle::~Particle(){
+void Particle::move(){
+	float radian = angle * M_PI/180;
+	sprite.setPosition(velocity.x * cos(radian), velocity.y * sin(radian));
+}
 
+void Particle::setPosition(sf::Vector2f position){
+	this->position = position;
+	sprite.setPosition(position);
+}
+
+void Particle::setAngle(float angle){
+	this->angle = angle;
+}
+
+void Particle::setColor(sf::Color color){
+	this->color = color;
+	sprite.setColor(color);
 }
 
 void Particle::setTexture(sf::Texture texture){
-	sf::Sprite::setTexture(texture);
+	this->texture = texture;
+	sprite.setTexture(texture);
 }
 
-void Particle::setAngle(int angle){
-	this->angle = angle;
+void Particle::setVelocity(sf::Vector2f velocity){
+	this->velocity = velocity;
 }
 
 void Particle::setLife(int life){
 	this->life = life;
 }
 
-float Particle::getLife(){
-	return life;
-}
-
-void Particle::setSpeed(int speed){
-	this->speed = speed;
-}
-
-void Particle::setSize(int size){
-	this->size = size;
-}
-
-void Particle::move(float dt){
-		radian = angle * M_PI/180;
-
-		velocity.x = speed * cos(radian);
-		velocity.y = -speed * sin(radian);
-
-		this->setPosition(this->getPosition().x + velocity.x * dt, this->getPosition().y + velocity.y * dt);
-}
-
-void Particle::update(sf::Event &event){
-
-	tmpElapsedTime += deltaTime.asSeconds();
-
-	if(life > 0){
-		move(deltaTime.asSeconds());
-	}
-	else{
-		life = 0;
-		speed = 0;
-		angle = 0;
-		tmpElapsedTime = 0;
-	}
-
-	if(tmpElapsedTime > 1){
-		--life;
-		tmpElapsedTime = 0;
-	}
-
-	deltaTime = eTime.restart();
-
+void Particle::update(){
+	--life;
+	move();
 }
 
 void Particle::draw(sf::RenderWindow &window){
-	window.draw(*this);
+	window.draw(sprite);
 }

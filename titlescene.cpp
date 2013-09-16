@@ -17,8 +17,7 @@ TitleScene::TitleScene(){
 	textureList.push_back(star);
 	textureList.push_back(diamond);
 
-	particle = new ParticleEngine(textureList, sf::Vector2f(sf::Mouse::getPosition().x * 1.f, sf::Mouse::getPosition().y * 1.f) ,100);
-
+	particle = new ParticleEngine(textureList, sf::Vector2f(0, 0) ,1);
 }
 TitleScene::~TitleScene(){
 	
@@ -26,11 +25,11 @@ TitleScene::~TitleScene(){
 void TitleScene::update(sf::Event &event){
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		particle->emit();
-	particle->setLocation(sf::Vector2f(sf::Mouse::getPosition().x * 1.f, sf::Mouse::getPosition().y * 1.f));
 	particle->update();
 }
 
 void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
+	particle->setLocation(sf::Vector2f(sf::Mouse::getPosition(window).x * 1.f, sf::Mouse::getPosition(window).y * 1.f));
 	particle->draw(window);
 }

@@ -27,6 +27,7 @@ Particle* ParticleEngine::generateNewParticle(){
 	float tmpAngle = 1.f * ((rand()%((361-1)+1) + 1)-1);
 	sf::Color tmpColor = sf::Color((rand()%(((256-1)+1)+1)-1), (rand()%(((256-1)+1)+1)-1), (rand()%(((256-1)+1)+1)-1), 255);
 	int tmpLife = rand()%50 + 20;
+	printf("tmpAngle : %f\n", tmpAngle);
 	return new Particle(tmpTexture, tmpPosition, tmpVelocity, tmpAngle, tmpColor, tmpLife);
 }
 

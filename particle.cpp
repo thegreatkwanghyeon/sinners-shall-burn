@@ -16,7 +16,7 @@ Particle::Particle(sf::Texture texture, sf::Vector2f position, sf::Vector2f velo
 
 void Particle::move(){
 	float radian = angle * M_PI/180;
-	sprite.setPosition(velocity.x * cos(radian), velocity.y * sin(radian));
+	sprite.setPosition(sprite.getPosition().x + velocity.x * cos(radian), sprite.getPosition().y + (-1 * (velocity.y * sin(radian))));
 }
 
 void Particle::setPosition(sf::Vector2f position){

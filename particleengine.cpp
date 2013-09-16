@@ -13,6 +13,12 @@ void ParticleEngine::setLocation(sf::Vector2f location){
 	}
 }
 
+void ParticleEngine::emit(){
+	for(int i=0;i<numberOfParticles;i++){
+		particleList.push_back(generateNewParticle());
+	}
+}
+
 Particle* ParticleEngine::generateNewParticle(){
 	srand(GetTickCount());
 	sf::Texture tmpTexture = textureList[(rand()%((textureList.size() - 1)+1) + 1)-1];
@@ -25,9 +31,6 @@ Particle* ParticleEngine::generateNewParticle(){
 }
 
 void ParticleEngine::update(){
-	for(int i=0;i<numberOfParticles;i++){
-		particleList.push_back(generateNewParticle());
-	}
 	for(int currentParticle = 0;currentParticle < particleList.size();currentParticle++){
 		particleList[currentParticle]->update();
 		if(particleList[currentParticle]->getLife() <= 0){

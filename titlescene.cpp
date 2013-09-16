@@ -24,6 +24,8 @@ TitleScene::~TitleScene(){
 	
 }
 void TitleScene::update(sf::Event &event){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		particle->emit();
 	particle->setLocation(sf::Vector2f(sf::Mouse::getPosition().x * 1.f, sf::Mouse::getPosition().y * 1.f));
 	particle->update();
 }

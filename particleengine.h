@@ -22,6 +22,7 @@ class ParticleEngine{
 		Particle* generateNewParticle();
 
 		void setLocation(sf::Vector2f location);
+		void emit();
 
 		void update();
 		void draw(sf::RenderWindow &window);

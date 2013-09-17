@@ -13,6 +13,7 @@ class ParticleEngine{
 		sf::Vector2f location;
 
 		int numberOfParticles;
+		unsigned int randomNumber;
 	
 	public : 
 
@@ -22,7 +23,7 @@ class ParticleEngine{
 		Particle* generateNewParticle();
 
 		void setLocation(sf::Vector2f location);
-		void emit();
+		void init();
 
 		void update();
 		void draw(sf::RenderWindow &window);

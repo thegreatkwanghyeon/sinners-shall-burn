@@ -17,14 +17,13 @@ TitleScene::TitleScene(){
 	textureList.push_back(star);
 	textureList.push_back(diamond);
 
-	particle = new ParticleEngine(textureList, sf::Vector2f(0, 0) ,1);
+	particle = new ParticleEngine(textureList, sf::Vector2f(500, 300) ,1000);
+	particle->init();
 }
 TitleScene::~TitleScene(){
 	
 }
 void TitleScene::update(sf::Event &event){
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		particle->emit();
 	particle->update();
 }
 

@@ -17,7 +17,7 @@ class ParticleEngine{
 	
 	public : 
 
-		ParticleEngine(std::vector<sf::Texture> textureList, sf::Vector2f location, int numberOfParticles);
+		ParticleEngine(std::vector<sf::Texture> textureList, int numberOfParticles);
 		~ParticleEngine(){}
 
 		Particle* generateNewParticle();

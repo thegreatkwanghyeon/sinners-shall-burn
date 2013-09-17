@@ -1,4 +1,5 @@
 #include "particleengine.h"
+#include "WELL512a.h"
 
 ParticleEngine::ParticleEngine(std::vector<sf::Texture> textureList, sf::Vector2f location, int numberOfParticles){
 	this->location = location;
@@ -20,7 +21,8 @@ void ParticleEngine::init(){
 
 Particle* ParticleEngine::generateNewParticle(){
 
-	srand(GetTickCount() + randomNumber);
+	srand(GetTickCount() + randomNumber*2);
+	printf("random : %f\n", WELLRNG512a());
 	sf::Texture tmpTexture = textureList[(rand()%((textureList.size() - 1)+1) + 1)-1];
 	sf::Vector2f tmpPosition = location;
 	sf::Vector2f tmpVelocity = sf::Vector2f(1.f * (rand()%((2-1)+1)+1), 1.f * (rand()%((2-1)+1)+1));
@@ -37,7 +39,9 @@ void ParticleEngine::update(){
 
 	for(int currentParticle = 0;currentParticle < particleList.size();currentParticle++){
 
-		particleList[currentParticle]->update();
+		float radian = particleList[currentParticle]->getAngle() * M_PI/180;
+		particleList[currentParticle]->setPosition(sf::Vector2f(particleList[currentParticle]->getPosition().x + particleList[currentParticle]->getVelocity().x * cos(radian), particleList[currentParticle]->getPosition().y + (-1 * (particleList[currentParticle]->getVelocity().y * sin(radian)))));
+		particleList[currentParticle]->setLife(particleList[currentParticle]->getLife()-1);
 
 		if(particleList[currentParticle]->getLife() <= 0){
 

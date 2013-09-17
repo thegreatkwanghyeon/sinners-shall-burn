@@ -40,9 +40,6 @@ class Particle{
 		void setLife(int life);
 		int getLife(){return life;}
 
-		void move();
-
-		void update();
 		void draw(sf::RenderWindow &window);
 
 };

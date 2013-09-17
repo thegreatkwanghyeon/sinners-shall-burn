@@ -14,11 +14,6 @@ Particle::Particle(sf::Texture texture, sf::Vector2f position, sf::Vector2f velo
 
 }
 
-void Particle::move(){
-	float radian = angle * M_PI/180;
-	sprite.setPosition(sprite.getPosition().x + velocity.x * cos(radian), sprite.getPosition().y + (-1 * (velocity.y * sin(radian))));
-}
-
 void Particle::setPosition(sf::Vector2f position){
 	this->position = position;
 	sprite.setPosition(position);
@@ -43,12 +38,7 @@ void Particle::setVelocity(sf::Vector2f velocity){
 }
 
 void Particle::setLife(int life){
-	this->life = life;
-}
-
-void Particle::update(){
-	--life;
-	move();
+	this->life = life; 
 }
 
 void Particle::draw(sf::RenderWindow &window){

@@ -19,6 +19,9 @@
     <Filter Include="system\particle">
       <UniqueIdentifier>{cca1c1aa-e51c-4475-b397-2120e6295e3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="system\randomgenerator">
+      <UniqueIdentifier>{95b8ce95-54e2-4b53-bfe7-6653a9061ab2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="particleengine.h">
       <Filter>system\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="WELL512a.h">
+      <Filter>system\randomgenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="particleengine.cpp">
       <Filter>system\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="WELL512a.cpp">
+      <Filter>system\randomgenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

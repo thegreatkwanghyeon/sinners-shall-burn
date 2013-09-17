@@ -36,7 +36,7 @@ Particle* ParticleEngine::generateNewParticle(){
 void ParticleEngine::update(){
 
 	printf("size : %d\n", particleList.size());
-
+	/*
 	for(int currentParticle = 0;currentParticle < particleList.size();currentParticle++){
 
 		float radian = particleList[currentParticle]->getAngle() * M_PI/180;
@@ -52,10 +52,21 @@ void ParticleEngine::update(){
 		}
 
 	}
+	*/
+	for(ParticleIterator it = particleList.begin(); it != particleList.end(); it++){
+		float radian = (*it)->getAngle() * M_PI/180;
+		(*it)->setPosition(sf::Vector2f(((*it)->getPosition().x + (*it)->getVelocity().x * cos(radian)), (*it)->getPosition().y + (-1 * ((*it)->getVelocity().y * sin(radian)))));
+		(*it)->setLife((*it)->getLife()-1);
+		if((*it)->getLife() <= 0){
+			delete (*it);
+			it = particleList.erase(it);
+			if(it == particleList.end())return;
+		}
+	}
 }
 
 void ParticleEngine::draw(sf::RenderWindow &window){
-	for(int currnetParticle = 0;currnetParticle < particleList.size();currnetParticle++){
-		particleList[currnetParticle]->draw(window);
+	for(ParticleIterator it = particleList.begin(); it != particleList.end(); it++){
+		(*it)->draw(window);
 	}
 }

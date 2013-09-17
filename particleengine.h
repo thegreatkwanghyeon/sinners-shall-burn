@@ -4,12 +4,15 @@
 #include <SFML/Graphics.hpp>
 #include "particle.h"
 #include <windows.h>
+#include "stdafx.h"
+
+typedef std::list<Particle*>::iterator ParticleIterator;
 
 class ParticleEngine{
 	private : 
 
 		std::vector<sf::Texture> textureList;
-		std::vector<Particle*> particleList;
+		std::list<Particle*> particleList;
 		sf::Vector2f location;
 
 		int numberOfParticles;

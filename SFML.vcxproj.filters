@@ -99,14 +99,11 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="makemap.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="particle.h">
-      <Filter>system\particle</Filter>
-    </ClInclude>
-    <ClInclude Include="particleengine.h">
-      <Filter>system\particle</Filter>
-    </ClInclude>
-    <ClInclude Include="WELL512a.h">
+    <ClInclude Include="well512.h">
       <Filter>system\randomgenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="particlesystem.h">
+      <Filter>system\particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,14 +188,8 @@
     <ClCompile Include="global.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="makemap.cpp" />
-    <ClCompile Include="particle.cpp">
+    <ClCompile Include="particlesystem.cpp">
       <Filter>system\particle</Filter>
-    </ClCompile>
-    <ClCompile Include="particleengine.cpp">
-      <Filter>system\particle</Filter>
-    </ClCompile>
-    <ClCompile Include="WELL512a.cpp">
-      <Filter>system\randomgenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

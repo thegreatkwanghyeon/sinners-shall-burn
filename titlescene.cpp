@@ -6,30 +6,23 @@ TitleScene::TitleScene(){
 	text.setString(L"num1 : ≈∏¿Ã∆≤ æ¿ \nnum2 : ≤≤¿”æ¿ \nnum3 : ºŒ¿Ã¥ıæ¿\nnum4 : ∆€¡Ò");
 	text.setPosition(450.0f, 250.0f);
 
-	std::vector<sf::Texture> textureList;
-	sf::Texture circle;
-	sf::Texture star;
-	sf::Texture diamond;
-	circle.loadFromFile("img/particles/circle.png");
-	star.loadFromFile("img/particles/star.png");
-	diamond.loadFromFile("img/particles/diamond.png");
-	textureList.push_back(circle);
-	textureList.push_back(star);
-	textureList.push_back(diamond);
+	particle = new ParticleSystem(600, 600);
+	particle->setAngleRange(0, 360);
+	particle->setLifeRange(50, 100);
 
-	particle = new ParticleEngine(textureList, 10);
 }
 TitleScene::~TitleScene(){
 	
 }
 void TitleScene::update(sf::Event &event){
-	//if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		particle->init();
 	particle->update();
 }
 
 void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
-	particle->setLocation(sf::Vector2f(sf::Mouse::getPosition(window).x * 1.f, sf::Mouse::getPosition(window).y * 1.f));
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		particle->setLocation(sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+		particle->fuel(50);
+	}
 	particle->draw(window);
 }

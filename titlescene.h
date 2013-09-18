@@ -2,14 +2,14 @@
 #define __titlescene__
 
 #include "scenebase.h"
-#include "particleengine.h"
+#include "particlesystem.h"
 
 class TitleScene : public SceneBase{
 	private:
 		sf::Text text;
 		sf::Font font;
 
-		ParticleEngine* particle;
+		ParticleSystem* particle;
 
 	public:
 		TitleScene();

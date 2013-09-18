@@ -9,7 +9,8 @@ TitleScene::TitleScene(){
 	particle = new ParticleSystem(600, 600);
 	particle->setAngleRange(0, 360);
 	particle->setLifeRange(50, 100);
-
+	particle->setStartColor(255, 0, 0, 0);
+	particle->setEndColor(0, 255, 0, 255);
 }
 TitleScene::~TitleScene(){
 	

@@ -1,7 +1,7 @@
 #ifndef __particlesystem__
 #define __particlesystem__
 
-#include <list>
+#include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include "well512.h"
 #define _USE_MATH_DEFINES
@@ -18,6 +18,7 @@ class Particle{
 		sf::Sprite sprite;
 		sf::Vector2f vel;
 		int life;
+		int defaultLife;
 		float angle;
 };
 
@@ -53,6 +54,8 @@ class ParticleSystem{
 		void setLocation(sf::Vector2f position);
 		void setLifeRange(int min, int max);
 		void setAngleRange(int min, int max);
+		void setStartColor(int r, int g, int b, int a);
+		void setEndColor(int r, int g, int b, int a);
 };
 
 #endif

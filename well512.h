@@ -20,7 +20,10 @@ class Well512{
 		~Well512(){}
 
 		unsigned int Next(int minValue, int maxValue){
-			return (unsigned int)((Next() % (maxValue - minValue)) + minValue);
+			if(minValue == maxValue)
+				return maxValue;
+			else
+				return (unsigned int)((Next() % (maxValue - minValue)) + minValue);
 		}
 
 		unsigned int Next(unsigned int maxValue){

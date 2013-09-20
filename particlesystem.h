@@ -30,6 +30,10 @@ class ParticleSystem{
 		sf::Vector2f	m_position;
 		Well512	m_randomizer;
 		sf::Clock	m_clock;
+		sf::Clock m_clock2;
+
+		float m_elapsedTime;
+
 		float		m_particleSpeed;
 
 		int m_minAngle, m_maxAngle;
@@ -37,9 +41,6 @@ class ParticleSystem{
 
 		sf::Color m_startColor;
 		sf::Color m_endColor;
-
-		float m_startScale;
-		float m_endScale;		
 
 	public :
 
@@ -49,7 +50,10 @@ class ParticleSystem{
 		~ParticleSystem();
 
 		void fuel(int num);
+		void fuelInSequence(float rate, int particles);
+
 		void update();
+
 		void draw(sf::RenderWindow &window);
 		void setLocation(sf::Vector2f position);
 		void setLifeRange(int min, int max);

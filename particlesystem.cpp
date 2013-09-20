@@ -13,6 +13,8 @@ ParticleSystem::ParticleSystem(int x, int y){
 
 	m_startColor = sf::Color(0, 0, 0, 0);
 	m_endColor = sf::Color(0, 0, 0, 0);
+
+	m_elapsedTime = 0.0;
 }
 
 ParticleSystem::~ParticleSystem(){
@@ -44,9 +46,9 @@ void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
 		particle = new Particle();
-		particle->sprite.setPosition(m_position.x, m_position.y);
 		particle->vel.x = 0.5f;
 		particle->vel.y = 0.5f;
+		particle->sprite.setPosition(m_position.x, m_position.y);
 		particle->life = m_randomizer.Next(m_minLife, m_maxLife);
 		particle->defaultLife = particle->life;
 		particle->angle = m_randomizer.Next(m_minAngle, m_maxAngle);
@@ -56,21 +58,34 @@ void ParticleSystem::fuel(int num){
 	}
 }
 
+void ParticleSystem::fuelInSequence(float rate, int particles){
+	m_elapsedTime += m_clock2.getElapsedTime().asSeconds();
+	m_clock2.restart();
+
+	if(m_elapsedTime >= rate){
+		fuel(particles);
+		m_elapsedTime = 0;
+	}
+}
+
 void ParticleSystem::update(){
 	float time = m_clock.getElapsedTime().asSeconds();
 	m_clock.restart();
 
 	for(ParticleIterator it = m_particleList.begin(); it!=m_particleList.end(); it++){
 		(*it)->life -= 1;
-		double lifeRatio = (double)(*it)->life/(double)(*it)->defaultLife * 100;
+		
+		double lifeRatio = (double)(*it)->life/(double)(*it)->defaultLife;
+
 		int r, g, b, a;
 
-		r = (m_endColor.r - m_startColor.r) * lifeRatio/100;
-		g = (m_endColor.g - m_startColor.g) * lifeRatio/100;
-		b = (m_endColor.b - m_startColor.b) * lifeRatio/100;
-		a = (m_endColor.a - m_startColor.a) * lifeRatio/100;
+		r = m_startColor.r + (m_startColor.r - m_endColor.r) * lifeRatio;
+		g = m_startColor.g + (m_startColor.g - m_endColor.g) * lifeRatio;
+		b = m_startColor.b + (m_startColor.b - m_endColor.b) * lifeRatio;
+		a = m_startColor.a + (m_startColor.a - m_endColor.a) * lifeRatio;
 
 		(*it)->sprite.setColor(sf::Color(r, g, b, a));
+
 		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + (*it)->vel.x * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + (*it)->vel.y * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
 		if((*it)->life <= 0){
 			delete (*it);

@@ -7,10 +7,10 @@ TitleScene::TitleScene(){
 	text.setPosition(450.0f, 250.0f);
 
 	particle = new ParticleSystem(600, 600);
-	particle->setAngleRange(0, 360);
+	particle->setAngleRange(90, 90);
 	particle->setLifeRange(50, 100);
-	particle->setStartColor(255, 0, 0, 0);
-	particle->setEndColor(0, 255, 0, 255);
+	particle->setStartColor(0, 255, 0, 255);
+	particle->setEndColor(255, 0, 0, 0);
 }
 TitleScene::~TitleScene(){
 	
@@ -23,7 +23,7 @@ void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		particle->setLocation(sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
-		particle->fuel(50);
+		particle->fuelInSequence(0.0, 10);
 	}
 	particle->draw(window);
 }

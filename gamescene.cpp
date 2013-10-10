@@ -4,7 +4,7 @@
 GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
 	player = new Player();
-	battle = new Battle(1,player);
+	battle = new Battle(player);
 	for(int i=0;i<1;i++){
 		enemy.push_back(new Enemy(1));
 	}
@@ -23,22 +23,25 @@ GameScene::GameScene(){
 }
 
 void GameScene::update(sf::Event &event){
-	if(!isBattle)//전투시엔 이동 등을 막고 그림만 배경으로 출력해줌^^
-		rayCastingScene->update(event);
+
 	battle->update(event);
 
-	nowEnemy=rayCastingScene->isBattle();
-	if(nowEnemy != -1){
-		printf("?%d?",nowEnemy);
-		isBattle=true;
-		battle->startBattle(enemy[nowEnemy]->getCode());
-	}
-
-	if(battle->getResult() != 0){
-		isBattle=false;
-		enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제
-	}
-	printf("<<%d>>",enemy.size());
+	if(isBattle){//전투
+		if(battle->getResult() != 0){//전투중일 때, 전투가 끝났는지를 판정하는 함수이다.
+			isBattle=false;
+			enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제
+		}
+	}else{//비전투
+		rayCastingScene->update(event);
+		
+		nowEnemy=rayCastingScene->isBattle();
+		if(nowEnemy != -1){
+			printf("[%d %d]",nowEnemy,enemy[nowEnemy]->getCode());
+			isBattle=true;
+			battle->startBattle(enemy[nowEnemy]->getCode());
+			printf("???");
+		}
+	}	
 }
 
 void GameScene::draw(sf::RenderWindow &window){

@@ -102,7 +102,6 @@ class RayCastingScene{
 		 sf::Shader sight;
 
 		 Sprite sprite[numSprites];
-		 int monsterNum[numSprites];//스프라이트들의 몬스터 번호를 따로 저장해줌.
 		 double ZBuffer[screenWidth];
 		 int spriteOrder[numSprites];
 		 double spriteDistance[numSprites];

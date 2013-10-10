@@ -1,7 +1,7 @@
 #include "battle.h"
 #include <string.h>
 
-Battle::Battle(int Code, Player* _player){
+Battle::Battle(Player* _player){
 	int i;
 
 	player=_player;
@@ -9,7 +9,7 @@ Battle::Battle(int Code, Player* _player){
 	puzzle = new Puzzle();
 	puzzle->setElement(player->useElement);
 
-	enemy=new Enemy(0);
+	enemy=new Enemy(1);
 
 	tileset = new TileSet();
 	faceTileset = new TileSet();

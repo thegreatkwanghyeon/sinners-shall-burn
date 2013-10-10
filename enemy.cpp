@@ -4,7 +4,7 @@ Enemy::Enemy(){
 
 }
 
-Enemy::Enemy(int code){
+Enemy::Enemy(int _code){
 	enemyData.LoadFile("xmls/enemies.xml");
 	TiXmlNode *pNode = enemyData.FirstChildElement("Enemies")->FirstChildElement("Enemy");
 
@@ -12,13 +12,14 @@ Enemy::Enemy(int code){
 		int tmpCode;
 		pNode->ToElement()->Attribute("code",&tmpCode);
 
-		if(tmpCode == code){
+		if(tmpCode == _code){
 			pNode->ToElement()->Attribute("hp",&maxHp);
 			currentHp = maxHp;
 			pNode->ToElement()->Attribute("damage",&damage);
 			name = MTW(pNode->ToElement()->GetText());
-			code=i; break;
-		}else if(tmpCode > code){
+			code=tmpCode;
+			break;
+		}else if(tmpCode > _code){
 			return;
 		}
 

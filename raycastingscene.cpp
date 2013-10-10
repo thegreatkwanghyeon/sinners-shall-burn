@@ -16,8 +16,6 @@ RayCastingScene::RayCastingScene(){
 	sprite[0].y = 3.5;
 	sprite[0].texture = 8;
 
-	monsterNum[0]=1;
-
 
 	height = screenHeight;
 	width = screenWidth;
@@ -643,20 +641,7 @@ int RayCastingScene::isBattle(){
 	if(angle == -1)
 		return -1;
 
-	/*
-	for(i=0;i<countEnemy;i++){
-		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 1){//몬스터가 전면
-			return monsterNum[i];
-		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 4){//몬스터가 우측
-			return monsterNum[i];
-		}else if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == -1 && angle == 3){//몬스터가 후면
-			return monsterNum[i];
-		}else if(pos.x-sprite[i].x == 1 && (int)pos.y == (int)sprite[i].y && angle == 2){//몬스터가 좌측
-			return monsterNum[i];
-		}
-	}*/
-
-	printf("<%d>",countEnemy);
+	//printf("<%d>",countEnemy);
 
 	for(i=0; i<countEnemy; i++){
 		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 1){

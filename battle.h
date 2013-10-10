@@ -66,7 +66,7 @@ class Battle : public SceneBase{
 		Puzzle *puzzle;
 
 	public:
-		Battle(int Code, Player* _player);
+		Battle(Player* _player);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int getResult();

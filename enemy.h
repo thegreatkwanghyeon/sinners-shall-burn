@@ -8,6 +8,7 @@
 class Enemy{
 	private:
 		sf::Sprite sprite;
+		sf::Texture texture;
 		sf::String name;
 		int code;
 		int maxHp;
@@ -31,6 +32,12 @@ class Enemy{
 		void setCurrentHp(int num);
 		sf::Vector2f getPosition();
 		sf::Sprite getSprite();
+		int getCode();
+
+
+		//юс╫ц
+		void setPosition(sf::Vector2f position);
+		void setTexture(sf::Texture texture);
 
 		
 };

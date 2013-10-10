@@ -14,6 +14,11 @@ class GameScene : public SceneBase{
 		Player *player;
 
 		std::vector <Enemy*> enemy;
+		std::vector <Enemy*> *pEnemy;
+
+		sf::Sprite sprite;
+		sf::Texture texture;
+
 
 		bool isBattle;
 	public:

@@ -114,6 +114,7 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 void RayCastingScene::update(sf::Event &event){
 	int tempX, tempY;//좌우이동용 temp변수
+	countEnemy = pEnemy->size();
 
 	for(int i=pos.y-fov;i<=pos.y+fov;i++){
 		for(int j=pos.x-fov;j<=pos.x+fov;j++){
@@ -510,14 +511,14 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	//플로어캐스팅 끝났습니다!
 	//스프라이트 캐스팅 시작!
 	
-	for(int i=0;i<numSprites;i++){
+	for(int i=0;i<countEnemy;i++){
 		spriteOrder[i] = i;
 		spriteDistance[i] = ((pos.x - sprite[i].x) * (pos.x - sprite[i].x) + (pos.y - sprite[i].y) * (pos.y - sprite[i].y));
 	}
-	combSort(spriteOrder, spriteDistance, numSprites);
+	combSort(spriteOrder, spriteDistance, countEnemy);
 	
 	//정렬이 끝났고, 이제 존나 그릴거다.
-	for(int i=0; i<numSprites;i++){
+	for(int i=0; i<countEnemy;i++){
 		sf::Vector2f spritePos;
 		spritePos.x = (float)sprite[spriteOrder[i]].x - (float)pos.x;
 		spritePos.y = (float)sprite[spriteOrder[i]].y - (float)pos.y;
@@ -616,7 +617,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		}
 	}
 	rec.setFillColor(sf::Color::Red);
-	for(int i=0;i<numSprites;i++){
+	for(int i=0;i<countEnemy;i++){
 		if(abs(sprite[i].x-pos.x) >= fov+1 || abs(sprite[i].y-pos.y) >= fov+1)
 			continue;
 		rec.setPosition(20+((MapX-int(sprite[i].x)-1)*5),215+(int(sprite[i].y)*5));
@@ -641,8 +642,9 @@ int RayCastingScene::isBattle(){
 	int i;
 	if(angle == -1)
 		return -1;
-	for(i=0;i<numSprites;i++){
-	//	printf("%f %d\n%f %d\n%d | %d(-1) %d(0)\n\n",pos.x,(int)pos.y,sprite[i].x,(int)sprite[i].y,angle,pos.x-sprite[i].x == -1,pos.y == sprite[i].y);
+
+	/*
+	for(i=0;i<countEnemy;i++){
 		if((int)pos.x == (int)sprite[i].x && pos.y-sprite[i].y == 1 && angle == 1){//몬스터가 전면
 			return monsterNum[i];
 		}else if(pos.x-sprite[i].x == -1 && (int)pos.y == (int)sprite[i].y && angle == 4){//몬스터가 우측
@@ -652,7 +654,26 @@ int RayCastingScene::isBattle(){
 		}else if(pos.x-sprite[i].x == 1 && (int)pos.y == (int)sprite[i].y && angle == 2){//몬스터가 좌측
 			return monsterNum[i];
 		}
+	}*/
+
+	printf("%d",countEnemy);
+
+	for(i=0; i<countEnemy; i++){
+		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 1){
+			return monsterNum[i];
+		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 4){
+			return monsterNum[i];
+		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y - pEnemy->at(i)->getPosition().y == -1 && angle == 3){
+			return monsterNum[i];
+		}else if(pos.x - pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 2){
+			return monsterNum[i];
+		}
 	}
+
+	//pEnemy->at(0)->getPosition().x;
+
+
+
 	return -1;
 }
 int RayCastingScene::getFOV(){
@@ -660,4 +681,8 @@ int RayCastingScene::getFOV(){
 }
 void RayCastingScene::setFOV(int _fov){
 	fov=_fov;
+}
+
+void RayCastingScene::setEnemies(std::vector <Enemy*> *pEnemy){
+	this->pEnemy = pEnemy;
 }

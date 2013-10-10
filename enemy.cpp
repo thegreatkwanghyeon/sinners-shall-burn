@@ -57,3 +57,16 @@ sf::Vector2f Enemy::getPosition(){
 sf::Sprite Enemy::getSprite(){
 	return sprite;
 }
+
+int Enemy::getCode(){
+	return code;
+}
+
+//юс╫ц
+void Enemy::setPosition(sf::Vector2f position){
+	this->position = position;
+}
+
+void Enemy::setTexture(sf::Texture texture){
+	this->texture = texture;
+}

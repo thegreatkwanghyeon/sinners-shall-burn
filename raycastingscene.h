@@ -17,6 +17,7 @@
 
 #include "scenebase.h"
 #include "makemap.h"
+#include "enemy.h"
 
 class RayCastingScene{
 
@@ -110,6 +111,11 @@ class RayCastingScene{
 
 
 		 void setShader(const std::string &shader);
+		 
+
+		 //enemy 관련 
+		 std::vector <Enemy*> *pEnemy;
+		 size_t countEnemy; //enemy 벡터의 크기
 
 
 
@@ -123,6 +129,10 @@ class RayCastingScene{
 
 		int getFOV();
 		void setFOV(int _fov);
+		
+		//enemy 관련
+		void setEnemies(std::vector <Enemy*> *pEnemy);
+
 };
 
 #endif

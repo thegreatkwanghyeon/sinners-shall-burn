@@ -5,9 +5,18 @@ GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
 	player = new Player();
 	battle = new Battle(1,player);
-	for(int i=0;i<15;i++){
+	for(int i=0;i<1;i++){
 		enemy.push_back(new Enemy(1));
 	}
+
+	pEnemy = &enemy; 
+
+	texture.loadFromFile("img/textures/pillar.png");
+
+	enemy[0]->setPosition(sf::Vector2f(3.5, 3.5));
+	enemy[0]->setTexture(texture);
+
+	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
 
 	isBattle=false;
 }

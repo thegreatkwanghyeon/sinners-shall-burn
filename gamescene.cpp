@@ -19,23 +19,26 @@ GameScene::GameScene(){
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
 
 	isBattle=false;
+	nowEnemy=0;
 }
 
 void GameScene::update(sf::Event &event){
-	int temp;
 	if(!isBattle)//전투시엔 이동 등을 막고 그림만 배경으로 출력해줌^^
 		rayCastingScene->update(event);
 	battle->update(event);
 
-	temp=rayCastingScene->isBattle();
-	if(temp != -1){
+	nowEnemy=rayCastingScene->isBattle();
+	if(nowEnemy != -1){
+		printf("?%d?",nowEnemy);
 		isBattle=true;
-		battle->startBattle(enemy[temp]);
+		battle->startBattle(enemy[nowEnemy]->getCode());
 	}
 
 	if(battle->getResult() != 0){
 		isBattle=false;
+		enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제
 	}
+	printf("<<%d>>",enemy.size());
 }
 
 void GameScene::draw(sf::RenderWindow &window){

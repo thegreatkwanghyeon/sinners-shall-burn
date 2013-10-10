@@ -656,17 +656,17 @@ int RayCastingScene::isBattle(){
 		}
 	}*/
 
-	printf("%d",countEnemy);
+	printf("<%d>",countEnemy);
 
 	for(i=0; i<countEnemy; i++){
 		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 1){
-			return monsterNum[i];
+			return i;
 		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 4){
-			return monsterNum[i];
+			return i;
 		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y - pEnemy->at(i)->getPosition().y == -1 && angle == 3){
-			return monsterNum[i];
+			return i;
 		}else if(pos.x - pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 2){
-			return monsterNum[i];
+			return i;
 		}
 	}
 

@@ -21,6 +21,7 @@ class GameScene : public SceneBase{
 
 
 		bool isBattle;
+		int nowEnemy;
 	public:
 		GameScene();
 		~GameScene(){}

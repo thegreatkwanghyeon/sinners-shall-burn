@@ -61,8 +61,9 @@ Battle::Battle(int Code, Player* _player){
 
 	sceneNum=normal;//기본 상태
 }
-void Battle::startBattle(Enemy* _enemy){
-	enemy = _enemy;
+void Battle::startBattle(int _code){
+	delete(enemy);
+	enemy = new Enemy(_code);
 	isBattle=true;
 }
 

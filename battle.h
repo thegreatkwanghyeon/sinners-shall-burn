@@ -73,7 +73,7 @@ class Battle : public SceneBase{
 		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);
 		void useSkill(int num);
-		void startBattle(Enemy* _enemy);
+		void startBattle(int _code);
 };
 
 #endif

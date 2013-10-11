@@ -1,13 +1,13 @@
 #include "battle.h"
 #include <string.h>
 
-Battle::Battle(Player* _player){
+Battle::Battle(Player** _player){
 	int i;
 
 	player=_player;
 
 	puzzle = new Puzzle();
-	puzzle->setElement(player->useElement);
+	puzzle->setElement((*player)->useElement);
 
 	enemy=new Enemy(1);
 
@@ -27,7 +27,7 @@ Battle::Battle(Player* _player){
 	faceSprite.setTextureRect(faceTileset->getTileSet(0));
 	faceSprite.setPosition(325,455);
 
-	skill = player->skill;
+	skill = (*player)->skill;
 
 	skillEffect=new Animation();
 
@@ -102,7 +102,7 @@ void Battle::update(sf::Event &event){
 		oldtemp=temp;
 		temp = skillEffect->getLocation();
 		if(temp < oldtemp){
-			player->setHP(player->getHP()-enemy->getDamage());
+			(*player)->setHP((*player)->getHP()-enemy->getDamage());
 			hpGauge->setValue(-1*enemy->getDamage());
 			//sceneNum=endBattle;
 			sceneNum=normal;
@@ -151,7 +151,7 @@ void Battle::update(sf::Event &event){
 
 				sceneNum=playerSkill;
 			}else{
-				player->setHP(player->getHP()-1);
+				(*player)->setHP((*player)->getHP()-1);
 				hpGauge->setValue(-1);
 				printf("ÀüÅõÁß ¾Æ´Ô\n");
 			}
@@ -171,7 +171,7 @@ void Battle::update(sf::Event &event){
 int Battle::getResult(){
 	if(sceneNum != normal)
 		return 0;
-	if(player->getHP() <= 0){
+	if((*player)->getHP() <= 0){
 		isBattle=false;
 		return -1;
 	}
@@ -210,7 +210,7 @@ void Battle::draw(sf::RenderWindow &window){
 	}
 	hpGauge->draw(window);
 	//---face---//
-	faceSprite.setTextureRect(faceTileset->getTileSet((100-player->getHP())/20));
+	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);
 }
 int Battle::makeCode(int s, int e){

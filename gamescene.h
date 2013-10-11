@@ -12,6 +12,7 @@ class GameScene : public SceneBase{
 		RayCastingScene* rayCastingScene;
 		Battle *battle;
 		Player *player;
+		Player **pPlayer;
 
 		std::vector <Enemy*> enemy;
 		std::vector <Enemy*> *pEnemy;

@@ -4,7 +4,8 @@
 GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
 	player = new Player();
-	battle = new Battle(player);
+	pPlayer=&player;
+	battle = new Battle(pPlayer);
 	for(int i=0;i<1;i++){
 		enemy.push_back(new Enemy(1));
 	}

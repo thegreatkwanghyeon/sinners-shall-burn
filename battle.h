@@ -36,7 +36,7 @@ class Battle : public SceneBase{
 		TileSet *tileset;
 		TileSet *faceTileset;
 		Enemy *enemy;
-		Player *player;
+		Player **player;
 
 		Animation *skillEffect;
 		int useSkillNow;
@@ -66,7 +66,7 @@ class Battle : public SceneBase{
 		Puzzle *puzzle;
 
 	public:
-		Battle(Player* _player);
+		Battle(Player** _player);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
 		int getResult();

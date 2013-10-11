@@ -18,7 +18,7 @@ class GameScene : public SceneBase{
 		std::vector <Enemy*> *pEnemy;
 
 		sf::Sprite sprite;
-		sf::Texture texture;
+		sf::Image texture;
 
 
 		bool isBattle;

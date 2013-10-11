@@ -555,6 +555,9 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					int d = y * 256 - height * 128 + spriteHeight * 128;
 					tex.y = ((d*texHeight)/spriteHeight)/256;
 					color = texture[sprite[spriteOrder[i]].texture][texWidth * tex.y + tex.x];
+					//color = pEnemy->at(spriteOrder[i])->getConvertedTexture()[texWidth * tex.y + tex.x];
+
+					pEnemy->at(spriteOrder[i])->getConvertedTexture()->at(texWidth*tex.y+tex.x);
 
 
 					if((color & 0x00FFFFFF) != 0){

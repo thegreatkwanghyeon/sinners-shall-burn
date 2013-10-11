@@ -1,10 +1,10 @@
 #include "enemy.h"
 
-Enemy::Enemy(){
+Enemy::Enemy() : textureSize(64){
 
 }
 
-Enemy::Enemy(int _code){
+Enemy::Enemy(int _code) : textureSize(64){
 	enemyData.LoadFile("xmls/enemies.xml");
 	TiXmlNode *pNode = enemyData.FirstChildElement("Enemies")->FirstChildElement("Enemy");
 
@@ -25,7 +25,6 @@ Enemy::Enemy(int _code){
 
 		pNode = pNode->NextSibling();
 	}
-
 	//임시
 	position = sf::Vector2f(0.0f, 0.0f);
 }
@@ -63,8 +62,27 @@ int Enemy::getCode(){
 	return code;
 }
 
-sf::Texture Enemy::getTexture(){
+sf::Image Enemy::getTexture(){
 	return texture;
+}
+
+std::vector<sf::Uint32> Enemy::convertImageToTexture(sf::Image image){
+	sf::Color color;
+	std::vector<sf::Uint32> texture;
+
+	texture.resize(textureSize * textureSize);
+	
+	for(int x=0; x<textureSize; x++){
+		for(int y=0; y<textureSize; y++){
+			color = image.getPixel(x, y);
+			texture[textureSize*y + x] = color.r * 65536 + color.g * 256 + color.b;	
+		} 
+	}
+	return texture;
+}
+
+std::vector<sf::Uint32>* Enemy::getConvertedTexture(){
+	return &convertedTexture;
 }
 
 //임시
@@ -72,6 +90,7 @@ void Enemy::setPosition(sf::Vector2f position){
 	this->position = position;
 }
 
-void Enemy::setTexture(sf::Texture texture){
+void Enemy::setTexture(sf::Image texture){
 	this->texture = texture;
+	this->convertedTexture = convertImageToTexture(texture);
 }

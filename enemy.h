@@ -8,7 +8,8 @@
 class Enemy{
 	private:
 		sf::Sprite sprite;
-		sf::Texture texture;
+		sf::Image texture;
+		std::vector<sf::Uint32> convertedTexture;
 		sf::String name;
 		int code;
 		int maxHp;
@@ -18,6 +19,10 @@ class Enemy{
 		sf::Vector2f position;
 
 		TiXmlDocument enemyData;
+
+		std::vector<sf::Uint32> convertImageToTexture(sf::Image image);
+
+		int const textureSize; //텍스처 그림파일 사이즈 (단위 : px)
 
 	public:
 		Enemy();
@@ -32,13 +37,13 @@ class Enemy{
 		void setCurrentHp(int num);
 		sf::Vector2f getPosition();
 		sf::Sprite getSprite();
-		sf::Texture getTexture();
+		sf::Image getTexture();
 		int getCode();
-
+		std::vector<sf::Uint32>* getConvertedTexture();
 
 		//임시
 		void setPosition(sf::Vector2f position);
-		void setTexture(sf::Texture texture);
+		void setTexture(sf::Image texture);
 
 		
 };

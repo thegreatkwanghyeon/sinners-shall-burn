@@ -511,15 +511,15 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	
 	for(int i=0;i<countEnemy;i++){
 		spriteOrder[i] = i;
-		spriteDistance[i] = ((pos.x - sprite[i].x) * (pos.x - sprite[i].x) + (pos.y - sprite[i].y) * (pos.y - sprite[i].y));
+		spriteDistance[i] = ((pos.x - pEnemy->at(i)->getPosition().x) * (pos.x - pEnemy->at(i)->getPosition().x) + (pos.y - pEnemy->at(i)->getPosition().y) * (pos.y - pEnemy->at(i)->getPosition().y));
 	}
 	combSort(spriteOrder, spriteDistance, countEnemy);
 	
 	//정렬이 끝났고, 이제 존나 그릴거다.
 	for(int i=0; i<countEnemy;i++){
 		sf::Vector2f spritePos;
-		spritePos.x = (float)sprite[spriteOrder[i]].x - (float)pos.x;
-		spritePos.y = (float)sprite[spriteOrder[i]].y - (float)pos.y;
+		spritePos.x = (float)pEnemy->at(spriteOrder[i])->getPosition().x - (float)pos.x;
+		spritePos.y = (float)pEnemy->at(spriteOrder[i])->getPosition().y - (float)pos.y;
 
 		double invDet = 1.0 / (plane.x * dir.y - dir.x * plane.y);
 		sf::Vector2f transform;
@@ -555,7 +555,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					int d = y * 256 - height * 128 + spriteHeight * 128;
 					tex.y = ((d*texHeight)/spriteHeight)/256;
 					color = texture[sprite[spriteOrder[i]].texture][texWidth * tex.y + tex.x];
-					
+
+
 					if((color & 0x00FFFFFF) != 0){
 						buffer[y*width*4 + stripe*4 + 2] = color%256;
 						color >>=8;
@@ -616,10 +617,9 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	}
 	rec.setFillColor(sf::Color::Red);
 	for(int i=0;i<countEnemy;i++){
-		if(abs(sprite[i].x-pos.x) >= fov+1 || abs(sprite[i].y-pos.y) >= fov+1)
+		if(abs(pEnemy->at(i)->getPosition().x-pos.x) >= fov+1 || abs(pEnemy->at(i)->getPosition().y-pos.y) >= fov+1)
 			continue;
-		rec.setPosition(20+((MapX-int(sprite[i].x)-1)*5),215+(int(sprite[i].y)*5));
-		//rec.setPosition((int(sprite[i].x)),(int(sprite[i].y)));
+		rec.setPosition(20+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*5),215+(int(pEnemy->at(i)->getPosition().y)*5));
 		window.draw(rec);
 	}
 	rec.setPosition(20+((MapX-int(pos.x)-1)*5),215+(int(pos.y)*5));

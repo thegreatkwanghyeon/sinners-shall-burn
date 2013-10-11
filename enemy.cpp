@@ -63,6 +63,10 @@ int Enemy::getCode(){
 	return code;
 }
 
+sf::Texture Enemy::getTexture(){
+	return texture;
+}
+
 //юс╫ц
 void Enemy::setPosition(sf::Vector2f position){
 	this->position = position;

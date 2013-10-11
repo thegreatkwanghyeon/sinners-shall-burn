@@ -32,6 +32,7 @@ class Enemy{
 		void setCurrentHp(int num);
 		sf::Vector2f getPosition();
 		sf::Sprite getSprite();
+		sf::Texture getTexture();
 		int getCode();
 
 

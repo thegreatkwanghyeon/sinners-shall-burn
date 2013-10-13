@@ -18,11 +18,11 @@ void PData::init_animation(){
 		animation->setTileRange(sf::Vector2i(5,5),4);
 	}else if(is_click == true){
 		animation->setSpeed(0.2);
-		animation->setTileRange(sf::Vector2i(1,5),3);
+		animation->setTileRange(sf::Vector2i(1,5),4);
 	}else{
 		animation->setSpeed(0.2);
 		switch(num){
-			case -1 : animation->setTileRange(sf::Vector2i(5,5),1);break; //빈 스택 표시용.
+			case -1 : animation->setTileRange(sf::Vector2i(5,4),4);break; //빈 스택 표시용.
 			case 0 : animation->setTileRange(sf::Vector2i(1,1),4);break;
 			case 1 : animation->setTileRange(sf::Vector2i(1,2),4);break;
 			case 2 : animation->setTileRange(sf::Vector2i(1,3),4);break;
@@ -44,7 +44,7 @@ int PData::getLocation(){
 	return animation->getLocation();
 }
 void PData::init_position(int _x, int _y){
-	sprite.setPosition(_x, _y);
+	sprite.setPosition((float)_x, (float)_y);
 	x=_x;
 	y=_y;
 }

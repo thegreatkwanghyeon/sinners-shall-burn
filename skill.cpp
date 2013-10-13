@@ -37,7 +37,6 @@ Skill::Skill(){
 		pNode->ToElement()->Attribute("animation",&data[i].animationNum);
 		translate(data[i].needCode,data[i].need);
 
-		printf("%d need : %d damage : %d\n",data[i].code,data[i].needCode,data[i].damage);
 	//	printf("code %d : %d %d %d\n",i,data[i].need[0],data[i].need[1],data[i].need[2]);
 		
 		if(pNode->NextSibling() == NULL)

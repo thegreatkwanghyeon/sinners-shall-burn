@@ -86,9 +86,10 @@ RayCastingScene::RayCastingScene(){
 	compassTexture.loadFromFile("img/compass.PNG");
 	compass.setTexture(compassTexture);
 	compass.setPosition(130,200);
+	compass.setOrigin(5,25);
+	compass.setRotation(0);
 
 	fov=2;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
-	angle=1;//초기값.
 }
 RayCastingScene::~RayCastingScene(){
 	delete makemap;
@@ -158,8 +159,6 @@ void RayCastingScene::update(sf::Event &event){
 		//---
 		if(pressA == false && sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 			pressA=true;
-			tempAngle=angle;
-			angle=-1;
 			isTurnL=Devide;
 			//---
 			deltaClock.restart();
@@ -167,8 +166,6 @@ void RayCastingScene::update(sf::Event &event){
 		}
 		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			pressD=true;
-			tempAngle=angle;
-			angle=-1;
 			isTurnR=Devide;
 			//---
 			deltaClock.restart();
@@ -180,21 +177,9 @@ void RayCastingScene::update(sf::Event &event){
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
 			pressS=false;
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false){
-			if(pressA){
-				angle=tempAngle;
-				angle--;
-				if(angle <= 0)
-					angle=4;
-			}
 			pressA=false;
 		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false){
-			if(pressD){
-				angle=tempAngle;
-				angle++;
-				if(angle > 4)
-					angle=1;
-			}
 			pressD=false;
 		}
 	}
@@ -218,6 +203,8 @@ void RayCastingScene::update(sf::Event &event){
 			double oldplaneX = plane.x;
 			plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
 			plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
+
+			compass.setRotation(compass.getRotation()+(90/Devide));
 		}else if(isTurnL != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				rotSpeed*=((int)(delta-current)/(CntTime/Devide));
@@ -235,6 +222,8 @@ void RayCastingScene::update(sf::Event &event){
 			double oldplaneX = plane.x;
 			plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
 			plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
+
+			compass.setRotation(compass.getRotation()-(90/Devide));
 		}else if(isGoF != 0){
 			if(((int)(delta-current)/(CntTime/Devide)) > 1){
 				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
@@ -555,9 +544,6 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					int d = y * 256 - height * 128 + spriteHeight * 128;
 					tex.y = ((d*texHeight)/spriteHeight)/256;
 					color = texture[sprite[spriteOrder[i]].texture][texWidth * tex.y + tex.x];
-					//color = pEnemy->at(spriteOrder[i])->getConvertedTexture()[texWidth * tex.y + tex.x];
-
-					pEnemy->at(spriteOrder[i])->getConvertedTexture()->at(texWidth*tex.y+tex.x);
 
 
 					if((color & 0x00FFFFFF) != 0){
@@ -629,6 +615,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	rec.setFillColor(sf::Color::Green);
 	window.draw(rec);
 	//---미니맵 끝--//
+	/*
 	compass.setOrigin(5,25);
 	switch(angle){
 		case 1 : compass.setRotation(0);break;
@@ -636,24 +623,33 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		case 3 : compass.setRotation(180);break;
 		case 4 : compass.setRotation(270);break;
 		default :compass.setRotation(compass.getRotation()+30);//-1
-	}
+	}*/
 	window.draw(compass);
+}
+int RayCastingScene::getAngle(){
+        if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
+                return 1;
+        else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
+                return 2;
+        else if(dir.x == 1 && dir.y == 0 && plane.x == 0 && plane.y == -0.66)
+                return 3;
+        else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
+                return 4;
 }
 int RayCastingScene::isBattle(){
 	int i;
-	if(angle == -1)
-		return -1;
+	int angle=getAngle();
 
 	//printf("<%d>",countEnemy);
 
 	for(i=0; i<countEnemy; i++){
-		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 1){
+		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 4){
 			return i;
-		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 4){
+		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){
 			return i;
-		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y - pEnemy->at(i)->getPosition().y == -1 && angle == 3){
+		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y - pEnemy->at(i)->getPosition().y == -1 && angle == 2){
 			return i;
-		}else if(pos.x - pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 2){
+		}else if(pos.x - pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 1){
 			return i;
 		}
 	}

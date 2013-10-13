@@ -15,7 +15,6 @@
 //---
 #define PStartX 500
 #define PStartY 415
-
 class Puzzle{
 	private:
 		sf::Vector2i  position;
@@ -35,8 +34,8 @@ class Puzzle{
 		bool change;
 		bool hint;
 		int tempNum;
-		int breakStack[PuzzleSize];
-		int chkBreak[PuzzleSize][PuzzleSize];
+		int breakStack[PuzzleSize+5];
+		int chkBreak[PuzzleSize+5][PuzzleSize+5];
 
 		int PuzzleElement[PuzzleKind+1];
 
@@ -63,7 +62,7 @@ class Puzzle{
 		void setElement(int Element[]);
 
 //---½ºÅÃ
-		PData *stack[StackSize];
+		PData *stack[StackSize+5];
 		int stackNum;
 		void stackInput(int num);
 //---ÄÞº¸

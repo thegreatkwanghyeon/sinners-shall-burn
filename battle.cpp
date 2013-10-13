@@ -87,7 +87,6 @@ void Battle::update(sf::Event &event){
 		oldtemp=temp;
 		temp = skillEffect->getLocation();
 		if(temp < oldtemp){
-			printf("oh sexy");
 			enemyGauge->setValue(-1*skill->data[useSkillNow].damage);
 			enemy->setCurrentHp(enemy->getCurrentHp()-skill->data[useSkillNow].damage);
 			sceneNum=enemySkill;
@@ -122,7 +121,6 @@ void Battle::update(sf::Event &event){
 	for(i=puzzle->stackNum-1;i>=0;i--){
 		for(j=0;j+i<puzzle->stackNum;j++){
 			tp = makeCode(j,j+i);
-			printf("%d\t",tp);
 			for(k=0;k<skill->skillNum;k++){
 				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
 					//skill->data[k].use = true;
@@ -168,12 +166,12 @@ void Battle::update(sf::Event &event){
 	hpGauge->update();
 	enemyGauge->update();
 }
-int Battle::getResult(){
+bool Battle::getResult(){
 	if(sceneNum != normal)
 		return 0;
 	if((*player)->getHP() <= 0){
 		isBattle=false;
-		return -1;
+		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;

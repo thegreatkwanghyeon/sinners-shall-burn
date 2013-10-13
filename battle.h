@@ -69,7 +69,7 @@ class Battle : public SceneBase{
 		Battle(Player** _player);
 		~Battle(){delete puzzle;}
 		void update(sf::Event &event);
-		int getResult();
+		bool getResult();
 		int makeCode(int s, int e);
 		void draw(sf::RenderWindow &window);
 		void useSkill(int num);

@@ -37,10 +37,8 @@ void GameScene::update(sf::Event &event){
 		
 		nowEnemy=rayCastingScene->isBattle();
 		if(nowEnemy != -1){
-			printf("[%d %d]",nowEnemy,enemy[nowEnemy]->getCode());
 			isBattle=true;
 			battle->startBattle(enemy[nowEnemy]->getCode());
-			printf("???");
 		}
 	}	
 }

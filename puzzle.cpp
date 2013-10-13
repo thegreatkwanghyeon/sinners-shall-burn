@@ -117,8 +117,8 @@ void Puzzle::update(sf::Event &event){
 
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
-			if((mousePosition.y >= PStartY+(i*PBlockSize) && mousePosition.y <= PStartY+((i+1)*PBlockSize)) && 
-				(mousePosition.x >= PStartX+(j*PBlockSize) && mousePosition.x <= PStartX+((j+1)*PBlockSize))){//마우스가 범위 내에 있을때.
+			if((mousePosition.y-15 > PStartY+(i*PBlockSize) && mousePosition.y-15 < PStartY+((i+1)*PBlockSize)) && 
+				(mousePosition.x > PStartX+(j*PBlockSize) && mousePosition.x < PStartX+((j+1)*PBlockSize))){//마우스가 범위 내에 있을때.
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && data[i][j]->is_click == false){
 					if(clickN == 2){//두곳을 거쳤을 때.
 

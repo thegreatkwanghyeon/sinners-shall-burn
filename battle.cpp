@@ -56,7 +56,7 @@ Battle::Battle(Player** _player){
 	hpGauge = new Gauge("img/hpgauge.png",100, 1, 1);
 	hpGauge->setPosition(sf::Vector2i(0,0));
 
-	enemyGauge = new Gauge("img/enemygauge.png",100,0,0);
+	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
 	sceneNum=normal;//기본 상태
@@ -87,7 +87,11 @@ void Battle::update(sf::Event &event){
 		oldtemp=temp;
 		temp = skillEffect->getLocation();
 		if(temp < oldtemp){
-			enemyGauge->setValue(-1*skill->data[useSkillNow].damage);
+			printf("<<%d %d>>",skill->data[useSkillNow].damage , enemy->getCurrentHp());
+			if(skill->data[useSkillNow].damage > enemy->getCurrentHp())
+				enemyGauge->setValue(-1*enemy->getCurrentHp());
+			else
+				enemyGauge->setValue(-1*skill->data[useSkillNow].damage);
 			enemy->setCurrentHp(enemy->getCurrentHp()-skill->data[useSkillNow].damage);
 			sceneNum=enemySkill;
 		}

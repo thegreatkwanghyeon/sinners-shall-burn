@@ -3,8 +3,8 @@
 #ifndef __raycastingscene__
 #define __raycastingscene__
 
-#define texWidth 64
-#define texHeight 64
+#define texWidth 256
+#define texHeight 256
 
 #define screenWidth 640
 #define screenHeight 360

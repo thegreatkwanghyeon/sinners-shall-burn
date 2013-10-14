@@ -12,7 +12,7 @@ GameScene::GameScene(){
 
 	pEnemy = &enemy; 
 
-	texture.loadFromFile("img/textures/pillar.png");
+	texture.loadFromFile("img/enemies/ghoul.png");
 
 	enemy[0]->setPosition(sf::Vector2f(3.5, 3.5));
 	enemy[0]->setTexture(texture);

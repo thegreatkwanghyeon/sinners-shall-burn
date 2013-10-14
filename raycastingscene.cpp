@@ -54,24 +54,24 @@ RayCastingScene::RayCastingScene(){
 	}
 
 	  
-	textureImage.loadFromFile("img/textures/eagle.png");
-	texture[0] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/redbrick.png");
+	texture[0] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[1] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/purplestone.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[2] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/greystone.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[3] = convertImageToTexture(textureImage);
 
-	textureImage.loadFromFile("img/textures/bluestone.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[4] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/mossy.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[5] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/wood.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[6] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/colorstone.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[7] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/pillar.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[8] = convertImageToTexture(textureImage);
 
 	drawingBuffer.create(width,height,sf::Color::Black);
@@ -543,17 +543,17 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 				for(int y = renderStart.y; y < renderEnd.y; y++){
 					int d = y * 256 - height * 128 + spriteHeight * 128;
 					tex.y = ((d*texHeight)/spriteHeight)/256;
-					color = texture[sprite[spriteOrder[i]].texture][texWidth * tex.y + tex.x];
+					color = pEnemy->at(spriteOrder[i])->getConvertedTexture()->at(texWidth*tex.y+tex.x);
 
 
-					if((color & 0x00FFFFFF) != 0){
+					//if((color & 0x00FFFFFF) != 0){
 						buffer[y*width*4 + stripe*4 + 2] = color%256;
 						color >>=8;
 						buffer[y*width*4 + stripe*4 + 1] = color%256;
 						color >>=8;
 						buffer[y*width*4 + stripe*4 + 0] = color%256;
 						buffer[y*width*4 + stripe*4 + 3] = 255;  
-					}
+					//}
 				}
 			}
 		}

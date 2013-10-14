@@ -4,7 +4,7 @@ Enemy::Enemy() : textureSize(64){
 
 }
 
-Enemy::Enemy(int _code) : textureSize(64){
+Enemy::Enemy(int _code) : textureSize(256){
 	enemyData.LoadFile("xmls/enemies.xml");
 	TiXmlNode *pNode = enemyData.FirstChildElement("Enemies")->FirstChildElement("Enemy");
 

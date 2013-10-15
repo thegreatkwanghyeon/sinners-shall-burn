@@ -498,14 +498,14 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	//플로어캐스팅 끝났습니다!
 	//스프라이트 캐스팅 시작!
 	
-	for(int i=0;i<countEnemy;i++){
+	for(int i=0;i<pEnemy->size();i++){
 		spriteOrder[i] = i;
 		spriteDistance[i] = ((pos.x - pEnemy->at(i)->getPosition().x) * (pos.x - pEnemy->at(i)->getPosition().x) + (pos.y - pEnemy->at(i)->getPosition().y) * (pos.y - pEnemy->at(i)->getPosition().y));
 	}
-	combSort(spriteOrder, spriteDistance, countEnemy);
+	combSort(spriteOrder, spriteDistance, pEnemy->size());
 	
 	//정렬이 끝났고, 이제 존나 그릴거다.
-	for(int i=0; i<countEnemy;i++){
+	for(int i=0; i<pEnemy->size();i++){
 		sf::Vector2f spritePos;
 		spritePos.x = (float)pEnemy->at(spriteOrder[i])->getPosition().x - (float)pos.x;
 		spritePos.y = (float)pEnemy->at(spriteOrder[i])->getPosition().y - (float)pos.y;
@@ -605,7 +605,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		}
 	}
 	rec.setFillColor(sf::Color::Red);
-	for(int i=0;i<countEnemy;i++){
+	for(int i=0;i<pEnemy->size();i++){
 		if(abs(pEnemy->at(i)->getPosition().x-pos.x) >= fov+1 || abs(pEnemy->at(i)->getPosition().y-pos.y) >= fov+1)
 			continue;
 		rec.setPosition(20+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*5),215+(int(pEnemy->at(i)->getPosition().y)*5));
@@ -642,7 +642,7 @@ int RayCastingScene::isBattle(){
 
 	//printf("<%d>",countEnemy);
 
-	for(i=0; i<countEnemy; i++){
+	for(i=0; i<pEnemy->size(); i++){
 		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 4){
 			return i;
 		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){

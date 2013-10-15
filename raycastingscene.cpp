@@ -498,6 +498,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	//플로어캐스팅 끝났습니다!
 	//스프라이트 캐스팅 시작!
 	
+	printf("%d<<>>\n",pEnemy->size());
+	printf("%d<<>>\n\n",pEnemy->size());
 	for(int i=0;i<pEnemy->size();i++){
 		spriteOrder[i] = i;
 		spriteDistance[i] = ((pos.x - pEnemy->at(i)->getPosition().x) * (pos.x - pEnemy->at(i)->getPosition().x) + (pos.y - pEnemy->at(i)->getPosition().y) * (pos.y - pEnemy->at(i)->getPosition().y));

@@ -13,7 +13,7 @@
 #define CntTime 0.2
 #define Devide 10
 
-#define numSprites 1
+#define numSprites 100
 
 #include "scenebase.h"
 #include "makemap.h"

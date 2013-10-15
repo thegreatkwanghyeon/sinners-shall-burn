@@ -37,6 +37,8 @@ class Puzzle{
 		int breakStack[PuzzleSize+5];
 		int chkBreak[PuzzleSize+5][PuzzleSize+5];
 
+		float plusDamage;
+
 		int PuzzleElement[PuzzleKind+1];
 
 		TileSet *tileset;
@@ -60,6 +62,9 @@ class Puzzle{
 		void movePuzzle();
 		void checkPuzzleMore();//더 터질게 있나? 걍 그런거
 		void setElement(int Element[]);
+
+		float getPlusDamage();
+		void setPlusDamage(float _damage);
 
 //---스택
 		PData *stack[StackSize+5];

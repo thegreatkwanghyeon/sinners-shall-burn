@@ -211,6 +211,7 @@ int Puzzle::checkPuzzle(){
 					data[i-1][j]->init_animation();
 					data[i-2][j]->is_break=true;
 					data[i-2][j]->init_animation();
+					printf("ÄÞº¸ 2");
 				}
 				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num && (data[i][j]->is_break+data[i][j-1]->is_break+data[i][j-2]->is_break < 3)
 					&& (data[i][j]->is_break == true || data[i][j-1]->is_break == true || data[i][j-2]->is_break == true)){//°¡·Î·Î 3°³°¡ °ãÄ¥¶§.
@@ -220,6 +221,7 @@ int Puzzle::checkPuzzle(){
 					data[i][j-1]->init_animation();
 					data[i][j-2]->is_break=true;
 					data[i][j-2]->init_animation();
+					printf("ÄÞº¸ 3");
 				}
 			}
 		}
@@ -494,4 +496,10 @@ void Puzzle::setElement(int Element[]){
 		//printf("%d \n",PuzzleElement[i]);
 	}
 	makePuzzle();
+}
+float Puzzle::getPlusDamage(){
+	return plusDamage;
+}
+void Puzzle::setPlusDamage(float _damage){
+	plusDamage = _damage;
 }

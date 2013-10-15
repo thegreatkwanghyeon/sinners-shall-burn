@@ -65,6 +65,7 @@ void Battle::startBattle(int _code){
 	delete(enemy);
 	enemy = new Enemy(_code);
 	isBattle=true;
+	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 }
 
 void Battle::update(sf::Event &event){

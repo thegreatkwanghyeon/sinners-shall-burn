@@ -6,7 +6,7 @@ GameScene::GameScene(){
 	player = new Player();
 	pPlayer=&player;
 	battle = new Battle(pPlayer);
-	for(int i=0;i<1;i++){
+	for(int i=0;i<3;i++){
 		enemy.push_back(new Enemy(1));
 	}
 
@@ -16,6 +16,12 @@ GameScene::GameScene(){
 
 	enemy[0]->setPosition(sf::Vector2f(3.5, 3.5));
 	enemy[0]->setTexture(texture);
+
+	enemy[1]->setPosition(sf::Vector2f(4.5, 3.5));
+	enemy[1]->setTexture(texture);
+
+	enemy[2]->setPosition(sf::Vector2f(3.5, 4.5));
+	enemy[2]->setTexture(texture);
 
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
 

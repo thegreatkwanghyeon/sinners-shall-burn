@@ -38,6 +38,9 @@ Battle::Battle(Player** _player){
 	skillSprite.setPosition(515,215);
 
 	font.loadFromFile("font/spike.ttf");
+	text.setFont(font); 
+	text.setString(L"bonus : 1.00");
+	text.setPosition(450.0f, 250.0f);
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
@@ -65,7 +68,8 @@ void Battle::startBattle(int _code){
 	delete(enemy);
 	enemy = new Enemy(_code);
 	isBattle=true;
-	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
+	enemyGauge->setValue(enemy->getMaxHp());
+	enemyGauge->setPosition(sf::Vector2i(357,150));
 }
 
 void Battle::update(sf::Event &event){
@@ -82,24 +86,36 @@ void Battle::update(sf::Event &event){
 
 	puzzle->update(event);
 
+	_snprintf(plusString, sizeof(plusString), "bonus : %.2f", puzzle->getPlusDamage());
+	text.setString(plusString);
+
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
+		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
 		//애니메이션 업데이트
 		skillEffect->update(&skillSprite, true);
 		oldtemp=temp;
 		temp = skillEffect->getLocation();
 		if(temp < oldtemp){
-			printf("<<%d %d>>",skill->data[useSkillNow].damage , enemy->getCurrentHp());
-			if(skill->data[useSkillNow].damage > enemy->getCurrentHp())
-				enemyGauge->setValue(-1*enemy->getCurrentHp());
-			else
-				enemyGauge->setValue(-1*skill->data[useSkillNow].damage);
-			enemy->setCurrentHp(enemy->getCurrentHp()-skill->data[useSkillNow].damage);
+			if(damage < 0){//회복.
+				if(damage > (*player)->getMaxHP()-(*player)->getHP())
+					hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
+				else
+					hpGauge->setValue(-1*damage);
+			}else{
+				if(damage > enemy->getCurrentHp())
+					enemyGauge->setValue(-1*enemy->getCurrentHp());
+				else
+					enemyGauge->setValue(-1*damage);
+				//---
+				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+			}
 			sceneNum=enemySkill;
+			if(damage <= 0)//회복/도트계 스킬 사용시엔 보너스 수치 유지
+				puzzle->setPlusDamage(1.0);
 		}
 		hpGauge->update();
 		enemyGauge->update();
-		//에니메이션 끝 -> enemyskill로 sceneNum 바꿔줌
-		return;//리턴시킴?
+		return;
 	}else if(sceneNum == enemySkill){
 		//애니메이션 업데이트
 		skillEffect->update(&skillSprite, true);
@@ -108,12 +124,13 @@ void Battle::update(sf::Event &event){
 		if(temp < oldtemp){
 			(*player)->setHP((*player)->getHP()-enemy->getDamage());
 			hpGauge->setValue(-1*enemy->getDamage());
-			//sceneNum=endBattle;
-			sceneNum=normal;
+			sceneNum=checkSkill;
 		}
 		hpGauge->update();
 		enemyGauge->update();
 		return;
+	}else if(sceneNum == checkSkill){//도트뎀 등을 판정.
+		sceneNum=normal;
 	}
 
 	if(keyEvent){
@@ -212,6 +229,7 @@ void Battle::draw(sf::RenderWindow &window){
 		tooltip[i]->draw(window);
 	}
 	hpGauge->draw(window);
+	window.draw(text);
 	//---face---//
 	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);

@@ -9,6 +9,7 @@
 class Player{
 	private:
 		int hp;
+		int maxHp;
 
 	public:
 		int element[30],useElement[10];
@@ -18,7 +19,9 @@ class Player{
 		void update();
 		void draw(sf::RenderWindow &window);
 		void setHP(int num);
+		void setMaxHP(int num);
 		int getHP();
+		int getMaxHP();
 
 		Skill *skill;
 };

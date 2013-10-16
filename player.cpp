@@ -15,6 +15,7 @@ Player::Player(){
 	skill->setHave(5);
 
 	hp=100;
+	maxHp=100;
 }
 
 void Player::update(){
@@ -29,4 +30,10 @@ int Player::getHP(){
 }
 void Player::setHP(int num){
 	hp=num;
+}
+int Player::getMaxHP(){
+	return maxHp;
+}
+void Player::setMaxHP(int num){
+	maxHp=num;
 }

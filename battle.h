@@ -18,7 +18,7 @@
 #define ViewSkill 6
 
 enum{
-	normal,playerSkill,enemySkill
+	normal,playerSkill,enemySkill,checkSkill
 };
 
 struct Monster{
@@ -30,6 +30,8 @@ class Battle : public SceneBase{
 	private:
 		TiXmlDocument stats;
 		sf::Font font;
+		sf::Text text;
+		char plusString[100];
 
 		sf::Sprite   sprite,faceSprite,skillSprite;
 		sf::Texture  texture, face;

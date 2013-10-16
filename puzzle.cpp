@@ -16,6 +16,12 @@ Puzzle::Puzzle(){
 	button->setClickSound("sounds/button/click.wav");
 	button->setHoverSound("sounds/button/hover.wav");
 
+	reButton = new Button("img/sbutton.png");
+	reButton->setPosition(0,330);
+	reButton->setText("REBUILD", 18);
+	reButton->setClickSound("sounds/button/click.wav");
+	reButton->setHoverSound("sounds/button/hover.wav");
+
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j] = new PData(PStartX+(j*PBlockSize),PStartY+(i*PBlockSize));
@@ -34,12 +40,13 @@ Puzzle::Puzzle(){
 	hitNum=0;
 
 	flag=false;
-	change=false;
 	move=false;
 
 	tempNum=0;
 	//limit1=0.0;
 	hint=false;
+
+	plusDamage=1.0;
 	
 	deltaTime=eTime.restart();
 }
@@ -79,15 +86,6 @@ void Puzzle::update(sf::Event &event){
 			checkPuzzle();
 		}
 		chkBlock=false;
-	}
-	if(change == true){
-		//limit1+=deltaTime.asSeconds();
-		if(deltaTime.asSeconds() >= 2.0){
-			//limit1=0;
-			change = false;
-			makePuzzle();
-		}
-		return;
 	}
 	if(flag == true){
 		if(hint == true)
@@ -175,9 +173,12 @@ void Puzzle::update(sf::Event &event){
 	checkPuzzleMore();
 
 	button->update(event);
-	if(button->checkMouseClick(event)){
+	if(button->checkMouseClick(event))
 		hint=true;
-	}
+
+	reButton->update(event);
+	if(reButton->checkMouseClick(event))
+		makePuzzle();
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -195,6 +196,7 @@ void Puzzle::draw(sf::RenderWindow &window){
 	if(hint == true)
 		window.draw(sprite);
 	button->draw(window);
+	reButton->draw(window);
 }
 int Puzzle::checkPuzzle(){
 	int i,j;
@@ -211,7 +213,8 @@ int Puzzle::checkPuzzle(){
 					data[i-1][j]->init_animation();
 					data[i-2][j]->is_break=true;
 					data[i-2][j]->init_animation();
-					printf("콤보 2");
+					//----플러스----//
+					plusDamage *= 1.1;
 				}
 				if(j >= 2 && data[i][j]->num == data[i][j-1]->num && data[i][j]->num == data[i][j-2]->num && (data[i][j]->is_break+data[i][j-1]->is_break+data[i][j-2]->is_break < 3)
 					&& (data[i][j]->is_break == true || data[i][j-1]->is_break == true || data[i][j-2]->is_break == true)){//가로로 3개가 겹칠때.
@@ -221,7 +224,8 @@ int Puzzle::checkPuzzle(){
 					data[i][j-1]->init_animation();
 					data[i][j-2]->is_break=true;
 					data[i][j-2]->init_animation();
-					printf("콤보 3");
+					//----플러스----//
+					plusDamage *= 1.1;
 				}
 			}
 		}
@@ -235,6 +239,8 @@ int Puzzle::checkPuzzle(){
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
+					//----플러스----//
+					plusDamage *= 1.2;
 				}else{
 					stackInput(data[i][j]->num);
 				}
@@ -264,6 +270,8 @@ int Puzzle::checkPuzzle(){
 
 				if(comboNum > 1){
 					combo[comboNum-1]=data[i][j]->num;
+					//----플러스----//
+					plusDamage *= 1.2;
 				}else{
 					stackInput(data[i][j]->num);
 				}
@@ -447,8 +455,7 @@ void Puzzle::checkPuzzleMore(){
 		}
 	}
 	deltaTime=eTime.restart();
-	//limit1=0.01f;
-	change=true;
+	makePuzzle();//리빌드
 }
 
 void Puzzle::stackInput(int num){
@@ -472,6 +479,11 @@ void Puzzle::makePuzzle(){
 	int i,j;
 	int rd;
 	srand(time(NULL));
+	for(i=0;i<PuzzleSize;i++){
+		for(j=0;j<PuzzleSize;j++){
+			data[i][j]->num=-1;
+		}
+	}
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			while(1){

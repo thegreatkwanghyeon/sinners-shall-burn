@@ -498,8 +498,6 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	//플로어캐스팅 끝났습니다!
 	//스프라이트 캐스팅 시작!
 	
-	printf("%d<<>>\n",pEnemy->size());
-	printf("%d<<>>\n\n",pEnemy->size());
 	for(int i=0;i<pEnemy->size();i++){
 		spriteOrder[i] = i;
 		spriteDistance[i] = ((pos.x - pEnemy->at(i)->getPosition().x) * (pos.x - pEnemy->at(i)->getPosition().x) + (pos.y - pEnemy->at(i)->getPosition().y) * (pos.y - pEnemy->at(i)->getPosition().y));
@@ -637,6 +635,7 @@ int RayCastingScene::getAngle(){
                 return 3;
         else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
                 return 4;
+		return -1;
 }
 int RayCastingScene::isBattle(){
 	int i;

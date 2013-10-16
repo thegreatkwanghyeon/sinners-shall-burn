@@ -43,6 +43,7 @@ class Puzzle{
 
 		TileSet *tileset;
 		Button *button;
+		Button *reButton;
 
 	public:
 		Puzzle();

@@ -80,12 +80,6 @@ RayCastingScene::RayCastingScene(){
 
 	rec.setSize(sf::Vector2f(10,10));
 
-	compassTexture.loadFromFile("img/compass.PNG");
-	compass.setTexture(compassTexture);
-	compass.setPosition(130,200);
-	compass.setOrigin(5,25);
-	compass.setRotation(0);
-
 	fov=2;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
 }
 RayCastingScene::~RayCastingScene(){
@@ -168,95 +162,92 @@ void RayCastingScene::update(sf::Event &event){
 			currentTime = deltaClock.getElapsedTime();
 		}
 		//---
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false && (int)compass.getRotation()%90 == 0)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
 			pressW=false;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false && (int)compass.getRotation()%90 == 0)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
 			pressS=false;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false && (int)compass.getRotation()%90 == 0)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false)
 			pressA=false;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false && (int)compass.getRotation()%90 == 0)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 			pressD=false;
-	}
-	float delta=deltaClock.getElapsedTime().asSeconds();
-	float current=currentTime.asSeconds();
-	if(delta-current >= CntTime/Devide){
-		if(isTurnR != 0){
-			if((int)((delta-current)/(CntTime/Devide)) > 1){
-				rotSpeed*=(int)((delta-current)/(CntTime/Devide));
-				isTurnR-=(int)((delta-current)/(CntTime/Devide));
-				if(isTurnR < 0){
-					rotSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isTurnR=0;
+	}else{
+		float delta=deltaClock.getElapsedTime().asSeconds();
+		float current=currentTime.asSeconds();
+		if(delta-current >= CntTime/Devide){
+			if(isTurnR != 0){
+				if((int)((delta-current)/(CntTime/Devide)) > 1){
+					rotSpeed*=(int)((delta-current)/(CntTime/Devide));
+					isTurnR-=(int)((delta-current)/(CntTime/Devide));
+					if(isTurnR < 0){
+						rotSpeed/=((int)(delta-current)/(CntTime/Devide));
+						isTurnR=0;
+					}
+				}else
+					isTurnR--;
+				//---
+				double oldDirX = dir.x;
+				dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
+				dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
+				double oldplaneX = plane.x;
+				plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
+				plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
+			}else if(isTurnL != 0){
+				if(((int)(delta-current)/(CntTime/Devide)) > 1){
+					rotSpeed*=((int)(delta-current)/(CntTime/Devide));
+					isTurnL-=(int)((delta-current)/(CntTime/Devide));
+					if(isTurnL < 0){
+						rotSpeed/=((int)(delta-current)/(CntTime/Devide));
+						isTurnL=0;
+					}
+				}else
+					isTurnL--;
+				//---
+				double oldDirX = dir.x;
+				dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
+				dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
+				double oldplaneX = plane.x;
+				plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
+				plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
+			}else if(isGoF != 0){
+				if(((int)(delta-current)/(CntTime/Devide)) > 1){
+					moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+					isGoF-=(int)((delta-current)/(CntTime/Devide));
+					if(isGoF < 0){
+						moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+						isGoF=0;
+					}
+				}else
+					isGoF--;
+				pos.x += floor(dir.x+0.5) * moveSpeed;
+				pos.y += floor(dir.y+0.5) * moveSpeed;
+				/*
+				if(isGoF == 0){
+					pos.x=(int)pos.x+0.5;
+					pos.y=(int)pos.y+0.5;
+				}*/
+			}else if(isGoB != 0){
+				if(((int)(delta-current)/(CntTime/Devide)) > 1){
+					moveSpeed*=((int)(delta-current)/(CntTime/Devide));
+					isGoB-=(int)((delta-current)/(CntTime/Devide));
+					if(isGoB < 0){
+						moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+						isGoB=0;
+					}
+				}else
+					isGoB--;
+				pos.x -= floor(dir.x+0.5) * moveSpeed;
+				pos.y -= floor(dir.y+0.5) * moveSpeed;
+				//---
+				if(isGoB == 0){
+					pos.x=(int)pos.x+0.5;
+					pos.y=(int)pos.y+0.5;
 				}
-			}else
-				isTurnR--;
-			//---
-			double oldDirX = dir.x;
-			dir.x = dir.x * cos(-rotSpeed) - dir.y * sin(-rotSpeed);
-			dir.y = oldDirX * sin(-rotSpeed) + dir.y * cos(-rotSpeed);
-			double oldplaneX = plane.x;
-			plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
-			plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
-
-			compass.setRotation(compass.getRotation()+(90/Devide));
-		}else if(isTurnL != 0){
-			if(((int)(delta-current)/(CntTime/Devide)) > 1){
-				rotSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isTurnL-=(int)((delta-current)/(CntTime/Devide));
-				if(isTurnL < 0){
-					rotSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isTurnL=0;
-				}
-			}else
-				isTurnL--;
-			//---
-			double oldDirX = dir.x;
-			dir.x = dir.x * cos(rotSpeed) - dir.y * sin(rotSpeed);
-			dir.y = oldDirX * sin(rotSpeed) + dir.y * cos(rotSpeed);
-			double oldplaneX = plane.x;
-			plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
-			plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
-
-			compass.setRotation(compass.getRotation()-(90/Devide));
-		}else if(isGoF != 0){
-			if(((int)(delta-current)/(CntTime/Devide)) > 1){
-				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoF-=(int)((delta-current)/(CntTime/Devide));
-				if(isGoF < 0){
-					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isGoF=0;
-				}
-			}else
-				isGoF--;
-			pos.x += floor(dir.x+0.5) * moveSpeed;
-			pos.y += floor(dir.y+0.5) * moveSpeed;
-			/*
-			if(isGoF == 0){
-				pos.x=(int)pos.x+0.5;
-				pos.y=(int)pos.y+0.5;
-			}*/
-		}else if(isGoB != 0){
-			if(((int)(delta-current)/(CntTime/Devide)) > 1){
-				moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-				isGoB-=(int)((delta-current)/(CntTime/Devide));
-				if(isGoB < 0){
-					moveSpeed/=((int)(delta-current)/(CntTime/Devide));
-					isGoB=0;
-				}
-			}else
-				isGoB--;
-			pos.x -= floor(dir.x+0.5) * moveSpeed;
-			pos.y -= floor(dir.y+0.5) * moveSpeed;
-			//---
-			if(isGoB == 0){
-				pos.x=(int)pos.x+0.5;
-				pos.y=(int)pos.y+0.5;
 			}
+			currentTime=deltaClock.getElapsedTime();
 		}
-		currentTime=deltaClock.getElapsedTime();
+		moveSpeed = 1/(float)Devide;
+		rotSpeed = 1.575/(float)Devide;
 	}
-	moveSpeed = 1/(float)Devide;
-	rotSpeed = 1.575/(float)Devide;
 	//---
 	
 
@@ -609,21 +600,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	rec.setFillColor(sf::Color::Green);
 	window.draw(rec);
 	//---미니맵 끝--//
-	/*
-	compass.setOrigin(5,25);
-	switch(angle){
-		case 1 : compass.setRotation(0);break;
-		case 2 : compass.setRotation(90);break;
-		case 3 : compass.setRotation(180);break;
-		case 4 : compass.setRotation(270);break;
-		default :compass.setRotation(compass.getRotation()+30);//-1
-	}*/
-	window.draw(compass);
 }
 int RayCastingScene::getAngle(){
-	if((int)compass.getRotation()%90 != 0)
-		return -1;
-
     if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
             return 1;
     else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
@@ -643,13 +621,14 @@ int RayCastingScene::isBattle(){
 	//printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(0)->getPosition().x,(int)pos.y, (int)pEnemy->at(0)->getPosition().y,angle);
 
 	for(int i=0; i<pEnemy->size(); i++){
+		printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(i)->getPosition().x,(int)pos.y, (int)pEnemy->at(i)->getPosition().y,angle);
 		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && (int)pos.y-(int)pEnemy->at(i)->getPosition().y == 1 && angle == 4){
 			return i;
 		}else if((int)pos.x-(int)pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){
 			return i;
 		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && (int)pos.y - (int)pEnemy->at(i)->getPosition().y == -1 && angle == 2){
 			return i;
-		}else if((int)pos.x - (int)pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 1){
+		}else if((int)pos.x - (int)pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 1){
 			return i;
 		}
 	}

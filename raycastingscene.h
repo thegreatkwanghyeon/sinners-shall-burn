@@ -57,8 +57,8 @@ class RayCastingScene{
 		 std::vector<sf::Uint32> texture[9];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
-		 sf::Texture drawingTex,compassTexture;
-		 sf::Sprite drawingSprite,compass;
+		 sf::Texture drawingTex;
+		 sf::Sprite drawingSprite;
 		 sf::Image textureImage;
 
 		 //floor casting 관련 변수

@@ -63,6 +63,7 @@ Battle::Battle(Player** _player){
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
 	sceneNum=normal;//기본 상태
+
 }
 void Battle::startBattle(int _code){
 	delete(enemy);

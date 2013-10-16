@@ -31,6 +31,7 @@ class Battle : public SceneBase{
 		TiXmlDocument stats;
 		sf::Font font;
 		sf::Text text;
+		sf::Clock limitTime;
 		char plusString[100];
 
 		sf::Sprite   sprite,faceSprite,skillSprite;

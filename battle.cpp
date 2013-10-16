@@ -101,17 +101,18 @@ void Battle::update(sf::Event &event){
 					hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
 				else
 					hpGauge->setValue(-1*damage);
-			}else{
+			}else if(damage > 0){
 				if(damage > enemy->getCurrentHp())
 					enemyGauge->setValue(-1*enemy->getCurrentHp());
 				else
 					enemyGauge->setValue(-1*damage);
 				//---
 				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+				puzzle->setPlusDamage(1.0);
+			}else{
+				//e도트뎀
 			}
 			sceneNum=enemySkill;
-			if(damage <= 0)//회복/도트계 스킬 사용시엔 보너스 수치 유지
-				puzzle->setPlusDamage(1.0);
 		}
 		hpGauge->update();
 		enemyGauge->update();

@@ -1,6 +1,6 @@
 #include "button.h"
 
-Button::Button(sf::String _path) : isButtonEnable(true) {
+Button::Button(sf::String _path) : isButtonEnable(true),hotkey(sf::Keyboard::Unknown){
 	tileset = new TileSet();
 	texture.loadFromFile(_path);
 	font.loadFromFile("font/spike.ttf");

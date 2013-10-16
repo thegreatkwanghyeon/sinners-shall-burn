@@ -12,9 +12,6 @@ RayCastingScene::RayCastingScene(){
 			fog[i][j]=1;
 		}
 	}
-	sprite[0].x = 3.5;
-	sprite[0].y = 3.5;
-	sprite[0].texture = 8;
 
 
 	height = screenHeight;
@@ -113,7 +110,6 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 void RayCastingScene::update(sf::Event &event){
 	int tempX, tempY;//좌우이동용 temp변수
-	countEnemy = pEnemy->size();
 
 	for(int i=pos.y-fov;i<=pos.y+fov;i++){
 		for(int j=pos.x-fov;j<=pos.x+fov;j++){
@@ -172,16 +168,14 @@ void RayCastingScene::update(sf::Event &event){
 			currentTime = deltaClock.getElapsedTime();
 		}
 		//---
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false && (int)compass.getRotation()%90 == 0)
 			pressW=false;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false)
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) == false && (int)compass.getRotation()%90 == 0)
 			pressS=false;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) == false && (int)compass.getRotation()%90 == 0)
 			pressA=false;
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false){
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false && (int)compass.getRotation()%90 == 0)
 			pressD=false;
-		}
 	}
 	float delta=deltaClock.getElapsedTime().asSeconds();
 	float current=currentTime.asSeconds();
@@ -627,30 +621,35 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	window.draw(compass);
 }
 int RayCastingScene::getAngle(){
-        if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
-                return 1;
-        else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
-                return 2;
-        else if(dir.x == 1 && dir.y == 0 && plane.x == 0 && plane.y == -0.66)
-                return 3;
-        else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
-                return 4;
+	if((int)compass.getRotation()%90 != 0)
+		return -1;
+
+    if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
+            return 1;
+    else if(dir.x == 0 && dir.y == 1 && plane.x == 0.66 && plane.y == 0)
+            return 2;
+    else if(dir.x == 1 && dir.y == 0 && plane.x == 0 && plane.y == -0.66)
+            return 3;
+    else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
+            return 4;
 		return -1;
 }
 int RayCastingScene::isBattle(){
-	int i;
 	int angle=getAngle();
 
-	//printf("<%d>",countEnemy);
+	if(isGoB || isGoF || isGoL || isGoR)
+		return -1;
 
-	for(i=0; i<pEnemy->size(); i++){
-		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y-pEnemy->at(i)->getPosition().y == 1 && angle == 4){
+	//printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(0)->getPosition().x,(int)pos.y, (int)pEnemy->at(0)->getPosition().y,angle);
+
+	for(int i=0; i<pEnemy->size(); i++){
+		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && (int)pos.y-(int)pEnemy->at(i)->getPosition().y == 1 && angle == 4){
 			return i;
-		}else if(pos.x-pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){
+		}else if((int)pos.x-(int)pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){
 			return i;
-		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && pos.y - pEnemy->at(i)->getPosition().y == -1 && angle == 2){
+		}else if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && (int)pos.y - (int)pEnemy->at(i)->getPosition().y == -1 && angle == 2){
 			return i;
-		}else if(pos.x - pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 1){
+		}else if((int)pos.x - (int)pEnemy->at(i)->getPosition().x == 1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y == (int)pEnemy->at(i)->getPosition().y && angle == 1){
 			return i;
 		}
 	}

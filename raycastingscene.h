@@ -91,18 +91,10 @@ class RayCastingScene{
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
 		 std::vector<sf::Uint32> convertImageToTexture(sf::Image image);
 
-		 //스프라이트 관련 변수
-		 
-		 struct Sprite{
-			 double x;
-			 double y;
-			 int texture;
-		 };
 
 		 //쉐이딩 관련 변수
 		 sf::Shader sight;
 
-		 Sprite sprite[numSprites];
 		 double ZBuffer[screenWidth];
 		 int spriteOrder[numSprites];
 		 double spriteDistance[numSprites];
@@ -115,7 +107,6 @@ class RayCastingScene{
 
 		 //enemy 관련 
 		 std::vector <Enemy*> *pEnemy;
-		 size_t countEnemy; //enemy 벡터의 크기
 
 
 

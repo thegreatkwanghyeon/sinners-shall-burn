@@ -10,7 +10,8 @@ class Enemy{
 		sf::Sprite sprite;
 		sf::Image texture;
 		std::vector<sf::Uint32> convertedTexture;
-		sf::String name;
+		sf::Text name;
+		sf::Font font;
 		int code;
 		int maxHp;
 		int damage;//임시
@@ -30,7 +31,7 @@ class Enemy{
 		Enemy(int code);
 		~Enemy();
 
-		sf::String getName();
+		sf::Text getName();
 		int getMaxHp();
 		int getDamage();
 		int getAnimationNum();
@@ -45,8 +46,8 @@ class Enemy{
 		//임시
 		void setPosition(sf::Vector2f position);
 		void setTexture(sf::Image texture);
-		void getDot();
-		int setDot(int num);
+		int getDot();
+		void setDot(int num);
 
 		
 };

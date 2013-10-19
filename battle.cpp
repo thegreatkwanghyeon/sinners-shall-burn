@@ -249,7 +249,7 @@ void Battle::draw(sf::RenderWindow &window){
 	}
 	puzzle->draw(window);
 	if(isBattle){
-		window.draw(monster.name);
+		window.draw(enemy->getName());
 		enemyGauge->draw(window);
 	}
 

@@ -16,7 +16,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 			pNode->ToElement()->Attribute("hp",&maxHp);
 			currentHp = maxHp;
 			pNode->ToElement()->Attribute("damage",&damage);
-			name = MTW(pNode->ToElement()->GetText());
+			name.setString(MTW(pNode->ToElement()->GetText()));
 			code=tmpCode;
 			break;
 		}else if(tmpCode > _code){
@@ -28,13 +28,17 @@ Enemy::Enemy(int _code) : textureSize(256){
 	//юс╫ц
 	position = sf::Vector2f(0.0f, 0.0f);
 	dot=0;
+
+	font.loadFromFile("font/spike.ttf");
+	name.setFont(font);
+	name.setPosition(450,200);
 }
 
 Enemy::~Enemy(){
 
 }
 
-sf::String Enemy::getName(){
+sf::Text Enemy::getName(){
 	return name;
 }
 int Enemy::getMaxHp(){

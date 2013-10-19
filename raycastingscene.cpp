@@ -621,7 +621,7 @@ int RayCastingScene::isBattle(){
 	//printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(0)->getPosition().x,(int)pos.y, (int)pEnemy->at(0)->getPosition().y,angle);
 
 	for(int i=0; i<pEnemy->size(); i++){
-		printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(i)->getPosition().x,(int)pos.y, (int)pEnemy->at(i)->getPosition().y,angle);
+		//printf("%d %d -- %d %d << %d\n",(int)pos.x, (int)pEnemy->at(i)->getPosition().x,(int)pos.y, (int)pEnemy->at(i)->getPosition().y,angle);
 		if((int)pos.x == (int)pEnemy->at(i)->getPosition().x && (int)pos.y-(int)pEnemy->at(i)->getPosition().y == 1 && angle == 4){
 			return i;
 		}else if((int)pos.x-(int)pEnemy->at(i)->getPosition().x == -1 && (int)pos.y == (int)pEnemy->at(i)->getPosition().y && angle == 3){

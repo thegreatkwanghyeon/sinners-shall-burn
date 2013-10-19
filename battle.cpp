@@ -163,23 +163,23 @@ void Battle::playerSkillUpdate(){
 	temp = skillEffect->getLocation();
 	if(temp < oldtemp){//애니메이션 종료
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
-		int recovery=skill->data[useSkillNow].pdamage;
+		int pdamage=skill->data[useSkillNow].pdamage;
 		//-------
-		if(recovery > 0){//내 체력 증가
-			if(recovery > (*player)->getMaxHP()-(*player)->getHP()){
+		if(pdamage > 0){//내 체력 감소
+			if(pdamage > (*player)->getHP()){
+				hpGauge->setValue(-1*(*player)->getHP());
+				(*player)->setHP(0);
+			}else{
+				hpGauge->setValue(-1*pdamage);
+				(*player)->setHP((*player)->getHP()-pdamage);
+			}
+		}else if(pdamage < 0){//내 체력 증가
+			if(-1*pdamage > (*player)->getMaxHP()-(*player)->getHP()){
 				hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
 				(*player)->setHP((*player)->getMaxHP());
 			}else{
-				hpGauge->setValue(recovery);
-				(*player)->setHP((*player)->getHP()+recovery);
-			}
-		}else if(recovery < 0){//내 체력 감소
-			if(-1*recovery > (*player)->getHP()){
-				hpGauge->setValue((*player)->getHP());
-				(*player)->setHP(0);
-			}else{
-				hpGauge->setValue(recovery);
-				(*player)->setHP((*player)->getHP()+recovery);
+				hpGauge->setValue(-1*pdamage);
+				(*player)->setHP((*player)->getHP()-pdamage);
 			}
 		}
 		if(damage > 0){//적 체력 감소
@@ -223,9 +223,10 @@ void Battle::enemySkillUpdate(){
 	enemyGauge->update();
 }
 void Battle::checkSkillUpdate(){
-	return;//아직 미설계
+	//아직 미설계
 	//도트뎀 계산.
 	sceneNum=normal;
+	return;
 }
 bool Battle::getResult(){
 	if(sceneNum != normal)

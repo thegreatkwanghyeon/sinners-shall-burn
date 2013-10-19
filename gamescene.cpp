@@ -36,7 +36,7 @@ void GameScene::update(sf::Event &event){
 	if(isBattle){//전투
 		if(battle->getResult() != 0){//전투중일 때, 전투가 끝났는지를 판정하는 함수이다.
 			isBattle=false;
-			printf("%d", nowEnemy);
+			printf("%d>>>", nowEnemy);
 			enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제
 		}
 	}else{//비전투

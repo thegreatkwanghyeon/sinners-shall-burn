@@ -30,6 +30,7 @@ Skill::Skill(){
 		data[i].effect = (MTW(pNode->ToElement()->GetText()));
 
 		pNode->ToElement()->Attribute("damage",&data[i].damage);
+		pNode->ToElement()->Attribute("pdamage",&data[i].pdamage);
 		pNode->ToElement()->Attribute("guard",&data[i].guard);
 		pNode->ToElement()->Attribute("acc",&data[i].acc);
 

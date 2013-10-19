@@ -27,6 +27,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 	}
 	//юс╫ц
 	position = sf::Vector2f(0.0f, 0.0f);
+	dot=0;
 }
 
 Enemy::~Enemy(){
@@ -93,4 +94,10 @@ void Enemy::setPosition(sf::Vector2f position){
 void Enemy::setTexture(sf::Image texture){
 	this->texture = texture;
 	this->convertedTexture = convertImageToTexture(texture);
+}
+int Enemy::getDot(){
+	return dot;
+}
+void Enemy::setDot(int num){
+	dot=num;
 }

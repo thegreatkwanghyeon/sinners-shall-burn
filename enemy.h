@@ -16,6 +16,7 @@ class Enemy{
 		int damage;//임시
 		int currentHp;
 		int animationNum;
+		int dot;
 		sf::Vector2f position;
 
 		TiXmlDocument enemyData;
@@ -44,6 +45,8 @@ class Enemy{
 		//임시
 		void setPosition(sf::Vector2f position);
 		void setTexture(sf::Image texture);
+		void getDot();
+		int setDot(int num);
 
 		
 };

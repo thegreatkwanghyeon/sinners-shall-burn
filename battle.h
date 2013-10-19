@@ -20,12 +20,6 @@
 enum{
 	normal,playerSkill,enemySkill,checkSkill
 };
-
-struct Monster{
-	sf::Text name;
-	int hp;
-};
-
 class Battle : public SceneBase{
 	private:
 		TiXmlDocument stats;
@@ -51,7 +45,6 @@ class Battle : public SceneBase{
 		bool isBattle;
 		int useCnt;
 
-		Monster monster;
 		Skill *skill;
 		Button *button[ViewSkill+1];
 		Tooltip *tooltip[ViewSkill+1];
@@ -67,6 +60,10 @@ class Battle : public SceneBase{
 
 		//Character *character;
 		Puzzle *puzzle;
+
+		void playerSkillUpdate();
+		void enemySkillUpdate();
+		void checkSkillUpdate();
 
 	public:
 		Battle(Player** _player);

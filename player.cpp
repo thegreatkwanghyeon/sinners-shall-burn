@@ -16,6 +16,9 @@ Player::Player(){
 
 	hp=100;
 	maxHp=100;
+	dot=0;
+	acc=0;
+	guard=0;
 }
 
 void Player::update(){
@@ -36,4 +39,22 @@ int Player::getMaxHP(){
 }
 void Player::setMaxHP(int num){
 	maxHp=num;
+}
+int Player::getDot(){
+	return dot;
+}
+void Player::setDot(int num){
+	dot=num;
+}
+int Player::getAcc(){
+	return acc;
+}
+void Player::setAcc(int num){
+	acc=num;
+}
+int Player::getGuard(){
+	return guard;
+}
+void Player::setGuard(int num){
+	guard=num;
 }

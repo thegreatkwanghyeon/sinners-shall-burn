@@ -91,48 +91,14 @@ void Battle::update(sf::Event &event){
 	text.setString(plusString);
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
-		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
-		//애니메이션 업데이트
-		skillEffect->update(&skillSprite, true);
-		oldtemp=temp;
-		temp = skillEffect->getLocation();
-		if(temp < oldtemp){
-			if(damage < 0){//회복.
-				if(damage > (*player)->getMaxHP()-(*player)->getHP())
-					hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
-				else
-					hpGauge->setValue(-1*damage);
-			}else if(damage > 0){
-				if(damage > enemy->getCurrentHp())
-					enemyGauge->setValue(-1*enemy->getCurrentHp());
-				else
-					enemyGauge->setValue(-1*damage);
-				//---
-				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
-				puzzle->setPlusDamage(1.0);
-			}else{
-				//e도트뎀
-			}
-			sceneNum=enemySkill;
-		}
-		hpGauge->update();
-		enemyGauge->update();
+		playerSkillUpdate();
 		return;
 	}else if(sceneNum == enemySkill){
-		//애니메이션 업데이트
-		skillEffect->update(&skillSprite, true);
-		oldtemp=temp;
-		temp = skillEffect->getLocation();
-		if(temp < oldtemp){
-			(*player)->setHP((*player)->getHP()-enemy->getDamage());
-			hpGauge->setValue(-1*enemy->getDamage());
-			sceneNum=checkSkill;
-		}
-		hpGauge->update();
-		enemyGauge->update();
+		enemySkillUpdate();
 		return;
 	}else if(sceneNum == checkSkill){//도트뎀 등을 판정.
-		sceneNum=normal;
+		checkSkillUpdate();
+		return;
 	}
 
 	if(keyEvent){
@@ -189,6 +155,77 @@ void Battle::update(sf::Event &event){
 
 	hpGauge->update();
 	enemyGauge->update();
+}
+void Battle::playerSkillUpdate(){
+//애니메이션 업데이트
+	skillEffect->update(&skillSprite, true);
+	oldtemp=temp;
+	temp = skillEffect->getLocation();
+	if(temp < oldtemp){//애니메이션 종료
+		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
+		int recovery=skill->data[useSkillNow].pdamage;
+		//-------
+		if(recovery > 0){//내 체력 증가
+			if(recovery > (*player)->getMaxHP()-(*player)->getHP()){
+				hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
+				(*player)->setHP((*player)->getMaxHP());
+			}else{
+				hpGauge->setValue(recovery);
+				(*player)->setHP((*player)->getHP()+recovery);
+			}
+		}else if(recovery < 0){//내 체력 감소
+			if(-1*recovery > (*player)->getHP()){
+				hpGauge->setValue((*player)->getHP());
+				(*player)->setHP(0);
+			}else{
+				hpGauge->setValue(recovery);
+				(*player)->setHP((*player)->getHP()+recovery);
+			}
+		}
+		if(damage > 0){//적 체력 감소
+			if(damage > enemy->getCurrentHp()){
+				enemyGauge->setValue(-1*enemy->getCurrentHp());
+				enemy->setCurrentHp(0);
+			}else{
+				enemyGauge->setValue(-1*damage);
+				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+			}
+			//---
+			puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 무효화된다.
+			//크리티컬은 적에게 일반 데미지를 줄떄만 발동된다.
+			//명중률 증가 버프는 적에게 데미지를 줄떄만 삭제된다.
+		}else if(damage < 0){//적 체력 회복
+			if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){
+				enemyGauge->setValue(enemy->getMaxHp()-enemy->getCurrentHp());
+				enemy->setCurrentHp(enemy->getMaxHp());
+			}else{
+				enemyGauge->setValue(-1*damage);
+				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+			}
+		}
+		sceneNum=enemySkill;
+	}
+	hpGauge->update();
+	enemyGauge->update();
+	return;
+}
+void Battle::enemySkillUpdate(){
+//애니메이션 업데이트
+	skillEffect->update(&skillSprite, true);
+	oldtemp=temp;
+	temp = skillEffect->getLocation();
+	if(temp < oldtemp){
+		(*player)->setHP((*player)->getHP()-enemy->getDamage());
+		hpGauge->setValue(-1*enemy->getDamage());
+		sceneNum=checkSkill;
+	}
+	hpGauge->update();
+	enemyGauge->update();
+}
+void Battle::checkSkillUpdate(){
+	return;//아직 미설계
+	//도트뎀 계산.
+	sceneNum=normal;
 }
 bool Battle::getResult(){
 	if(sceneNum != normal)

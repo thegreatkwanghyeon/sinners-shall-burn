@@ -14,6 +14,7 @@ struct SkillData{
 	sf::String effect;
 	int need[ElementNum],needCode;
 	int damage;
+	int pdamage;
 	int guard;
 	int code;
 	int acc;

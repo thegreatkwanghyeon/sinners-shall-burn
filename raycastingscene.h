@@ -102,7 +102,6 @@ class RayCastingScene{
 		 double fixErrorNum(double num, double st, double ed, double setNum);
 
 
-		 void setShader(const std::string &shader);
 		 
 
 		 //enemy 관련 
@@ -120,6 +119,7 @@ class RayCastingScene{
 
 		int getFOV();
 		void setFOV(int _fov);
+		void setShader(const std::string &shader);
 		
 		//enemy 관련
 		void setEnemies(std::vector <Enemy*> *pEnemy);

@@ -20,6 +20,8 @@ class GameScene : public SceneBase{
 		sf::Sprite sprite;
 		sf::Image texture;
 
+		bool isOver;
+
 
 		bool isBattle;
 		int nowEnemy;

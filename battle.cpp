@@ -160,7 +160,7 @@ void Battle::update(sf::Event &event){
 void Battle::playerSkillUpdate(){
 //애니메이션 업데이트
 	skillEffect->update(&skillSprite, true);
-	if(skillTime.getElapsedTime().asSeconds() >= 3){//애니메이션 종료 (3초)
+	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//애니메이션 종료
 		skillTime.restart();
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
 		int pdamage=skill->data[useSkillNow].pdamage;
@@ -215,7 +215,7 @@ void Battle::playerSkillUpdate(){
 void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
 	skillEffect->update(&skillSprite, true);
-	if(skillTime.getElapsedTime().asSeconds() >= 3){
+	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
 		skillTime.restart();
 		(*player)->setHP((*player)->getHP()-enemy->getDamage());
 		hpGauge->setValue(-1*enemy->getDamage());
@@ -235,10 +235,14 @@ bool Battle::getResult(){
 		return 0;
 	if((*player)->getHP() <= 0){
 		isBattle=false;
+		hpGauge->setValue(hpGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
+		hpGauge->update();
 		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;
+		enemyGauge->setValue(enemyGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
+		enemyGauge->update();
 		return 1;
 	}
 	return 0;

@@ -136,14 +136,12 @@ void RayCastingScene::update(sf::Event &event){
 			isGoF=Devide;
 			//---
 			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressS == false && worldMap[int(pos.x-dir.x)][int(pos.y-dir.y)] == false &&  sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 			pressS=true;
 			isGoB=Devide;
 			//---
 			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
 		}
 		//-----
 		//---
@@ -152,14 +150,12 @@ void RayCastingScene::update(sf::Event &event){
 			isTurnL=Devide;
 			//---
 			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
 		}
 		if(pressD == false && sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 			pressD=true;
 			isTurnR=Devide;
 			//---
 			deltaClock.restart();
-			currentTime = deltaClock.getElapsedTime();
 		}
 		//---
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) == false)
@@ -171,15 +167,16 @@ void RayCastingScene::update(sf::Event &event){
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) == false)
 			pressD=false;
 	}else{
-		float delta=deltaClock.getElapsedTime().asSeconds();
-		float current=currentTime.asSeconds();
-		if(delta-current >= CntTime/Devide){
+		//float delta=deltaClock.getElapsedTime().asSeconds();
+		//float current=currentTime.asSeconds();
+		if(deltaClock.getElapsedTime().asSeconds() >= CntTime/Devide){
 			if(isTurnR != 0){
-				if((int)((delta-current)/(CntTime/Devide)) > 1){
-					rotSpeed*=(int)((delta-current)/(CntTime/Devide));
-					isTurnR-=(int)((delta-current)/(CntTime/Devide));
+				if((int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
+					rotSpeed*=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
+					isTurnR-=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					if(isTurnR < 0){
-						rotSpeed/=((int)(delta-current)/(CntTime/Devide));
+						printf("FUCK!");
+						rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 						isTurnR=0;
 					}
 				}else
@@ -192,11 +189,11 @@ void RayCastingScene::update(sf::Event &event){
 				plane.x = plane.x * cos(-rotSpeed) - plane.y * sin(-rotSpeed);
 				plane.y = oldplaneX * sin(-rotSpeed) + plane.y * cos(-rotSpeed);
 			}else if(isTurnL != 0){
-				if(((int)(delta-current)/(CntTime/Devide)) > 1){
-					rotSpeed*=((int)(delta-current)/(CntTime/Devide));
-					isTurnL-=(int)((delta-current)/(CntTime/Devide));
+				if(((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
+					rotSpeed*=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
+					isTurnL-=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					if(isTurnL < 0){
-						rotSpeed/=((int)(delta-current)/(CntTime/Devide));
+						rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 						isTurnL=0;
 					}
 				}else
@@ -209,11 +206,11 @@ void RayCastingScene::update(sf::Event &event){
 				plane.x = plane.x * cos(rotSpeed) - plane.y * sin(rotSpeed);
 				plane.y = oldplaneX * sin(rotSpeed) + plane.y * cos(rotSpeed);
 			}else if(isGoF != 0){
-				if(((int)(delta-current)/(CntTime/Devide)) > 1){
-					moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-					isGoF-=(int)((delta-current)/(CntTime/Devide));
+				if(((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
+					moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
+					isGoF-=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					if(isGoF < 0){
-						moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+						moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 						isGoF=0;
 					}
 				}else
@@ -226,11 +223,11 @@ void RayCastingScene::update(sf::Event &event){
 					pos.y=(int)pos.y+0.5;
 				}*/
 			}else if(isGoB != 0){
-				if(((int)(delta-current)/(CntTime/Devide)) > 1){
-					moveSpeed*=((int)(delta-current)/(CntTime/Devide));
-					isGoB-=(int)((delta-current)/(CntTime/Devide));
+				if(((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
+					moveSpeed*=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
+					isGoB-=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					if(isGoB < 0){
-						moveSpeed/=((int)(delta-current)/(CntTime/Devide));
+						moveSpeed/=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 						isGoB=0;
 					}
 				}else
@@ -243,10 +240,11 @@ void RayCastingScene::update(sf::Event &event){
 					pos.y=(int)pos.y+0.5;
 				}
 			}
-			currentTime=deltaClock.getElapsedTime();
+			printf("%.5lf %.5lf | %.5lf %.5lf ----   %.5lf\n",dir.x,dir.y,plane.x,plane.y,deltaClock.getElapsedTime().asSeconds());
+			deltaClock.restart();
 		}
-		moveSpeed = 1/(float)Devide;
-		rotSpeed = 1.575/(float)Devide;
+		moveSpeed = 1/(double)Devide;
+		rotSpeed = 1.575/(double)Devide;
 	}
 	//---
 	
@@ -270,13 +268,13 @@ void RayCastingScene::update(sf::Event &event){
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
 
+
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
 		setShader((std::string)"blood");
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
 		setShader((std::string)"darker");
 	}
-
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)

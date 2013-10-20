@@ -171,11 +171,10 @@ void RayCastingScene::update(sf::Event &event){
 		//float current=currentTime.asSeconds();
 		if(deltaClock.getElapsedTime().asSeconds() >= CntTime/Devide){
 			if(isTurnR != 0){
-				if((int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
-					rotSpeed*=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
+				if(((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide)) > 1){
+					rotSpeed*=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					isTurnR-=(int)((deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 					if(isTurnR < 0){
-						printf("FUCK!");
 						rotSpeed/=((int)(deltaClock.getElapsedTime().asSeconds())/(CntTime/Devide));
 						isTurnR=0;
 					}
@@ -240,7 +239,7 @@ void RayCastingScene::update(sf::Event &event){
 					pos.y=(int)pos.y+0.5;
 				}
 			}
-			printf("%.5lf %.5lf | %.5lf %.5lf ----   %.5lf\n",dir.x,dir.y,plane.x,plane.y,deltaClock.getElapsedTime().asSeconds());
+			//printf("%.5lf %.5lf | %.5lf %.5lf ----   %.5lf\n",dir.x,dir.y,plane.x,plane.y,deltaClock.getElapsedTime().asSeconds());
 			deltaClock.restart();
 		}
 		moveSpeed = 1/(double)Devide;

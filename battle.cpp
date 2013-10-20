@@ -65,7 +65,6 @@ Battle::Battle(Player** _player){
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
 	sceneNum=normal;//기본 상태
-
 }
 void Battle::startBattle(int _code){
 	delete(enemy);
@@ -138,7 +137,8 @@ void Battle::update(sf::Event &event){
 
 				skillEffect->setSpeed(0.5);
 				skillEffect->setTileRange(sf::Vector2i(1,1),3);
-				tp = skillEffect->getLocation();
+				//tp = skillEffect->getLocation();
+				skillTime.restart();
 
 				sceneNum=playerSkill;
 			}else{
@@ -160,9 +160,8 @@ void Battle::update(sf::Event &event){
 void Battle::playerSkillUpdate(){
 //애니메이션 업데이트
 	skillEffect->update(&skillSprite, true);
-	oldtemp=temp;
-	temp = skillEffect->getLocation();
-	if(temp < oldtemp){//애니메이션 종료
+	if(skillTime.getElapsedTime().asSeconds() >= 3){//애니메이션 종료 (3초)
+		skillTime.restart();
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
 		int pdamage=skill->data[useSkillNow].pdamage;
 		//-------
@@ -216,9 +215,8 @@ void Battle::playerSkillUpdate(){
 void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
 	skillEffect->update(&skillSprite, true);
-	oldtemp=temp;
-	temp = skillEffect->getLocation();
-	if(temp < oldtemp){
+	if(skillTime.getElapsedTime().asSeconds() >= 3){
+		skillTime.restart();
 		(*player)->setHP((*player)->getHP()-enemy->getDamage());
 		hpGauge->setValue(-1*enemy->getDamage());
 		sceneNum=checkSkill;

@@ -26,6 +26,7 @@ class Battle : public SceneBase{
 		sf::Font font;
 		sf::Text text;
 		sf::Clock limitTime;
+		sf::Clock skillTime;
 		char plusString[100];
 
 		sf::Sprite   sprite,faceSprite,skillSprite;
@@ -38,7 +39,6 @@ class Battle : public SceneBase{
 		Animation *skillEffect;
 		int useSkillNow;
 		bool battleResult;
-		int temp,oldtemp;//코드값 임시 저장소
 
 		sf::Clock deltaClock;
 		bool keyEvent;

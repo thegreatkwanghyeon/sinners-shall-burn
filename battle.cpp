@@ -45,6 +45,8 @@ Battle::Battle(Player** _player){
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
 		button[i] = new Button("img/skillButton.png");
+		button[i]->setClickSound("sounds/button/click.wav");
+		button[i]->setHoverSound("sounds/button/hover.wav");
 		tooltip[i] = new Tooltip("img/tooltip.png");
 		if(i < (ViewSkill/2)){
 			button[i]->setPosition(830+(i*150),450);//dir-------------------------->
@@ -139,9 +141,7 @@ void Battle::update(sf::Event &event){
 
 				sceneNum=playerSkill;
 			}else{
-				(*player)->setHP((*player)->getHP()-1);
-				hpGauge->setValue(-1);
-				printf("전투중 아님\n");
+				//필드에서 약초는 사용가능!
 			}
 		}
 		if(canUseSkill[i] != 0){
@@ -203,7 +203,10 @@ void Battle::playerSkillUpdate(){
 				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
 			}
 		}
-		sceneNum=enemySkill;
+		if((*player)->getHP() <= 0 || enemy->getCurrentHp() <= 0)
+			sceneNum=checkSkill;
+		else
+			sceneNum=enemySkill;
 	}
 	hpGauge->update();
 	enemyGauge->update();

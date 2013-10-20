@@ -15,7 +15,7 @@ int main(void){
 		sf::Event Event;
 
 		while (window.pollEvent(Event)){
-			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sceneManager->getCurrentScene()->changeScene() == 0){
 				window.close();
 			}
 		
@@ -23,7 +23,7 @@ int main(void){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 					sceneManager->setScene(new TitleScene());
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+			if(sceneManager->getCurrentScene()->changeScene() == 2){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 				sceneManager->setScene(new GameScene());
 			}

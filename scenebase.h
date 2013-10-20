@@ -10,6 +10,7 @@ class SceneBase{
 		virtual ~SceneBase();
 		virtual void update(sf::Event &event);
 		virtual void draw(sf::RenderWindow &window);
+		virtual int changeScene();
 };
 
 #endif

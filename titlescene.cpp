@@ -11,12 +11,34 @@ TitleScene::TitleScene(){
 	particle->setLifeRange(50, 100);
 	particle->setStartColor(0, 255, 0, 255);
 	particle->setEndColor(255, 0, 0, 0);
+
+	startButton = new Button("img/startButton.png");
+	startButton->setPosition(450,400);
+	startButton->setText("START", 18);
+	startButton->setClickSound("sounds/button/click.wav");
+	startButton->setHoverSound("sounds/button/hover.wav");
+
+	endButton = new Button("img/startButton.png");
+	endButton->setPosition(450,500);
+	endButton->setText("END", 18);
+	endButton->setClickSound("sounds/button/click.wav");
+	endButton->setHoverSound("sounds/button/hover.wav");
+
+	sceneFlag=false;
+	endFlag=false;
 }
 TitleScene::~TitleScene(){
 	
 }
 void TitleScene::update(sf::Event &event){
 	particle->update();
+	startButton->update(event);
+	endButton->update(event);
+
+	if(startButton->checkMouseClick(event))
+		sceneFlag=true;
+	if(endButton->checkMouseClick(event))
+		endFlag=true;
 }
 
 void TitleScene::draw(sf::RenderWindow &window){
@@ -26,4 +48,13 @@ void TitleScene::draw(sf::RenderWindow &window){
 		particle->fuelInSequence(0.0, 10);
 	}
 	particle->draw(window);
+	startButton->draw(window);
+	endButton->draw(window);		
+}
+int TitleScene::changeScene(){
+	if(sceneFlag)//시작 버튼을 눌렀을떄
+		return 2;
+	else if(endFlag)
+		return 0;
+	return -1;
 }

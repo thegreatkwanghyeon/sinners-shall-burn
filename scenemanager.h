@@ -17,6 +17,7 @@ class SceneManager{
 		void setScene(SceneBase *scene);
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
+		SceneBase* getCurrentScene();
 };
 
 #endif

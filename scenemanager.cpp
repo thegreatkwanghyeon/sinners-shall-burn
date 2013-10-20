@@ -22,3 +22,6 @@ void SceneManager::update(sf::Event &event){
 void SceneManager::draw(sf::RenderWindow &window){
 	currentScene->draw(window);
 }
+SceneBase* SceneManager::getCurrentScene(){
+	return currentScene;
+}

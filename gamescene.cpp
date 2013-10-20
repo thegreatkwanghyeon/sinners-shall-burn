@@ -61,3 +61,6 @@ void GameScene::draw(sf::RenderWindow &window){
 	view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 	window.setView(view);
 }
+int GameScene::changeScene(){
+	return -1;
+}

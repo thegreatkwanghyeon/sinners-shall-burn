@@ -59,5 +59,7 @@ class Button {
 		void setClickSound(std::string path);
 		void setHoverSound(std::string path);
 
+		bool getButtonEneble();
+
 };
 #endif

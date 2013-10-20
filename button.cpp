@@ -136,3 +136,6 @@ void Button::enableButton(){
 void Button::disableButton(){
 	isButtonEnable = false;
 }
+bool Button::getButtonEneble(){
+	return isButtonEnable;
+}

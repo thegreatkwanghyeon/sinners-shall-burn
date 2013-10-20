@@ -8,6 +8,7 @@
 #include "tileset.h"
 #include "pdata.h"
 #include "button.h"
+#include "gauge.h"
 
 #define PuzzleSize 8
 #define PuzzleKind 7
@@ -44,6 +45,11 @@ class Puzzle{
 		TileSet *tileset;
 		Button *button;
 		Button *reButton;
+
+		Gauge *hGauge;
+		Gauge *reGauge;
+
+		sf::Clock hTime,reTime;
 
 	public:
 		Puzzle();

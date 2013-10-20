@@ -71,7 +71,8 @@ void Battle::startBattle(int _code){
 	delete(enemy);
 	enemy = new Enemy(_code);
 	isBattle=true;
-	enemyGauge->setValue(enemy->getMaxHp());
+	delete(enemyGauge);
+	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 }
 

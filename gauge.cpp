@@ -45,6 +45,8 @@ void Gauge::setText(){
 		_snprintf(tmpBuffer, sizeof(tmpBuffer), "%.0f / %.0f", gaugeValue, gaugeLimit);
 	}else if(textPercentage == 1){ //텍스트를 퍼센트로 표현하면 
 		_snprintf(tmpBuffer, sizeof(tmpBuffer), "%.0f%%", gaugeValue / gaugeLimit * 100);
+	}else{//텍스트 출력을 원치 않는 경우
+		_snprintf(tmpBuffer, sizeof(tmpBuffer), "");
 	}
 	text.setFont(font);
 	text.setString(tmpBuffer);
@@ -78,4 +80,7 @@ void Gauge::draw(sf::RenderWindow &window){
 	window.draw(middleSprite);
 	window.draw(coverSprite);
 	window.draw(text);
+}
+float Gauge::getValue(){
+	return gaugeValue;
 }

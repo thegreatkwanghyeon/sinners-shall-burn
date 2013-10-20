@@ -4,7 +4,6 @@
 #include "scenebase.h"
 #include "gamescene.h"
 #include "titlescene.h"
-#include "shaderscene.h"
 #include "battle.h"
 #include "raycastingscene.h"
 

@@ -36,6 +36,8 @@ class Gauge {
 		void setValue(float _value);
 		void setPosition(sf::Vector2i _position);
 		void setTextElement(int _textSize, sf::Color _textColor = sf::Color(255,255,255));
+
+		float getValue();
 };
 
 #endif

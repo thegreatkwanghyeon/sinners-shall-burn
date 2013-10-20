@@ -49,6 +49,13 @@ Puzzle::Puzzle(){
 	plusDamage=1.0;
 	
 	deltaTime=eTime.restart();
+
+	//---버튼들 사용시 리젠시간 표시용 게이지들임.
+	hGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
+	hGauge->setPosition(sf::Vector2i(220,230));
+
+	reGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
+	reGauge->setPosition(sf::Vector2i(220,330));
 }
 
 Puzzle::~Puzzle(){
@@ -173,12 +180,43 @@ void Puzzle::update(sf::Event &event){
 	checkPuzzleMore();
 
 	button->update(event);
-	if(button->checkMouseClick(event))
+	if(button->checkMouseClick(event)){
 		hint=true;
+		button->disableButton();
+		
+		hTime.restart();
+	}
 
 	reButton->update(event);
-	if(reButton->checkMouseClick(event))
+	if(reButton->checkMouseClick(event)){
 		makePuzzle();
+		reButton->disableButton();
+
+		reTime.restart();
+	}
+
+	//---
+	if(!button->getButtonEneble() && hTime.getElapsedTime().asSeconds() >= 0.03){//3초 리미트
+		//printf("%.3f\n",hTime.getElapsedTime().asSeconds());
+		hGauge->setValue(-1);
+		hTime.restart();
+		if(hGauge->getValue() == 0){
+			button->enableButton();
+			hGauge->setValue(100);
+		}
+	}
+	if(!reButton->getButtonEneble() && reTime.getElapsedTime().asSeconds() >= 0.15){//15초 리미트
+		//printf("%.3f\n",hTime.getElapsedTime().asSeconds());
+		reGauge->setValue(-1);
+		reTime.restart();
+		if(reGauge->getValue() == 0){
+			reButton->enableButton();
+			reGauge->setValue(100);
+		}
+	}
+
+	hGauge->update();
+	reGauge->update();
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -197,6 +235,11 @@ void Puzzle::draw(sf::RenderWindow &window){
 		window.draw(sprite);
 	button->draw(window);
 	reButton->draw(window);
+
+	if(!button->getButtonEneble())
+		hGauge->draw(window);
+	if(!reButton->getButtonEneble())
+		reGauge->draw(window);
 }
 int Puzzle::checkPuzzle(){
 	int i,j;

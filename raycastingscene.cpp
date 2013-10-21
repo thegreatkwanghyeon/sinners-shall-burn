@@ -267,13 +267,13 @@ void RayCastingScene::update(sf::Event &event){
 	plane.y=fixErrorNum(plane.y, -0.67, -0.65, -0.66);
 	//---
 
-
+	/*
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
 		setShader((std::string)"blood");
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
 		setShader((std::string)"darker");
-	}
+	}*/
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)

@@ -16,6 +16,7 @@
 
 #define StackNum 5
 #define ViewSkill 6
+#define skillEffectTime 0.5
 
 enum{
 	normal,playerSkill,enemySkill,checkSkill
@@ -64,7 +65,6 @@ class Battle : public SceneBase{
 		void playerSkillUpdate();
 		void enemySkillUpdate();
 		void checkSkillUpdate();
-
 	public:
 		Battle(Player** _player);
 		~Battle(){delete puzzle;}

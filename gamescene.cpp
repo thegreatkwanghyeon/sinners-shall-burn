@@ -26,18 +26,23 @@ GameScene::GameScene(){
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
 
 	isBattle=false;
+	isOver=false;
 	nowEnemy=0;
 }
 
 void GameScene::update(sf::Event &event){
-
+	if(isOver){
+		rayCastingScene->setShader((std::string)"blood");
+		return;
+	}
 	battle->update(event);
-
 	if(isBattle){//전투
 		if(battle->getResult() != 0){//전투중일 때, 전투가 끝났는지를 판정하는 함수이다.
 			isBattle=false;
-			printf("%d>>>", nowEnemy);
-			enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제
+			if(player->getHP() <= 0)
+				isOver=true;
+			else
+				enemy.erase(enemy.begin()+nowEnemy);//전투 끝나면 적 삭제. 단 내가 안죽었을때.
 		}
 	}else{//비전투
 		rayCastingScene->update(event);

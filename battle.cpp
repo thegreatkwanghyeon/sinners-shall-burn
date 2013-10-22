@@ -87,7 +87,8 @@ void Battle::update(sf::Event &event){
 		chk[i]=0;
 	}
 
-	puzzle->update(event);
+	if(isBattle)
+		puzzle->update(event);
 
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f", puzzle->getPlusDamage());
 	text.setString(plusString);
@@ -254,26 +255,29 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(skillSprite);
 		//return;
 	}
-	puzzle->draw(window);
+	
 	if(isBattle){
+		puzzle->draw(window);
+
 		window.draw(enemy->getName());
 		enemyGauge->draw(window);
-	}
 
-	for(i=0;i<ViewSkill;i++){
-		button[i]->draw(window);
+		for(i=0;i<ViewSkill;i++){
+			button[i]->draw(window);
+		}
+		for(i=0;i<ViewSkill;i++){
+			if(i < (ViewSkill/2))
+				sprite.setPosition(830+(i*150),450);//dir-------------------------->
+			else
+				sprite.setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
+			sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
+			window.draw(sprite);
+		}
+		for(i=0;i<useCnt;i++){
+			tooltip[i]->draw(window);
+		}
 	}
-	for(i=0;i<ViewSkill;i++){
-		if(i < (ViewSkill/2))
-			sprite.setPosition(830+(i*150),450);//dir-------------------------->
-		else
-			sprite.setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
-		sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
-		window.draw(sprite);
-	}
-	for(i=0;i<useCnt;i++){
-		tooltip[i]->draw(window);
-	}
+		
 	hpGauge->draw(window);
 	window.draw(text);
 	//---face---//

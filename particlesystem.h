@@ -9,17 +9,20 @@
 
 class Particle{
 	public : 
-		Particle(){
-			texture.loadFromFile("img/particles/star.png");
+		Particle(std::string texturePath){
+			texture.loadFromFile(texturePath);
 			sprite.setTexture(texture);
 		}
 		~Particle(){}
 		sf::Texture texture;
 		sf::Sprite sprite;
-		sf::Vector2f vel;
+		float startvel;
+		float vel;
+		float angle;
 		int life;
 		int defaultLife;
-		float angle;
+		sf::Color endColor;
+		sf::Color startColor;
 };
 
 typedef std::list<Particle*>::iterator ParticleIterator;
@@ -27,7 +30,8 @@ typedef std::list<Particle*>::iterator ParticleIterator;
 class ParticleSystem{
 	private : 
 
-		sf::Vector2f	m_position;
+		sf::Vector2i	m_position;
+		sf::Vector2i m_positionVar;
 		Well512	m_randomizer;
 		sf::Clock	m_clock;
 		sf::Clock m_clock2;
@@ -35,12 +39,17 @@ class ParticleSystem{
 		float m_elapsedTime;
 
 		float		m_particleSpeed;
+		std::string m_texturePath;
 
-		int m_minAngle, m_maxAngle;
-		int m_minLife, m_maxLife;
+		int m_angle, m_angleVar;
+		int m_life, m_lifeVar;
 
 		sf::Color m_startColor;
+		sf::Color m_startColorVar;
 		sf::Color m_endColor;
+		sf::Color m_endColorVar;
+
+		float m_velocity;
 
 	public :
 
@@ -55,11 +64,18 @@ class ParticleSystem{
 		void update();
 
 		void draw(sf::RenderWindow &window);
-		void setLocation(sf::Vector2f position);
-		void setLifeRange(int min, int max);
-		void setAngleRange(int min, int max);
+		void setTexture(std::string texturePath);
+		void setLocation(sf::Vector2i position);
+		void setLocationVar(sf::Vector2i positionVar);
+		void setLife(int life);
+		void setLifeVar(int lifeVar);
+		void setAngle(int angle);
+		void setAngleVar(int angleVar);
 		void setStartColor(int r, int g, int b, int a);
+		void setStartColorVar(int r, int g, int b, int a);
 		void setEndColor(int r, int g, int b, int a);
+		void setEndColorVar(int r, int g, int b, int a);
+		void setSpeed(float speed);
 };
 
 #endif

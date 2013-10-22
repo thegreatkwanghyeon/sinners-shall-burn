@@ -5,14 +5,20 @@ ParticleSystem::ParticleSystem(int x, int y){
 	m_position.y = y;
 	m_particleSpeed = 300.0f;
 
-	m_minLife = 50;
-	m_maxLife = 100;
+	m_life = 50;
+	m_lifeVar = m_life;
 
-	m_minAngle = 0;
-	m_maxAngle = 360;
+	m_angle = 0;
+	m_angleVar = 360;
+
+	m_velocity = 0.5;
+
+	m_texturePath = "img/particles/star.png";
 
 	m_startColor = sf::Color(0, 0, 0, 0);
 	m_endColor = sf::Color(0, 0, 0, 0);
+	m_startColorVar = sf::Color(0, 0, 0, 0);
+	m_endColorVar = sf::Color(0, 0, 0, 0);
 
 	m_elapsedTime = 0.0;
 }
@@ -24,35 +30,72 @@ ParticleSystem::~ParticleSystem(){
 	}
 }
 
-void ParticleSystem::setAngleRange(int min, int max){
-	m_minAngle = min;
-	m_maxAngle = max;
+void ParticleSystem::setLocationVar(sf::Vector2i positionVar){
+	m_positionVar = positionVar;
 }
 
-void ParticleSystem::setLifeRange(int min, int max){
-	m_minLife = min;
-	m_maxLife = max;
+void ParticleSystem::setAngle(int angle){
+	m_angle = angle;
+	m_angleVar = m_angle;
+}
+
+void ParticleSystem::setAngleVar(int angleVar){
+	m_angleVar = angleVar;
+}
+
+void ParticleSystem::setLife(int life){
+	m_life = life;
+	m_lifeVar = m_life;
+}
+
+void ParticleSystem::setLifeVar(int lifeVar){
+	m_lifeVar = lifeVar;
 }
 
 void ParticleSystem::setStartColor(int r, int g, int b, int a){
 	m_startColor = sf::Color(r, g, b, a);
+	m_startColorVar = sf::Color(r, g, b, a);
 }
 
 void ParticleSystem::setEndColor(int r, int g, int b, int a){
 	m_endColor = sf::Color(r, g, b, a);
 }
 
+void ParticleSystem::setStartColorVar(int r, int g, int b, int a){
+	m_startColorVar = sf::Color(r, g, b, a);
+	m_endColorVar = sf::Color(r, g, b, a);
+}
+
+void ParticleSystem::setEndColorVar(int r, int g, int b, int a){
+	m_endColorVar = sf::Color(r, g, b, a);
+}
+
 void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
-		particle = new Particle();
-		particle->vel.x = 0.5f;
-		particle->vel.y = 0.5f;
-		particle->sprite.setPosition(m_position.x, m_position.y);
-		particle->life = m_randomizer.Next(m_minLife, m_maxLife);
+		particle = new Particle(m_texturePath);
+		particle->startvel = m_velocity;
+		particle->vel = m_velocity;
+		particle->sprite.setPosition(m_randomizer.Next(m_position.x, m_positionVar.x), m_randomizer.Next(m_position.y, m_positionVar.y));
+		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
-		particle->angle = m_randomizer.Next(m_minAngle, m_maxAngle);
-		particle->sprite.setColor(m_startColor);
+		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+
+		int r = m_randomizer.Next(m_startColor.r, m_startColorVar.r);
+		int g = m_randomizer.Next(m_startColor.g, m_startColorVar.g);
+		int b = m_randomizer.Next(m_startColor.b, m_startColorVar.b);
+		int a = m_randomizer.Next(m_startColor.a, m_startColorVar.a);
+
+		particle->startColor = sf::Color(r,g,b,a);
+
+		r = m_randomizer.Next(m_endColor.r, m_endColorVar.r);
+		g = m_randomizer.Next(m_endColor.g, m_endColorVar.g);
+		b = m_randomizer.Next(m_endColor.b, m_endColorVar.b);
+		a = m_randomizer.Next(m_endColor.a, m_endColorVar.a);
+
+		particle->endColor = sf::Color(r,g,b,a);
+
+		particle->sprite.setColor(particle->startColor);
 
 		m_particleList.push_back(particle);
 	}
@@ -68,6 +111,14 @@ void ParticleSystem::fuelInSequence(float rate, int particles){
 	}
 }
 
+void ParticleSystem::setSpeed(float speed){
+	m_velocity = speed;
+}
+
+void ParticleSystem::setTexture(std::string texturePath){
+	m_texturePath = texturePath;
+}
+
 void ParticleSystem::update(){
 	float time = m_clock.getElapsedTime().asSeconds();
 	m_clock.restart();
@@ -79,14 +130,16 @@ void ParticleSystem::update(){
 
 		int r, g, b, a;
 
-		r = m_startColor.r + (m_startColor.r - m_endColor.r) * lifeRatio;
-		g = m_startColor.g + (m_startColor.g - m_endColor.g) * lifeRatio;
-		b = m_startColor.b + (m_startColor.b - m_endColor.b) * lifeRatio;
-		a = m_startColor.a + (m_startColor.a - m_endColor.a) * lifeRatio;
+		r = (*it)->startColor.r + ((*it)->startColor.r - (*it)->endColor.r) * lifeRatio;
+		g = (*it)->startColor.g + ((*it)->startColor.g - (*it)->endColor.g) * lifeRatio;
+		b = (*it)->startColor.b + ((*it)->startColor.b - (*it)->endColor.b) * lifeRatio;
+		a = (*it)->startColor.a + ((*it)->startColor.a - (*it)->endColor.a) * lifeRatio;
 
 		(*it)->sprite.setColor(sf::Color(r, g, b, a));
 
-		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + (*it)->vel.x * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + (*it)->vel.y * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
+		float velocity = (*it)->vel + (*it)->startvel * lifeRatio;
+
+		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + velocity * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + velocity * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
 		if((*it)->life <= 0){
 			delete (*it);
 			it = m_particleList.erase( it );
@@ -101,7 +154,9 @@ void ParticleSystem::draw(sf::RenderWindow &window){
 	}
 }
 
-void ParticleSystem::setLocation(sf::Vector2f position){
+void ParticleSystem::setLocation(sf::Vector2i position){
 	m_position.x = position.x;
 	m_position.y = position.y;
+
+	m_positionVar = m_position;
 }

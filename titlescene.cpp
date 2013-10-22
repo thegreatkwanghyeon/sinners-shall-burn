@@ -7,8 +7,11 @@ TitleScene::TitleScene(){
 	text.setPosition(450.0f, 250.0f);
 
 	particle = new ParticleSystem(600, 600);
-	particle->setAngleRange(90, 90);
-	particle->setLifeRange(50, 100);
+	particle->setTexture("img/particles/star.png");
+	particle->setAngle(0);
+	particle->setAngleVar(360);
+	particle->setLife(50);
+	particle->setSpeed(0.3);
 	particle->setStartColor(0, 255, 0, 255);
 	particle->setEndColor(255, 0, 0, 0);
 
@@ -44,7 +47,8 @@ void TitleScene::update(sf::Event &event){
 void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		particle->setLocation(sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+		particle->setLocation(sf::Vector2i(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+	//	particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 100, sf::Mouse::getPosition(window).y + 100));
 		particle->fuelInSequence(0.0, 10);
 	}
 	particle->draw(window);

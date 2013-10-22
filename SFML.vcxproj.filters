@@ -51,9 +51,6 @@
     <ClInclude Include="scenemanager.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="shaderscene.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="titlescene.h">
       <Filter>scene</Filter>
     </ClInclude>
@@ -132,9 +129,6 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="scenemanager.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="shaderscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="titlescene.cpp">

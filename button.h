@@ -60,6 +60,7 @@ class Button {
 		void setHoverSound(std::string path);
 
 		bool getButtonEneble();
+		void setTexture(sf::String _path);
 
 };
 #endif

@@ -19,7 +19,7 @@ int main(void){
 				window.close();
 			}
 		
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sceneManager->getCurrentScene()->changeScene() == 1){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 					sceneManager->setScene(new TitleScene());
 			}

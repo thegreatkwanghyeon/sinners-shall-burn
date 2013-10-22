@@ -22,6 +22,11 @@ Button::Button(sf::String _path) : isButtonEnable(true),hotkey(sf::Keyboard::Unk
 
 }
 
+void Button::setTexture(sf::String _path){
+	texture.loadFromFile(_path);
+	texture = tileset->tileSet(_path, texture.getSize().x, (texture.getSize().y)/4);
+}
+
 void Button::setPosition(float _x, float _y){
 	//이건 걍 버튼 이미지의 위치와 사이즈를 잡는것 신경 ㄴㄴ해 
 	position = sf::Vector2f(_x, _y);

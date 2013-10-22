@@ -5,6 +5,7 @@
 #include "battle.h"
 #include "player.h"
 #include "enemy.h"
+#include "button.h"
 
 
 class GameScene : public SceneBase{
@@ -14,13 +15,18 @@ class GameScene : public SceneBase{
 		Player *player;
 		Player **pPlayer;
 
+		sf::Font font;
+		sf::Text text;
+
+		Button *overButton;
+
 		std::vector <Enemy*> enemy;
 		std::vector <Enemy*> *pEnemy;
 
 		sf::Sprite sprite;
 		sf::Image texture;
 
-		bool isOver;
+		bool isOver,changeFlag;
 
 
 		bool isBattle;

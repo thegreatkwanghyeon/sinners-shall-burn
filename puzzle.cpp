@@ -10,6 +10,10 @@ Puzzle::Puzzle(){
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
 
+	bgTexture.loadFromFile("img/puzzleBG.png");
+	bgSprite.setTexture(bgTexture);
+	bgSprite.setPosition(PStartX-20,PStartY-20);
+
 	button = new Button("img/sbutton.png");
 	button->setPosition(0,230);
 	button->setText("HINT", 18);
@@ -223,6 +227,8 @@ void Puzzle::update(sf::Event &event){
 void Puzzle::draw(sf::RenderWindow &window){
 	int i,j;
 	mousePosition = sf::Mouse::getPosition(window);
+
+	window.draw(bgSprite);
 	for(i=0;i<PuzzleSize;i++){
 		for(j=0;j<PuzzleSize;j++){
 			data[i][j]->draw(window);

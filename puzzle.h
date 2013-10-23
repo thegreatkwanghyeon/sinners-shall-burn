@@ -22,8 +22,8 @@ class Puzzle{
 		sf::Vector2i  mousePosition;
 		sf::Vector2i temp;
 
-		sf::Sprite   sprite;
-		sf::Texture  texture;
+		sf::Sprite   sprite,bgSprite;
+		sf::Texture  texture,bgTexture;
 
 		sf::Clock eTime;
 		sf::Time deltaTime;

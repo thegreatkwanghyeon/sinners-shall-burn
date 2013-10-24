@@ -96,11 +96,11 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="makemap.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="well512.h">
-      <Filter>system\randomgenerator</Filter>
-    </ClInclude>
     <ClInclude Include="particlesystem.h">
       <Filter>system\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="pausescene.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +184,9 @@
     <ClCompile Include="makemap.cpp" />
     <ClCompile Include="particlesystem.cpp">
       <Filter>system\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="puasescene.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

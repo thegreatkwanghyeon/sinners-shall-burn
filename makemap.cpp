@@ -134,8 +134,8 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		}
 	}
 
-	stack[s].x=(int)(MapX/2);
-	stack[s].y=(int)(MapY/2);
+	stack[s].x=(int)(2);
+	stack[s].y=(int)(2);
 	chk[stack[s].y][stack[s].x]=1;//시작값은 1로.
 	//일단 시작값은 중앙(빈칸). 중앙으로부터 시작해서 제일 외진 칸에 문을 설치한다.
 	while(1){

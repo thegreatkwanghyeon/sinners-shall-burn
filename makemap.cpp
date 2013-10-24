@@ -12,10 +12,9 @@ MakeMap::MakeMap(){
 	}
 }
 
-void MakeMap::buildMap(){
+void MakeMap::buildMap(int fNum){
 	int i,j,k;
 	int nbs;
-	FILE *in = fopen("tile.txt","r");
 
 
 	makeRandomMap();
@@ -48,12 +47,10 @@ void MakeMap::buildMap(){
 	//-----
 	for(i=0;i<MapY;i++){
 		for(j=0;j<MapX;j++){
-			fscanf(in,"%d",&k);
-			if(k == 0)
+			if(i == 2 || i == MapY-3 || i == (int)(MapY/2) || j == 2 || j == MapX-3 || j == (int)(MapX/2))
 				map[i][j]=0;
 		}
 	}
-	fclose(in);
 
 	//---
 	for(i=0;i<MapY;i++){

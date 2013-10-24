@@ -20,7 +20,7 @@ class MakeMap{
 	public:
 		MakeMap();
 		~MakeMap(){}
-		void buildMap();
+		void buildMap(int fNum);
 		int getMap(int y, int x);
 };
 #endif

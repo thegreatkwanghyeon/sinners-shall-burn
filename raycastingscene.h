@@ -16,8 +16,8 @@
 #define numSprites 100
 
 #include "scenebase.h"
-#include "makemap.h"
 #include "enemy.h"
+#include "makemap.h"
 
 class RayCastingScene{
 
@@ -79,7 +79,6 @@ class RayCastingScene{
 
 		 //¸Ê°ü·Ãº¯¼ö
 		int worldMap[MapY+100][MapX+100];
-		MakeMap *makemap;
 
 		sf::RectangleShape rec;
 		int fog[MapY+100][MapX+100];
@@ -120,9 +119,13 @@ class RayCastingScene{
 		int getFOV();
 		void setFOV(int _fov);
 		void setShader(const std::string &shader);
-		
+		//¸Ê ¼¼ÆÃ
+		void setMap(int _map[][MapX+100]);
 		//enemy °ü·Ã
 		void setEnemies(std::vector <Enemy*> *pEnemy);
+		
+		void setPos(double _x, double _y);
+		bool isMapChange();
 
 };
 

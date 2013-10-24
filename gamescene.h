@@ -14,6 +14,7 @@ class GameScene : public SceneBase{
 		Battle *battle;
 		Player *player;
 		Player **pPlayer;
+		MakeMap *makemap;
 
 		sf::Font font;
 		sf::Text text;
@@ -31,6 +32,13 @@ class GameScene : public SceneBase{
 
 		bool isBattle;
 		int nowEnemy;
+
+		int floorNum;
+		
+		int worldMap[MapY+100][MapX+100];
+
+		void makeEnemys();//적 생성을 따로 분리했음...
+		sf::Vector2f translatePosition(float _x, float _y);
 	public:
 		GameScene();
 		~GameScene(){}

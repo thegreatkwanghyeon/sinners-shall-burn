@@ -10,7 +10,7 @@ Puzzle::Puzzle(){
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(0));
 
-	bgTexture.loadFromFile("img/puzzleBG.png");
+	bgTexture.loadFromFile("img/puzzleBackground.png");
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setPosition(PStartX-20,PStartY-20);
 

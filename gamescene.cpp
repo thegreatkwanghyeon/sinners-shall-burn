@@ -3,9 +3,21 @@
 
 GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
+
+	floorNum=0;
+	makemap = new MakeMap();
+	makemap->buildMap(floorNum);
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			worldMap[i][j]=makemap->getMap(i,j);
+		}
+	}
+	rayCastingScene->setMap(worldMap);
+	rayCastingScene->setPos(MapX/2,MapY/2);
 	player = new Player();
 	pPlayer=&player;
 	battle = new Battle(pPlayer);
+	/*
 	for(int i=0;i<3;i++){
 		enemy.push_back(new Enemy(1));
 	}
@@ -24,6 +36,8 @@ GameScene::GameScene(){
 	enemy[2]->setTexture(texture);
 
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
+	*/
+	makeEnemys();
 
 	isBattle=false;
 	isOver=false;
@@ -70,7 +84,15 @@ void GameScene::update(sf::Event &event){
 			isBattle=true;
 			battle->startBattle(enemy[nowEnemy]->getCode());
 		}
-	}	
+	}
+	//---맵체인지 테스트---//
+	if(rayCastingScene->isMapChange()){
+		makemap->buildMap(++floorNum);
+		printf("now : %d(floor)\n",floorNum);
+		rayCastingScene->setMap(worldMap);
+		rayCastingScene->setPos((int)(MapX/2),(int)(MapY/2));
+		makeEnemys();
+	}
 }
 
 void GameScene::draw(sf::RenderWindow &window){
@@ -93,4 +115,28 @@ int GameScene::changeScene(){
 	if(changeFlag)
 		return 1;
 	return -1;
+}
+void GameScene::makeEnemys(){
+	//makeEnemys는 enemy가 비어있는 상황(생성자 혹은 모든 몹 섬멸 후의 맵이동)을 전제로 한다
+	for(int i=0;i<3;i++){
+		enemy.push_back(new Enemy(1));
+	}
+
+	pEnemy = &enemy; 
+
+	texture.loadFromFile("img/enemies/ghoul.png");
+
+	enemy[0]->setPosition(translatePosition(2.5,2.5));
+	enemy[0]->setTexture(texture);
+	
+	enemy[1]->setPosition(translatePosition(2.5, 3.5));
+	enemy[1]->setTexture(texture);
+
+	enemy[2]->setPosition(translatePosition(10.5, 4.5));
+	enemy[2]->setTexture(texture);
+
+	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
+}
+sf::Vector2f GameScene::translatePosition(float _x, float _y){
+	return sf::Vector2f(MapX-_x-1,_y);
 }

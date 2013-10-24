@@ -4,11 +4,11 @@
 #include <time.h>
 
 RayCastingScene::RayCastingScene(){	
-	makemap = new MakeMap();
-	makemap->buildMap();
+	/*makemap = new MakeMap();
+	makemap->buildMap();*/
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
-			worldMap[i][j]=makemap->getMap(i,j);
+			worldMap[i][j]=0;//혹시 몰라서 해놓은 디폴트.
 			fog[i][j]=1;
 		}
 	}
@@ -80,12 +80,20 @@ RayCastingScene::RayCastingScene(){
 
 	rec.setSize(sf::Vector2f(10,10));
 
-	fov=2;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
+	fov=20;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
 }
 RayCastingScene::~RayCastingScene(){
-	delete makemap;
+	//delete makemap;
 }
 
+void RayCastingScene::setMap(int _map[][MapX+100]){
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			worldMap[i][j]=_map[i][j];
+			fog[i][j]=1;
+		}
+	}
+}
 
 std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 	sf::Color color;
@@ -645,4 +653,20 @@ void RayCastingScene::setFOV(int _fov){
 
 void RayCastingScene::setEnemies(std::vector <Enemy*> *pEnemy){
 	this->pEnemy = pEnemy;
+}
+
+void RayCastingScene::setPos(double _x, double _y){
+	pos.x=_x+0.5;
+	pos.y=_y+0.5;
+
+	dir.x = 0; 
+	dir.y = -1;
+	plane.x = -0.66; 
+	plane.y = 0;
+	//방향값도 앞쪽을 보게 초기화해줌...
+}
+bool RayCastingScene::isMapChange(){
+	if(/*pos.x == 2.5 && pos.y == 2.5 && */pEnemy->size() == 0)//임시조건
+		return true;
+	return false;
 }

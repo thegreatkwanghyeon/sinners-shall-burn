@@ -13,7 +13,9 @@ GameScene::GameScene(){
 		}
 	}
 	rayCastingScene->setMap(worldMap);
-	rayCastingScene->setPos(MapX/2,MapY/2);
+	rayCastingScene->setPos(translatePosition(1.5,1.5));
+	portal=makemap->getPortal();
+	rayCastingScene->setPortal(portal);
 	player = new Player();
 	pPlayer=&player;
 	battle = new Battle(pPlayer);
@@ -55,6 +57,7 @@ GameScene::GameScene(){
 	overButton->setText("Return",18);
 
 	changeFlag=false;
+	printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
 }
 
 void GameScene::update(sf::Event &event){
@@ -88,10 +91,12 @@ void GameScene::update(sf::Event &event){
 	//---맵체인지 테스트---//
 	if(rayCastingScene->isMapChange()){
 		makemap->buildMap(++floorNum);
-		printf("now : %d(floor)\n",floorNum);
+		portal=makemap->getPortal();
+		rayCastingScene->setPortal(portal);
 		rayCastingScene->setMap(worldMap);
-		rayCastingScene->setPos((int)(MapX/2),(int)(MapY/2));
+		rayCastingScene->setPos(translatePosition(1.5,1.5));
 		makeEnemys();
+		printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
 	}
 }
 
@@ -117,8 +122,9 @@ int GameScene::changeScene(){
 	return -1;
 }
 void GameScene::makeEnemys(){
-	//makeEnemys는 enemy가 비어있는 상황(생성자 혹은 모든 몹 섬멸 후의 맵이동)을 전제로 한다
-	for(int i=0;i<3;i++){
+	for(int i=0;i<enemy.size();i++)
+		enemy.pop_back();
+	for(int i=0;i<1;i++){
 		enemy.push_back(new Enemy(1));
 	}
 
@@ -128,12 +134,6 @@ void GameScene::makeEnemys(){
 
 	enemy[0]->setPosition(translatePosition(2.5,2.5));
 	enemy[0]->setTexture(texture);
-	
-	enemy[1]->setPosition(translatePosition(2.5, 3.5));
-	enemy[1]->setTexture(texture);
-
-	enemy[2]->setPosition(translatePosition(10.5, 4.5));
-	enemy[2]->setTexture(texture);
 
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
 }

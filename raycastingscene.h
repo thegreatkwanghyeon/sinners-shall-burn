@@ -46,6 +46,8 @@ class RayCastingScene{
 		 int drawStart;
 		 int drawEnd;
 
+		 sf::Vector2i portal;
+
 		 double moveSpeed; //상수는 squares/second
 		 double rotSpeed; //상수는 radians/second
 
@@ -124,8 +126,10 @@ class RayCastingScene{
 		//enemy 관련
 		void setEnemies(std::vector <Enemy*> *pEnemy);
 		
-		void setPos(double _x, double _y);
+		void setPos(sf::Vector2f temp);
 		bool isMapChange();
+
+		void setPortal(sf::Vector2i _portal);
 
 };
 

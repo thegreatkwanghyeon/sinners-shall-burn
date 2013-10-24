@@ -68,8 +68,8 @@ RayCastingScene::RayCastingScene(){
 	texture[6] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/stone.png");
 	texture[7] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
-	texture[8] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/eagle.png");
+	texture[8] = convertImageToTexture(textureImage);//문짝(9)
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 
@@ -581,6 +581,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 				rec.setFillColor(sf::Color::White);		
 			}else if(worldMap[j][i] == 1){
 				rec.setFillColor(sf::Color::Black);
+			}else if(worldMap[j][i] == 9){
+				rec.setFillColor(sf::Color::Blue);
 			}
 			window.draw(rec);
 			if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
@@ -655,9 +657,9 @@ void RayCastingScene::setEnemies(std::vector <Enemy*> *pEnemy){
 	this->pEnemy = pEnemy;
 }
 
-void RayCastingScene::setPos(double _x, double _y){
-	pos.x=_x+0.5;
-	pos.y=_y+0.5;
+void RayCastingScene::setPos(sf::Vector2f temp){
+	pos.x=temp.x;
+	pos.y=temp.y;
 
 	dir.x = 0; 
 	dir.y = -1;
@@ -669,4 +671,8 @@ bool RayCastingScene::isMapChange(){
 	if(/*pos.x == 2.5 && pos.y == 2.5 && */pEnemy->size() == 0)//임시조건
 		return true;
 	return false;
+}
+
+void RayCastingScene::setPortal(sf::Vector2i _portal){
+	portal=_portal;
 }

@@ -19,6 +19,8 @@ class GameScene : public SceneBase{
 		sf::Font font;
 		sf::Text text;
 
+		sf::Vector2i portal;
+
 		Button *overButton;
 
 		std::vector <Enemy*> enemy;

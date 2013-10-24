@@ -45,9 +45,11 @@ void MakeMap::buildMap(int fNum){
 		}
 	}
 	//-----
-	for(i=0;i<MapY;i++){
-		for(j=0;j<MapX;j++){
-			if(i == 2 || i == MapY-3 || i == (int)(MapY/2) || j == 2 || j == MapX-3 || j == (int)(MapX/2))
+	for(i=1;i<MapY-1;i++){
+		for(j=1;j<MapX-1;j++){
+			if(/*i == 2 || i == MapY-3 || */i == (int)(MapY/2) || j == 2 || j == MapX-3 || j == (int)(MapX/2))//가운데 라인들
+				map[i][j]=0;
+			else if((i <= 3 && j >= MapY-4) || (i >= MapY-4 && j <= 3))
 				map[i][j]=0;
 		}
 	}
@@ -71,6 +73,7 @@ void MakeMap::buildMap(int fNum){
 	}
 	printf("-=-=-=-=-=-=\n");
 	//--------------
+	makeDoor();
 }
 void MakeMap::makeRandomMap(){
 	int i,j;
@@ -117,4 +120,78 @@ int MakeMap::countNeighbours(int x, int y){
 }
 int MakeMap::getMap(int y, int x){
 	return map[y][x];
+}
+void MakeMap::makeDoor(){//BFS 알고리즘 사용.
+	int s=0,e=1;
+	int maxLoc,max=1;
+	sf::Vector2i stack[MapX*MapY+100];//여유롭게~
+	int chk[MapY+100][MapX+100];
+	//---
+
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			chk[i][j]=0;
+		}
+	}
+
+	stack[s].x=(int)(MapX/2);
+	stack[s].y=(int)(MapY/2);
+	chk[stack[s].y][stack[s].x]=1;//시작값은 1로.
+	//일단 시작값은 중앙(빈칸). 중앙으로부터 시작해서 제일 외진 칸에 문을 설치한다.
+	while(1){
+		if(s>e)
+			break;
+		if(stack[s].y-1 > 0 && chk[stack[s].y-1][stack[s].x] == 0 && map[stack[s].y-1][stack[s].x] == 0){//위로 가는 경우. 0은 외벽이라 안됨.
+			chk[stack[s].y-1][stack[s].x] = chk[stack[s].y][stack[s].x]+1;
+			if(max < chk[stack[s].y-1][stack[s].x]){
+				max=chk[stack[s].y-1][stack[s].x];
+				maxLoc=e;
+			}
+			stack[e].x=stack[s].x;
+			stack[e].y=stack[s].y-1;
+			e++;
+		}
+		if(stack[s].y+1 < MapY-1 && chk[stack[s].y+1][stack[s].x] == 0 && map[stack[s].y+1][stack[s].x] == 0){//아래로 가는 경우.
+			chk[stack[s].y+1][stack[s].x] = chk[stack[s].y][stack[s].x]+1;
+			if(max < chk[stack[s].y+1][stack[s].x]){
+				max=chk[stack[s].y+1][stack[s].x];
+				maxLoc=e;
+			}
+			stack[e].x=stack[s].x;
+			stack[e].y=stack[s].y+1;
+			e++;
+		}
+		if(stack[s].x-1 > 0 && chk[stack[s].y][stack[s].x-1] == 0 && map[stack[s].y][stack[s].x-1] == 0){//왼쪽으로 가는 경우.
+			chk[stack[s].y][stack[s].x-1] = chk[stack[s].y][stack[s].x]+1;
+			if(max < chk[stack[s].y][stack[s].x-1]){
+				max=chk[stack[s].y][stack[s].x-1];
+				maxLoc=e;
+			}
+			stack[e].x=stack[s].x-1;
+			stack[e].y=stack[s].y;
+			e++;
+		}
+		if(stack[s].x+1 < MapX-1 && chk[stack[s].y][stack[s].x+1] == 0 && map[stack[s].y][stack[s].x+1] == 0){//오른쪽으로 가는 경우.
+			chk[stack[s].y][stack[s].x+1] = chk[stack[s].y][stack[s].x]+1;
+			if(max < chk[stack[s].y][stack[s].x+1]){
+				max=chk[stack[s].y][stack[s].x+1];
+				maxLoc=e;
+			}
+			stack[e].x=stack[s].x+1;
+			stack[e].y=stack[s].y;
+			e++;
+		}
+		s++;
+	}
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			printf("%2d ",chk[i][j]);
+		}
+		printf("\n");
+	}
+	map[stack[maxLoc].y][stack[maxLoc].x]=9;//문짝
+	portal=stack[maxLoc];
+}
+sf::Vector2i MakeMap::getPortal(){
+	return portal;
 }

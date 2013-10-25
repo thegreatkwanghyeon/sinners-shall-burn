@@ -50,6 +50,7 @@ class ParticleSystem{
 		sf::Color m_endColorVar;
 
 		float m_velocity;
+		float m_velocityVar;
 
 	public :
 
@@ -76,6 +77,7 @@ class ParticleSystem{
 		void setEndColor(int r, int g, int b, int a);
 		void setEndColorVar(int r, int g, int b, int a);
 		void setSpeed(float speed);
+		void setSpeedVar(float speed);
 };
 
 #endif

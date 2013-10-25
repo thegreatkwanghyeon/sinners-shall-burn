@@ -59,11 +59,11 @@ void ParticleSystem::setStartColor(int r, int g, int b, int a){
 
 void ParticleSystem::setEndColor(int r, int g, int b, int a){
 	m_endColor = sf::Color(r, g, b, a);
+	m_endColorVar = sf::Color(r, g, b, a);
 }
 
 void ParticleSystem::setStartColorVar(int r, int g, int b, int a){
 	m_startColorVar = sf::Color(r, g, b, a);
-	m_endColorVar = sf::Color(r, g, b, a);
 }
 
 void ParticleSystem::setEndColorVar(int r, int g, int b, int a){
@@ -74,8 +74,7 @@ void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
 		particle = new Particle(m_texturePath);
-		particle->startvel = m_velocity;
-		particle->vel = m_velocity;
+		particle->startvel = m_randomizer.NextFloat(m_velocity, m_velocityVar);
 		particle->sprite.setPosition(m_randomizer.Next(m_position.x, m_positionVar.x), m_randomizer.Next(m_position.y, m_positionVar.y));
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
@@ -101,6 +100,10 @@ void ParticleSystem::fuel(int num){
 	}
 }
 
+void ParticleSystem::setSpeedVar(float speed){
+	m_velocityVar = speed;
+}
+
 void ParticleSystem::fuelInSequence(float rate, int particles){
 	m_elapsedTime += m_clock2.getElapsedTime().asSeconds();
 	m_clock2.restart();
@@ -113,6 +116,7 @@ void ParticleSystem::fuelInSequence(float rate, int particles){
 
 void ParticleSystem::setSpeed(float speed){
 	m_velocity = speed;
+	m_velocityVar = m_velocity;
 }
 
 void ParticleSystem::setTexture(std::string texturePath){
@@ -127,17 +131,16 @@ void ParticleSystem::update(){
 		(*it)->life -= 1;
 		
 		double lifeRatio = (double)(*it)->life/(double)(*it)->defaultLife;
-
 		int r, g, b, a;
 
-		r = (*it)->startColor.r + ((*it)->startColor.r - (*it)->endColor.r) * lifeRatio;
-		g = (*it)->startColor.g + ((*it)->startColor.g - (*it)->endColor.g) * lifeRatio;
-		b = (*it)->startColor.b + ((*it)->startColor.b - (*it)->endColor.b) * lifeRatio;
-		a = (*it)->startColor.a + ((*it)->startColor.a - (*it)->endColor.a) * lifeRatio;
+		r = (*it)->startColor.r * lifeRatio + (*it)->endColor.r * (1-lifeRatio);
+		g = (*it)->startColor.g * lifeRatio + (*it)->endColor.g * (1-lifeRatio);
+		b = (*it)->startColor.b * lifeRatio + (*it)->endColor.b * (1-lifeRatio);
+		a = (*it)->startColor.a * lifeRatio + (*it)->endColor.a * (1-lifeRatio);
 
 		(*it)->sprite.setColor(sf::Color(r, g, b, a));
 
-		float velocity = (*it)->vel + (*it)->startvel * lifeRatio;
+		float velocity = (*it)->startvel * lifeRatio;
 
 		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + velocity * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + velocity * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
 		if((*it)->life <= 0){

@@ -11,7 +11,7 @@ class PauseScene : public SceneBase{
 	public:
 
 		PauseScene();
-		~PauseScene(){}
+		~PauseScene(){};
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 }

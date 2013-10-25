@@ -134,6 +134,8 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		}
 	}
 
+	//stack[s].x=2;
+	//stack[s].y=2;
 	stack[s].x=2;
 	stack[s].y=2;
 	chk[stack[s].y][stack[s].x]=1;//시작값은 1로.

@@ -91,6 +91,11 @@ void GameScene::update(sf::Event &event){
 	//---맵체인지 테스트---//
 	if(rayCastingScene->isMapChange()){
 		makemap->buildMap(++floorNum);
+		for(int i=0;i<MapY;i++){
+			for(int j=0;j<MapX;j++){
+				worldMap[i][j]=makemap->getMap(i,j);
+			}
+		}
 		portal=makemap->getPortal();
 		rayCastingScene->setPortal(portal);
 		rayCastingScene->setMap(worldMap);

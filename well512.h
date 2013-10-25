@@ -46,6 +46,21 @@ class Well512{
 
 			return state[index];
 		}
+
+		float NextFloat(){
+			unsigned int nRandValue = Next();
+			union {unsigned long ul; float f;} p;
+			p.ul = (((nRandValue *= 16807)&0x007fffff)-1)|0x3f800000;
+			return p.f-1.f;
+		}
+
+		float NextFloat(float minValue, float maxValue){
+			return minValue + NextFloat() * (maxValue - minValue);
+		}
+
+		float NextFloat(float maxValue){
+			return NextFloat()*maxValue;
+		}
 };
 
 #endif

@@ -10,12 +10,12 @@ TitleScene::TitleScene(){
 	particle->setTexture("img/particles/circle.png");
 	particle->setAngle(90);
 	particle->setAngleVar(90);
-	particle->setLife(10);
-	particle->setLifeVar(30);
-	particle->setSpeed(1);
-	particle->setSpeedVar(1);
-	particle->setStartColor(100, 10, 10, 255);
-	particle->setEndColor(100, 10, 10, 0);
+	particle->setLife(90);
+	particle->setLifeVar(130);
+	particle->setSpeed(0.4);
+	particle->setSpeedVar(0.6);
+	particle->setStartColor(255, 180, 0, 255);
+	particle->setEndColor(255, 0, 0, 0);
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(450,400);

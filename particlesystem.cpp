@@ -74,7 +74,7 @@ void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
 		particle = new Particle(m_texturePath);
-		particle->startvel = m_randomizer.Next(m_velocity, m_velocityVar);
+		particle->startvel = m_randomizer.NextFloat(m_velocity, m_velocityVar);
 		particle->sprite.setPosition(m_randomizer.Next(m_position.x, m_positionVar.x), m_randomizer.Next(m_position.y, m_positionVar.y));
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
@@ -133,10 +133,10 @@ void ParticleSystem::update(){
 		double lifeRatio = (double)(*it)->life/(double)(*it)->defaultLife;
 		int r, g, b, a;
 
-		r = (*it)->startColor.r + ((*it)->startColor.r - (*it)->endColor.r) * lifeRatio;
-		g = (*it)->startColor.g + ((*it)->startColor.g - (*it)->endColor.g) * lifeRatio;
-		b = (*it)->startColor.b + ((*it)->startColor.b - (*it)->endColor.b) * lifeRatio;
-		a = (*it)->startColor.a + ((*it)->startColor.a - (*it)->endColor.a) * lifeRatio;
+		r = (*it)->startColor.r * lifeRatio + (*it)->endColor.r * (1-lifeRatio);
+		g = (*it)->startColor.g * lifeRatio + (*it)->endColor.g * (1-lifeRatio);
+		b = (*it)->startColor.b * lifeRatio + (*it)->endColor.b * (1-lifeRatio);
+		a = (*it)->startColor.a * lifeRatio + (*it)->endColor.a * (1-lifeRatio);
 
 		(*it)->sprite.setColor(sf::Color(r, g, b, a));
 

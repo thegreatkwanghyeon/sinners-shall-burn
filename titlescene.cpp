@@ -50,7 +50,7 @@ void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		particle->setLocation(sf::Vector2i(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
-		particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 50, sf::Mouse::getPosition(window).y + 50));
+		particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 30, sf::Mouse::getPosition(window).y + 30));
 		particle->fuelInSequence(0.0, 10);
 	}
 	particle->draw(window);

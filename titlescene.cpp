@@ -7,13 +7,15 @@ TitleScene::TitleScene(){
 	text.setPosition(450.0f, 250.0f);
 
 	particle = new ParticleSystem(600, 600);
-	particle->setTexture("img/particles/star.png");
-	particle->setAngle(0);
-	particle->setAngleVar(360);
-	particle->setLife(50);
-	particle->setSpeed(0.3);
-	particle->setStartColor(0, 255, 0, 255);
-	particle->setEndColor(255, 0, 0, 0);
+	particle->setTexture("img/particles/circle.png");
+	particle->setAngle(90);
+	particle->setAngleVar(90);
+	particle->setLife(10);
+	particle->setLifeVar(30);
+	particle->setSpeed(1);
+	particle->setSpeedVar(1);
+	particle->setStartColor(100, 10, 10, 255);
+	particle->setEndColor(100, 10, 10, 0);
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(450,400);
@@ -48,7 +50,7 @@ void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		particle->setLocation(sf::Vector2i(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
-	//	particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 100, sf::Mouse::getPosition(window).y + 100));
+		particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 50, sf::Mouse::getPosition(window).y + 50));
 		particle->fuelInSequence(0.0, 10);
 	}
 	particle->draw(window);

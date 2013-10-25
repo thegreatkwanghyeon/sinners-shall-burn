@@ -68,7 +68,7 @@ RayCastingScene::RayCastingScene(){
 	texture[6] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/stone.png");
 	texture[7] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/eagle.png");
+	textureImage.loadFromFile("img/textures/stair.png");
 	texture[8] = convertImageToTexture(textureImage);//문짝(9)
 
 	drawingBuffer.create(width,height,sf::Color::Black);
@@ -80,7 +80,7 @@ RayCastingScene::RayCastingScene(){
 
 	rec.setSize(sf::Vector2f(10,10));
 
-	fov=20;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
+	fov=25;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
 }
 RayCastingScene::~RayCastingScene(){
 	//delete makemap;
@@ -536,14 +536,14 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					color = pEnemy->at(spriteOrder[i])->getConvertedTexture()->at(texWidth*tex.y+tex.x);
 
 
-					//if((color & 0x00FFFFFF) != 0){
+					if((color & 0x00FFFFFF) != 0){
 						buffer[y*width*4 + stripe*4 + 2] = color%256;
 						color >>=8;
 						buffer[y*width*4 + stripe*4 + 1] = color%256;
 						color >>=8;
 						buffer[y*width*4 + stripe*4 + 0] = color%256;
 						buffer[y*width*4 + stripe*4 + 3] = 255;  
-					//}
+					}
 				}
 			}
 		}
@@ -668,8 +668,22 @@ void RayCastingScene::setPos(sf::Vector2f temp){
 	//방향값도 앞쪽을 보게 초기화해줌...
 }
 bool RayCastingScene::isMapChange(){
-	if(/*pos.x == 2.5 && pos.y == 2.5 && */pEnemy->size() == 0)//임시조건
+	int angle=getAngle();
+
+	if(isGoB || isGoF || isGoL || isGoR)
+		return false;
+
+	//printf("%d %d -- %d %d << %d\n",(int)pos.x, deltaClock.getElapsedTime().asSeconds().x,(int)pos.y, deltaClock.getElapsedTime().asSeconds().y,angle);
+	//printf("%d %d /%d %d\n",(int)portal.x,(int)portal.y,(int)pos.x,(int)pos.y);
+	if((int)pos.x == (int)portal.y && (int)pos.y-(int)portal.x == 1 && angle == 4){
 		return true;
+	}else if((int)pos.x-(int)portal.y == -1 && (int)pos.y == (int)portal.x && angle == 3){
+		return true;
+	}else if((int)pos.x == (int)portal.y && (int)pos.y - (int)portal.x == -1 && angle == 2){
+		return true;
+	}else if((int)pos.x - (int)portal.y == 1 && (int)pos.y == (int)portal.x && angle == 1){
+		return true;
+	}
 	return false;
 }
 

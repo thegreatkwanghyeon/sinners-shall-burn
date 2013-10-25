@@ -13,7 +13,7 @@ ParticleSystem::ParticleSystem(int x, int y){
 
 	m_velocity = 0.5;
 
-	m_texturePath = "img/particles/star.png";
+	m_texturePath = "img/particles/circle.png";
 
 	m_startColor = sf::Color(0, 0, 0, 0);
 	m_endColor = sf::Color(0, 0, 0, 0);

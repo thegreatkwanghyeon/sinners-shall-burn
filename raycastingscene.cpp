@@ -536,7 +536,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					color = pEnemy->at(spriteOrder[i])->getConvertedTexture()->at(texWidth*tex.y+tex.x);
 
 
-					if((color & 0x00FFFFFF) != 0){
+					//if((color & 0x00FFFFFF) != 0){
+					if(color != 0x00333333){
 						buffer[y*width*4 + stripe*4 + 2] = color%256;
 						color >>=8;
 						buffer[y*width*4 + stripe*4 + 1] = color%256;

@@ -31,21 +31,25 @@ Battle::Battle(Player** _player){
 
 	skill = (*player)->skill;
 
-	particle = new ParticleList(250,250);
+	particle = new ParticleList(0,0);
 	particle->setParticle(1);
-
-	skillEffect=new Animation();
-
-	skillEffect->addTile("img/skill01.PNG",250,250);
-	skillEffect->setSpeed(0.5);
-	skillEffect->setTileRange(sf::Vector2i(1,1),3);//디폴트.
-
-	skillSprite.setPosition(515,215);
 
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font); 
 	text.setString(L"bonus : 1.00");
 	text.setPosition(450.0f, 250.0f);
+
+	dotText.setFont(font); 
+	dotText.setString(L"dot : 0");
+	dotText.setPosition(450.0f, 350.0f);
+
+	guardText.setFont(font); 
+	guardText.setString(L"guart : 0");
+	guardText.setPosition(450.0f, 400.0f);
+
+	accText.setFont(font); 
+	accText.setString(L"plus Acc : 0");
+	accText.setPosition(450.0f, 450.0f);
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
@@ -98,7 +102,13 @@ void Battle::update(sf::Event &event){
 		puzzle->update(event);
 
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f", puzzle->getPlusDamage());
-	text.setString(plusString);
+	text.setString(plusString);				
+	_snprintf(plusString, sizeof(plusString), "guard : %d", (*player)->getGuard());
+	guardText.setString(plusString);
+	_snprintf(plusString, sizeof(plusString), "dot : %d", enemy->getDot());
+	dotText.setString(plusString);
+	_snprintf(plusString, sizeof(plusString), "plusAcc : %d",(*player)->getAcc());
+	accText.setString(plusString);
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
 		playerSkillUpdate();
@@ -144,11 +154,11 @@ void Battle::update(sf::Event &event){
 				useCnt--;
 				srand(time(NULL));
 
-				if(skill->data[useSkillNow].acc < rand()%100){//0~99
+				
+
+				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//0~99
+					(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
 					isMiss=true;
-					printf("miss!!");
-					skillEffect->setSpeed(0.5);
-					skillEffect->setTileRange(sf::Vector2i(1,1),3);
 				}else{
 					particle->setParticle(skill->data[useSkillNow].code);
 				}
@@ -156,6 +166,15 @@ void Battle::update(sf::Event &event){
 				//tp = skillEffect->getLocation();
 
 				sceneNum=playerSkill;
+
+				if(skill->data[useSkillNow].plusAcc > 0){
+					(*player)->setAcc(skill->data[useSkillNow].plusAcc);//추가 명중률을 더해줌
+				}if(skill->data[useSkillNow].guard > 0){
+					(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
+				}if(skill->data[useSkillNow].dot > 0){
+					enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
+				}
+
 			}else{
 				//필드에서 약초는 사용가능!
 			}
@@ -174,15 +193,21 @@ void Battle::update(sf::Event &event){
 }
 void Battle::playerSkillUpdate(){
 //애니메이션 업데이트
-	if(isMiss)
-		skillEffect->update(&skillSprite, true);
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//애니메이션 종료
 		skillTime.restart();
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
 		int pdamage=skill->data[useSkillNow].pdamage;
+
 		//-------
 		if(!isMiss){
 			if(pdamage > 0){//내 체력 감소
+				if(pdamage >= (*player)->getGuard()){
+					pdamage-=(*player)->getGuard();
+					(*player)->setGuard(0);
+				}else{
+					(*player)->setGuard((*player)->getGuard()-pdamage);
+					pdamage=0;
+				}
 				if(pdamage > (*player)->getHP()){
 					hpGauge->setValue(-1*(*player)->getHP());
 					(*player)->setHP(0);
@@ -210,7 +235,6 @@ void Battle::playerSkillUpdate(){
 				//---
 				puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 무효화된다.
 				//크리티컬은 적에게 일반 데미지를 줄떄만 발동된다.
-				//명중률 증가 버프는 적에게 데미지를 줄떄만 삭제된다.
 			}else if(damage < 0){//적 체력 회복
 				if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){
 					enemyGauge->setValue(enemy->getMaxHp()-enemy->getCurrentHp());
@@ -237,13 +261,20 @@ void Battle::playerSkillUpdate(){
 }
 void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
-	if(isMiss)
-		skillEffect->update(&skillSprite, true);
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
+		int damage=enemy->getDamage();
+
+		if(damage >= (*player)->getGuard()){
+			damage-=(*player)->getGuard();
+			(*player)->setGuard(0);
+		}else{
+			(*player)->setGuard((*player)->getGuard()-damage);
+			damage=0;
+		}
+
 		skillTime.restart();
-		(*player)->setHP((*player)->getHP()-enemy->getDamage());
-		hpGauge->setValue(-1*enemy->getDamage());
-		isMiss=false;//뭐가 됬든 일단 거짓
+		(*player)->setHP((*player)->getHP()-damage);
+		hpGauge->setValue(-1*damage);
 		sceneNum=checkSkill;
 	}
 	hpGauge->update();
@@ -252,6 +283,21 @@ void Battle::enemySkillUpdate(){
 void Battle::checkSkillUpdate(){
 	//아직 미설계
 	//도트뎀 계산.
+	//아직 플레이어가 도트뎀을 입는 경우, 적이 가드포함 스킬을 사용하는 경우, 적이 명중률 상승 효과를 보는 경우 등은 계산되지 않았다.
+	if(enemy->getDot() > 0){
+		if(enemy->getDot() > enemy->getCurrentHp()){
+			enemyGauge->setValue(-1*enemy->getCurrentHp());
+			enemy->setCurrentHp(0);
+		}else{
+			enemyGauge->setValue(-1*enemy->getDot());
+			enemy->setCurrentHp(enemy->getCurrentHp()-enemy->getDot());
+		}
+		if(enemy->getDot() > 5)
+			enemy->setDot(enemy->getDot()-5);
+		else
+			enemy->setDot(0);
+	}
+	isMiss=false;
 	sceneNum=normal;
 	return;
 }
@@ -276,9 +322,7 @@ bool Battle::getResult(){
 void Battle::draw(sf::RenderWindow &window){
 	int i;
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
-		if(isMiss){
-			window.draw(skillSprite);
-		}else{
+		if(!isMiss){
 			particle->setLocationList();
 		}
 		//return;
@@ -309,6 +353,9 @@ void Battle::draw(sf::RenderWindow &window){
 		
 	hpGauge->draw(window);
 	window.draw(text);
+	window.draw(accText);
+	window.draw(dotText);
+	window.draw(guardText);
 	//---face---//
 	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);

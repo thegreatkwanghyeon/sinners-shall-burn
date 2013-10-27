@@ -17,7 +17,8 @@ struct SkillData{
 	int pdamage;
 	int guard;
 	int code;
-	int acc;
+	int acc,plusAcc;
+	int dot;
 	int animationNum;
 
 	//bool use;

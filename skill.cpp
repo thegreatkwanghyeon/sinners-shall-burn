@@ -33,6 +33,8 @@ Skill::Skill(){
 		pNode->ToElement()->Attribute("pdamage",&data[i].pdamage);
 		pNode->ToElement()->Attribute("guard",&data[i].guard);
 		pNode->ToElement()->Attribute("acc",&data[i].acc);
+		pNode->ToElement()->Attribute("plusAcc",&data[i].plusAcc);
+		pNode->ToElement()->Attribute("dot",&data[i].dot);
 
 		pNode->ToElement()->Attribute("need",&data[i].needCode);
 		pNode->ToElement()->Attribute("animation",&data[i].animationNum);

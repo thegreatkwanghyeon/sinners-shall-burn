@@ -76,6 +76,18 @@ Battle::Battle(Player** _player){
 	sceneNum=normal;//기본 상태
 	isMiss=false;
 }
+Battle::~Battle(){
+	delete puzzle;
+	delete hpGauge;
+	delete enemyGauge;
+	delete button;
+	delete tooltip;
+	delete skill;
+	delete enemy;
+	delete player;
+	delete tileset;
+	delete faceTileset;
+}
 void Battle::startBattle(int _code){
 	delete(enemy);
 	enemy = new Enemy(_code);

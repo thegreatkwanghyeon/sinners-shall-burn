@@ -17,6 +17,17 @@ void ParticleList::setParticle(int _num){
 			particle->setStartColor(255, 180, 0, 255);
 			particle->setEndColor(255, 0, 0, 0);
 			break;
+		case 2: //Å¸¿À¸£´Â È­¿°
+			particle->setTexture("img/particles/circle.png");
+			particle->setAngle(200);
+			particle->setAngleVar(200);
+			particle->setLife(150);
+			particle->setLifeVar(200);
+			particle->setSpeed(0.5);
+			particle->setSpeedVar(0.9);
+			particle->setStartColor(255, 180, 0, 255);
+			particle->setEndColor(255, 0, 0, 0);
+			break;
 		case 100: //¸÷ °ø°Ý 1¹ø?
 			particle->setTexture("img/particles/circle.png");
 			particle->setAngle(0);
@@ -40,6 +51,9 @@ void ParticleList::setParticle(int _num){
 			particle->setEndColor(255, 0, 0, 0);
 	}
 }
+ParticleList::~ParticleList(){
+	delete particle;
+}
 void ParticleList::update(){
 	particle->update();
 }
@@ -50,8 +64,13 @@ void ParticleList::draw(sf::RenderWindow &window){
 void ParticleList::setLocationList(){
 	switch(num){
 		case 1: 
-			particle->setLocation(sf::Vector2i(550,250));
-			particle->setLocationVar(sf::Vector2i(880,280));
+			particle->setLocation(sf::Vector2i(500,250));
+			particle->setLocationVar(sf::Vector2i(650,280));
+			particle->fuelInSequence(0.0, 10);
+			break;
+		case 2 : 
+			particle->setLocation(sf::Vector2i(0,0));
+			particle->setLocationVar(sf::Vector2i(1280,700));
 			particle->fuelInSequence(0.0, 10);
 			break;
 		case 100 : 

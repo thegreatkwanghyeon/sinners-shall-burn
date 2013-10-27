@@ -26,12 +26,12 @@ class Battle : public SceneBase{
 	private:
 		TiXmlDocument stats;
 		sf::Font font;
-		sf::Text text;
+		sf::Text text,dotText,guardText,accText;
 		sf::Clock limitTime;
 		sf::Clock skillTime;
 		char plusString[100];
 
-		sf::Sprite   sprite,faceSprite,skillSprite;
+		sf::Sprite   sprite,faceSprite;
 		sf::Texture  texture, face;
 		TileSet *tileset;
 		TileSet *faceTileset;
@@ -39,7 +39,6 @@ class Battle : public SceneBase{
 		Player **player;
 
 		ParticleList *particle;
-		Animation *skillEffect;
 		int useSkillNow;
 		bool battleResult;
 
@@ -70,7 +69,7 @@ class Battle : public SceneBase{
 		void checkSkillUpdate();
 	public:
 		Battle(Player** _player);
-		~Battle(){delete puzzle;}
+		~Battle();
 		void update(sf::Event &event);
 		bool getResult();
 		int makeCode(int s, int e);

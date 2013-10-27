@@ -18,6 +18,7 @@ class Enemy{
 		int currentHp;
 		int animationNum;
 		int dot;
+		int acc;
 		sf::Vector2f position;
 
 		TiXmlDocument enemyData;
@@ -48,6 +49,7 @@ class Enemy{
 		void setTexture(sf::Image texture);
 		int getDot();
 		void setDot(int num);
+		int getAcc();
 
 		
 };

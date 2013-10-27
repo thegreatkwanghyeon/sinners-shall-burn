@@ -13,10 +13,11 @@
 #include "gauge.h"
 #include "enemy.h"
 #include "animation.h"
+#include "particlelist.h"
 
 #define StackNum 5
 #define ViewSkill 6
-#define skillEffectTime 0.5
+#define skillEffectTime 1.5
 
 enum{
 	normal,playerSkill,enemySkill,checkSkill
@@ -37,6 +38,7 @@ class Battle : public SceneBase{
 		Enemy *enemy;
 		Player **player;
 
+		ParticleList *particle;
 		Animation *skillEffect;
 		int useSkillNow;
 		bool battleResult;
@@ -44,6 +46,7 @@ class Battle : public SceneBase{
 		sf::Clock deltaClock;
 		bool keyEvent;
 		bool isBattle;
+		bool isMiss;
 		int useCnt;
 
 		Skill *skill;

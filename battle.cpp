@@ -1,5 +1,7 @@
 #include "battle.h"
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 
 Battle::Battle(Player** _player){
 	int i;
@@ -28,6 +30,9 @@ Battle::Battle(Player** _player){
 	faceSprite.setPosition(325,455);
 
 	skill = (*player)->skill;
+
+	particle = new ParticleList(250,250);
+	particle->setParticle(1);
 
 	skillEffect=new Animation();
 
@@ -65,6 +70,7 @@ Battle::Battle(Player** _player){
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
 	sceneNum=normal;//기본 상태
+	isMiss=false;
 }
 void Battle::startBattle(int _code){
 	delete(enemy);
@@ -86,6 +92,7 @@ void Battle::update(sf::Event &event){
 	for(i=0;i<200;i++){
 		chk[i]=0;
 	}
+	particle->update();
 
 	if(isBattle)
 		puzzle->update(event);
@@ -135,11 +142,18 @@ void Battle::update(sf::Event &event){
 
 				canUseSkill[i]=0;
 				useCnt--;
+				srand(time(NULL));
 
-				skillEffect->setSpeed(0.5);
-				skillEffect->setTileRange(sf::Vector2i(1,1),3);
-				//tp = skillEffect->getLocation();
+				if(skill->data[useSkillNow].acc < rand()%100){//0~99
+					isMiss=true;
+					printf("miss!!");
+					skillEffect->setSpeed(0.5);
+					skillEffect->setTileRange(sf::Vector2i(1,1),3);
+				}else{
+					particle->setParticle(skill->data[useSkillNow].code);
+				}
 				skillTime.restart();
+				//tp = skillEffect->getLocation();
 
 				sceneNum=playerSkill;
 			}else{
@@ -160,54 +174,62 @@ void Battle::update(sf::Event &event){
 }
 void Battle::playerSkillUpdate(){
 //애니메이션 업데이트
-	skillEffect->update(&skillSprite, true);
+	if(isMiss)
+		skillEffect->update(&skillSprite, true);
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//애니메이션 종료
 		skillTime.restart();
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
 		int pdamage=skill->data[useSkillNow].pdamage;
 		//-------
-		if(pdamage > 0){//내 체력 감소
-			if(pdamage > (*player)->getHP()){
-				hpGauge->setValue(-1*(*player)->getHP());
-				(*player)->setHP(0);
-			}else{
-				hpGauge->setValue(-1*pdamage);
-				(*player)->setHP((*player)->getHP()-pdamage);
+		if(!isMiss){
+			if(pdamage > 0){//내 체력 감소
+				if(pdamage > (*player)->getHP()){
+					hpGauge->setValue(-1*(*player)->getHP());
+					(*player)->setHP(0);
+				}else{
+					hpGauge->setValue(-1*pdamage);
+					(*player)->setHP((*player)->getHP()-pdamage);
+				}
+			}else if(pdamage < 0){//내 체력 증가
+				if(-1*pdamage > (*player)->getMaxHP()-(*player)->getHP()){
+					hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
+					(*player)->setHP((*player)->getMaxHP());
+				}else{
+					hpGauge->setValue(-1*pdamage);
+					(*player)->setHP((*player)->getHP()-pdamage);
+				}
 			}
-		}else if(pdamage < 0){//내 체력 증가
-			if(-1*pdamage > (*player)->getMaxHP()-(*player)->getHP()){
-				hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
-				(*player)->setHP((*player)->getMaxHP());
-			}else{
-				hpGauge->setValue(-1*pdamage);
-				(*player)->setHP((*player)->getHP()-pdamage);
+			if(damage > 0){//적 체력 감소
+				if(damage > enemy->getCurrentHp()){
+					enemyGauge->setValue(-1*enemy->getCurrentHp());
+					enemy->setCurrentHp(0);
+				}else{
+					enemyGauge->setValue(-1*damage);
+					enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+				}
+				//---
+				puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 무효화된다.
+				//크리티컬은 적에게 일반 데미지를 줄떄만 발동된다.
+				//명중률 증가 버프는 적에게 데미지를 줄떄만 삭제된다.
+			}else if(damage < 0){//적 체력 회복
+				if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){
+					enemyGauge->setValue(enemy->getMaxHp()-enemy->getCurrentHp());
+					enemy->setCurrentHp(enemy->getMaxHp());
+				}else{
+					enemyGauge->setValue(-1*damage);
+					enemy->setCurrentHp(enemy->getCurrentHp()-damage);
+				}
 			}
-		}
-		if(damage > 0){//적 체력 감소
-			if(damage > enemy->getCurrentHp()){
-				enemyGauge->setValue(-1*enemy->getCurrentHp());
-				enemy->setCurrentHp(0);
-			}else{
-				enemyGauge->setValue(-1*damage);
-				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
-			}
-			//---
-			puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 무효화된다.
-			//크리티컬은 적에게 일반 데미지를 줄떄만 발동된다.
-			//명중률 증가 버프는 적에게 데미지를 줄떄만 삭제된다.
-		}else if(damage < 0){//적 체력 회복
-			if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){
-				enemyGauge->setValue(enemy->getMaxHp()-enemy->getCurrentHp());
-				enemy->setCurrentHp(enemy->getMaxHp());
-			}else{
-				enemyGauge->setValue(-1*damage);
-				enemy->setCurrentHp(enemy->getCurrentHp()-damage);
-			}
-		}
+		}//미스가 났을 경우는 위 경우를 다 스킵함(아무 효과 없으니까)
 		if((*player)->getHP() <= 0 || enemy->getCurrentHp() <= 0)
 			sceneNum=checkSkill;
-		else
+		else{
 			sceneNum=enemySkill;
+			particle->setParticle(enemy->getAnimationNum());
+			if(enemy->getAcc() >= rand()%100){
+				isMiss=false;
+			}
+		}
 	}
 	hpGauge->update();
 	enemyGauge->update();
@@ -215,11 +237,13 @@ void Battle::playerSkillUpdate(){
 }
 void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
-	skillEffect->update(&skillSprite, true);
+	if(isMiss)
+		skillEffect->update(&skillSprite, true);
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
 		skillTime.restart();
 		(*player)->setHP((*player)->getHP()-enemy->getDamage());
 		hpGauge->setValue(-1*enemy->getDamage());
+		isMiss=false;//뭐가 됬든 일단 거짓
 		sceneNum=checkSkill;
 	}
 	hpGauge->update();
@@ -252,9 +276,14 @@ bool Battle::getResult(){
 void Battle::draw(sf::RenderWindow &window){
 	int i;
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
-		window.draw(skillSprite);
+		if(isMiss){
+			window.draw(skillSprite);
+		}else{
+			particle->setLocationList();
+		}
 		//return;
 	}
+	particle->draw(window);
 	
 	if(isBattle){
 		puzzle->draw(window);

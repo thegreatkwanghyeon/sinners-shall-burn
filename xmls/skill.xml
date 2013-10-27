@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <List>
-  <skill code ="1" need ="2" name ="화염구" damage ="15" pdamage ="5" guard ="0" acc ="100" animation="1">뜨거운 불꽃으로 적에게 15의 데미지를 주고 5의 데미지를 입는다</skill>
+  <skill code ="1" need ="2" name ="화염구" damage ="15" pdamage ="5" guard ="0" acc ="0" animation="1">뜨거운 불꽃으로 적에게 15의 데미지를 주고 5의 데미지를 입는다</skill>
   <skill code ="2" need ="4" name ="타오르는 화염" damage ="20" pdamage ="10" guard ="0" acc ="100" animation="1">타오르는 화염으로 적에게 20의 데미지를 주고 10의 피해를 입는다</skill>
   <skill code ="3" need ="8" name ="지옥불" damage ="30" pdamage ="15" guard ="0" acc ="100" animation="1">지옥의 불길로 적에게 30의 데미지를 주고 15의 피해를 입는다</skill>
   <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="50" pdamage ="25" guard ="0" acc ="75" animation="1">멸망의 화염으로 적에게 50의 데미지를 주고 25의 피해를 입는다</skill>

@@ -27,6 +27,7 @@ Skill::Skill(){
 		pNode->ToElement()->Attribute("code",&data[i].code);
 
 		data[i].name = (MTW(pNode->ToElement()->Attribute("name")));
+		data[i].link = (MTW(pNode->ToElement()->Attribute("imgLink")));
 		data[i].effect = (MTW(pNode->ToElement()->GetText()));
 
 		pNode->ToElement()->Attribute("damage",&data[i].damage);

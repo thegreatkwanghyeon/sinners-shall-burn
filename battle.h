@@ -26,13 +26,13 @@ class Battle : public SceneBase{
 	private:
 		TiXmlDocument stats;
 		sf::Font font;
-		sf::Text text,dotText,guardText,accText;
+		sf::Text text,stateText;
 		sf::Clock limitTime;
 		sf::Clock skillTime;
 		char plusString[100];
 
-		sf::Sprite   sprite,faceSprite;
-		sf::Texture  texture, face;
+		sf::Sprite   sprite,faceSprite,skillBGSprite;
+		sf::Texture  texture, face,skillBG;
 		TileSet *tileset;
 		TileSet *faceTileset;
 		Enemy *enemy;

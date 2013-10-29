@@ -16,18 +16,19 @@ Battle::Battle(Player** _player){
 	tileset = new TileSet();
 	faceTileset = new TileSet();
 
-	texture.loadFromFile("img/skill2.png");
-	texture = tileset->tileSet("img/skill2.png",30,30);
-
 	face.loadFromFile("img/face.PNG");
 	face = faceTileset->tileSet("img/face.PNG",150,200);
 
+	texture.loadFromFile("img/skills/empty.png");
 	sprite.setTexture(texture);
-	sprite.setTextureRect(tileset->getTileSet(0));
 
 	faceSprite.setTexture(face);
 	faceSprite.setTextureRect(faceTileset->getTileSet(0));
 	faceSprite.setPosition(325,455);
+
+	skillBG.loadFromFile("img/skillBackground.png");
+	skillBGSprite.setTexture(skillBG);
+	skillBGSprite.setPosition(800,440);
 
 	skill = (*player)->skill;
 
@@ -39,21 +40,13 @@ Battle::Battle(Player** _player){
 	text.setString(L"bonus : 1.00");
 	text.setPosition(450.0f, 250.0f);
 
-	dotText.setFont(font); 
-	dotText.setString(L"dot : 0");
-	dotText.setPosition(450.0f, 350.0f);
-
-	guardText.setFont(font); 
-	guardText.setString(L"guart : 0");
-	guardText.setPosition(450.0f, 400.0f);
-
-	accText.setFont(font); 
-	accText.setString(L"plus Acc : 0");
-	accText.setPosition(450.0f, 450.0f);
+	stateText.setFont(font); 
+	stateText.setString(L"dot : 0\nguard : 0\nplusAcc : 0");
+	stateText.setPosition(450.0f, 350.0f);
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
-		button[i] = new Button("img/skillButton.png");
+		button[i] = new Button("img/skills/skillcover.png");
 		button[i]->setClickSound("sounds/button/click.wav");
 		button[i]->setHoverSound("sounds/button/hover.wav");
 		tooltip[i] = new Tooltip("img/tooltip.png");
@@ -102,9 +95,7 @@ void Battle::update(sf::Event &event){
 	int chk[200]={0,};
 
 	float delta;
-	
-	for(i=0;i<ViewSkill;i++)
-		canUseSkill[i]=0;
+
 	for(i=0;i<200;i++){
 		chk[i]=0;
 	}
@@ -114,13 +105,10 @@ void Battle::update(sf::Event &event){
 		puzzle->update(event);
 
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f", puzzle->getPlusDamage());
-	text.setString(plusString);				
-	_snprintf(plusString, sizeof(plusString), "guard : %d", (*player)->getGuard());
-	guardText.setString(plusString);
-	_snprintf(plusString, sizeof(plusString), "dot : %d", enemy->getDot());
-	dotText.setString(plusString);
-	_snprintf(plusString, sizeof(plusString), "plusAcc : %d",(*player)->getAcc());
-	accText.setString(plusString);
+	text.setString(plusString);
+
+	_snprintf(plusString, sizeof(plusString), "dot : %d\nguard : %d\nplusAcc : %d", enemy->getDot(),(*player)->getGuard(),(*player)->getAcc());
+	stateText.setString(plusString);
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
 		playerSkillUpdate();
@@ -132,7 +120,9 @@ void Battle::update(sf::Event &event){
 		checkSkillUpdate();
 		return;
 	}
-
+	
+	for(i=0;i<ViewSkill;i++)
+		canUseSkill[i]=0;
 	if(keyEvent){
 		delta=deltaClock.getElapsedTime().asSeconds();
 		if(delta >= 0.5)
@@ -162,11 +152,14 @@ void Battle::update(sf::Event &event){
 				deltaClock.restart();
 				keyEvent=true;
 
-				canUseSkill[i]=0;
+				//canUseSkill[i]=0;//노필요
+				/*
+				for(j=i+1;j<useCnt;j++){
+					canUseSkill[j-1]=canUseSkill[j];
+				}
+				canUseSkill[useCnt-1]=0;*/
 				useCnt--;
 				srand(time(NULL));
-
-				
 
 				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//0~99
 					(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
@@ -342,21 +335,28 @@ void Battle::draw(sf::RenderWindow &window){
 	particle->draw(window);
 	
 	if(isBattle){
+		window.draw(skillBGSprite);
 		puzzle->draw(window);
 
 		window.draw(enemy->getName());
 		enemyGauge->draw(window);
 
-		for(i=0;i<ViewSkill;i++){
-			button[i]->draw(window);
-		}
+		
 		for(i=0;i<ViewSkill;i++){
 			if(i < (ViewSkill/2))
 				sprite.setPosition(830+(i*150),450);//dir-------------------------->
 			else
 				sprite.setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
-			sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
+			//sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
+			if(canUseSkill[i] != 0){
+				texture.loadFromFile(skill->data[canUseSkill[i]].link);
+			}else{
+				texture.loadFromFile("img/skills/empty.png");
+			}
 			window.draw(sprite);
+		}
+		for(i=0;i<ViewSkill;i++){
+			button[i]->draw(window);
 		}
 		for(i=0;i<useCnt;i++){
 			tooltip[i]->draw(window);
@@ -365,9 +365,7 @@ void Battle::draw(sf::RenderWindow &window){
 		
 	hpGauge->draw(window);
 	window.draw(text);
-	window.draw(accText);
-	window.draw(dotText);
-	window.draw(guardText);
+	window.draw(stateText);
 	//---face---//
 	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);

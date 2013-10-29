@@ -20,11 +20,15 @@ class MakeMap{
 		void makeRandomMap();
 		int countNeighbours(int x, int y);
 		void makeDoor();
+		
+		int maxLocPos;
+		int chk[MapY+100][MapX+100];
 	public:
 		MakeMap();
 		~MakeMap(){}
 		void buildMap(int fNum);
 		int getMap(int y, int x);
+		sf::Vector2i getEnemyPos(int num, int max);
 
 		sf::Vector2i getPortal();
 };

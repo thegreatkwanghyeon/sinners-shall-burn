@@ -125,11 +125,9 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 	int s=0,e=1;
 	int maxLoc,max=1;
 	sf::Vector2i stack[MapX*MapY+100];//여유롭게~
-	int chk[MapY+100][MapX+100];
 	//---
-
 	for(int i=0;i<MapY;i++){
-		for(int j=0;j<MapX;j++){
+		for(int j=0;j<MapY;j++){
 			chk[i][j]=0;
 		}
 	}
@@ -137,7 +135,8 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 	//stack[s].x=2;
 	//stack[s].y=2;
 	stack[s].x=2;
-	stack[s].y=2;
+	stack[s].y=(MapX-2)-1;
+
 	chk[stack[s].y][stack[s].x]=1;//시작값은 1로.
 	//일단 시작값은 중앙(빈칸). 중앙으로부터 시작해서 제일 외진 칸에 문을 설치한다.
 	while(1){
@@ -185,15 +184,33 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		}
 		s++;
 	}
+	//------
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
-			printf("%2d ",chk[i][j]);
+			if(chk[MapX-j-1][i] == 0)
+				printf("■ ");
+			else
+				printf("%2d ",chk[MapX-j-1][i]);
 		}
 		printf("\n");
+
+		//---		
 	}
 	map[stack[maxLoc].y][stack[maxLoc].x]=9;//문짝
 	portal=stack[maxLoc];
+
+	maxLocPos=max;//주인공의 위치로부터의 최대 거리를 저장.
 }
 sf::Vector2i MakeMap::getPortal(){
 	return portal;
+}
+sf::Vector2i MakeMap::getEnemyPos(int num, int max){
+	for(int i=0;i<MapY;i++){
+		for(int j=0;j<MapX;j++){
+			if(chk[MapX-j-1][i] == num*(maxLocPos/max)+(maxLocPos/max)/2){
+				printf("---%d %d (%d | %d)%d\n",MapX-j-1,i,chk[MapX-j-1][i],map[MapX-j-1][i],num);
+				return sf::Vector2i(j,i);
+			}
+		}
+	}
 }

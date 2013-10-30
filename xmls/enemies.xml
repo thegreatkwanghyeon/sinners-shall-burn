@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <Enemies>
-  <Enemy code="1" hp="50" damage="10" animation="100" acc="50"> 구울</Enemy>
-  <Enemy code="2" hp="100" damage="10" animation="1" acc="50"> 주황버섯</Enemy>
-  <Enemy code="3" hp="500" damage="10" animation="1" acc="50"> 코란도C</Enemy>
-  <Enemy code="4" hp="200" damage="10" animation="1" acc="50"> 1/48 티거</Enemy>
-  <Enemy code="5" hp="5000" damage="10" animation="1" acc="50"> 브루스 윌리스</Enemy>
+  <Enemy code="1" hp="50" damage="10" skill1="100" skill2="2" acc="50" subpro="15"> 구울</Enemy>
+  <Enemy code="2" hp="100" damage="10" skill1="100" skill2="2" acc="50" subpro="15"> 주황버섯</Enemy>
+  <Enemy code="3" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="15"> 코란도C</Enemy>
+  <Enemy code="4" hp="200" damage="10" skill1="1" skill2="10" acc="50" subpro="15"> 1/48 티거</Enemy>
+  <Enemy code="5" hp="5000" damage="10" skill1="1" skill2="10" acc="50" subpro="35"> 브루스 윌리스</Enemy>
 </Enemies>

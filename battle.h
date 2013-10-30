@@ -59,9 +59,9 @@ class Battle : public SceneBase{
 		int canUseSkill[ViewSkill+1];
 
 		int sceneNum;
-		//int useCnt;
 
-		//Character *character;
+		bool subSkill;//몹이 서브스킬 발동시 켜는 bool?
+
 		Puzzle *puzzle;
 
 		void playerSkillUpdate();

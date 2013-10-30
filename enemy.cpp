@@ -17,7 +17,9 @@ Enemy::Enemy(int _code) : textureSize(256){
 			currentHp = maxHp;
 			pNode->ToElement()->Attribute("damage",&damage);
 			pNode->ToElement()->Attribute("acc",&acc);
-			pNode->ToElement()->Attribute("animation",&animationNum);
+			pNode->ToElement()->Attribute("skill1",&animationNum);
+			pNode->ToElement()->Attribute("skill2",&subAniNum);
+			pNode->ToElement()->Attribute("subpro",&subPro);
 			name.setString(MTW(pNode->ToElement()->GetText()));
 			code=tmpCode;
 			break;
@@ -109,4 +111,10 @@ void Enemy::setDot(int num){
 }
 int Enemy::getAcc(){
 	return acc;
+}
+int Enemy::getSubPro(){
+	return subPro;
+}
+int Enemy::getSubAni(){
+	return subAniNum;
 }

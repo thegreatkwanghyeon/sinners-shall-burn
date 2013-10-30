@@ -17,6 +17,8 @@ class Enemy{
 		int damage;//юс╫ц
 		int currentHp;
 		int animationNum;
+		int subAniNum;
+		int subPro;
 		int dot;
 		int acc;
 		sf::Vector2f position;
@@ -50,6 +52,8 @@ class Enemy{
 		int getDot();
 		void setDot(int num);
 		int getAcc();
+		int getSubPro();
+		int getSubAni();
 
 		
 };

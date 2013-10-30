@@ -68,6 +68,7 @@ Battle::Battle(Player** _player){
 
 	sceneNum=normal;//기본 상태
 	isMiss=false;
+	subSkill=false;
 }
 Battle::~Battle(){
 	delete puzzle;
@@ -176,16 +177,17 @@ void Battle::update(sf::Event &event){
 
 				sceneNum=playerSkill;
 
-				if(skill->data[useSkillNow].plusAcc > 0){
-					(*player)->setAcc(skill->data[useSkillNow].plusAcc);//추가 명중률을 더해줌
-				}if(skill->data[useSkillNow].guard > 0){
-					(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
-				}if(skill->data[useSkillNow].dot > 0){
-					enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
+				if(!isMiss){
+					if(skill->data[useSkillNow].plusAcc > 0){
+						(*player)->setAcc(skill->data[useSkillNow].plusAcc);//추가 명중률을 더해줌
+					}
+					if(skill->data[useSkillNow].guard > 0){
+						(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
+					}
+					if(skill->data[useSkillNow].dot > 0){
+						enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
+					}
 				}
-
-			}else{
-				//필드에서 약초는 사용가능!
 			}
 		}
 		if(canUseSkill[i] != 0){
@@ -261,6 +263,17 @@ void Battle::playerSkillUpdate(){
 			particle->setParticle(enemy->getAnimationNum());
 			if(enemy->getAcc() >= rand()%100){
 				isMiss=false;
+			}else{
+				isMiss=true;
+			}
+			//몹의 서브스킬 판정
+			if(rand()%100 <= enemy->getSubPro()){
+				subSkill=true;
+				particle->setParticle(enemy->getSubAni());
+				(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
+				//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
+				//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가
+				//도트뎀 프린트는 적/아군 바뀐거 적용하고 차후 하자 졸려 시발 으아
 			}
 		}
 	}
@@ -271,7 +284,12 @@ void Battle::playerSkillUpdate(){
 void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
-		int damage=enemy->getDamage();
+		int damage;
+		if(subSkill){
+			damage = skill->data[enemy->getSubAni()].damage;
+		}else{
+			damage = enemy->getDamage();
+		}
 		
 		if(!isMiss){
 			if(damage >= (*player)->getGuard()){
@@ -307,7 +325,21 @@ void Battle::checkSkillUpdate(){
 		else
 			enemy->setDot(0);
 	}
+	if((*player)->getDot() > 0){
+		if((*player)->getDot() > (*player)->getHP()){
+			hpGauge->setValue(-1*(*player)->getHP());
+			(*player)->setHP(0);
+		}else{
+			hpGauge->setValue(-1*(*player)->getDot());
+			(*player)->setHP((*player)->getHP()-(*player)->getDot());
+		}
+		if((*player)->getDot() > 5)
+			(*player)->setDot((*player)->getDot()-5);
+		else
+			(*player)->setDot(0);
+	}
 	isMiss=false;
+	subSkill=false;
 	sceneNum=normal;
 	return;
 }

@@ -7,7 +7,8 @@ class ParticleList{
 		int num;
 		int x,y;
 
-		ParticleSystem *particle;
+		ParticleSystem *particle[5];
+		int useNum;
 	public :
 
 		ParticleList(int _x, int _y);

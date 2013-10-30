@@ -1,14 +1,16 @@
 #ifndef __particlelist__
 #define __particlelist__
 
-#include "particlesystem.h"
+#include "particles.h"
 class ParticleList{
 	private : 
 		int num;
-	public :
-		ParticleSystem* particle;
+		int x,y;
 
-		ParticleList(int x, int y);
+		ParticleSystem *particle;
+	public :
+
+		ParticleList(int _x, int _y);
 		~ParticleList();
 
 		void setParticle(int _num);

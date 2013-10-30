@@ -1,54 +1,28 @@
 #include "particlelist.h"
 
-ParticleList::ParticleList(int x, int y){
-	particle = new ParticleSystem(x, y);
+ParticleList::ParticleList(int _x, int _y){
+	x=_x;
+	y=_y;
+	particle = new particle::Fire(x,y);//°Á Àû´çÈ÷ ÃÊ±âÈ­? ±Û›ã
 }
 void ParticleList::setParticle(int _num){
 	num=_num;
 	switch(num){
 		case 1: //È­¿°±¸
-			particle->setTexture("img/particles/circle.png");
-			particle->setAngle(70);
-			particle->setAngleVar(110);
-			particle->setLife(90);
-			particle->setLifeVar(130);
-			particle->setSpeed(0.4);
-			particle->setSpeedVar(0.6);
-			particle->setStartColor(255, 180, 0, 255);
-			particle->setEndColor(255, 0, 0, 0);
+			delete particle;
+			particle = new particle::Fire(x,y);			
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
-			particle->setTexture("img/particles/circle.png");
-			particle->setAngle(200);
-			particle->setAngleVar(200);
-			particle->setLife(150);
-			particle->setLifeVar(200);
-			particle->setSpeed(0.5);
-			particle->setSpeedVar(0.9);
-			particle->setStartColor(255, 180, 0, 255);
-			particle->setEndColor(255, 0, 0, 0);
+			delete particle;
+			particle = new particle::Explosion(x,y);
 			break;
 		case 100: //¸÷ °ø°Ý 1¹ø?
-			particle->setTexture("img/particles/circle.png");
-			particle->setAngle(0);
-			particle->setAngleVar(360);
-			particle->setLife(90);
-			particle->setLifeVar(130);
-			particle->setSpeed(0.4);
-			particle->setSpeedVar(0.6);
-			particle->setStartColor(0, 180, 255, 255);
-			particle->setEndColor(0, 0, 255, 0);
+			delete particle;
+			particle = new particle::Water(x,y);
 			break;
 		default : 
-			particle->setTexture("img/particles/circle.png");
-			particle->setAngle(70);
-			particle->setAngleVar(110);
-			particle->setLife(90);
-			particle->setLifeVar(130);
-			particle->setSpeed(0.4);
-			particle->setSpeedVar(0.6);
-			particle->setStartColor(255, 180, 0, 255);
-			particle->setEndColor(255, 0, 0, 0);
+			delete particle;
+			particle = new particle::Explosion(x,y);
 	}
 }
 ParticleList::~ParticleList(){

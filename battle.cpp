@@ -88,6 +88,10 @@ void Battle::startBattle(int _code){
 	delete(enemyGauge);
 	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
+
+	(*player)->setAcc(0);
+	(*player)->setGuard(0);
+	(*player)->setDot(0);
 }
 
 void Battle::update(sf::Event &event){
@@ -268,18 +272,19 @@ void Battle::enemySkillUpdate(){
 //애니메이션 업데이트
 	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
 		int damage=enemy->getDamage();
-
-		if(damage >= (*player)->getGuard()){
-			damage-=(*player)->getGuard();
-			(*player)->setGuard(0);
-		}else{
-			(*player)->setGuard((*player)->getGuard()-damage);
-			damage=0;
+		
+		if(!isMiss){
+			if(damage >= (*player)->getGuard()){
+				damage-=(*player)->getGuard();
+				(*player)->setGuard(0);
+			}else{
+				(*player)->setGuard((*player)->getGuard()-damage);
+				damage=0;
+			}
+			(*player)->setHP((*player)->getHP()-damage);
+			hpGauge->setValue(-1*damage);
 		}
-
 		skillTime.restart();
-		(*player)->setHP((*player)->getHP()-damage);
-		hpGauge->setValue(-1*damage);
 		sceneNum=checkSkill;
 	}
 	hpGauge->update();

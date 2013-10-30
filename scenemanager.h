@@ -4,8 +4,9 @@
 #include "scenebase.h"
 #include "gamescene.h"
 #include "titlescene.h"
-#include "battle.h"
+//#include "battle.h"
 #include "raycastingscene.h"
+#include "clearscene.h"
 
 class SceneManager{
 	private:

@@ -33,7 +33,9 @@ TitleScene::TitleScene(){
 	endFlag=false;
 }
 TitleScene::~TitleScene(){
-	
+	delete startButton;
+	delete endButton;
+	delete particle;
 }
 void TitleScene::update(sf::Event &event){
 	particle->update();

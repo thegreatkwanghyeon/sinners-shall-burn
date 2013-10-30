@@ -124,6 +124,9 @@ void GameScene::draw(sf::RenderWindow &window){
 int GameScene::changeScene(){
 	if(changeFlag)
 		return 1;
+	else if(floorNum >= 1){
+		return 3;
+	}
 	return -1;
 }
 void GameScene::makeEnemys(){

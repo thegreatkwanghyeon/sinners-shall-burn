@@ -27,7 +27,12 @@ int main(void){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 				sceneManager->setScene(new GameScene());
 			}
-		sceneManager->update(Event);
+			if(sceneManager->getCurrentScene()->changeScene() == 3){
+				printf("scene Change! end!");
+				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
+				sceneManager->setScene(new ClearScene());
+			}
+			sceneManager->update(Event);
 		}
 
 		float currentTime = clock.restart().asSeconds();
@@ -49,6 +54,10 @@ int main(void){
 		window.setView(view);
 		sceneManager->update(Event);
 		sceneManager->draw(window);
+		if(sceneManager->getCurrentScene()->changeScene() == 3){//게임이 끝나는 경우에는 예외적으로 처리함.
+			view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
+			sceneManager->setScene(new ClearScene());
+		}
 
 		window.draw(textFps);
 		window.display();

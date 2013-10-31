@@ -618,7 +618,7 @@ int RayCastingScene::getAngle(){
             return 3;
     else if(dir.x == 0 && dir.y == -1 && plane.x == -0.66 && plane.y == 0)
             return 4;
-		return -1;
+	return -1;
 }
 int RayCastingScene::isBattle(){
 	int angle=getAngle();
@@ -671,7 +671,7 @@ void RayCastingScene::setPos(sf::Vector2f temp){
 bool RayCastingScene::isMapChange(){
 	int angle=getAngle();
 
-	if(isGoB || isGoF || isGoL || isGoR)
+	if(getAngle() == -1)
 		return false;
 
 	//printf("%d %d -- %d %d << %d\n",(int)pos.x, deltaClock.getElapsedTime().asSeconds().x,(int)pos.y, deltaClock.getElapsedTime().asSeconds().y,angle);
@@ -690,4 +690,9 @@ bool RayCastingScene::isMapChange(){
 
 void RayCastingScene::setPortal(sf::Vector2i _portal){
 	portal=_portal;
+}
+bool RayCastingScene::isMove(){
+	if(getAngle() == -1)
+		return true;
+	return false;
 }

@@ -130,6 +130,7 @@ class RayCastingScene{
 		bool isMapChange();
 
 		void setPortal(sf::Vector2i _portal);
+		bool isMove();
 
 };
 

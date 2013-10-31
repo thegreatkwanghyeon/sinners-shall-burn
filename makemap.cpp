@@ -213,4 +213,5 @@ sf::Vector2i MakeMap::getEnemyPos(int num, int max){
 			}
 		}
 	}
+	return sf::Vector2i(-1,-1);//에러난 경우?
 }

@@ -6,6 +6,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "button.h"
+#include "pause.h"
 
 
 class GameScene : public SceneBase{
@@ -15,6 +16,7 @@ class GameScene : public SceneBase{
 		Player *player;
 		Player **pPlayer;
 		MakeMap *makemap;
+		Pause *pause;
 
 		sf::Font font;
 		sf::Text text;
@@ -43,7 +45,7 @@ class GameScene : public SceneBase{
 		sf::Vector2f translatePosition(float _x, float _y);
 	public:
 		GameScene();
-		~GameScene(){}
+		~GameScene();
 		void update(sf::Event &event);
 		void draw(sf::RenderWindow &window);
 		int changeScene();//게임오버, 타이틀로 돌아가기 등의 상황서 메인에 신변경 전달?

@@ -37,12 +37,13 @@ Battle::Battle(Player** _player){
 
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font); 
-	text.setString(L"bonus : 1.00");
-	text.setPosition(450.0f, 250.0f);
+	text.setString(L"bonus : 1.00\ndot : 0\nguard : 0\nplusAcc : 0");
+	text.setPosition(0.0f, 110.0f);
 
-	stateText.setFont(font); 
-	stateText.setString(L"dot : 0\nguard : 0\nplusAcc : 0");
-	stateText.setPosition(450.0f, 350.0f);
+
+	eText.setFont(font); 
+	eText.setString(L"dot : 0\nAcc : 0");
+	eText.setPosition(1000.0f, 200.0f);
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
@@ -69,6 +70,7 @@ Battle::Battle(Player** _player){
 	sceneNum=normal;//기본 상태
 	isMiss=false;
 	subSkill=false;
+
 }
 Battle::~Battle(){
 	delete puzzle;
@@ -109,11 +111,11 @@ void Battle::update(sf::Event &event){
 	if(isBattle)
 		puzzle->update(event);
 
-	_snprintf(plusString, sizeof(plusString), "bonus : %.2f", puzzle->getPlusDamage());
+	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\ndot : %d\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getDot(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);
 
-	_snprintf(plusString, sizeof(plusString), "dot : %d\nguard : %d\nplusAcc : %d", enemy->getDot(),(*player)->getGuard(),(*player)->getAcc());
-	stateText.setString(plusString);
+	_snprintf(plusString, sizeof(plusString), "dot : 0\nAcc : 0",enemy->getDot(),enemy->getAcc());
+	eText.setString(plusString);
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
 		playerSkillUpdate();
@@ -375,7 +377,7 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(skillBGSprite);
 		puzzle->draw(window);
 
-		window.draw(enemy->getName());
+		window.draw(enemy->getName());//몹 이름 출력!
 		enemyGauge->draw(window);
 
 		
@@ -398,11 +400,11 @@ void Battle::draw(sf::RenderWindow &window){
 		for(i=0;i<useCnt;i++){
 			tooltip[i]->draw(window);
 		}
+		window.draw(text);//보너스뎀,명중률보정,가드,도트뎀 수치 저장하는 곳.
+		window.draw(eText);//적의 평타 명중률과 도트데미지 기록
 	}
 		
 	hpGauge->draw(window);
-	window.draw(text);
-	window.draw(stateText);
 	//---face---//
 	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);
@@ -436,4 +438,9 @@ void Battle::useSkill(int num){
 			}
 		}
 	}
+}
+bool Battle::getState(){
+	if(isBattle == false || sceneNum == normal)//전투중이 아니거나, 전투중이어도 그냥 대기타고 있는경우.
+		return true;
+	return false;
 }

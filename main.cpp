@@ -15,7 +15,7 @@ int main(void){
 		sf::Event Event;
 
 		while (window.pollEvent(Event)){
-			if(Event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sceneManager->getCurrentScene()->changeScene() == 0){
+			if(Event.type == sf::Event::Closed ||sceneManager->getCurrentScene()->changeScene() == 0){
 				window.close();
 			}
 		

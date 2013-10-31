@@ -58,9 +58,25 @@ GameScene::GameScene(){
 
 	changeFlag=false;
 	printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
-}
 
+	pause = new Pause();
+}
+GameScene::~GameScene(){
+	delete battle;
+	delete rayCastingScene;
+	delete pause;
+	delete player;
+	delete overButton;
+	delete makemap;
+}
 void GameScene::update(sf::Event &event){
+	if(pause->getState()){//정지되었으면 true 리턴
+		pause->update(event);
+		return;
+	}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && battle ->getState() && !isOver){//ESC를 눌렀고 배틀에서 특별한 상황(레이캐스팅의 무빙 포함)이 없는경우. 게임오버떄 뜨는건 좀 그렇지?
+		pause->pauseOn();
+		return;
+	}
 	if(isOver){
 		//rayCastingScene->setShader((std::string)"blood");
 		overButton->update(event);
@@ -106,6 +122,7 @@ void GameScene::update(sf::Event &event){
 }
 
 void GameScene::draw(sf::RenderWindow &window){
+	//---
 	rayCastingScene->draw(window);
 	sf::View view;
 	view.reset(sf::FloatRect(0, 0, 1280, 700));
@@ -117,11 +134,14 @@ void GameScene::draw(sf::RenderWindow &window){
 		window.draw(text);
 		overButton->draw(window);
 	}
-	view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
-	window.setView(view);
-
+	//-------------일단 다 출력은 해줌------------
+	if(pause->getState()){//일시정지시
+		pause->draw(window);
+	}
 }
 int GameScene::changeScene(){
+	if(pause->isEnd())//종료
+		return 0;
 	if(changeFlag)
 		return 1;
 	else if(floorNum >= 1){

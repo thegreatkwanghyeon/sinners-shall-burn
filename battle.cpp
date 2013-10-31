@@ -76,11 +76,13 @@ Battle::~Battle(){
 	delete puzzle;
 	delete hpGauge;
 	delete enemyGauge;
-	delete button;
-	delete tooltip;
-	delete skill;
+	for(int i=0;i<ViewSkill;i++){
+		delete button[i];
+		delete tooltip[i];
+	}
+	
 	delete enemy;
-	delete player;
+	//delete player;
 	delete tileset;
 	delete faceTileset;
 }

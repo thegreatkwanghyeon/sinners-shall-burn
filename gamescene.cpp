@@ -142,7 +142,7 @@ void GameScene::draw(sf::RenderWindow &window){
 int GameScene::changeScene(){
 	if(pause->isEnd())//Á¾·á
 		return 0;
-	if(changeFlag)
+	if(changeFlag || pause->isGoTitle())
 		return 1;
 	else if(floorNum >= 1){
 		return 3;
@@ -160,7 +160,7 @@ void GameScene::makeEnemys(){
 		tp=makemap->getEnemyPos(i,5);
 		enemy[i]->setPosition(translatePosition((double)tp.x+0.5,(double)tp.y+0.5));
 		enemy[i]->setPosition(sf::Vector2f(enemy[i]->getPosition().x+1,enemy[i]->getPosition().y));
-		printf("%d : %.2f %.2f ---\n",i,enemy[i]->getPosition().x,enemy[i]->getPosition().y);
+		//printf("%d : %.2f %.2f ---\n",i,enemy[i]->getPosition().x,enemy[i]->getPosition().y);
 		enemy[i]->setTexture(texture);
 	}
 

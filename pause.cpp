@@ -3,12 +3,19 @@
 Pause::Pause(){
 	isPause=false;
 	endFlag=false;
+	titleFlag=false;
 
 	cButton = new Button("img/startbutton.png");
 	cButton->setClickSound("sounds/button/click.wav");
 	cButton->setHoverSound("sounds/button/hover.wav");
 	cButton->setPosition(500,300);
 	cButton->setText("continue");
+
+	tButton = new Button("img/startbutton.png");
+	tButton->setClickSound("sounds/button/click.wav");
+	tButton->setHoverSound("sounds/button/hover.wav");
+	tButton->setPosition(500,400);
+	tButton->setText("back to title");
 
 	endButton = new Button("img/startbutton.png");
 	endButton->setClickSound("sounds/button/click.wav");
@@ -19,14 +26,18 @@ Pause::Pause(){
 Pause::~Pause(){
 	delete cButton;
 	delete endButton;
+	delete tButton;
 }
 void Pause::update(sf::Event &event){
 	cButton->update(event);
+	tButton->update(event);
 	endButton->update(event);
 	if(cButton->checkMouseClick(event))
 		pauseOff();//콘티뉴버튼 누르면 계속 진행...
 	if(endButton->checkMouseClick(event))
 		endFlag=true;
+	if(tButton->checkMouseClick(event))
+		titleFlag=true;
 }
 void Pause::draw(sf::RenderWindow &window){
 	sf::RectangleShape rec;//화면 검게 덮어줄 사각형
@@ -36,6 +47,7 @@ void Pause::draw(sf::RenderWindow &window){
 	window.draw(rec);
 	//---
 	cButton->draw(window);
+	tButton->draw(window);
 	endButton->draw(window);
 }
 bool Pause::getState(){
@@ -48,8 +60,8 @@ void Pause::pauseOff(){
 	isPause=false;
 }
 bool Pause::isEnd(){
-	if(endFlag){
-		return true;
-	}
-	return false;
+	return endFlag;
+}
+bool Pause::isGoTitle(){
+	return titleFlag;
 }

@@ -60,6 +60,8 @@ void TitleScene::draw(sf::RenderWindow &window){
 	endButton->draw(window);		
 }
 int TitleScene::changeScene(){
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		return 0;
 	if(sceneFlag)//시작 버튼을 눌렀을떄
 		return 2;
 	else if(endFlag)

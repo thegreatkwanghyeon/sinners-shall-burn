@@ -11,27 +11,27 @@
   <skill code ="8" need ="81" name ="제왕의 삼지창" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/trident.png">장대한 해일로 적에게 25의 지속 데미지를 준다</skill>
   
   <skill code ="9" need ="5" name ="약초" damage ="0" pdamage ="-10" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/healingherb.png">약초의 힘으로 체력을 10 회복한다</skill>
-  <skill code ="10" need ="25" name ="씨뿌리기" damage ="10" pdamage ="-10" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">씨앗을 적에게 심어 10의 데미지를 주고 10의 체력을 회복한다</skill>
-  <skill code ="11" need ="125" name ="거대화" damage ="0" pdamage ="-20" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">자연의 힘으로 체력을 20 회복한다</skill>
-  <skill code ="12" need ="625" name ="생명의 씨앗" damage ="-10" pdamage ="-30" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">자연의 힘을 받아 체력을 30만큼 회복하고 적의 체력을 10 회복한다</skill>
+  <skill code ="10" need ="25" name ="씨뿌리기" damage ="10" pdamage ="-10" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/leechseed.png">씨앗을 적에게 심어 10의 데미지를 주고 10의 체력을 회복한다</skill>
+  <skill code ="11" need ="125" name ="거대화" damage ="0" pdamage ="-20" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/growth.png">자연의 힘으로 체력을 20 회복한다</skill>
+  <skill code ="12" need ="625" name ="생명의 씨앗" damage ="-10" pdamage ="-30" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/originoflife.png">자연의 힘을 받아 체력을 30만큼 회복하고 적의 체력을 10 회복한다</skill>
   
   <skill code ="13" need ="7" name ="전기 쇼크" damage ="10" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/electricshock.png">전기 쇼크로 10의 데미지를 주고 다음 공격의 명중률을 10 올린다</skill>
-  <skill code ="14" need ="49" name ="낙뢰" damage ="20" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">번개로 20의 데미지를 주고 다음 공격의 명중률을 10 올린다</skill>
-  <skill code ="15" need ="343" name ="전자기파" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">강력한 전자기파로 적에게 혼란을 줘 다음 공격의 명중률을 50 올린다</skill>
+  <skill code ="14" need ="49" name ="낙뢰" damage ="20" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/thunderbolt.png">번개로 20의 데미지를 주고 다음 공격의 명중률을 10 올린다</skill>
+  <skill code ="15" need ="343" name ="전자기파" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/magneticfield.png">강력한 전자기파로 적에게 혼란을 줘 다음 공격의 명중률을 50 올린다</skill>
   <skill code ="16" need ="2401" name ="전자기 폭풍" damage ="30" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">번개의 폭풍을 떨어뜨려 30의 데미지를 주고 다음 공격을 무조건 적중시킨다</skill>
   
   <skill code ="17" need ="11" name ="얼음창" damage ="10" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/icespear.png">얼음창을 던져 10의 데미지와 5의 지속 피해를 준다</skill>
-  <skill code ="18" need ="121" name ="눈보라" damage ="5" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">눈보라를 일으켜 5의 데미지와 10의 지속 피해를 주고 다음 공격의 명중률을 10 올린다</skill>
-  <skill code ="19" need ="1331" name ="빙하 방패" damage ="0" pdamage ="0" guard ="25" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">빙하의 방패를 불러내 적의 공격을 25만큼 방어한다</skill>
-  <skill code ="20" need ="14641" name ="절대영도" damage ="200" pdamage ="0" guard ="0" acc ="30" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">엄청난 냉기를 내뿜어 낮은 확률로 적에게 100의 피해를 준다</skill>
+  <skill code ="18" need ="121" name ="눈보라" damage ="5" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/blizzard.png">눈보라를 일으켜 5의 데미지와 10의 지속 피해를 주고 다음 공격의 명중률을 10 올린다</skill>
+  <skill code ="19" need ="1331" name ="빙하 방패" damage ="0" pdamage ="0" guard ="25" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/frozenshield.png">빙하의 방패를 불러내 적의 공격을 25만큼 방어한다</skill>
+  <skill code ="20" need ="14641" name ="절대영도" damage ="200" pdamage ="0" guard ="0" acc ="30" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/absolutezero.png">엄청난 냉기를 내뿜어 낮은 확률로 적에게 100의 피해를 준다</skill>
   
-  <skill code ="21" need ="13" name ="땅가르기" damage ="10" pdamage ="0" guard ="5" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">땅을 갈라 10의 데미지를 주고 솟아나온 바위로 적의 공격을 5만큼 방어한다</skill>
-  <skill code ="22" need ="169" name ="대지의 사슬" damage ="0" pdamage ="0" guard ="10" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">대지의 사슬로 적을 묶어 다음 공격의 명중률을 10 올리고 적의 공격을 10만큼 방어한다</skill>
-  <skill code ="23" need ="2197" name ="모래바람" damage ="10" pdamage ="0" guard ="20" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">모래의 폭풍에 숨어 10의 데미지를 주고 적의 공격을 20만큼 방어한다</skill>
-  <skill code ="24" need ="28561" name ="지진" damage ="50" pdamage ="30" guard ="0" acc ="80" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">지진을 일으켜 50의 데미지를 주고 30의 피해를 입는다</skill>
+  <skill code ="21" need ="13" name ="땅가르기" damage ="10" pdamage ="0" guard ="5" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/earthsplitter.png">땅을 갈라 10의 데미지를 주고 솟아나온 바위로 적의 공격을 5만큼 방어한다</skill>
+  <skill code ="22" need ="169" name ="대지의 사슬" damage ="0" pdamage ="0" guard ="10" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/chainofearth.png">대지의 사슬로 적을 묶어 다음 공격의 명중률을 10 올리고 적의 공격을 10만큼 방어한다</skill>
+  <skill code ="23" need ="2197" name ="모래바람" damage ="10" pdamage ="0" guard ="20" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/sandstorm.png">모래의 폭풍에 숨어 10의 데미지를 주고 적의 공격을 20만큼 방어한다</skill>
+  <skill code ="24" need ="28561" name ="지진" damage ="50" pdamage ="30" guard ="0" acc ="80" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/earthquake.png">지진을 일으켜 50의 데미지를 주고 30의 피해를 입는다</skill>
 
   <skill code ="25" need ="17" name ="돌풍" damage ="0" pdamage ="0" guard ="15" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">돌풍을 불러내어 적의 공격을 15만큼 방어한다</skill>
-  <skill code ="26" need ="289" name ="소닉붐" damage ="30" pdamage ="10" guard ="0" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">엄청난 속도로 공기를 뿜어내어 30의 데미지를 주고 20의 피해를 입는다</skill>
+  <skill code ="26" need ="289" name ="소닉붐" damage ="30" pdamage ="10" guard ="0" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/sonicboom.png">엄청난 속도로 공기를 뿜어내어 30의 데미지를 주고 20의 피해를 입는다</skill>
   <skill code ="27" need ="4913" name ="허리케인" damage ="0" pdamage ="25" guard ="30" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">폭풍으로 자신을 감싸 30의 데미지를 막지만 25의 피해를 입는다</skill>
   <skill code ="28" need ="83521" name ="진공" damage ="10000" pdamage ="99" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">진공의 구에 적과 자신을 가둬 적을 즉사시키고 99의 피해를 입는다</skill>
 

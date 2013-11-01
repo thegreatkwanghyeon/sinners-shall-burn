@@ -105,6 +105,9 @@
     <ClInclude Include="particlelist.h">
       <Filter>system\particle</Filter>
     </ClInclude>
+    <ClInclude Include="clearscene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="enemy.cpp">
@@ -188,9 +191,14 @@
     <ClCompile Include="particlesystem.cpp">
       <Filter>system\particle</Filter>
     </ClCompile>
-    <ClCompile Include="pausescene.cpp" />
     <ClCompile Include="particlelist.cpp">
       <Filter>system\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="clearscene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="pausescene.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

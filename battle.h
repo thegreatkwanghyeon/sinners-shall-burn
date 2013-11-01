@@ -18,6 +18,7 @@
 #define StackNum 5
 #define ViewSkill 6
 #define skillEffectTime 1.5
+#define puzzleLimit 300//30√ 
 
 enum{
 	normal,playerSkill,enemySkill,checkSkill
@@ -29,6 +30,7 @@ class Battle : public SceneBase{
 		sf::Text text,eText;
 		sf::Clock limitTime;
 		sf::Clock skillTime;
+		sf::Clock puzzleTime;
 		char plusString[100];
 
 		sf::Sprite   sprite,faceSprite,skillBGSprite;
@@ -54,6 +56,7 @@ class Battle : public SceneBase{
 
 		Gauge *hpGauge;
 		Gauge *enemyGauge;
+		Gauge *timeGauge;
 
 		int code;
 		int canUseSkill[ViewSkill+1];

@@ -67,15 +67,20 @@ Battle::Battle(Player** _player){
 	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
+	timeGauge = new Gauge("img/hpgauge.png",puzzleLimit, 1, 1);
+	timeGauge->setPosition(sf::Vector2i(300,300));
+
 	sceneNum=normal;//기본 상태
 	isMiss=false;
 	subSkill=false;
 
+	puzzleTime.restart();
 }
 Battle::~Battle(){
 	delete puzzle;
 	delete hpGauge;
 	delete enemyGauge;
+	delete timeGauge;
 	for(int i=0;i<ViewSkill;i++){
 		delete button[i];
 		delete tooltip[i];
@@ -205,6 +210,30 @@ void Battle::update(sf::Event &event){
 
 	hpGauge->update();
 	enemyGauge->update();
+	if(isBattle){
+		timeGauge->update();
+		if(puzzleTime.getElapsedTime().asSeconds() >= 0.1){
+			puzzleTime.restart();
+			timeGauge->setValue(-1);
+			if(timeGauge->getValue() <= 0){
+				sceneNum=enemySkill;
+				skillTime.restart();
+
+				particle->setParticle(enemy->getAnimationNum());//파티클 설정
+				if(enemy->getAcc() >= rand()%100){
+					isMiss=false;
+				}else{
+					isMiss=true;
+				}
+				//몹의 서브스킬 판정
+				if(rand()%100 <= enemy->getSubPro()){
+					subSkill=true;
+					particle->setParticle(enemy->getSubAni());
+					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
+				}
+			}
+		}
+	}
 }
 void Battle::playerSkillUpdate(){
 //애니메이션 업데이트
@@ -345,6 +374,7 @@ void Battle::checkSkillUpdate(){
 	isMiss=false;
 	subSkill=false;
 	sceneNum=normal;
+	timeGauge->setValue(puzzleLimit-timeGauge->getValue());
 	return;
 }
 bool Battle::getResult(){
@@ -378,6 +408,7 @@ void Battle::draw(sf::RenderWindow &window){
 	if(isBattle){
 		window.draw(skillBGSprite);
 		puzzle->draw(window);
+		timeGauge->draw(window);
 
 		window.draw(enemy->getName());//몹 이름 출력!
 		enemyGauge->draw(window);

@@ -565,3 +565,14 @@ float Puzzle::getPlusDamage(){
 void Puzzle::setPlusDamage(float _damage){
 	plusDamage = _damage;
 }
+void Puzzle::cleanStack(){
+	for(int i=0;i<StackSize;i++){
+		stack[i]->num=-1;
+		stack[i]->init_animation();
+	}
+	//그리 깔끔한 방법은 아니지만...하여튼 게이지도 여기서 정리해준다.
+	button->enableButton();
+	hGauge->setValue(100);
+	reButton->enableButton();
+	reGauge->setValue(100);
+}

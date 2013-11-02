@@ -77,6 +77,7 @@ class Puzzle{
 		PData *stack[StackSize+5];
 		int stackNum;
 		void stackInput(int num);
+		void cleanStack();
 //---ÄÞº¸
 		int combo[10];
 		int comboNum;

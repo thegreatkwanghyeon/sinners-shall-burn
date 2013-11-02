@@ -20,6 +20,16 @@ void ParticleList::setParticle(int _num){
 			particle[0] = new particle::Explosion(x,y);
 			useNum=1;
 			break;
+		case 5: //기우제
+			delete particle[0];
+			particle[0] = new particle::Rain(x,y);
+			useNum=1;
+			break;
+		case 6: //침수
+			delete particle[0];
+			particle[0] = new particle::Water(x,y);
+			useNum=1;
+			break;
 		case 100: //몹 공격 1번?
 			delete particle[0];
 			delete particle[1];
@@ -55,6 +65,16 @@ void ParticleList::setLocationList(){
 		case 2 : 
 			particle[0]->setLocation(sf::Vector2i(0,0));
 			particle[0]->setLocationVar(sf::Vector2i(1280,700));
+			particle[0]->fuelInSequence(0.0, 10);
+			break;
+		case 5 : 
+			particle[0]->setLocation(sf::Vector2i(0,0));
+			particle[0]->setLocationVar(sf::Vector2i(1280,700));
+			particle[0]->fuelInSequence(0.0, 10);
+			break;
+		case 6 : 
+			particle[0]->setLocation(sf::Vector2i(500,300));
+			particle[0]->setLocationVar(sf::Vector2i(600,400));
 			particle[0]->fuelInSequence(0.0, 10);
 			break;
 		case 100 : 

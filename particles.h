@@ -27,4 +27,10 @@ namespace particle{
 			void initialize();
 
 	};
+	class Rain : public ParticleSystem{
+		public :
+			Rain(int x, int y);
+			~Rain();
+			void initialize();
+	};
 }

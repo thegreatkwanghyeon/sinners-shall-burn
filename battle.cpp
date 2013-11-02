@@ -146,7 +146,7 @@ void Battle::update(sf::Event &event){
 	useCnt=0;
 	for(i=puzzle->stackNum-1;i>=0;i--){
 		for(j=0;j+i<puzzle->stackNum;j++){
-			tp = makeCode(j,j+i);
+			tp = makeCode(j,j+i);//?
 			for(k=0;k<skill->skillNum;k++){
 				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
 					//skill->data[k].use = true;
@@ -379,6 +379,9 @@ void Battle::checkSkillUpdate(){
 	subSkill=false;
 	sceneNum=normal;
 	timeGauge->setValue(puzzleLimit-timeGauge->getValue());
+	/*puzzle->cleanStack();
+	texture.loadFromFile("img/skills/empty.png");
+	useCnt=0;*/
 	return;
 }
 bool Battle::getResult(){
@@ -386,12 +389,14 @@ bool Battle::getResult(){
 		return 0;
 	if((*player)->getHP() <= 0){
 		isBattle=false;
+		puzzle->cleanStack();
 		hpGauge->setValue(hpGauge->getValue()*-1);//0À¸·Î ±ò²ûÇÏ°Ô(°¡²û Ã³¸® ¾ÈµÇ¼­)
 		hpGauge->update();
 		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;
+		puzzle->cleanStack();
 		enemyGauge->setValue(enemyGauge->getValue()*-1);//0À¸·Î ±ò²ûÇÏ°Ô(°¡²û Ã³¸® ¾ÈµÇ¼­)
 		enemyGauge->update();
 		return 1;

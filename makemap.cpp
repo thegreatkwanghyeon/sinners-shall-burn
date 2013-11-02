@@ -197,6 +197,25 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		//---		
 	}
 	map[stack[maxLoc].y][stack[maxLoc].x]=9;//문짝
+
+	if(chk[stack[maxLoc].y-1][stack[maxLoc].x] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//위쪽을 통해 들어올 경우
+		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
+	}else if(chk[stack[maxLoc].y+1][stack[maxLoc].x] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//아래쪽을 통해 들어올 경우
+		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
+	}else if(chk[stack[maxLoc].y][stack[maxLoc].x-1] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//왼쪽을 통해 들어올 경우
+		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
+	}else if(chk[stack[maxLoc].y][stack[maxLoc].x+1] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//오른쪽을 통해 들어올 경우
+		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
+		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
+	}
+
 	portal=stack[maxLoc];
 
 	maxLocPos=max;//주인공의 위치로부터의 최대 거리를 저장.

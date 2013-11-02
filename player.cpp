@@ -8,7 +8,7 @@ Player::Player(){
 		element[i]=1;
 		useElement[i]=i;
 	}
-	for(int i=0;i<skill->skillNum-5;i++)
+	for(int i=0;i<skill->skillNum;i++)
 		skill->setHave(i);
 
 	hp=100;

@@ -75,8 +75,6 @@ Battle::Battle(Player** _player){
 	subSkill=false;
 
 	puzzleTime.restart();
-	for(i=0;i<4;i++)
-		finalSkill[i]=0;
 }
 Battle::~Battle(){
 	delete puzzle;
@@ -146,20 +144,11 @@ void Battle::update(sf::Event &event){
 	}
 	
 	useCnt=0;
-	if(finalSkill[0] == 1 && finalSkill[1] == 1 && finalSkill[2] == 1 && finalSkill[3] == 1){
-		canUseSkill[useCnt++]=skill->skillNum-1;//마지막 스킬임.
-	}
 	for(i=puzzle->stackNum-1;i>=0;i--){
 		for(j=0;j+i<puzzle->stackNum;j++){
 			tp = makeCode(j,j+i);//?
 			for(k=0;k<skill->skillNum;k++){
-				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0 && skill->data[k].have == true){//일부 스킬은 처음엔 가질 수 없다
-					if(skill->data[k].code >= skill->skillNum-5 && skill->data[k].code < skill->skillNum-1){
-						if(finalSkill[skill->skillNum-skill->data[k].code-2] == 1){//이미 쓴 4원소스킬
-							chk[skill->data[k].code]=1;
-							continue;
-						}
-					}
+				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
 					//skill->data[k].use = true;
 					chk[skill->data[k].code]=1;
 					canUseSkill[useCnt++]=skill->data[k].code;					
@@ -193,11 +182,6 @@ void Battle::update(sf::Event &event){
 					particle->setParticle(skill->data[useSkillNow].code);
 				}
 				skillTime.restart();
-
-				if(skill->data[useSkillNow].code >= skill->skillNum-5 && skill->data[useSkillNow].code < skill->skillNum-1){//-5,-4,-3,-2
-					finalSkill[skill->skillNum-skill->data[useSkillNow].code-2]=1;
-					printf("%d번째 준비 완료\n",skill->skillNum-skill->data[useSkillNow].code - 2);
-				}
 				//tp = skillEffect->getLocation();
 
 				sceneNum=playerSkill;
@@ -213,6 +197,7 @@ void Battle::update(sf::Event &event){
 					
 					if(skill->data[useSkillNow].dot > 0)
 						enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
+					
 				}
 			}
 		}
@@ -237,7 +222,11 @@ void Battle::update(sf::Event &event){
 				skillTime.restart();
 
 				particle->setParticle(enemy->getAnimationNum());//파티클 설정
-				isMiss=false;//특별한 경우이므로 100% 적중
+				if(enemy->getAcc() >= rand()%100){
+					isMiss=false;
+				}else{
+					isMiss=true;
+				}
 				enemy->setAcc(enemy->getMaxAcc());//명중률이 낮아졌을경우 다시 돌려주는 것이다.
 				//몹의 서브스킬 판정
 				if(rand()%100 <= enemy->getSubPro()){
@@ -321,6 +310,7 @@ void Battle::playerSkillUpdate(){
 				(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
 				//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
 				//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가
+				//도트뎀 프린트는 적/아군 바뀐거 적용하고 차후 하자 졸려 시발 으아
 			}
 		}
 	}
@@ -402,8 +392,6 @@ bool Battle::getResult(){
 		puzzle->cleanStack();
 		hpGauge->setValue(hpGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
 		hpGauge->update();
-		for(int i=0;i<4;i++)
-			finalSkill[i]=0;
 		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
@@ -411,8 +399,6 @@ bool Battle::getResult(){
 		puzzle->cleanStack();
 		enemyGauge->setValue(enemyGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
 		enemyGauge->update();
-		for(int i=0;i<4;i++)
-			finalSkill[i]=0;
 		return 1;
 	}
 	return 0;

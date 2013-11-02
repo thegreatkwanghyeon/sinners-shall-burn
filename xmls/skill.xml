@@ -53,13 +53,6 @@
   <skill code ="38" need ="39" name ="진흙" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="5" imgLink ="img/skills/fireball.png">적에게 진흙을 뿌려 5의 지속 데미지를 주고 다음 공격의 명중률을 20 낮춘다</skill>
   <skill code ="39" need ="117" name ="흙탕물" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-50" dot ="5" imgLink ="img/skills/fireball.png">적을 흙탕물로 덮어 다음 공격의 명중률을 50 낮춘다</skill>
   <skill code ="40" need ="507" name ="진흙 방패" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="5" imgLink ="img/skills/fireball.png">진흙의 방패로 몸을 감싸 30의 데미지를 흡수한다</skill>
-  <skill code ="41" need ="1521" name ="산사태" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="10" imgLink ="img/skills/fireball.png">적을 산사태로 덮어 다음 공격력의 명중률을 20 낮추고 10의 지속 데미지를 준다</skill>
-  
-<skill code ="42" need ="1326" name ="불 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">불의 힘이다</skill>
-<skill code ="43" need ="1326" name ="물 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">물의 힘이다</skill>
-<skill code ="44" need ="1326" name ="공기 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">공기의 힘이다</skill>
-<skill code ="45" need ="1326" name ="흙 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-0" dot ="5" imgLink ="img/skills/fireball.png">흙의 힘이다</skill>
-<skill code ="46" need ="100000" name ="4원소 종합 : end" damage ="10000000" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">전투에서 승리한다</skill>
-  
+  <skill code ="41" need ="1521" name ="산사태" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="10" imgLink ="img/skills/fireball.png">적을 산사태로 덮어 다음 공격력의 명중률을 20 낮추고 10의 지속 데미지를 준다</skill> 
 
 </List>

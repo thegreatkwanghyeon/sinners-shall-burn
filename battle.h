@@ -60,7 +60,6 @@ class Battle : public SceneBase{
 
 		int code;
 		int canUseSkill[ViewSkill+1];
-		int finalSkill[5];
 
 		int sceneNum;
 

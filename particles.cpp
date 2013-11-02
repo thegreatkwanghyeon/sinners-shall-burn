@@ -62,6 +62,6 @@ void Rain::initialize(){
 	setLifeVar(200);
 	setSpeed(3);
 	setSpeedVar(4);
-	setStartColor(0, 0, 200, 100);
-	setEndColor(0, 0, 200, 0);
+	setStartColor(0, 0, 255, 100);
+	setEndColor(0, 0, 255, 0);
 }

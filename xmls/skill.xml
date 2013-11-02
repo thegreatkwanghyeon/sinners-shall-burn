@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <List>
   <skill code ="1" need ="2" name ="화염구" damage ="15" pdamage ="5" guard ="0" acc ="0" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">뜨거운 불꽃으로 적에게 15의 데미지를 주고 5의 데미지를 입는다</skill>
-  <skill code ="2" need ="4" name ="용의 숨결" damage ="20" pdamage ="10" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/dragonslave.png">앞을 가로막는 모든 것을 불태우는 화염을 내뿜어 20의 데미지를 주고 10의 피해를 입는다</skill>
+  <skill code ="2" need ="4" name ="용의 숨결" damage ="20" pdamage ="10" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/dragonslave.png">모든 것을 불태우는 화염을 내뿜어 20의 데미지를 주고 10의 피해를 입는다</skill>
   <skill code ="3" need ="8" name ="지옥불" damage ="30" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/hellfire.png">지옥의 불길로 적에게 30의 데미지를 주고 15의 피해를 입는다</skill>
   <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="50" pdamage ="25" guard ="0" acc ="75" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/worldfire.png">멸망의 화염으로 적에게 50의 데미지를 주고 25의 피해를 입는다</skill>
   
@@ -33,23 +33,33 @@
   <skill code ="25" need ="17" name ="돌풍" damage ="0" pdamage ="0" guard ="15" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">돌풍을 불러내어 적의 공격을 15만큼 방어한다</skill>
   <skill code ="26" need ="289" name ="소닉붐" damage ="30" pdamage ="10" guard ="0" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/sonicboom.png">엄청난 속도로 공기를 뿜어내어 30의 데미지를 주고 20의 피해를 입는다</skill>
   <skill code ="27" need ="4913" name ="허리케인" damage ="0" pdamage ="25" guard ="30" acc ="20" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">폭풍으로 자신을 감싸 30의 데미지를 막지만 25의 피해를 입는다</skill>
-  <skill code ="28" need ="83521" name ="진공" damage ="10000" pdamage ="99" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">진공의 구에 적과 자신을 가둬 적을 즉사시키고 99의 피해를 입는다</skill>
+  <skill code ="28" need ="83521" name ="진공" damage ="100" pdamage ="50" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">진공의 구에 적과 자신을 가둬 적에게 100의 피해를 주고 50의 피해를 입는다</skill>
 
-  <skill code ="29" need ="6" name ="증기" damage ="20" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">뜨거운 증기를 뿜어내 20의 피해와 10의 지속 피해를 주고 15의 피해를 입는다</skill>
+  <skill code ="29" need ="6" name ="증기" damage ="10" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="10" imgLink ="img/skills/fireball.png">뜨거운 증기를 뿜어내 10의 피해와 10의 지속 피해를 준다</skill>
+  <skill code ="30" need ="6" name ="열탕" damage ="20" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">뜨거운 물을 뿜어내 20의 피해를 주고 10의 피해를 입는다</skill>
   
-  <skill code ="30" need ="77" name ="냉기 광선" damage ="15" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">차가운 냉기를 뿜어내 15의 데미지와 20의 지속 데미지를 준다</skill>
+  <skill code ="31" need ="77" name ="냉기 광선" damage ="15" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">차가운 냉기를 뿜어내 15의 데미지와 20의 지속 데미지를 준다</skill>
 
-  <skill code ="31" need ="714" name ="폭풍우" damage ="20" pdamage ="20" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">엄청난 폭풍우를 불러내어 20의 데미지와 20의 지속 피해를 주고 20의 추가 명중률을 얻으며 20의 피해를 입는다</skill>
+  <skill code ="32" need ="714" name ="폭풍우" damage ="20" pdamage ="20" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">엄청난 폭풍우를 불러내어 20의 데미지와 20의 지속 피해를 주고 20의 추가 명중률을 얻으며 20의 피해를 입는다</skill>
 
-  <skill code ="32" need ="3757" name ="우박" damage ="0" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">우박을 뿌려 35의 지속 피해를 주고 다음 공격의 명중률을 15 올리며 15의 피해를 입는다</skill>
+  <skill code ="33" need ="3757" name ="우박" damage ="0" pdamage ="15" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">우박을 뿌려 35의 지속 피해를 주고 다음 공격의 명중률을 15 올리며 15의 피해를 입는다</skill>
 
-  <skill code ="33" need ="26" name ="마그마" damage ="35" pdamage ="25" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">마그마의 파도로 35의 데미지를 주고 25의 피해를 입는다</skill>
-  <skill code ="34" need ="338" name ="메테오" damage ="55" pdamage ="40" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/meteor.png">메테오를 떨어뜨려 55의 피해를 주고 40의 피해를 입는다</skill>
+  <skill code ="34" need ="26" name ="마그마" damage ="35" pdamage ="25" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">마그마의 파도로 35의 데미지를 주고 25의 피해를 입는다</skill>
+  <skill code ="35" need ="338" name ="메테오" damage ="55" pdamage ="40" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/meteor.png">메테오를 떨어뜨려 55의 피해를 주고 40의 피해를 입는다</skill>
   
-  <skill code ="35" need ="15" name ="독액" damage ="0" pdamage ="30" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 독액을 주입해 30의 지속 피해를 입히고 30의 피해를 입는다</skill>
-  <skill code ="36" need ="225" name ="맹독" damage ="0" pdamage ="40" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 맹독을 주입해 50의 지속 피해를 입히고 40의 피해를 입는다</skill>
+  <skill code ="36" need ="15" name ="독액" damage ="0" pdamage ="30" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 독액을 주입해 30의 지속 피해를 입히고 30의 피해를 입는다</skill>
+  <skill code ="37" need ="225" name ="맹독" damage ="0" pdamage ="40" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 맹독을 주입해 50의 지속 피해를 입히고 40의 피해를 입는다</skill>
   
-  <skill code ="37" need ="39" name ="진흙" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="5" imgLink ="img/skills/fireball.png">적에게 진흙을 뿌려 5의 지속 데미지를 주고 다음 공격의 명중률을 20 낮춘다</skill>
-  <skill code ="38" need ="1521" name ="산사태" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="10" imgLink ="img/skills/fireball.png">적을 산사태로 덮어 다음 공격력의 명중률을 20 낮추고 10의 지속 데미지를 준다</skill>
+  <skill code ="38" need ="39" name ="진흙" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="5" imgLink ="img/skills/fireball.png">적에게 진흙을 뿌려 5의 지속 데미지를 주고 다음 공격의 명중률을 20 낮춘다</skill>
+  <skill code ="39" need ="117" name ="흙탕물" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-50" dot ="5" imgLink ="img/skills/fireball.png">적을 흙탕물로 덮어 다음 공격의 명중률을 50 낮춘다</skill>
+  <skill code ="40" need ="507" name ="진흙 방패" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="5" imgLink ="img/skills/fireball.png">진흙의 방패로 몸을 감싸 30의 데미지를 흡수한다</skill>
+  <skill code ="41" need ="1521" name ="산사태" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="10" imgLink ="img/skills/fireball.png">적을 산사태로 덮어 다음 공격력의 명중률을 20 낮추고 10의 지속 데미지를 준다</skill>
+  
+<skill code ="42" need ="1326" name ="불 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">불의 힘이다</skill>
+<skill code ="43" need ="1326" name ="물 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">물의 힘이다</skill>
+<skill code ="44" need ="1326" name ="공기 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="5" imgLink ="img/skills/fireball.png">공기의 힘이다</skill>
+<skill code ="45" need ="1326" name ="흙 : " damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-0" dot ="5" imgLink ="img/skills/fireball.png">흙의 힘이다</skill>
+<skill code ="46" need ="100000" name ="4원소 종합 : end" damage ="10000000" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">전투에서 승리한다</skill>
+  
 
 </List>

@@ -124,6 +124,8 @@ int MakeMap::getMap(int y, int x){
 void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 	int s=0,e=1;
 	int maxLoc,max=1;
+	int tpX,tpY;
+	int cnt=10;//10개의 쿠폰!
 	sf::Vector2i stack[MapX*MapY+100];//여유롭게~
 	//---
 	for(int i=0;i<MapY;i++){
@@ -219,6 +221,34 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 	portal=stack[maxLoc];
 
 	maxLocPos=max;//주인공의 위치로부터의 최대 거리를 저장.
+	//-----여기서 쿠폰?도 박아준다------//
+	srand(time(NULL));
+	while(1){
+		tpX=rand()%(MapX-2)+1;
+		tpY=rand()%(MapY-2)+1;
+		//---
+		if(map[tpY][tpX] == 1 && isOpen(tpX,tpY)){
+			cnt--;
+			map[tpY][tpX]=8;
+			if(cnt == 0)
+				break;
+		}
+	}
+}
+bool MakeMap::isOpen(int _x, int _y){
+	if(chk[_y][_x-1] != 0 && chk[_y][_x+1] == 0 && chk[_y-1][_x] == 0 && chk[_y+1][_x] == 0){
+		return true;
+	}
+	if(chk[_y][_x-1] == 0 && chk[_y][_x+1] != 0 && chk[_y-1][_x] == 0 && chk[_y+1][_x] == 0){
+		return true;
+	}
+	if(chk[_y][_x-1] == 0 && chk[_y][_x+1] == 0 && chk[_y-1][_x] != 0 && chk[_y+1][_x] == 0){
+		return true;
+	}
+	if(chk[_y][_x-1] == 0 && chk[_y][_x+1] == 0 && chk[_y-1][_x] == 0 && chk[_y+1][_x] != 0){
+		return true;
+	}
+	return false;
 }
 sf::Vector2i MakeMap::getPortal(){
 	return portal;

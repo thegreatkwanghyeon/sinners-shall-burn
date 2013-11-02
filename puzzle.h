@@ -22,6 +22,9 @@ class Puzzle{
 		sf::Vector2i  mousePosition;
 		sf::Vector2i temp;
 
+		sf::Font font;
+		sf::Text text;
+
 		sf::Sprite   sprite,bgSprite;
 		sf::Texture  texture,bgTexture;
 
@@ -35,6 +38,7 @@ class Puzzle{
 		bool change;
 		bool hint;
 		int tempNum;
+		int reNum;
 		int breakStack[PuzzleSize+5];
 		int chkBreak[PuzzleSize+5][PuzzleSize+5];
 
@@ -47,7 +51,6 @@ class Puzzle{
 		Button *reButton;
 
 		Gauge *hGauge;
-		Gauge *reGauge;
 
 		sf::Clock hTime,reTime;
 
@@ -81,5 +84,8 @@ class Puzzle{
 //---ÄÞº¸
 		int combo[10];
 		int comboNum;
+//---re¹öÆ°
+		int getReNum();
+		void setReNum(int num);
 };
 #endif

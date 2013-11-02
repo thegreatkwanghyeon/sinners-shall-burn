@@ -104,6 +104,9 @@ void GameScene::update(sf::Event &event){
 			battle->startBattle(enemy[nowEnemy]->getCode());
 		}
 	}
+	if(rayCastingScene->isGetReNum()){
+		battle->getPuzzle()->setReNum(battle->getPuzzle()->getReNum()+1);
+	}
 	//---맵체인지 테스트---//
 	if(rayCastingScene->isMapChange()){
 		makemap->buildMap(++floorNum);

@@ -59,8 +59,12 @@ Puzzle::Puzzle(){
 	hGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
 	hGauge->setPosition(sf::Vector2i(220,230));
 
-	reGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
-	reGauge->setPosition(sf::Vector2i(220,330));
+	reNum=3;
+
+	font.loadFromFile("font/spike.ttf");
+	text.setFont(font); 
+	text.setString(L"3");
+	text.setPosition(220.0f, 330.0f);
 }
 
 Puzzle::~Puzzle(){
@@ -78,6 +82,10 @@ Puzzle::~Puzzle(){
 void Puzzle::update(sf::Event &event){
 	int i,j,tp;
 	bool chkBlock=false;
+	char plusString[100]={0,};
+
+	_snprintf(plusString, sizeof(plusString), "%d",reNum);
+	text.setString(plusString);
 
 	if(move == true){
 		for(i=0;i<PuzzleSize;i++){
@@ -196,6 +204,7 @@ void Puzzle::update(sf::Event &event){
 	if(reButton->checkMouseClick(event)){
 		makePuzzle();
 		reButton->disableButton();
+		reNum--;
 
 		reTime.restart();
 	}
@@ -210,18 +219,13 @@ void Puzzle::update(sf::Event &event){
 			hGauge->setValue(100);
 		}
 	}
-	if(!reButton->getButtonEneble() && reTime.getElapsedTime().asSeconds() >= 0.15){//15초 리미트
-		//printf("%.3f\n",hTime.getElapsedTime().asSeconds());
-		reGauge->setValue(-1);
+	if(!reButton->getButtonEneble() && reTime.getElapsedTime().asSeconds() >= 0.15 && reNum > 0){//15초 리미트
 		reTime.restart();
-		if(reGauge->getValue() == 0){
-			reButton->enableButton();
-			reGauge->setValue(100);
-		}
+		reButton->enableButton();
+		//걍 연속클릭 방지?
 	}
 
 	hGauge->update();
-	reGauge->update();
 }
 
 void Puzzle::draw(sf::RenderWindow &window){
@@ -245,8 +249,7 @@ void Puzzle::draw(sf::RenderWindow &window){
 
 	if(!button->getButtonEneble())
 		hGauge->draw(window);
-	if(!reButton->getButtonEneble())
-		reGauge->draw(window);
+	window.draw(text);//re버튼 사용가능회수 저장
 }
 int Puzzle::checkPuzzle(){
 	int i,j;
@@ -574,5 +577,10 @@ void Puzzle::cleanStack(){
 	button->enableButton();
 	hGauge->setValue(100);
 	reButton->enableButton();
-	reGauge->setValue(100);
+}
+void Puzzle::setReNum(int num){
+	reNum=num;
+}
+int Puzzle::getReNum(){
+	return reNum;
 }

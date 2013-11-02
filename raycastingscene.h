@@ -19,6 +19,11 @@
 #include "enemy.h"
 #include "makemap.h"
 
+struct emp{
+	int x,y;
+	bool use;
+};
+
 class RayCastingScene{
 
 	typedef sf::Vector2<double> Vector2d;
@@ -56,7 +61,7 @@ class RayCastingScene{
 
 		 sf::Uint32 color;
 		 sf::Uint8 buffer[1280*720*4];
-		 std::vector<sf::Uint32> texture[9];
+		 std::vector<sf::Uint32> texture[30];
 		 sf::RectangleShape point;
 		 sf::Image drawingBuffer;
 		 sf::Texture drawingTex;
@@ -87,6 +92,8 @@ class RayCastingScene{
 		int fov;//시야 변수
 		//int angle,tempAngle;//각도. 1,2,3,4;
 		int getAngle();
+		emp reCoupon[10];
+		int couponNum;
 		
 
 		 //Image Loading 관련 함수, 이 레이캐스팅에서는 SDL 스타일로 image를 불러와야한다
@@ -131,6 +138,7 @@ class RayCastingScene{
 
 		void setPortal(sf::Vector2i _portal);
 		bool isMove();
+		bool isGetReNum();
 
 };
 

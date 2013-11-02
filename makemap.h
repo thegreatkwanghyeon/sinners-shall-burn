@@ -20,6 +20,7 @@ class MakeMap{
 		void makeRandomMap();
 		int countNeighbours(int x, int y);
 		void makeDoor();
+		bool isOpen(int _x, int _y);
 		
 		int maxLocPos;
 		int chk[MapY+100][MapX+100];

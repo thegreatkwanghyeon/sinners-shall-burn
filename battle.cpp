@@ -486,3 +486,6 @@ bool Battle::getState(){
 		return true;
 	return false;
 }
+Puzzle* Battle::getPuzzle(){
+	return puzzle;
+}

@@ -46,7 +46,7 @@ RayCastingScene::RayCastingScene(){
 	moveSpeed = 1/(float)Devide;
 	rotSpeed = 1.575/(float)Devide;
 
-	for(int i=0; i<8; i++){
+	for(int i=0; i<10; i++){
 		texture[i].resize(texWidth * texHeight);
 	}
 
@@ -66,10 +66,12 @@ RayCastingScene::RayCastingScene(){
 	texture[5] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/stone.png");
 	texture[6] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/rebrick.png");
 	texture[7] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/stair.png");
 	texture[8] = convertImageToTexture(textureImage);//¹®Â¦(9)
+	textureImage.loadFromFile("img/textures/rebrick_used.png");
+	texture[9] = convertImageToTexture(textureImage);//´Ù¾´ÄíÆù?
 
 	drawingBuffer.create(width,height,sf::Color::Black);
 
@@ -87,10 +89,16 @@ RayCastingScene::~RayCastingScene(){
 }
 
 void RayCastingScene::setMap(int _map[][MapX+100]){
+	couponNum=0;
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			worldMap[i][j]=_map[i][j];
 			fog[i][j]=1;
+			if(worldMap[i][j] == 8){
+				reCoupon[couponNum].x=j;
+				reCoupon[couponNum].y=i;
+				reCoupon[couponNum++].use=false;
+			}
 		}
 	}
 }
@@ -580,8 +588,10 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			rec.setPosition(20+((MapX-j-1)*5),215+(i*5));
 			if(worldMap[j][i] == 0){
 				rec.setFillColor(sf::Color::White);		
-			}else if(worldMap[j][i] == 1){
+			}else if(worldMap[j][i] == 1 || worldMap[j][i] == 10){
 				rec.setFillColor(sf::Color::Black);
+			}else if(worldMap[j][i] == 8){
+				rec.setFillColor(sf::Color::Cyan);
 			}else if(worldMap[j][i] == 9){
 				rec.setFillColor(sf::Color::Blue);
 			}
@@ -687,7 +697,38 @@ bool RayCastingScene::isMapChange(){
 	}
 	return false;
 }
+bool RayCastingScene::isGetReNum(){
+	int angle=getAngle();
 
+	if(getAngle() == -1)
+		return false;
+
+	//printf("%d %d -- %d %d << %d\n",(int)pos.x, deltaClock.getElapsedTime().asSeconds().x,(int)pos.y, deltaClock.getElapsedTime().asSeconds().y,angle);
+	//printf("%d %d /%d %d\n",(int)portal.x,(int)portal.y,(int)pos.x,(int)pos.y);
+	for(int i=0;i<couponNum;i++){
+		if(reCoupon[i].use){
+			continue;
+		}
+		if((int)pos.x == (int)reCoupon[i].y && (int)pos.y-(int)reCoupon[i].x == 1 && angle == 4){
+			reCoupon[i].use=true;
+			worldMap[reCoupon[i].y][reCoupon[i].x]=10;
+			return true;
+		}else if((int)pos.x-(int)reCoupon[i].y == -1 && (int)pos.y == (int)reCoupon[i].x && angle == 3){
+			reCoupon[i].use=true;
+			worldMap[reCoupon[i].y][reCoupon[i].x]=10;
+			return true;
+		}else if((int)pos.x == (int)reCoupon[i].y && (int)pos.y - (int)reCoupon[i].x == -1 && angle == 2){
+			reCoupon[i].use=true;
+			worldMap[reCoupon[i].y][reCoupon[i].x]=10;
+			return true;
+		}else if((int)pos.x - (int)reCoupon[i].y == 1 && (int)pos.y == (int)reCoupon[i].x && angle == 1){
+			reCoupon[i].use=true;
+			worldMap[reCoupon[i].y][reCoupon[i].x]=10;
+			return true;
+		}
+	}
+	return false;
+}
 void RayCastingScene::setPortal(sf::Vector2i _portal){
 	portal=_portal;
 }

@@ -17,6 +17,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 			currentHp = maxHp;
 			pNode->ToElement()->Attribute("damage",&damage);
 			pNode->ToElement()->Attribute("acc",&acc);
+			maxAcc=acc;
 			pNode->ToElement()->Attribute("skill1",&animationNum);
 			pNode->ToElement()->Attribute("skill2",&subAniNum);
 			pNode->ToElement()->Attribute("subpro",&subPro);
@@ -117,4 +118,10 @@ int Enemy::getSubPro(){
 }
 int Enemy::getSubAni(){
 	return subAniNum;
+}
+int Enemy::getMaxAcc(){
+	return maxAcc;
+}
+void Enemy::setAcc(int num){
+	acc=num;
 }

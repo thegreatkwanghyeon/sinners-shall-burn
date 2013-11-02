@@ -121,7 +121,7 @@ void Battle::update(sf::Event &event){
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\ndot : %d\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getDot(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);
 
-	_snprintf(plusString, sizeof(plusString), "dot : 0\nAcc : 0",enemy->getDot(),enemy->getAcc());
+	_snprintf(plusString, sizeof(plusString), "dot : %d\nAcc : %d",enemy->getDot(),enemy->getAcc());
 	eText.setString(plusString);
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
@@ -187,15 +187,17 @@ void Battle::update(sf::Event &event){
 				sceneNum=playerSkill;
 
 				if(!isMiss){
-					if(skill->data[useSkillNow].plusAcc > 0){
+					if(skill->data[useSkillNow].plusAcc > 0)
 						(*player)->setAcc(skill->data[useSkillNow].plusAcc);//추가 명중률을 더해줌
-					}
-					if(skill->data[useSkillNow].guard > 0){
+					else if(skill->data[useSkillNow].plusAcc < 0)
+						enemy->setAcc(enemy->getAcc()+skill->data[useSkillNow].plusAcc);//명중률이 -값 : 적의 명중률을 그 값만큼 낮춘다는 것이다.
+
+					if(skill->data[useSkillNow].guard > 0)
 						(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
-					}
-					if(skill->data[useSkillNow].dot > 0){
+					
+					if(skill->data[useSkillNow].dot > 0)
 						enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
-					}
+					
 				}
 			}
 		}
@@ -225,6 +227,7 @@ void Battle::update(sf::Event &event){
 				}else{
 					isMiss=true;
 				}
+				enemy->setAcc(enemy->getMaxAcc());//명중률이 낮아졌을경우 다시 돌려주는 것이다.
 				//몹의 서브스킬 판정
 				if(rand()%100 <= enemy->getSubPro()){
 					subSkill=true;
@@ -299,6 +302,7 @@ void Battle::playerSkillUpdate(){
 			}else{
 				isMiss=true;
 			}
+			enemy->setAcc(enemy->getMaxAcc());//적의 명중률이 떨어졌을 경우...
 			//몹의 서브스킬 판정
 			if(rand()%100 <= enemy->getSubPro()){
 				subSkill=true;

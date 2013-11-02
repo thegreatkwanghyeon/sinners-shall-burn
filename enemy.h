@@ -20,7 +20,7 @@ class Enemy{
 		int subAniNum;
 		int subPro;
 		int dot;
-		int acc;
+		int acc,maxAcc;
 		sf::Vector2f position;
 
 		TiXmlDocument enemyData;
@@ -54,6 +54,8 @@ class Enemy{
 		int getAcc();
 		int getSubPro();
 		int getSubAni();
+		int getMaxAcc();
+		void setAcc(int num);
 
 		
 };

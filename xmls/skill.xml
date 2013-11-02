@@ -48,5 +48,8 @@
   
   <skill code ="35" need ="15" name ="독액" damage ="0" pdamage ="30" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 독액을 주입해 30의 지속 피해를 입히고 30의 피해를 입는다</skill>
   <skill code ="36" need ="225" name ="맹독" damage ="0" pdamage ="40" guard ="0" acc ="100" animation="1" plusAcc ="0" dot ="0" imgLink ="img/skills/fireball.png">적에게 맹독을 주입해 50의 지속 피해를 입히고 40의 피해를 입는다</skill>
+  
+  <skill code ="37" need ="39" name ="진흙" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="0" imgLink ="img/skills/fireball.png">적에게 진흙을 뿌려 다음 공격의 명중률을 20 낮춘다</skill>
+  <skill code ="38" need ="1521" name ="산사태" damage ="0" pdamage ="0" guard ="0" acc ="100" animation="1" plusAcc ="-20" dot ="10" imgLink ="img/skills/fireball.png">적을 산사태로 덮어 다음 공격력의 명중률을 20 낮추고 10의 지속 데미지를 준다</skill>
 
 </List>

@@ -96,11 +96,15 @@
     <ClInclude Include="clearscene.h">
       <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="particles.h">
-      <Filter>contents</Filter>
+    <ClInclude Include="uiscene.h" />
+    <ClInclude Include="pausescene.h">
+      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="pause.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="particles.h">
+      <Filter>system\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,11 +192,15 @@
     <ClCompile Include="clearscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="particles.cpp">
-      <Filter>contents</Filter>
+    <ClCompile Include="uiscene.cpp" />
+    <ClCompile Include="pausescene.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="pause.cpp">
       <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="particles.cpp">
+      <Filter>system\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

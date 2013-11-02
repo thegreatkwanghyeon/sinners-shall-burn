@@ -16,12 +16,6 @@
     <Filter Include="system\XMLParser">
       <UniqueIdentifier>{08be4ba6-5475-4245-bc3c-8a9bb98ecb68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="system\particle">
-      <UniqueIdentifier>{cca1c1aa-e51c-4475-b397-2120e6295e3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="system\randomgenerator">
-      <UniqueIdentifier>{95b8ce95-54e2-4b53-bfe7-6653a9061ab2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h">
@@ -52,9 +46,6 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="titlescene.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="uiscene.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="button.h">
@@ -97,15 +88,18 @@
     <ClInclude Include="makemap.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="particlesystem.h">
-      <Filter>system\particle</Filter>
-    </ClInclude>
-    <ClInclude Include="pausescene.h">
-      <Filter>scene</Filter>
+      <Filter>contents</Filter>
     </ClInclude>
     <ClInclude Include="particlelist.h">
-      <Filter>system\particle</Filter>
+      <Filter>contents</Filter>
     </ClInclude>
     <ClInclude Include="clearscene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="particles.h">
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="pause.h">
       <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
@@ -138,9 +132,6 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="titlescene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="uiscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
@@ -189,15 +180,18 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="makemap.cpp" />
     <ClCompile Include="particlesystem.cpp">
-      <Filter>system\particle</Filter>
+      <Filter>contents</Filter>
     </ClCompile>
     <ClCompile Include="particlelist.cpp">
-      <Filter>system\particle</Filter>
+      <Filter>contents</Filter>
     </ClCompile>
     <ClCompile Include="clearscene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="pausescene.cpp">
+    <ClCompile Include="particles.cpp">
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="pause.cpp">
       <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>

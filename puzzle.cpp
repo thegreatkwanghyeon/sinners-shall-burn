@@ -14,15 +14,13 @@ Puzzle::Puzzle(){
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setPosition(PStartX-20,PStartY-20);
 
-	button = new Button("img/sbutton.png");
-	button->setPosition(0,230);
-	button->setText("HINT", 18);
+	button = new Button("img/buttons/hint.png");
+	button->setPosition(0,275);
 	button->setClickSound("sounds/button/click.wav");
 	button->setHoverSound("sounds/button/hover.wav");
 
-	reButton = new Button("img/sbutton.png");
-	reButton->setPosition(0,330);
-	reButton->setText("REBUILD", 18);
+	reButton = new Button("img/buttons/rebuild.png");
+	reButton->setPosition(0,355);
 	reButton->setClickSound("sounds/button/click.wav");
 	reButton->setHoverSound("sounds/button/hover.wav");
 
@@ -57,14 +55,14 @@ Puzzle::Puzzle(){
 
 	//---버튼들 사용시 리젠시간 표시용 게이지들임.
 	hGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
-	hGauge->setPosition(sf::Vector2i(220,230));
+	hGauge->setPosition(sf::Vector2i(120,300));
 
 	reNum=3;
 
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font); 
 	text.setString(L"3");
-	text.setPosition(220.0f, 330.0f);
+	text.setPosition(120.0f, 380.0f);
 }
 
 Puzzle::~Puzzle(){

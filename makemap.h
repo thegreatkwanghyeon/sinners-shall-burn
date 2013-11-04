@@ -15,7 +15,7 @@ class MakeMap{
 	private:
 		int map[MapY+1][MapX+1],oldmap[MapY+1][MapX+1];
 
-		sf::Vector2i portal,boss;
+		sf::Vector2i portal;
 
 		void makeRandomMap();
 		int countNeighbours(int x, int y);

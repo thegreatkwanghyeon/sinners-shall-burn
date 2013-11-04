@@ -51,21 +51,21 @@ RayCastingScene::RayCastingScene(){
 	}
 
 	  
-	textureImage.loadFromFile("img/textures/redbrick.png");
+	textureImage.loadFromFile("img/textures/stone.png");
 	texture[0] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/wood.png");
 	texture[1] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/wood.png");
 	texture[2] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/wood.png");
 	texture[3] = convertImageToTexture(textureImage);
 
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/wood.png");
 	texture[4] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
+	textureImage.loadFromFile("img/textures/wood.png");
 	texture[5] = convertImageToTexture(textureImage);
-	textureImage.loadFromFile("img/textures/stone.png");
-	texture[6] = convertImageToTexture(textureImage);
+	textureImage.loadFromFile("img/textures/ceiling.png");
+	texture[6] = convertImageToTexture(textureImage); //√µ¿Â
 	textureImage.loadFromFile("img/textures/rebrick.png");
 	texture[7] = convertImageToTexture(textureImage);
 	textureImage.loadFromFile("img/textures/stair.png");

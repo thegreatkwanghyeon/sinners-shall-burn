@@ -16,7 +16,6 @@ void MakeMap::buildMap(int fNum){
 	int i,j,k;
 	int nbs;
 
-
 	makeRandomMap();
 	//--------------
 	for(k=0;k<6;k++){
@@ -61,7 +60,7 @@ void MakeMap::buildMap(int fNum){
 				map[i][j]=true;
 		}
 	}
-	
+	/*
 	for(i=0;i<MapY;i++){
 		for(j=0;j<MapX;j++){
 			if(map[i][j] == 1)
@@ -71,7 +70,7 @@ void MakeMap::buildMap(int fNum){
 		}
 		printf("\n");
 	}
-	printf("-=-=-=-=-=-=\n");
+	printf("-=-=-=-=-=-=\n");*/
 	//--------------
 	makeDoor();
 }
@@ -187,7 +186,7 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		s++;
 	}
 	//------
-	for(int i=0;i<MapY;i++){
+/*	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			if(chk[MapX-j-1][i] == 0)
 				printf("■ ");
@@ -197,22 +196,30 @@ void MakeMap::makeDoor(){//BFS 알고리즘 사용.
 		printf("\n");
 
 		//---		
-	}
+	}*/
 	map[stack[maxLoc].y][stack[maxLoc].x]=9;//문짝
 
 	if(chk[stack[maxLoc].y-1][stack[maxLoc].x] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//위쪽을 통해 들어올 경우
+		boss.x=stack[maxLoc].x;
+		boss.y=stack[maxLoc].y-1;
 		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
 	}else if(chk[stack[maxLoc].y+1][stack[maxLoc].x] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//아래쪽을 통해 들어올 경우
+		boss.x=stack[maxLoc].x;
+		boss.y=stack[maxLoc].y+1;
 		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
 	}else if(chk[stack[maxLoc].y][stack[maxLoc].x-1] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//왼쪽을 통해 들어올 경우
+		boss.x=stack[maxLoc].x-1;
+		boss.y=stack[maxLoc].y;
 		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x+1]=1;
 	}else if(chk[stack[maxLoc].y][stack[maxLoc].x+1] == chk[stack[maxLoc].y][stack[maxLoc].x]-1){//오른쪽을 통해 들어올 경우
+		boss.x=stack[maxLoc].x+1;
+		boss.y=stack[maxLoc].y;
 		map[stack[maxLoc].y-1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y+1][stack[maxLoc].x]=1;
 		map[stack[maxLoc].y][stack[maxLoc].x-1]=1;
@@ -254,10 +261,13 @@ sf::Vector2i MakeMap::getPortal(){
 	return portal;
 }
 sf::Vector2i MakeMap::getEnemyPos(int num, int max){
+	if(num == max){//보스
+		return boss;
+	}
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			if(chk[MapX-j-1][i] == num*(maxLocPos/max)+(maxLocPos/max)/2){
-				printf("---%d %d (%d | %d)%d\n",MapX-j-1,i,chk[MapX-j-1][i],map[MapX-j-1][i],num);
+	//			printf("---%d %d (%d | %d)%d\n",MapX-j-1,i,chk[MapX-j-1][i],map[MapX-j-1][i],num);
 				return sf::Vector2i(j,i);
 			}
 		}

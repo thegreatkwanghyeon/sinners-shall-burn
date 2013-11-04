@@ -21,6 +21,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 			pNode->ToElement()->Attribute("skill1",&animationNum);
 			pNode->ToElement()->Attribute("skill2",&subAniNum);
 			pNode->ToElement()->Attribute("subpro",&subPro);
+			textureName=(MTW(pNode->ToElement()->Attribute("imgLink")));
 			name.setString(MTW(pNode->ToElement()->GetText()));
 			code=tmpCode;
 			break;
@@ -124,4 +125,7 @@ int Enemy::getMaxAcc(){
 }
 void Enemy::setAcc(int num){
 	acc=num;
+}
+sf::String Enemy::getTextureName(){
+	return textureName;
 }

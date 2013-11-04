@@ -677,6 +677,11 @@ void RayCastingScene::setPos(sf::Vector2f temp){
 	plane.x = -0.66; 
 	plane.y = 0;
 	//방향값도 앞쪽을 보게 초기화해줌...
+
+	isGoB=0;
+	isGoF=0;
+	isTurnL=0;
+	isTurnR=0;
 }
 bool RayCastingScene::isMapChange(){
 	int angle=getAngle();

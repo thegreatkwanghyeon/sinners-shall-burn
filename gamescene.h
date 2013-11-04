@@ -8,6 +8,9 @@
 #include "button.h"
 #include "pause.h"
 
+#define EnemyNum 5
+#define EndStage 5
+
 
 class GameScene : public SceneBase{
 	private:

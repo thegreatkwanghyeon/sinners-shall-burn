@@ -1,5 +1,7 @@
 #include "gamescene.h"
-#include "stdio.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
@@ -147,7 +149,7 @@ int GameScene::changeScene(){
 		return 0;
 	if(changeFlag || pause->isGoTitle())
 		return 1;
-	else if(floorNum >= 1){
+	else if(floorNum >= EndStage){
 		return 3;
 	}
 	return -1;
@@ -156,11 +158,15 @@ void GameScene::makeEnemys(){
 	sf::Vector2i tp;
 	for(int i=0;i<enemy.size();i++)
 		enemy.pop_back();
-	for(int i=0;i<5;i++){
-		enemy.push_back(new Enemy(1));
-		texture.loadFromFile("img/enemies/ghoul.png");
+	srand(time(NULL));
+	for(int i=0;i<=EnemyNum;i++){
+		if(i == EnemyNum)
+			enemy.push_back(new Enemy(floorNum+3));//+3짜리 튀어나오게;..
+		else
+			enemy.push_back(new Enemy(rand()%3+(floorNum+1)));
+		texture.loadFromFile(enemy[i]->getTextureName());
 
-		tp=makemap->getEnemyPos(i,5);
+		tp=makemap->getEnemyPos(i,EnemyNum);
 		enemy[i]->setPosition(translatePosition((double)tp.x+0.5,(double)tp.y+0.5));
 		enemy[i]->setPosition(sf::Vector2f(enemy[i]->getPosition().x+1,enemy[i]->getPosition().y));
 		//printf("%d : %.2f %.2f ---\n",i,enemy[i]->getPosition().x,enemy[i]->getPosition().y);

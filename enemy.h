@@ -9,6 +9,7 @@ class Enemy{
 	private:
 		sf::Sprite sprite;
 		sf::Image texture;
+		sf::String textureName;
 		std::vector<sf::Uint32> convertedTexture;
 		sf::Text name;
 		sf::Font font;
@@ -56,7 +57,7 @@ class Enemy{
 		int getSubAni();
 		int getMaxAcc();
 		void setAcc(int num);
-
+		sf::String getTextureName();
 		
 };
 

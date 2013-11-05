@@ -16,8 +16,8 @@ Battle::Battle(Player** _player){
 	tileset = new TileSet();
 	faceTileset = new TileSet();
 
-	face.loadFromFile("img/face.PNG");
-	face = faceTileset->tileSet("img/face.PNG",150,200);
+	face.loadFromFile("img/portrait.png");
+	face = faceTileset->tileSet("img/portrait.png",150,150);
 
 	texture.loadFromFile("img/skills/empty.png");
 	sprite.setTexture(texture);

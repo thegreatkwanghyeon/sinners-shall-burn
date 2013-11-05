@@ -21,26 +21,7 @@ GameScene::GameScene(){
 	player = new Player();
 	pPlayer=&player;
 	battle = new Battle(pPlayer);
-	/*
-	for(int i=0;i<3;i++){
-		enemy.push_back(new Enemy(1));
-	}
 
-	pEnemy = &enemy; 
-
-	texture.loadFromFile("img/enemies/ghoul.png");
-
-	enemy[0]->setPosition(sf::Vector2f(3.5, 3.5));
-	enemy[0]->setTexture(texture);
-
-	enemy[1]->setPosition(sf::Vector2f(4.5, 3.5));
-	enemy[1]->setTexture(texture);
-
-	enemy[2]->setPosition(sf::Vector2f(3.5, 4.5));
-	enemy[2]->setTexture(texture);
-
-	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
-	*/
 	makeEnemys();
 
 	isBattle=false;
@@ -62,6 +43,8 @@ GameScene::GameScene(){
 	printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
 
 	pause = new Pause();
+	tooltip = new Tooltip("img/tooltip.png");
+	tooltip->setTooltip(L"", L"", sf::FloatRect(500,0,280,415), 350);
 }
 GameScene::~GameScene(){
 	delete battle;
@@ -89,6 +72,7 @@ void GameScene::update(sf::Event &event){
 	}
 	battle->update(event);
 	if(isBattle){//전투
+		tooltip->update();
 		if(battle->getResult() != 0){//전투중일 때, 전투가 끝났는지를 판정하는 함수이다.
 			isBattle=false;
 			if(player->getHP() <= 0){
@@ -102,6 +86,7 @@ void GameScene::update(sf::Event &event){
 		
 		nowEnemy=rayCastingScene->isBattle();
 		if(nowEnemy != -1){
+			tooltip->setTooltip(enemy[nowEnemy]->getName().getString(),enemy[nowEnemy]->getIntro(),sf::FloatRect(500,0,280,415), 350);
 			isBattle=true;
 			battle->startBattle(enemy[nowEnemy]->getCode());
 		}
@@ -139,6 +124,8 @@ void GameScene::draw(sf::RenderWindow &window){
 		window.draw(text);
 		overButton->draw(window);
 	}
+	if(isBattle && !isOver)
+		tooltip->draw(window);
 	//-------------일단 다 출력은 해줌------------
 	if(pause->getState()){//일시정지시
 		pause->draw(window);

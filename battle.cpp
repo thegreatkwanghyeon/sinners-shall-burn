@@ -52,11 +52,11 @@ Battle::Battle(Player** _player){
 		button[i]->setHoverSound("sounds/button/hover.wav");
 		tooltip[i] = new Tooltip("img/tooltip.png");
 		if(i < (ViewSkill/2)){
-			button[i]->setPosition(830+(i*150),450);//dir-------------------------->
-			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(830+(i*150),450,100,100), 350);//dir-------------------------->
+			button[i]->setPosition(836+(i*152),464);//dir-------------------------->
+			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(836+(i*152),464,80,80), 350);//dir-------------------------->
 		}else{
-			button[i]->setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
-			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(830+((i-(ViewSkill/2))*150),575,100,100), 350);//dir-------------------------->
+			button[i]->setPosition(836+((i-(ViewSkill/2))*152),593);//dir-------------------------->
+			tooltip[i]->setTooltip(L"", L"", sf::FloatRect(836+((i-(ViewSkill/2))*152),593,80,80), 350);//dir-------------------------->
 		}
 	}
 	isBattle=false;
@@ -203,9 +203,9 @@ void Battle::update(sf::Event &event){
 		}
 		if(canUseSkill[i] != 0){
 			if(i < (ViewSkill/2))
-				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(830+(i*150),450,100,100), 350);//dir-------------------------->
+				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(836+(i*152),464,80,80), 350);//dir-------------------------->
 			else
-				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(830+((i-(ViewSkill/2))*150),575,100,100), 350);//dir-------------------------->
+				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(836+((i-(ViewSkill/2))*152),593,80,80), 350);//dir-------------------------->
 		}
 		tooltip[i]->update();
 	}
@@ -425,9 +425,9 @@ void Battle::draw(sf::RenderWindow &window){
 		
 		for(i=0;i<ViewSkill;i++){
 			if(i < (ViewSkill/2))
-				sprite.setPosition(830+(i*150),450);//dir-------------------------->
+				sprite.setPosition(836+(i*152),464);//dir-------------------------->
 			else
-				sprite.setPosition(830+((i-(ViewSkill/2))*150),575);//dir-------------------------->
+				sprite.setPosition(836+((i-(ViewSkill/2))*152),593);//dir-------------------------->
 			//sprite.setTextureRect(tileset->getTileSet(canUseSkill[i]));
 			if(canUseSkill[i] != 0){
 				texture.loadFromFile(skill->data[canUseSkill[i]].link);

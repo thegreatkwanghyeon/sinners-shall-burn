@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "button.h"
 #include "pause.h"
+#include "tooltip.h"
 
 #define EnemyNum 5
 #define EndStage 5
@@ -20,6 +21,7 @@ class GameScene : public SceneBase{
 		Player **pPlayer;
 		MakeMap *makemap;
 		Pause *pause;
+		Tooltip *tooltip;
 
 		sf::Font font;
 		sf::Text text;

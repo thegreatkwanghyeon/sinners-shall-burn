@@ -2,7 +2,10 @@
 <Enemies>
   <Enemy code="1" hp="50" damage="10" skill1="100" skill2="2" acc="50" subpro="15" imgLink ="img/enemies/ghoul.png"> 구울</Enemy>
   <Enemy code="2" hp="100" damage="10" skill1="100" skill2="2" acc="50" subpro="15" imgLink ="img/enemies/gug.png"> 주황버섯</Enemy>
-  <Enemy code="3" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="15" imgLink ="img/enemies/huntinghorror.png"> 코란도C</Enemy>
-  <Enemy code="4" hp="200" damage="10" skill1="1" skill2="10" acc="50" subpro="15" imgLink ="img/enemies/ghoul.png"> 1/48 티거</Enemy>
-  <Enemy code="5" hp="5000" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png"> 브루스 윌리스</Enemy>
+  <Enemy code="3" hp="150" damage="10" skill1="1" skill2="10" acc="50" subpro="15" imgLink ="img/enemies/huntinghorror.png"> 코란도C</Enemy>
+  <Enemy code="4" hp="200" damage="10" skill1="1" skill2="10" acc="50" subpro="15" imgLink ="img/enemies/ghoul.png"> 1탄보스</Enemy>
+  <Enemy code="5" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png"> 2탄보스</Enemy>
+  <Enemy code="6" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png"> 3탄보스</Enemy>
+  <Enemy code="7" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png"> 4탄보스</Enemy>
+  <Enemy code="8" hp="500" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png"> 5탄보스</Enemy>
 </Enemies>

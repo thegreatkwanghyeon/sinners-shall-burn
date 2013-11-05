@@ -4,6 +4,7 @@
 #include "scenebase.h"
 #include "particlesystem.h"
 #include "button.h"
+#include "slider.h"
 
 class TitleScene : public SceneBase{
 	private:
@@ -13,6 +14,8 @@ class TitleScene : public SceneBase{
 		ParticleSystem* particle;
 		Button* startButton;
 		Button* endButton;
+
+		Slider* slider;
 
 		bool sceneFlag,endFlag;
 

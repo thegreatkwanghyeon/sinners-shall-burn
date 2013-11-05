@@ -1,4 +1,5 @@
 #include "titlescene.h"
+#include "global.h"
 
 TitleScene::TitleScene(){
 	font.loadFromFile("font/spike.ttf");
@@ -29,6 +30,10 @@ TitleScene::TitleScene(){
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
 
+	slider = new Slider(&soundVolume, "img/slider/slider.png", "img/slider/handle.png");
+	slider->setPosition(500, 300);
+	slider->setLimit(100);
+
 	sceneFlag=false;
 	endFlag=false;
 }
@@ -41,6 +46,7 @@ void TitleScene::update(sf::Event &event){
 	particle->update();
 	startButton->update(event);
 	endButton->update(event);
+	slider->update();
 
 	if(startButton->checkMouseClick(event))
 		sceneFlag=true;
@@ -57,7 +63,8 @@ void TitleScene::draw(sf::RenderWindow &window){
 	}
 	particle->draw(window);
 	startButton->draw(window);
-	endButton->draw(window);		
+	endButton->draw(window);	
+	slider->draw(window);
 }
 int TitleScene::changeScene(){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

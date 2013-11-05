@@ -97,13 +97,14 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="uiscene.h" />
-    <ClInclude Include="pausescene.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="pause.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="particles.h">
+      <Filter>system\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="well512.h" />
+    <ClInclude Include="slider.h">
       <Filter>system\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -193,13 +194,13 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="uiscene.cpp" />
-    <ClCompile Include="pausescene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="pause.cpp">
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="particles.cpp">
+      <Filter>system\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="slider.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
   </ItemGroup>

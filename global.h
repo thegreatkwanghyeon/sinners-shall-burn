@@ -2,5 +2,5 @@
 
 extern std::wstring MTW(const char* string);
 
-extern int soundVolume;
-extern int musicVolume;
+extern float soundVolume;
+extern float musicVolume;

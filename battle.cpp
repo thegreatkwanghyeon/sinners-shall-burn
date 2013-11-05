@@ -61,13 +61,13 @@ Battle::Battle(Player** _player){
 	}
 	isBattle=false;
 
-	hpGauge = new Gauge("img/hpgauge.png",100, 1, 1);
+	hpGauge = new Gauge("img/hpgauge.png",100, 0, 1);
 	hpGauge->setPosition(sf::Vector2i(0,0));
 
 	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
 	enemyGauge->setPosition(sf::Vector2i(357,150));
 
-	timeGauge = new Gauge("img/hpgauge.png",puzzleLimit, 1, 1);
+	timeGauge = new Gauge("img/hpgauge.png",puzzleLimit, 0, 1);
 	timeGauge->setPosition(sf::Vector2i(300,300));
 
 	sceneNum=normal;//기본 상태

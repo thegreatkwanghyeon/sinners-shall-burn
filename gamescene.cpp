@@ -33,7 +33,7 @@ GameScene::GameScene(){
 	text.setString(L"GAME OVER");
 	text.setPosition(450.0f, 100.0f);
 
-	overButton = new Button("img/button.png");
+	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");
 	overButton->setHoverSound("sounds/button/hover.wav");
 	overButton->setPosition(500,500);
@@ -124,7 +124,7 @@ void GameScene::draw(sf::RenderWindow &window){
 		window.draw(text);
 		overButton->draw(window);
 	}
-	if(isBattle && !isOver)
+	if(isBattle && !isOver && !pause->getState())
 		tooltip->draw(window);
 	//-------------일단 다 출력은 해줌------------
 	if(pause->getState()){//일시정지시

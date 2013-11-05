@@ -47,7 +47,7 @@ RayCastingScene::RayCastingScene(){
 	rotSpeed = 1.575/(float)Devide;
 
 	for(int i=0; i<10; i++){
-		texture[i].resize(texWidth * texHeight);
+		texture[i].reserve(texWidth * texHeight);
 	}
 
 	  
@@ -475,6 +475,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
 
 			//¹Ù´Ú
+			
 			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;
 			buffer[4*(y*width+x) +2] = color%256;
 			color >>=8;

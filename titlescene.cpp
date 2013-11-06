@@ -7,7 +7,7 @@ TitleScene::TitleScene(){
 	text.setString(L"num1 : Å¸ÀÌÆ² ¾À \nnum2 : ²²ÀÓ¾À \nnum3 : ¼ÎÀÌ´õ¾À\nnum4 : ÆÛÁñ");
 	text.setPosition(450.0f, 250.0f);
 
-	particle = new ParticleList(0,0);
+	particle = new ParticleList(640,200);
 	particle->setParticle(1);
 	pNum=1;
 	isPress=false;

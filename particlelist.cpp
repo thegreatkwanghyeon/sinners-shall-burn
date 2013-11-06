@@ -16,6 +16,10 @@ void ParticleList::setParticle(int _num){
 			delete particle;
 			particle = new particle::Explosion(x,y);
 			break;
+		case 3://임시 : 불의 비
+			delete particle;
+			particle = new particle::FireRain(x,y);
+			break;
 		case 5: //기우제
 			delete particle;
 			particle = new particle::Rain(x,y);

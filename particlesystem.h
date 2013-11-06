@@ -62,9 +62,9 @@ class ParticleSystem{
 		void fuel(int num);
 		void fuelInSequence(float rate, int particles);
 
-		void update();
+		virtual void update();
 
-		void draw(sf::RenderWindow &window);
+		virtual void draw(sf::RenderWindow &window);
 		void setTexture(std::string texturePath);
 		void setLocation(sf::Vector2i position);
 		void setLocationVar(sf::Vector2i positionVar);

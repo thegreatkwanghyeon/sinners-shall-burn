@@ -7,16 +7,11 @@ TitleScene::TitleScene(){
 	text.setString(L"num1 : Å¸ÀÌÆ² ¾À \nnum2 : ²²ÀÓ¾À \nnum3 : ¼ÎÀÌ´õ¾À\nnum4 : ÆÛÁñ");
 	text.setPosition(450.0f, 250.0f);
 
-	particle = new ParticleSystem(600, 600);
-	particle->setTexture("img/particles/circle.png");
-	particle->setAngle(90);
-	particle->setAngleVar(90);
-	particle->setLife(90);
-	particle->setLifeVar(130);
-	particle->setSpeed(0.4);
-	particle->setSpeedVar(0.6);
-	particle->setStartColor(255, 180, 0, 255);
-	particle->setEndColor(255, 0, 0, 0);
+	particle = new ParticleList(0,0);
+	particle->setParticle(1);
+	pNum=1;
+	isPress=false;
+	printf("particle : %d\n",pNum);
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(450,400);
@@ -43,7 +38,26 @@ TitleScene::~TitleScene(){
 	delete particle;
 }
 void TitleScene::update(sf::Event &event){
+
 	particle->update();
+	if(!isPress && sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) && pNum > 1){
+		pNum--;
+		isPress=true;
+		pTime.restart();
+		particle->setParticle(pNum);
+		printf("particle : %d\n",pNum);
+	}
+	if(!isPress && sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)){
+		pNum++;
+		isPress=true;
+		pTime.restart();
+		particle->setParticle(pNum);
+		printf("particle : %d\n",pNum);
+	}
+
+	if(isPress && pTime.getElapsedTime().asSeconds() >= 0.5)
+		isPress=false;
+
 	startButton->update(event);
 	endButton->update(event);
 	slider->update();
@@ -57,9 +71,7 @@ void TitleScene::update(sf::Event &event){
 void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		particle->setLocation(sf::Vector2i(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
-		particle->setLocationVar(sf::Vector2i(sf::Mouse::getPosition(window).x + 30, sf::Mouse::getPosition(window).y + 30));
-		particle->fuelInSequence(0.0, 10);
+		particle->setLocationList();
 	}
 	particle->draw(window);
 	startButton->draw(window);

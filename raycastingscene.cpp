@@ -468,8 +468,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 
 			weight = (currentDist - distPlayer) / (distWall - distPlayer);
-			currentFloor.x = weight * floorWall.x + (1.0 - weight) * pos.x;
-			currentFloor.y = weight * floorWall.y + (1.0 - weight) * pos.y;
+			currentFloor.x = weight * floorWall.x + abs(1.0 - weight) * pos.x;
+			currentFloor.y = weight * floorWall.y + abs(1.0 - weight) * pos.y;
 
 			floorTex.x = (int)(currentFloor.x * texWidth) % texWidth;
 			floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
@@ -479,7 +479,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			if((texWidth * floorTex.y + floorTex.x)>=texHeight*texWidth)
 				printf("BUG : %d : %d\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth);
 			else if((texWidth * floorTex.y + floorTex.x) < 0)
-				printf("BUG : %d : %d[%d %d %d]\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth,texWidth,floorTex.y,floorTex.x);
+				printf("BUG : %d : %d[%d %d %d] --- w : %.5lf %.5lf  pos : %.2f\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth,texWidth,floorTex.y,floorTex.x,weight,currentFloor.x,pos.x);
 			
 			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;//버그 발생지점
 			buffer[4*(y*width+x) +2] = color%256;

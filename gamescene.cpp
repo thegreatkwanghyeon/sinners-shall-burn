@@ -6,6 +6,9 @@
 GameScene::GameScene(){
 	rayCastingScene = new RayCastingScene();
 
+	rec.setSize(sf::Vector2f(1280,720));
+	rec.setPosition(0,0);
+
 	floorNum=1;
 	makemap = new MakeMap();
 	makemap->buildMap(floorNum);
@@ -33,6 +36,9 @@ GameScene::GameScene(){
 	text.setString(L"GAME OVER");
 	text.setPosition(450.0f, 100.0f);
 
+	fText.setFont(font);
+	fText.setPosition(50.0f, 50.0f);
+
 	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");
 	overButton->setHoverSound("sounds/button/hover.wav");
@@ -55,6 +61,16 @@ GameScene::~GameScene(){
 	delete makemap;
 }
 void GameScene::update(sf::Event &event){
+	if(rec.getFillColor().a != 0){
+		printf("alpha : %d\n",rec.getFillColor().a);
+		if(alphaTime.getElapsedTime().asSeconds() >= 0.01){
+			alphaTime.restart();
+			alpha-=5;//--는 너무 느림;;
+			if(alpha < 255)
+				rec.setFillColor(sf::Color::Color(0,0,0,alpha));
+		}
+		return;
+	}
 	if(pause->getState()){//정지되었으면 true 리턴
 		pause->update(event);
 		return;
@@ -130,6 +146,9 @@ void GameScene::draw(sf::RenderWindow &window){
 	if(pause->getState()){//일시정지시
 		pause->draw(window);
 	}
+	window.draw(rec);
+	if(rec.getFillColor().a > 0)
+		window.draw(fText);
 }
 int GameScene::changeScene(){
 	if(pause->isEnd())//종료
@@ -166,6 +185,13 @@ void GameScene::makeEnemys(){
 	pEnemy = &enemy; 
 
 	rayCastingScene->setEnemies(pEnemy); //레이캐스팅 씬으로 넘겨줌
+	//전환효과도 여기에 추가하도록 한다	
+	rec.setFillColor(sf::Color::Color(0,0,0,255));//검정, 알파값 255
+	alpha=ChangeTime;
+	alphaTime.restart();
+
+	_snprintf(plusString, sizeof(plusString), "F%d",floorNum);
+	fText.setString(plusString);
 }
 sf::Vector2f GameScene::translatePosition(float _x, float _y){
 	return sf::Vector2f(MapX-_x-1,_y);

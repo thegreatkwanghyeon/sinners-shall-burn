@@ -475,8 +475,11 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			floorTex.y = (int)(currentFloor.y * texHeight) % texHeight;
 
 			//바닥
+
+			if((texWidth * floorTex.y + floorTex.x)>=texHeight*texWidth)
+				printf("BUG : %d : %d\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth);
 			
-			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;
+			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;//버그 발생지점
 			buffer[4*(y*width+x) +2] = color%256;
 			color >>=8;
 			buffer[4*(y*width+x) +1] = color%256;
@@ -485,7 +488,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			buffer[4*(y*width+x) +3] = 255;
 		  
 			//천장
-			color = texture[6][texWidth * floorTex.y + floorTex.x];
+			color = texture[6][texWidth * floorTex.y + floorTex.x];//버그 발생지점
 			buffer[4*((height-y)*width+x) +2] = color%256;
 			color >>= 8;
 			buffer[4*((height-y)*width+x) +1] = color%256;

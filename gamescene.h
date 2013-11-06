@@ -11,6 +11,7 @@
 
 #define EnemyNum 5
 #define EndStage 5
+#define ChangeTime 300
 
 
 class GameScene : public SceneBase{
@@ -24,7 +25,10 @@ class GameScene : public SceneBase{
 		Tooltip *tooltip;
 
 		sf::Font font;
-		sf::Text text;
+		sf::Text text,fText;
+		sf::Clock alphaTime;
+
+		char plusString[100];
 
 		sf::Vector2i portal;
 
@@ -37,10 +41,12 @@ class GameScene : public SceneBase{
 		sf::Image texture;
 
 		bool isOver,changeFlag;
-
+		sf::RectangleShape rec;
 
 		bool isBattle;
 		int nowEnemy;
+
+		int alpha;
 
 		int floorNum;
 		

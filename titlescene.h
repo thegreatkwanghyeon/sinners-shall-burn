@@ -5,6 +5,7 @@
 #include "particlelist.h"
 #include "button.h"
 #include "slider.h"
+#include "skill.h"
 
 class TitleScene : public SceneBase{
 	private:
@@ -16,6 +17,7 @@ class TitleScene : public SceneBase{
 		int pNum;
 		sf::Clock pTime;
 		bool isPress;
+		Skill* skill;
 
 		Button* startButton;
 		Button* endButton;

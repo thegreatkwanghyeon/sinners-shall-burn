@@ -12,6 +12,7 @@ TitleScene::TitleScene(){
 	pNum=1;
 	isPress=false;
 	printf("particle : %d\n",pNum);
+	skill = new Skill();
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(450,400);
@@ -69,6 +70,13 @@ void TitleScene::update(sf::Event &event){
 }
 
 void TitleScene::draw(sf::RenderWindow &window){
+	sf::Text skillName;
+
+	skillName.setFont(font);
+	skillName.setString(skill->data[pNum].name);
+	skillName.setPosition(0,300);
+	window.draw(skillName);
+
 	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		particle->setLocationList();

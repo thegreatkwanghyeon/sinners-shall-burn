@@ -476,7 +476,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 			//바닥
 
-			if((texWidth * floorTex.y + floorTex.x)>=texHeight*texWidth)
+			if((texWidth * floorTex.y + floorTex.x)>=texHeight*texWidth)//에러검출용 printf
 				printf("BUG : %d : %d\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth);
 			else if((texWidth * floorTex.y + floorTex.x) < 0)
 				printf("BUG : %d : %d[%d %d %d] --- w : %.5lf %.5lf  pos : %.2f\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth,texWidth,floorTex.y,floorTex.x,weight,currentFloor.x,pos.x);

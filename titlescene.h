@@ -2,16 +2,23 @@
 #define __titlescene__
 
 #include "scenebase.h"
-#include "particlesystem.h"
+#include "particlelist.h"
 #include "button.h"
 #include "slider.h"
+#include "skill.h"
 
 class TitleScene : public SceneBase{
 	private:
 		sf::Text text;
 		sf::Font font;
 
-		ParticleSystem* particle;
+		//ParticleSystem* particle;
+		ParticleList *particle;
+		int pNum;
+		sf::Clock pTime;
+		bool isPress;
+		Skill* skill;
+
 		Button* startButton;
 		Button* endButton;
 

@@ -13,10 +13,11 @@ namespace particle{
 	class FireBall : public ParticleSystem{
 		public : 
 
-			FireBall(int x, int y);
+			FireBall(int _x, int _y);
 			~FireBall();
 			void initialize();
 			virtual void setLocationList();
+			int x,y;
 	};
 
 	class Explosion : public ParticleSystem{
@@ -32,10 +33,11 @@ namespace particle{
 
 			FireRain(int x, int y);
 			~FireRain();
-			void initialize();
 			virtual void setLocationList();
+			virtual void update();
+			virtual void draw(sf::RenderWindow &window);
 
-			FireBall fireball[10];
+			FireBall* fireball[10];
 	};
 	class Rain : public ParticleSystem{
 		public :

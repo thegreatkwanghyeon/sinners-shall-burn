@@ -2,8 +2,10 @@
 
 using namespace particle;
 
-FireBall::FireBall(int x, int y) : ParticleSystem(x, y){
+FireBall::FireBall(int _x, int _y) : ParticleSystem(x, y){
 	initialize();
+	x=_x;
+	y=_y;
 }
 
 void FireBall::initialize(){
@@ -18,10 +20,9 @@ void FireBall::initialize(){
 	setEndColor(255, 0, 0, 0);
 }
 void FireBall::setLocationList(){
-	setLocation(sf::Vector2i(540,250));
-	setLocationVar(sf::Vector2i(540,280));
+	setLocation(sf::Vector2i(x-100,y-100));
+	setLocationVar(sf::Vector2i(x+100,y+100));
 	fuelInSequence(0.0, 10);
-	printf("shit");
 }
 
 Water::Water(int x, int y) : ParticleSystem(x, y){
@@ -84,4 +85,24 @@ void Rain::setLocationList(){
 	setLocation(sf::Vector2i(0,0));
 	setLocationVar(sf::Vector2i(1280,700));
 	fuelInSequence(0.0, 10);
+}
+
+FireRain::FireRain(int x, int y) : ParticleSystem(x, y){
+	for(int i=0;i<10;i++){
+		fireball[i] = new FireBall(i*50,i*50);
+	}
+}
+void FireRain::update(){
+	for(int i=0;i<10;i++){
+		fireball[i]->update();
+	}
+}
+void FireRain::draw(sf::RenderWindow &window){
+	for(int i=0;i<10;i++){
+		fireball[i]->draw(window);
+	}
+}
+void FireRain::setLocationList(){
+	for(int i=0;i<10;i++)
+		fireball[i]->setLocationList();
 }

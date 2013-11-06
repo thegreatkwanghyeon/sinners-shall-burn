@@ -7,16 +7,16 @@ namespace particle{
 			Water(int x, int y);
 			~Water(){}
 			void initialize();
-
+			virtual void setLocationList();
 	};
 
-	class Fire : public ParticleSystem{
+	class FireBall : public ParticleSystem{
 		public : 
 
-			Fire(int x, int y);
-			~Fire();
+			FireBall(int x, int y);
+			~FireBall();
 			void initialize();
-
+			virtual void setLocationList();
 	};
 
 	class Explosion : public ParticleSystem{
@@ -25,12 +25,23 @@ namespace particle{
 			Explosion(int x, int y);
 			~Explosion();
 			void initialize();
+			virtual void setLocationList();
+	};
+	class FireRain : public ParticleSystem{
+		public : 
 
+			FireRain(int x, int y);
+			~FireRain();
+			void initialize();
+			virtual void setLocationList();
+
+			FireBall fireball[10];
 	};
 	class Rain : public ParticleSystem{
 		public :
 			Rain(int x, int y);
 			~Rain();
 			void initialize();
+			virtual void setLocationList();
 	};
 }

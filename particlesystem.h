@@ -78,6 +78,7 @@ class ParticleSystem{
 		void setEndColorVar(int r, int g, int b, int a);
 		void setSpeed(float speed);
 		void setSpeedVar(float speed);
+		virtual void setLocationList();//ㅎㅎ내가 추가한 함수임. 오버라이딩용.
 };
 
 #endif

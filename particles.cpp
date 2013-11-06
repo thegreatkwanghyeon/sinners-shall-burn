@@ -2,6 +2,28 @@
 
 using namespace particle;
 
+FireBall::FireBall(int x, int y) : ParticleSystem(x, y){
+	initialize();
+}
+
+void FireBall::initialize(){
+	setTexture("img/particles/circle.png");
+	setAngle(85);
+	setAngleVar(95);
+	setLife(90);
+	setLifeVar(130);
+	setSpeed(0.4);
+	setSpeedVar(0.6);
+	setStartColor(255, 180, 0, 255);
+	setEndColor(255, 0, 0, 0);
+}
+void FireBall::setLocationList(){
+	setLocation(sf::Vector2i(540,250));
+	setLocationVar(sf::Vector2i(540,280));
+	fuelInSequence(0.0, 10);
+	printf("shit");
+}
+
 Water::Water(int x, int y) : ParticleSystem(x, y){
 	initialize();
 }
@@ -17,22 +39,10 @@ void Water::initialize(){
 	setStartColor(0, 0, 150, 100);
 	setEndColor(0, 0, 255, 0);
 }
-
-
-Fire::Fire(int x, int y) : ParticleSystem(x, y){
-	initialize();
-}
-
-void Fire::initialize(){
-	setTexture("img/particles/circle.png");
-	setAngle(85);
-	setAngleVar(95);
-	setLife(90);
-	setLifeVar(130);
-	setSpeed(0.4);
-	setSpeedVar(0.6);
-	setStartColor(255, 180, 0, 255);
-	setEndColor(255, 0, 0, 0);
+void Water::setLocationList(){
+	setLocation(sf::Vector2i(500,300));
+	setLocationVar(sf::Vector2i(600,400));
+	fuelInSequence(0.0, 10);
 }
 
 Explosion::Explosion(int x, int y) : ParticleSystem(x, y){
@@ -50,6 +60,11 @@ void Explosion::initialize(){
 	setStartColor(255, 180, 0, 255);
 	setEndColor(255, 0, 0, 0);
 }
+void Explosion::setLocationList(){
+	setLocation(sf::Vector2i(0,0));
+	setLocationVar(sf::Vector2i(1280,700));
+	fuelInSequence(0.0, 10);
+}
 Rain::Rain(int x, int y) : ParticleSystem(x, y){
 	initialize();
 }
@@ -64,4 +79,9 @@ void Rain::initialize(){
 	setSpeedVar(4);
 	setStartColor(0, 0, 255, 100);
 	setEndColor(0, 0, 255, 0);
+}
+void Rain::setLocationList(){
+	setLocation(sf::Vector2i(0,0));
+	setLocationVar(sf::Vector2i(1280,700));
+	fuelInSequence(0.0, 10);
 }

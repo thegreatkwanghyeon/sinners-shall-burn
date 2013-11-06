@@ -163,3 +163,6 @@ void ParticleSystem::setLocation(sf::Vector2i position){
 
 	m_positionVar = m_position;
 }
+void ParticleSystem::setLocationList(){
+	return;
+}

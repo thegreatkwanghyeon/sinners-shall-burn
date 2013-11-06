@@ -478,6 +478,8 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 
 			if((texWidth * floorTex.y + floorTex.x)>=texHeight*texWidth)
 				printf("BUG : %d : %d\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth);
+			else if((texWidth * floorTex.y + floorTex.x) < 0)
+				printf("BUG : %d : %d[%d %d %d]\n",(texWidth * floorTex.y + floorTex.x),texHeight*texWidth,texWidth,floorTex.y,floorTex.x);
 			
 			color = (texture[3][texWidth * floorTex.y + floorTex.x] >> 1) &8355711;//버그 발생지점
 			buffer[4*(y*width+x) +2] = color%256;

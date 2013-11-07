@@ -6,6 +6,7 @@
 #include "button.h"
 #include "slider.h"
 #include "skill.h"
+#include "lightning.h"
 
 class TitleScene : public SceneBase{
 	private:
@@ -23,6 +24,8 @@ class TitleScene : public SceneBase{
 		Button* endButton;
 
 		Slider* slider;
+
+		Lightning* lightning;
 
 		bool sceneFlag,endFlag;
 

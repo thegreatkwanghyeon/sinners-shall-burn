@@ -1,0 +1,31 @@
+#include "stdafx.h"
+
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+using namespace sf;
+
+class Line{
+private:
+	RectangleShape line;
+	float startPosition_x;
+	float startPosition_y;
+
+	float endPosition_x;
+	float endPosition_y;
+
+	float thickness;
+public:
+	Line();
+	~Line(){}
+
+	void update();
+	void draw(RenderWindow &window);
+
+	void setStartPosition(float x, float y);
+	void setEndPosition(float x, float y);
+	void setThickness(float thickness);
+
+	void initialize();
+
+};

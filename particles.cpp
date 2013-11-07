@@ -20,7 +20,7 @@ void FireBall::initialize(sf::Vector2i _move){
 	setSpeed(1);
 	setSpeedVar(2);
 	setStartColor(255, 0, 0, 255);
-	setEndColor(0, 0, 255, 0);
+	setEndColor(255, 180, 0, 0);
 
 	//여기부턴 이동할거면 쓸것
 	move=_move;
@@ -123,23 +123,64 @@ void Rain::setLocationList(){
 }
 
 FireRain::FireRain(int x, int y) : ParticleSystem(x, y){
-	for(int i=0;i<10;i++){
-		fireball[i] = new FireBall(i*50,i*50);
-	}
+	fireball[0] = new FireBall(300,0);
+	fireball[1] = new FireBall(500,50);
+	fireball[2] = new FireBall(1000,100);
+	fireball[3] = new FireBall(200,150);
+	fireball[4] = new FireBall(700,300);
+	fireball[5] = new FireBall(400,350);
+	fireball[6] = new FireBall(500,300);
 	pos.x=x;
 	pos.y=y;
-}	
+}
 void FireRain::update(){
-	for(int i=0;i<10;i++){
+	for(int i=0;i<7;i++){
 		fireball[i]->update();
 	}
 }
 void FireRain::draw(sf::RenderWindow &window){
-	for(int i=0;i<10;i++){
+	for(int i=0;i<7;i++){
 		fireball[i]->draw(window);
 	}
 }
 void FireRain::setLocationList(){
-	for(int i=0;i<10;i++)
+	for(int i=0;i<7;i++)
 		fireball[i]->setLocationList();
+}
+
+Cut::Cut(int x, int y) : ParticleSystem(x, y){
+	initialize(sf::Vector2i(-20,20));
+	pos.x=x;
+	pos.y=y;
+
+	temp=pos;
+	delta.restart();
+}
+
+void Cut::initialize(sf::Vector2i _move){
+	setTexture("img/particles/scircle.png");
+	setAngle(30);
+	setAngleVar(60);
+	setLife(50);
+	setLifeVar(100);
+	setSpeed(1);
+	setSpeedVar(2);
+	setStartColor(255, 0, 0, 255);
+	setEndColor(255, 0, 0, 0);
+
+	//여기부턴 이동할거면 쓸것
+	move=_move;
+}
+void Cut::setLocationList(){
+	setLocation(sf::Vector2i(temp.x+300,temp.y-150));
+	setLocationVar(sf::Vector2i(temp.x+305,temp.y-145));
+	fuelInSequence(0.0, 10);
+	setMove();
+}
+void Cut::setMove(){
+	if(delta.getElapsedTime().asSeconds() >= 0.01){
+		delta.restart();
+		temp.x+=move.x;
+		temp.y+=move.y;
+	}
 }

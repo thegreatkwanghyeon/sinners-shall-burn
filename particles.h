@@ -51,7 +51,7 @@ namespace particle{
 			virtual void update();
 			virtual void draw(sf::RenderWindow &window);
 
-			FireBall* fireball[10];
+			FireBall* fireball[7];
 	};
 	class Rain : public ParticleSystem{
 		private :
@@ -60,6 +60,20 @@ namespace particle{
 			Rain(int _x, int _y);
 			~Rain();
 			void initialize();
+			virtual void setLocationList();
+	};
+	class Cut : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+			sf::Vector2i temp;
+			sf::Clock delta;
+			
+			sf::Vector2i move;
+			void setMove();
+		public : 
+			Cut(int _x, int _y);
+			~Cut();
+			void initialize(sf::Vector2i _move);
 			virtual void setLocationList();
 	};
 }

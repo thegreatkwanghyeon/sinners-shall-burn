@@ -30,7 +30,7 @@ void ParticleList::setParticle(int _num){
 			break;
 		case 100: //Έχ °ψ°έ 1Ήψ?
 			delete particle;
-			particle = new particle::Water(x,y);
+			particle = new particle::Cut(x,y);
 			break;
 		default : 
 			delete particle;

@@ -30,6 +30,8 @@ TitleScene::TitleScene(){
 	slider->setPosition(500, 300);
 	slider->setLimit(100);
 
+	lightning = new Lightning(Vector2i(100, 100), Vector2i(600, 100), 1, 20, 200);
+
 	sceneFlag=false;
 	endFlag=false;
 }
@@ -62,6 +64,7 @@ void TitleScene::update(sf::Event &event){
 	startButton->update(event);
 	endButton->update(event);
 	slider->update();
+	lightning->update();
 
 	if(startButton->checkMouseClick(event))
 		sceneFlag=true;
@@ -85,6 +88,7 @@ void TitleScene::draw(sf::RenderWindow &window){
 	startButton->draw(window);
 	endButton->draw(window);	
 	slider->draw(window);
+	lightning->draw(window);
 }
 int TitleScene::changeScene(){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

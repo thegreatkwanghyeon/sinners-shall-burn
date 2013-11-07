@@ -32,7 +32,7 @@ Battle::Battle(Player** _player){
 
 	skill = (*player)->skill;
 
-	particle = new ParticleList(0,0);
+	particle = new ParticleList(640,200);
 	particle->setParticle(1);
 
 	font.loadFromFile("font/spike.ttf");

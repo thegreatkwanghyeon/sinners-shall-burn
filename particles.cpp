@@ -77,6 +77,29 @@ void Water::setMove(){
 	}
 }
 
+Fire::Fire(int x, int y) : ParticleSystem(x, y){
+	initialize();
+	pos.x=x;
+	pos.y=y;
+}
+
+void Fire::initialize(){
+	setTexture("img/particles/circle.png");
+	setAngle(60);
+	setAngleVar(120);
+	setLife(70);
+	setLifeVar(100);
+	setSpeed(1);
+	setSpeedVar(1.2);
+	setStartColor(200, 0, 0, 100);
+	setEndColor(255, 0, 0, 0);
+}
+void Fire::setLocationList(){
+	setLocation(sf::Vector2i(pos.x-50,pos.y));
+	setLocationVar(sf::Vector2i(pos.x+50,pos.y+100));
+	fuelInSequence(0.0, 10);
+}
+
 Explosion::Explosion(int x, int y) : ParticleSystem(x, y){
 	initialize();
 	pos.x=x;
@@ -148,6 +171,29 @@ void FireRain::setLocationList(){
 		fireball[i]->setLocationList();
 }
 
+FireRain2::FireRain2(int x, int y) : ParticleSystem(x, y){
+	fire[0] = new Fire(x,y-50);
+	fire[1] = new Fire(x-120,y+50);
+	fire[2] = new Fire(x+120,y+50);
+	fire[3] = new Fire(x-80,y+150);
+	fire[4] = new Fire(x+80,y+150);
+	pos.x=x;
+	pos.y=y;
+}
+void FireRain2::update(){
+	for(int i=0;i<5;i++){
+		fire[i]->update();
+	}
+}
+void FireRain2::draw(sf::RenderWindow &window){
+	for(int i=0;i<5;i++){
+		fire[i]->draw(window);
+	}
+}
+void FireRain2::setLocationList(){
+	for(int i=0;i<5;i++)
+		fire[i]->setLocationList();
+}
 Cut::Cut(int x, int y) : ParticleSystem(x, y){
 	initialize(sf::Vector2i(-30,30));
 	pos.x=x;

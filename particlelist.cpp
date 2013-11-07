@@ -16,9 +16,13 @@ void ParticleList::setParticle(int _num){
 			delete particle;
 			particle = new particle::Explosion(x,y);
 			break;
-		case 3://임시 : 불의 비
+		case 3://지옥불
 			delete particle;
-			particle = new particle::FireRain(x,y);
+			particle = new particle::Fire(x,y);
+			break;
+		case 4://세멸화
+			delete particle;
+			particle = new particle::FireRain2(x,y);
 			break;
 		case 5: //기우제
 			delete particle;
@@ -27,6 +31,10 @@ void ParticleList::setParticle(int _num){
 		case 6: //침수
 			delete particle;
 			particle = new particle::Water(x,y);
+			break;
+		case 35://메테오
+			delete particle;
+			particle = new particle::FireRain(x,y);
 			break;
 		case 100: //몹 공격 1번?
 			delete particle;

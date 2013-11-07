@@ -16,7 +16,15 @@ namespace particle{
 			void initialize(sf::Vector2i _move);//안움직일거면 인자 필요없음
 			virtual void setLocationList();
 	};
-
+	class Fire : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public :
+			Fire(int _x, int _y);
+			~Fire();
+			void initialize();
+			virtual void setLocationList();
+	};
 	class FireBall : public ParticleSystem{
 		private :
 			sf::Vector2i pos;
@@ -50,8 +58,20 @@ namespace particle{
 			virtual void setLocationList();
 			virtual void update();
 			virtual void draw(sf::RenderWindow &window);
+			
+			FireBall* fireball[7];			
+	};
+	class FireRain2 : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public : 
+			FireRain2(int _x, int _y);
+			~FireRain2();
+			virtual void setLocationList();
+			virtual void update();
+			virtual void draw(sf::RenderWindow &window);
 
-			FireBall* fireball[7];
+			Fire* fire[5];
 	};
 	class Rain : public ParticleSystem{
 		private :

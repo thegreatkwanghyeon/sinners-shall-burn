@@ -40,7 +40,7 @@ void FireBall::setMove(){
 }
 
 Water::Water(int x, int y) : ParticleSystem(x, y){
-	initialize(sf::Vector2i(0,-5));
+	initialize(sf::Vector2i(0,5));
 	pos.x=x;
 	pos.y=y;
 
@@ -63,8 +63,8 @@ void Water::initialize(sf::Vector2i _move){
 	move=_move;
 }
 void Water::setLocationList(){
-	setLocation(sf::Vector2i(temp.x-25,temp.y));
-	setLocationVar(sf::Vector2i(temp.x+25,temp.y+50));
+	setLocation(sf::Vector2i(temp.x-25,temp.y-150));
+	setLocationVar(sf::Vector2i(temp.x+25,temp.y-100));
 	fuelInSequence(0.0, 10);
 
 	setMove();
@@ -85,18 +85,18 @@ Explosion::Explosion(int x, int y) : ParticleSystem(x, y){
 
 void Explosion::initialize(){
 	setTexture("img/particles/circle.png");
-	setAngle(70);
-	setAngleVar(110);
+	setAngle(0);
+	setAngleVar(360);
 	setLife(90);
 	setLifeVar(130);
 	setSpeed(0.4);
-	setSpeedVar(0.6);
-	setStartColor(255, 180, 0, 255);
+	setSpeedVar(1);
+	setStartColor(255, 120, 0, 255);
 	setEndColor(255, 0, 0, 0);
 }
 void Explosion::setLocationList(){
-	setLocation(sf::Vector2i(0,0));
-	setLocationVar(sf::Vector2i(1280,700));
+	setLocation(sf::Vector2i(pos.x-50,pos.y-50));
+	setLocationVar(sf::Vector2i(pos.x+50,pos.y+50));
 	fuelInSequence(0.0, 10);
 }
 Rain::Rain(int x, int y) : ParticleSystem(x, y){
@@ -149,7 +149,7 @@ void FireRain::setLocationList(){
 }
 
 Cut::Cut(int x, int y) : ParticleSystem(x, y){
-	initialize(sf::Vector2i(-20,20));
+	initialize(sf::Vector2i(-30,30));
 	pos.x=x;
 	pos.y=y;
 
@@ -158,13 +158,13 @@ Cut::Cut(int x, int y) : ParticleSystem(x, y){
 }
 
 void Cut::initialize(sf::Vector2i _move){
-	setTexture("img/particles/scircle.png");
-	setAngle(30);
-	setAngleVar(60);
+	setTexture("img/particles/stick2.png");
+	setAngle(45);
+	setAngleVar(45);
 	setLife(50);
-	setLifeVar(100);
-	setSpeed(1);
-	setSpeedVar(2);
+	setLifeVar(60);
+	setSpeed(0);
+	setSpeedVar(0);
 	setStartColor(255, 0, 0, 255);
 	setEndColor(255, 0, 0, 0);
 

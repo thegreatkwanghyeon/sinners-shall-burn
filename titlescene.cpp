@@ -58,7 +58,7 @@ void TitleScene::update(sf::Event &event){
 		printf("particle : %d\n",pNum);
 	}
 
-	if(isPress && pTime.getElapsedTime().asSeconds() >= 0.5)
+	if(isPress && pTime.getElapsedTime().asSeconds() >= 0.1)
 		isPress=false;
 
 	startButton->update(event);

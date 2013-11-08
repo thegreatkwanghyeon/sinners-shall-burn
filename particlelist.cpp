@@ -32,6 +32,14 @@ void ParticleList::setParticle(int _num){
 			delete particle;
 			particle = new particle::Water(x,y);
 			break;
+		case 9: //¾àÃÊ
+			delete particle;
+			particle = new particle::Heal(x,y);
+			break;
+		case 10: //¾¾»Ñ¸®±â
+			delete particle;
+			particle = new particle::Heal2(x,y);
+			break;
 		case 35://¸ÞÅ×¿À
 			delete particle;
 			particle = new particle::FireRain(x,y);

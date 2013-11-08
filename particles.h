@@ -96,4 +96,22 @@ namespace particle{
 			void initialize(sf::Vector2i _move);
 			virtual void setLocationList();
 	};
+	class Heal : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public :
+			Heal(int _x, int _y);
+			~Heal();
+			void initialize();
+			virtual void setLocationList();
+	};
+	class Heal2 : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public :
+			Heal2(int _x, int _y);
+			~Heal2();
+			void initialize();
+			virtual void setLocationList();
+	};
 }

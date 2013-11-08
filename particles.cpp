@@ -230,3 +230,46 @@ void Cut::setMove(){
 		temp.y+=move.y;
 	}
 }
+
+Heal::Heal(int x, int y) : ParticleSystem(x, y){
+	initialize();
+	pos.x=x;
+	pos.y=y;
+}
+void Heal::initialize(){
+	setTexture("img/particles/scircle.png");
+	setAngle(60);
+	setAngleVar(120);
+	setLife(70);
+	setLifeVar(100);
+	setSpeed(1);
+	setSpeedVar(1.2);
+	setStartColor(0, 255, 0, 100);
+	setEndColor(0, 255, 0, 0);
+}
+void Heal::setLocationList(){
+	setLocation(sf::Vector2i(pos.x-50,pos.y));
+	setLocationVar(sf::Vector2i(pos.x+50,pos.y+100));
+	fuelInSequence(0.0, 10);
+}
+Heal2::Heal2(int x, int y) : ParticleSystem(x, y){
+	initialize();
+	pos.x=x;
+	pos.y=y;
+}
+void Heal2::initialize(){
+	setTexture("img/particles/scircle.png");
+	setAngle(0);
+	setAngleVar(360);
+	setLife(70);
+	setLifeVar(100);
+	setSpeed(1);
+	setSpeedVar(1.2);
+	setStartColor(150, 75, 0, 100);
+	setEndColor(0, 255, 0, 0);
+}
+void Heal2::setLocationList(){
+	setLocation(sf::Vector2i(pos.x-50,pos.y));
+	setLocationVar(sf::Vector2i(pos.x+50,pos.y+100));
+	fuelInSequence(0.0, 10);
+}

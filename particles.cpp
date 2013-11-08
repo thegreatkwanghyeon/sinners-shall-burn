@@ -288,8 +288,8 @@ void Drain::initialize(sf::Vector2i _move){
 	setAngleVar(120);
 	setLife(50);
 	setLifeVar(60);
-	setSpeed(0);
-	setSpeedVar(0);
+	setSpeed(0.2);
+	setSpeedVar(0.5);
 	setStartColor(0, 255, 0, 125);
 	setEndColor(0, 255, 0, 0);
 
@@ -326,7 +326,44 @@ void IceShield::initialize(){
 	setEndColor(135, 206, 235, 0);
 }
 void IceShield::setLocationList(){
-	setLocation(sf::Vector2i(pos.x-100,pos.y-100));
-	setLocationVar(sf::Vector2i(pos.x+100,pos.y+100));
+	setLocation(sf::Vector2i(pos.x-150,pos.y-150));
+	setLocationVar(sf::Vector2i(pos.x+150,pos.y+150));
 	fuelInSequence(0.0, 10);
+}
+
+Beam::Beam(int x, int y) : ParticleSystem(x, y){
+	initialize(sf::Vector2i(0,10));
+	pos.x=x;
+	pos.y=y;
+
+	temp=pos;
+	delta.restart();
+}
+
+void Beam::initialize(sf::Vector2i _move){
+	setTexture("img/particles/stick.png");
+	setAngle(260);
+	setAngleVar(280);
+	setLife(100);
+	setLifeVar(120);
+	setSpeed(0.2);
+	setSpeedVar(0.5);
+	setStartColor(125, 0, 0, 125);
+	setEndColor(0, 0, 255, 0);
+
+	//여기부턴 이동할거면 쓸것
+	move=_move;
+}
+void Beam::setLocationList(){
+	setLocation(sf::Vector2i(temp.x-35,temp.y-20));
+	setLocationVar(sf::Vector2i(temp.x-30,temp.y));
+	fuelInSequence(0.0, 10);
+	setMove();
+}
+void Beam::setMove(){
+	if(delta.getElapsedTime().asSeconds() >= 0.01){
+		delta.restart();
+		temp.x+=move.x;
+		temp.y+=move.y;
+	}
 }

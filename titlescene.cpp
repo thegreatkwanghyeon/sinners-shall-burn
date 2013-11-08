@@ -80,6 +80,8 @@ void TitleScene::update(sf::Event &event){
 
 void TitleScene::draw(sf::RenderWindow &window){
 	sf::Text skillName;
+	sf::Texture texture;
+	sf::Sprite sprite;
 
 	skillName.setFont(font);
 	skillName.setString(skill->data[pNum].name);
@@ -95,6 +97,11 @@ void TitleScene::draw(sf::RenderWindow &window){
 	endButton->draw(window);	
 	slider->draw(window);
 	lightning->draw(window);
+	
+	sprite.setPosition(200,200);
+	texture.loadFromFile(skill->data[pNum].link);
+	sprite.setTexture(texture);
+	window.draw(sprite);
 }
 int TitleScene::changeScene(){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

@@ -24,6 +24,8 @@ RayCastingScene::RayCastingScene(){
 	plane.x = -0.66; 
 	plane.y = 0;
 
+	rec2.setSize(sf::Vector2f(1280.0,720.0));
+
 	//---이동---//
 	//player.x = 1.5;
 	//player.y = 1.5;
@@ -101,6 +103,7 @@ void RayCastingScene::setMap(int _map[][MapX+100]){
 			}
 		}
 	}
+	alpha=-1;
 }
 
 std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
@@ -120,6 +123,23 @@ std::vector<sf::Uint32> RayCastingScene::convertImageToTexture(sf::Image image){
 
 void RayCastingScene::update(sf::Event &event){
 	int tempX, tempY;//좌우이동용 temp변수
+
+	if(alpha > 0){
+		if(changeTime.getElapsedTime().asSeconds() >= 0.005){
+			alpha-=5;
+			rec2.setFillColor(sf::Color::Color(0,0,0,255-alpha));
+			changeTime.restart();
+			printf("%d %d>>>>>\n",alpha,rec2.getFillColor().a);
+		}
+		return;
+	}
+
+	if(checkMapChange()){//맵을 바꿀 조건이 되었다면 화면을 암전한다
+		alpha=255;
+		rec2.setFillColor(sf::Color::Color(0,0,0,0));
+		changeTime.restart();
+		return;
+	}
 
 	for(int i=pos.y-fov;i<=pos.y+fov;i++){
 		for(int j=pos.x-fov;j<=pos.x+fov;j++){
@@ -624,6 +644,9 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	rec.setFillColor(sf::Color::Green);
 	window.draw(rec);
 	//---미니맵 끝--//
+	if(alpha >= 0){
+		window.draw(rec2);
+	}
 }
 int RayCastingScene::getAngle(){
     if(dir.x == -1 && dir.y == 0 && plane.x == 0 && plane.y == 0.66)
@@ -689,10 +712,29 @@ void RayCastingScene::setPos(sf::Vector2f temp){
 	isTurnL=0;
 	isTurnR=0;
 }
-bool RayCastingScene::isMapChange(){
+bool RayCastingScene::checkMapChange(){
 	int angle=getAngle();
 
 	if(getAngle() == -1)
+		return false;
+
+	//printf("%d %d -- %d %d << %d\n",(int)pos.x, deltaClock.getElapsedTime().asSeconds().x,(int)pos.y, deltaClock.getElapsedTime().asSeconds().y,angle);
+	//printf("%d %d /%d %d\n",(int)portal.x,(int)portal.y,(int)pos.x,(int)pos.y);
+	if((int)pos.x == (int)portal.y && (int)pos.y-(int)portal.x == 1 && angle == 4){
+		return true;
+	}else if((int)pos.x-(int)portal.y == -1 && (int)pos.y == (int)portal.x && angle == 3){
+		return true;
+	}else if((int)pos.x == (int)portal.y && (int)pos.y - (int)portal.x == -1 && angle == 2){
+		return true;
+	}else if((int)pos.x - (int)portal.y == 1 && (int)pos.y == (int)portal.x && angle == 1){
+		return true;
+	}
+	return false;
+}
+bool RayCastingScene::isMapChange(){
+	int angle=getAngle();
+
+	if(getAngle() == -1 || alpha != 0)
 		return false;
 
 	//printf("%d %d -- %d %d << %d\n",(int)pos.x, deltaClock.getElapsedTime().asSeconds().x,(int)pos.y, deltaClock.getElapsedTime().asSeconds().y,angle);

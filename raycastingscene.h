@@ -115,8 +115,10 @@ class RayCastingScene{
 		 //enemy ฐüทร 
 		 std::vector <Enemy*> *pEnemy;
 
-
-
+		 bool checkMapChange();
+		 sf::RectangleShape rec2;
+		 int alpha;
+		 sf::Clock changeTime;
 	public:
 		RayCastingScene();
 		~RayCastingScene();

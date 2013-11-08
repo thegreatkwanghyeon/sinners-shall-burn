@@ -11,7 +11,7 @@
 
 #define EnemyNum 5
 #define EndStage 5
-#define ChangeTime 300
+#define ChangeTime 350
 
 
 class GameScene : public SceneBase{

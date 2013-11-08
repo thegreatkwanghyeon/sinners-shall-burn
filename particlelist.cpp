@@ -15,6 +15,7 @@ void ParticleList::setParticle(int _num){
 		case 2: //Å¸¿À¸£´Â È­¿°
 			delete particle;
 			particle = new particle::Explosion(x,y);
+			//particle = new particle::Beam(x,y);
 			break;
 		case 3://Áö¿ÁºÒ
 			delete particle;
@@ -52,9 +53,13 @@ void ParticleList::setParticle(int _num){
 			delete particle;
 			particle = new particle::FireRain(x,y);
 			break;
-		case 100: //¸÷ °ø°Ý 1¹ø?
+		case 50: //¸÷ °ø°Ý : ±¸¿ï?
 			delete particle;
 			particle = new particle::Cut(x,y);
+			break;
+		case 51: //¸÷ °ø°Ý : ºí·¯µð¾ÆÀÌ(´«¿¡¼­ ºö!)
+			delete particle;
+			particle = new particle::Beam(x,y);
 			break;
 		default : 
 			delete particle;

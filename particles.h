@@ -137,4 +137,18 @@ namespace particle{
 			void initialize();
 			virtual void setLocationList();
 	};
+	class Beam : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+			sf::Vector2i temp;
+			sf::Clock delta;
+			
+			sf::Vector2i move;
+			void setMove();
+		public : 
+			Beam(int _x, int _y);
+			~Beam();
+			void initialize(sf::Vector2i _move);
+			virtual void setLocationList();
+	};
 }

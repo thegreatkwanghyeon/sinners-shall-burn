@@ -273,3 +273,60 @@ void Heal2::setLocationList(){
 	setLocationVar(sf::Vector2i(pos.x+50,pos.y+100));
 	fuelInSequence(0.0, 10);
 }
+Drain::Drain(int x, int y) : ParticleSystem(x, y){
+	initialize(sf::Vector2i(0,5));
+	pos.x=x;
+	pos.y=y;
+
+	temp=pos;
+	delta.restart();
+}
+
+void Drain::initialize(sf::Vector2i _move){
+	setTexture("img/particles/scircle.png");
+	setAngle(60);
+	setAngleVar(120);
+	setLife(50);
+	setLifeVar(60);
+	setSpeed(0);
+	setSpeedVar(0);
+	setStartColor(0, 255, 0, 125);
+	setEndColor(0, 255, 0, 0);
+
+	//여기부턴 이동할거면 쓸것
+	move=_move;
+}
+void Drain::setLocationList(){
+	setLocation(sf::Vector2i(temp.x-50,temp.y-50));
+	setLocationVar(sf::Vector2i(temp.x+50,temp.y+50));
+	fuelInSequence(0.0, 10);
+	setMove();
+}
+void Drain::setMove(){
+	if(delta.getElapsedTime().asSeconds() >= 0.01){
+		delta.restart();
+		temp.x+=move.x;
+		temp.y+=move.y;
+	}
+}
+IceShield::IceShield(int x, int y) : ParticleSystem(x, y){
+	initialize();
+	pos.x=x;
+	pos.y=y;
+}
+void IceShield::initialize(){
+	setTexture("img/particles/stick2.png");
+	setAngle(45);
+	setAngleVar(45);
+	setLife(50);
+	setLifeVar(60);
+	setSpeed(0);
+	setSpeedVar(0);
+	setStartColor(135, 206, 235, 125);
+	setEndColor(135, 206, 235, 0);
+}
+void IceShield::setLocationList(){
+	setLocation(sf::Vector2i(pos.x-100,pos.y-100));
+	setLocationVar(sf::Vector2i(pos.x+100,pos.y+100));
+	fuelInSequence(0.0, 10);
+}

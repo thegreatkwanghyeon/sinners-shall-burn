@@ -114,4 +114,27 @@ namespace particle{
 			void initialize();
 			virtual void setLocationList();
 	};
+	class Drain : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+			sf::Vector2i temp;
+			sf::Clock delta;
+			
+			sf::Vector2i move;
+			void setMove();
+		public : 
+			Drain(int _x, int _y);
+			~Drain();
+			void initialize(sf::Vector2i _move);
+			virtual void setLocationList();
+	};
+	class IceShield : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public :
+			IceShield(int _x, int _y);
+			~IceShield();
+			void initialize();
+			virtual void setLocationList();
+	};
 }

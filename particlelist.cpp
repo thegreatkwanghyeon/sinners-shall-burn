@@ -40,6 +40,14 @@ void ParticleList::setParticle(int _num){
 			delete particle;
 			particle = new particle::Heal2(x,y);
 			break;
+		case 11: //흡수
+			delete particle;
+			particle = new particle::Drain(x,y);
+			break;
+		case 19: //얼음방패
+			delete particle;
+			particle = new particle::IceShield(x,y);
+			break;
 		case 35://메테오
 			delete particle;
 			particle = new particle::FireRain(x,y);

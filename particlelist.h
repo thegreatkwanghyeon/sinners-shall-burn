@@ -18,7 +18,7 @@ class ParticleList{
 		ParticleList(int _x, int _y);
 		~ParticleList();
 
-		void setParticle(int _num, sf::String _path);
+		void setParticle(int _num, sf::String _path, bool isSound);
 		void update();
 		void draw(sf::RenderWindow &window);
 		void setLocationList();

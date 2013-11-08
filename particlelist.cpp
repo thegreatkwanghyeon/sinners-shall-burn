@@ -6,11 +6,13 @@ ParticleList::ParticleList(int _x, int _y){
 	particle = new particle::FireBall(x,y);
 	sound.setVolume(soundVolume);
 }
-void ParticleList::setParticle(int _num, sf::String _path){
+void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	num=_num;
-	soundBuffer.loadFromFile(_path);
-	sound.setBuffer(soundBuffer);
-	sound.play();
+	if(isSound){
+		soundBuffer.loadFromFile(_path);
+		sound.setBuffer(soundBuffer);
+		sound.play();
+	}
 	switch(num){
 		case 1: //È­¿°±¸
 			delete particle;

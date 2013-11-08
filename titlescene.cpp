@@ -8,7 +8,7 @@ TitleScene::TitleScene(){
 	text.setPosition(450.0f, 250.0f);
 
 	particle = new ParticleList(640,200);
-	particle->setParticle(1,"sounds/skill/skill01.wav");
+	particle->setParticle(1,"",false);
 	pNum=1;
 	isPress=false;
 	printf("particle : %d\n",pNum);
@@ -54,14 +54,14 @@ void TitleScene::update(sf::Event &event){
 		pNum--;
 		isPress=true;
 		pTime.restart();
-		particle->setParticle(pNum,"sounds/skill/skill01.wav");
+		particle->setParticle(pNum,"",false);
 		printf("particle : %d\n",pNum);
 	}
 	if(!isPress && sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)){
 		pNum++;
 		isPress=true;
 		pTime.restart();
-		particle->setParticle(pNum,"sounds/skill/skill01.wav");
+		particle->setParticle(pNum,"",false);
 		printf("particle : %d\n",pNum);
 	}
 

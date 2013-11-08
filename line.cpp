@@ -21,9 +21,16 @@ void Line::initialize(){
 	float length = sqrt((endPosition_x - startPosition_x) * (endPosition_x - startPosition_x) + (endPosition_y - startPosition_y) * (endPosition_y - startPosition_y));
 	float rot = atan2(endPosition_y - startPosition_y, endPosition_x - startPosition_x);
 
+	line.setFillColor(Color(r,g,b));
 	line.setSize(Vector2f(length, thickness));
 	line.setPosition(startPosition_x, startPosition_y);
 	line.setRotation(rot * 180/M_PI);
+}
+
+void Line::setColor(int r, int g, int b){
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 void Line::update(){

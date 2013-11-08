@@ -30,7 +30,13 @@ TitleScene::TitleScene(){
 	slider->setPosition(500, 300);
 	slider->setLimit(100);
 
-	lightning = new Lightning(Vector2i(100, 100), Vector2i(600, 100), 1, 20, 200);
+	lightning = new Lightning();
+	lightning->setDetail(3);
+	lightning->setDisplacement(150);
+	lightning->setThcikness(2);
+	lightning->setStartPosition(100, 100);
+	lightning->setEndPosition(700, 300);
+	lightning->setColor(100, 200, 255);
 
 	sceneFlag=false;
 	endFlag=false;

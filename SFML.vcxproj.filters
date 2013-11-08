@@ -106,10 +106,12 @@
     <ClInclude Include="slider.h">
       <Filter>system\UI</Filter>
     </ClInclude>
-    <ClInclude Include="line.h" />
-    <ClInclude Include="well512.h" />
+    <ClInclude Include="pausescene.h" />
     <ClInclude Include="lightning.h">
-      <Filter>contents</Filter>
+      <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
+      <Filter>system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +209,12 @@
     <ClCompile Include="slider.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
-    <ClCompile Include="line.cpp" />
+    <ClCompile Include="pausescene.cpp" />
     <ClCompile Include="lightning.cpp">
-      <Filter>contents</Filter>
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="line.cpp">
+      <Filter>system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

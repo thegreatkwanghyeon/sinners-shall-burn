@@ -15,6 +15,7 @@ private:
 	float endPosition_y;
 
 	float thickness;
+	int r, g, b;
 public:
 	Line();
 	~Line(){}
@@ -25,6 +26,8 @@ public:
 	void setStartPosition(float x, float y);
 	void setEndPosition(float x, float y);
 	void setThickness(float thickness);
+
+	void setColor(int r, int g, int b);
 
 	void initialize();
 

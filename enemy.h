@@ -9,7 +9,7 @@ class Enemy{
 	private:
 		sf::Sprite sprite;
 		sf::Image texture;
-		sf::String textureName,intro;
+		sf::String textureName,intro,soundLink;
 		std::vector<sf::Uint32> convertedTexture;
 		sf::Text name;
 		sf::Font font;
@@ -59,6 +59,7 @@ class Enemy{
 		void setAcc(int num);
 		sf::String getTextureName();
 		sf::String getIntro();
+		sf::String getSoundLink();
 		
 };
 

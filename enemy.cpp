@@ -22,6 +22,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 			pNode->ToElement()->Attribute("skill2",&subAniNum);
 			pNode->ToElement()->Attribute("subpro",&subPro);
 			textureName=(MTW(pNode->ToElement()->Attribute("imgLink")));
+			soundLink=(MTW(pNode->ToElement()->Attribute("soundLink")));
 			name.setString(MTW(pNode->ToElement()->Attribute("name")));
 			intro=(MTW(pNode->ToElement()->GetText()));
 			code=tmpCode;
@@ -132,4 +133,7 @@ sf::String Enemy::getTextureName(){
 }
 sf::String Enemy::getIntro(){
 	return intro;
+}
+sf::String Enemy::getSoundLink(){
+	return soundLink;
 }

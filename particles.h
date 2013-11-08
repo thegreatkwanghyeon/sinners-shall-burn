@@ -151,4 +151,13 @@ namespace particle{
 			void initialize(sf::Vector2i _move);
 			virtual void setLocationList();
 	};
+	class Miss : public ParticleSystem{
+		private :
+			sf::Vector2i pos;
+		public :
+			Miss(int _x, int _y);
+			~Miss();
+			void initialize();
+			virtual void setLocationList();
+	};
 }

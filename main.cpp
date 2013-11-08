@@ -8,7 +8,7 @@ int main(void){
 	 window.setFramerateLimit(60);
 	 sf::Clock clock;
 	 sf::View view;
-	 view.reset(sf::FloatRect(0, 0, 1280, 700));
+	 view.reset(sf::FloatRect(0, 0, 1280, 720));
 	 float lastTime = 0;
 
 	while(window.isOpen()){

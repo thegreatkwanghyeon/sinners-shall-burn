@@ -33,7 +33,7 @@ Battle::Battle(Player** _player){
 	skill = (*player)->skill;
 
 	particle = new ParticleList(640,200);
-	particle->setParticle(1);
+	particle->setParticle(1,"sounds/skill/skill01.wav");
 
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font); 
@@ -179,7 +179,7 @@ void Battle::update(sf::Event &event){
 					(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
 					isMiss=true;
 				}else{
-					particle->setParticle(skill->data[useSkillNow].code);
+					particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink);
 				}
 				skillTime.restart();
 				//tp = skillEffect->getLocation();
@@ -221,7 +221,7 @@ void Battle::update(sf::Event &event){
 				sceneNum=enemySkill;
 				skillTime.restart();
 
-				particle->setParticle(enemy->getAnimationNum());//파티클 설정
+				particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink());//파티클 설정
 				if(enemy->getAcc() >= rand()%100){
 					isMiss=false;
 				}else{
@@ -231,7 +231,7 @@ void Battle::update(sf::Event &event){
 				//몹의 서브스킬 판정
 				if(rand()%100 <= enemy->getSubPro()){
 					subSkill=true;
-					particle->setParticle(enemy->getSubAni());
+					particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink);
 					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
 				}
 			}
@@ -296,7 +296,7 @@ void Battle::playerSkillUpdate(){
 			sceneNum=checkSkill;
 		else{
 			sceneNum=enemySkill;
-			particle->setParticle(enemy->getAnimationNum());
+			particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink());
 			if(enemy->getAcc() >= rand()%100){
 				isMiss=false;
 			}else{
@@ -306,7 +306,7 @@ void Battle::playerSkillUpdate(){
 			//몹의 서브스킬 판정
 			if(rand()%100 <= enemy->getSubPro()){
 				subSkill=true;
-				particle->setParticle(enemy->getSubAni());
+				particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink);
 				(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
 				//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
 				//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가

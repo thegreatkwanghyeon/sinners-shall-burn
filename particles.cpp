@@ -367,3 +367,24 @@ void Beam::setMove(){
 		temp.y+=move.y;
 	}
 }
+Miss::Miss(int x, int y) : ParticleSystem(x, y){
+	initialize();
+	pos.x=x;
+	pos.y=y;
+}
+void Miss::initialize(){
+	setTexture("img/particles/stick2.png");
+	setAngle(45);
+	setAngleVar(45);
+	setLife(50);
+	setLifeVar(60);
+	setSpeed(0);
+	setSpeedVar(0);
+	setStartColor(135, 206, 235, 125);
+	setEndColor(135, 206, 235, 0);
+}
+void Miss::setLocationList(){
+	setLocation(sf::Vector2i(pos.x-150,pos.y-150));
+	setLocationVar(sf::Vector2i(pos.x+150,pos.y+150));
+	fuelInSequence(0.0, 10);
+}

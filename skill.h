@@ -12,7 +12,7 @@
 struct SkillData{
 	sf::String name;
 	sf::String effect;
-	sf::String link;
+	sf::String link,soundLink;
 	int need[ElementNum],needCode;
 	int damage;
 	int pdamage;

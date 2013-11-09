@@ -13,7 +13,6 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 		soundBuffer.loadFromFile(_path);
 		sound.setBuffer(soundBuffer);
 		sound.play();
-		path=_path;
 	}
 	switch(num){
 		case 1: //È­¿°±¸

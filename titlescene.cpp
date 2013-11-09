@@ -15,13 +15,13 @@ TitleScene::TitleScene(){
 	skill = new Skill();
 
 	startButton = new Button("img/startButton.png");
-	startButton->setPosition(450,400);
+	startButton->setPosition(510,400);
 	startButton->setText("START", 18);
 	startButton->setClickSound("sounds/button/click.wav");
 	startButton->setHoverSound("sounds/button/hover.wav");
 
 	endButton = new Button("img/startButton.png");
-	endButton->setPosition(450,500);
+	endButton->setPosition(510,500);
 	endButton->setText("END", 18);
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
@@ -48,7 +48,6 @@ TitleScene::~TitleScene(){
 }
 void TitleScene::update(sf::Event &event){
 
-	printf("%.2f\n",soundVolume);
 	particle->update();
 	if(!isPress && sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) && pNum > 1){
 		pNum--;

@@ -346,8 +346,8 @@ void Beam::initialize(sf::Vector2i _move){
 	setAngleVar(280);
 	setLife(100);
 	setLifeVar(120);
-	setSpeed(0.2);
-	setSpeedVar(0.5);
+	setSpeed(0);
+	setSpeedVar(0);
 	setStartColor(125, 0, 0, 125);
 	setEndColor(0, 0, 255, 0);
 

@@ -37,8 +37,8 @@ GameScene::GameScene(){
 	text.setPosition(450.0f, 100.0f);
 
 	fText.setFont(font);
-	fText.setPosition(50.0f, 50.0f);
-	fText.setCharacterSize(150);
+	fText.setPosition(590.0f, 150.0f);
+	fText.setCharacterSize(100);
 
 	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");
@@ -47,11 +47,14 @@ GameScene::GameScene(){
 	overButton->setText("Return",18);
 
 	changeFlag=false;
-	printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
 
 	pause = new Pause();
 	tooltip = new Tooltip("img/tooltip.png");
 	tooltip->setTooltip(L"", L"", sf::FloatRect(500,0,280,415), 350);
+
+	titleTexture.loadFromFile("img/title.png");
+	sprite.setTexture(titleTexture);
+	sprite.setPosition(390,150);
 }
 GameScene::~GameScene(){
 	delete battle;
@@ -63,7 +66,6 @@ GameScene::~GameScene(){
 }
 void GameScene::update(sf::Event &event){
 	if(rec.getFillColor().a != 0){
-		printf("alpha : %d\n",rec.getFillColor().a);
 		if(alphaTime.getElapsedTime().asSeconds() >= 0.01){
 			alphaTime.restart();
 			alpha-=5;//--는 너무 느림;;
@@ -148,8 +150,10 @@ void GameScene::draw(sf::RenderWindow &window){
 		pause->draw(window);
 	}
 	window.draw(rec);
-	if(rec.getFillColor().a > 0)
+	if(rec.getFillColor().a > 0){//특이한 경우 : 층 이동!
+		window.draw(sprite);
 		window.draw(fText);
+	}
 }
 int GameScene::changeScene(){
 	if(pause->isEnd())//종료

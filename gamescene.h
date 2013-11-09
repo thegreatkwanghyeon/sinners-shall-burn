@@ -39,6 +39,8 @@ class GameScene : public SceneBase{
 
 		sf::Sprite sprite;
 		sf::Image texture;
+		sf::Texture titleTexture;
+		
 
 		bool isOver,changeFlag;
 		sf::RectangleShape rec;

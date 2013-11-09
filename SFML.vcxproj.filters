@@ -113,6 +113,9 @@
     <ClInclude Include="line.h">
       <Filter>system</Filter>
     </ClInclude>
+    <ClInclude Include="skilleffect.h">
+      <Filter>system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="enemy.cpp">
@@ -214,6 +217,9 @@
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="line.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="skilleffect.cpp">
       <Filter>system</Filter>
     </ClCompile>
   </ItemGroup>

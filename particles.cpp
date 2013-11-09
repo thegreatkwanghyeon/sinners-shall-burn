@@ -355,8 +355,8 @@ void Beam::initialize(sf::Vector2i _move){
 	move=_move;
 }
 void Beam::setLocationList(){
-	setLocation(sf::Vector2i(temp.x-35,temp.y-20));
-	setLocationVar(sf::Vector2i(temp.x-30,temp.y));
+	setLocation(sf::Vector2i(temp.x-45,temp.y-20));
+	setLocationVar(sf::Vector2i(temp.x-20,temp.y));
 	fuelInSequence(0.0, 10);
 	setMove();
 }

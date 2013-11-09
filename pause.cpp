@@ -8,20 +8,24 @@ Pause::Pause(){
 	cButton = new Button("img/startbutton.png");
 	cButton->setClickSound("sounds/button/click.wav");
 	cButton->setHoverSound("sounds/button/hover.wav");
-	cButton->setPosition(500,300);
+	cButton->setPosition(510,200);
 	cButton->setText("continue");
 
 	tButton = new Button("img/startbutton.png");
 	tButton->setClickSound("sounds/button/click.wav");
 	tButton->setHoverSound("sounds/button/hover.wav");
-	tButton->setPosition(500,400);
+	tButton->setPosition(510,400);
 	tButton->setText("back to title");
 
 	endButton = new Button("img/startbutton.png");
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
-	endButton->setPosition(500,500);
+	endButton->setPosition(510,500);
 	endButton->setText("end game");
+
+	slider = new Slider(&soundVolume, "img/slider/slider.png", "img/slider/handle.png");
+	slider->setPosition(390,300);
+	slider->setLimit(100);
 }
 Pause::~Pause(){
 	delete cButton;
@@ -32,6 +36,7 @@ void Pause::update(sf::Event &event){
 	cButton->update(event);
 	tButton->update(event);
 	endButton->update(event);
+	slider->update();
 	if(cButton->checkMouseClick(event))
 		pauseOff();//콘티뉴버튼 누르면 계속 진행...
 	if(endButton->checkMouseClick(event))
@@ -49,6 +54,7 @@ void Pause::draw(sf::RenderWindow &window){
 	cButton->draw(window);
 	tButton->draw(window);
 	endButton->draw(window);
+	slider->draw(window);
 }
 bool Pause::getState(){
 	return isPause; 

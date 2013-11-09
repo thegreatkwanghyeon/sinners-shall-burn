@@ -1,3 +1,6 @@
+#ifndef __slider__
+#define __slider__
+
 #include "stdafx.h"
 #include "tileset.h"
 
@@ -43,3 +46,4 @@ class Slider{
 		void setPosition(int x, int y);
 		void setLimit(float limit);
 };
+#endif

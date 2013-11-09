@@ -32,9 +32,10 @@ GameScene::GameScene(){
 	nowEnemy=0;
 
 	font.loadFromFile("font/spike.ttf");
-	text.setFont(font); 
+	text.setFont(font);
 	text.setString(L"GAME OVER");
-	text.setPosition(450.0f, 100.0f);
+	text.setPosition(480.0f, 175.0f);
+	text.setCharacterSize(50);
 
 	fText.setFont(font);
 	fText.setPosition(590.0f, 150.0f);
@@ -43,7 +44,7 @@ GameScene::GameScene(){
 	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");
 	overButton->setHoverSound("sounds/button/hover.wav");
-	overButton->setPosition(500,500);
+	overButton->setPosition(510,500);
 	overButton->setText("Return",18);
 
 	changeFlag=false;
@@ -140,6 +141,7 @@ void GameScene::draw(sf::RenderWindow &window){
 	window.setView(view);
 	battle->draw(window);
 	if(isOver){
+		window.draw(sprite);
 		window.draw(text);
 		overButton->draw(window);
 	}

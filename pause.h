@@ -2,6 +2,7 @@
 #define __pause__
 
 #include "button.h"
+#include "slider.h"
 
 class Pause{
 	private:
@@ -9,6 +10,7 @@ class Pause{
 		Button* cButton;//콘티뉴(게임으로 돌아가기)
 		Button* endButton;//게임 종료시키기
 		Button* tButton;//타이틀로 가는 버튼
+		Slider* slider;
 	public:
 		Pause();
 		~Pause();

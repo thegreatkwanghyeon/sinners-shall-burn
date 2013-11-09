@@ -3,7 +3,7 @@
 Lightning::Lightning(){
 	random = new Well512();
 	effect.loadFromFile("shaders/blur.frag",sf::Shader::Fragment);
-	effect.setParameter("texture",sf::Shader::CurrentTexture);
+	//effect.setParameter("texture",sf::Shader::CurrentTexture);
 	//effect.setParameter("blur_radius", 0.08f);
 }
 

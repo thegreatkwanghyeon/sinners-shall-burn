@@ -2,6 +2,9 @@
 
 Lightning::Lightning(){
 	random = new Well512();
+	effect.loadFromFile("shaders/blur.frag",sf::Shader::Fragment);
+	effect.setParameter("texture",sf::Shader::CurrentTexture);
+	//effect.setParameter("blur_radius", 0.08f);
 }
 
 void Lightning::setStartPosition(float x, float y){
@@ -40,7 +43,7 @@ void Lightning::drawLightning(RenderWindow &window, Vector2i startPosition, Vect
 		line.setEndPosition(endPosition.x, endPosition.y);
 		line.setThickness(thickness);
 		line.initialize();
-		line.draw(window);
+		line.draw(window, effect);
 	}
 	else{
 		float mid_x = ((startPosition.x + endPosition.x) / 2) + (random->NextFloat(-0.5, 0.5)) * displace;

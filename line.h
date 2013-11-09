@@ -7,6 +7,7 @@ using namespace sf;
 
 class Line{
 private:
+	Shader effect;
 	RectangleShape line;
 	float startPosition_x;
 	float startPosition_y;
@@ -22,6 +23,7 @@ public:
 
 	void update();
 	void draw(RenderWindow &window);
+	void draw(RenderWindow &window, sf::Shader &effect);
 
 	void setStartPosition(float x, float y);
 	void setEndPosition(float x, float y);

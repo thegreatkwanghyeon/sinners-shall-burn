@@ -40,3 +40,7 @@ void Line::update(){
 void Line::draw(RenderWindow &window){
 	window.draw(line);
 }
+
+void Line::draw(RenderWindow &window, sf::Shader &effect){
+	window.draw(line, &effect);	
+}

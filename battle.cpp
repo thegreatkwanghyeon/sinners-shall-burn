@@ -115,43 +115,42 @@ void Battle::update(sf::Event &event){
 	}
 	particle->update();
 
-	if(isBattle)
+	if(isBattle)//비전투시에는 퍼즐의 업데이트를 제한한다
 		puzzle->update(event);
 
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\ndot : %d\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getDot(),(*player)->getGuard(),(*player)->getAcc());
-	text.setString(plusString);
+	text.setString(plusString);//화면에 출력되는 나의 상태정보 텍스트
 
 	_snprintf(plusString, sizeof(plusString), "dot : %d\nAcc : %d",enemy->getDot(),enemy->getAcc());
-	eText.setString(plusString);
+	eText.setString(plusString);//화면에 출력되는 적의 상태정보 텍스트
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
 		playerSkillUpdate();
 		return;
-	}else if(sceneNum == enemySkill){
+	}else if(sceneNum == enemySkill){//적이 스킬/평타 시전중일때
 		enemySkillUpdate();
 		return;
-	}else if(sceneNum == checkSkill){//도트뎀 등을 판정.
+	}else if(sceneNum == checkSkill){//도트뎀 등을 판정해주는 구역
 		checkSkillUpdate();
 		return;
 	}
 	
-	for(i=0;i<ViewSkill;i++)
+	for(i=0;i<ViewSkill;i++)//사용가능 스킬 스택 초기화하는 부분
 		canUseSkill[i]=0;
-	if(keyEvent){
+	if(keyEvent){//중복클릭 방지
 		delta=deltaClock.getElapsedTime().asSeconds();
 		if(delta >= 0.5)
 			keyEvent=false;
 	}
 	
-	useCnt=0;
+	useCnt=0;//여기 아래부터는 스킬의 사용가능 검사해서 옆쪽 네모칸들 채우는거다
 	for(i=puzzle->stackNum-1;i>=0;i--){
 		for(j=0;j+i<puzzle->stackNum;j++){
-			tp = makeCode(j,j+i);//?
+			tp = makeCode(j,j+i);//
 			for(k=0;k<skill->skillNum;k++){
 				if(tp == skill->data[k].needCode && useCnt < ViewSkill && chk[skill->data[k].code] == 0){
-					//skill->data[k].use = true;
 					chk[skill->data[k].code]=1;
-					canUseSkill[useCnt++]=skill->data[k].code;					
+					canUseSkill[useCnt++]=skill->data[k].code;//canUseSkill에 사용가능 스킬 리스트를 고랭크 스킬부터 채움	
 					//break;
 				}
 			}
@@ -160,49 +159,46 @@ void Battle::update(sf::Event &event){
 	for(i=0;i<useCnt;i++){
 		button[i]->update(event);
 		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){//클릭
-			if(isBattle){
-				useSkillNow=canUseSkill[i];
-				useSkill(canUseSkill[i]);
-				deltaClock.restart();
-				keyEvent=true;
+			if(isBattle){//여기가 스킬을 사용하였을떄의 상황
 
-				//canUseSkill[i]=0;//노필요
-				/*
-				for(j=i+1;j<useCnt;j++){
-					canUseSkill[j-1]=canUseSkill[j];
-				}
-				canUseSkill[useCnt-1]=0;*/
-				useCnt--;
+				useSkillNow=canUseSkill[i];//현재 사용한 스킬의 코드를 저장한다
+				useSkill(canUseSkill[i]);//사용한 스킬에 맞게 스택 클리어
+
+				deltaClock.restart();//연타방지
+				keyEvent=true;//연타 방지
+
+				useCnt--;//스킬 리스트 1개 감소...라는 의미긴 한데 위쪽에서 계속 정의되는 부분이니까 크게 신경쓸 필요는 없음
 				srand(time(NULL));
 
-				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//0~99
+				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//미스판정(여기 구문은 미스가 난경우)
 					isMiss=true;
 					//particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);미스파티클
-				}else{
+				}else{//적중
 					particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);
 				}
-				(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
-				skillTime.restart();
-				//tp = skillEffect->getLocation();
+				(*player)->setAcc(0);//추가 명중률이 사용되었으므로 제거해줌
+				//추가명중률 : 특정 기술 사용시 올라가는 것임. 양수일때는 내 다음 기술의 명중률을 그만큼 올려주고 음수일떄는 그만큼 적의 다음 공격 명중률을 깎아냄
+				skillTime.restart();//스킬을 쓰고 나서 이펙트가 지속되는 시간을 측정하는 시간변수
 
 				sceneNum=playerSkill;
 
-				if(!isMiss){
+				if(!isMiss){//미스가 나지 않았을 경우 도트/추가 방어력/추가 명중률을 판정함
+					//추가 명중률
 					if(skill->data[useSkillNow].plusAcc > 0)
 						(*player)->setAcc(skill->data[useSkillNow].plusAcc);//추가 명중률을 더해줌
 					else if(skill->data[useSkillNow].plusAcc < 0)
 						enemy->setAcc(enemy->getAcc()+skill->data[useSkillNow].plusAcc);//명중률이 -값 : 적의 명중률을 그 값만큼 낮춘다는 것이다.
-
+					//추가 방어력
 					if(skill->data[useSkillNow].guard > 0)
 						(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
-					
+					//도트뎀. 이건 적한테 적용되니까 적에게 추가해줌
 					if(skill->data[useSkillNow].dot > 0)
 						enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
 					
 				}
 			}
 		}
-		if(canUseSkill[i] != 0){
+		if(canUseSkill[i] != 0){//이쪽은 툴팁 업데이트
 			if(i < (ViewSkill/2))
 				tooltip[i]->setTooltip(skill->data[canUseSkill[i]].name, skill->data[canUseSkill[i]].effect, sf::FloatRect(836+(i*152),464,80,80), 350);//dir-------------------------->
 			else
@@ -213,8 +209,9 @@ void Battle::update(sf::Event &event){
 
 	hpGauge->update();
 	enemyGauge->update();
-	if(isBattle){
-		timeGauge->update();
+
+	if(isBattle){//이쪽은 제한시간 관련부분. 제한시간이 넘어가면 플레이어의 공격권은 상실되며 적이 바로 날 후려팬다. 현재 퍼즐 바로위 게이지가 바로 그것임.
+		timeGauge->update();//이 게이지와 퍼즐타임 변수가 그 제한시간을 관리하는 물건.
 		if(puzzleTime.getElapsedTime().asSeconds() >= 0.1){
 			puzzleTime.restart();
 			timeGauge->setValue(-1);
@@ -222,123 +219,119 @@ void Battle::update(sf::Event &event){
 				sceneNum=enemySkill;
 				skillTime.restart();
 
-				if(enemy->getAcc() >= rand()%100){
+				if(enemy->getAcc() >= rand()%100){//미스판정
 					isMiss=false;
-					particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);//파티클 설정
+					if(rand()%100 <= enemy->getSubPro()){//서브스킬 발동시
+						subSkill=true;
+						particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
+						(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
+					}else{//걍 평타 떄릴시
+						particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);//파티클 설정
+					}
 				}else{
 					isMiss=true;
 					//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
 				}
-				enemy->setAcc(enemy->getMaxAcc());//명중률이 낮아졌을경우 다시 돌려주는 것이다.
-				//몹의 서브스킬 판정
-				if(!isMiss && rand()%100 <= enemy->getSubPro()){
-					subSkill=true;
-					particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
-					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
-				}
+				enemy->setAcc(enemy->getMaxAcc());//플레이어가 스킬로 적의 명중률을 낮췄을경우 (현재 그 명중률보정이 적용됬으므로) 다시 원래대로 돌려줌
 			}
 		}
 	}
 }
 void Battle::playerSkillUpdate(){
-//애니메이션 업데이트
-	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//애니메이션 종료
+	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//파티클이 끝난 경우
 		skillTime.restart();
-		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();
-		int pdamage=skill->data[useSkillNow].pdamage;
+		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();//적에게 주는 데미지
+		int pdamage=skill->data[useSkillNow].pdamage;//내가 받을 데미지(내 스킬에 의한 데미지)
 
 		//-------
 		if(!isMiss){
 			if(pdamage > 0){//내 체력 감소
-				if(pdamage >= (*player)->getGuard()){
+				if(pdamage >= (*player)->getGuard()){//추가 방어력이 다 뚫릴 경우
 					pdamage-=(*player)->getGuard();
 					(*player)->setGuard(0);
-				}else{
+				}else{//추가 방어력으로 상쇄가 되는경우
 					(*player)->setGuard((*player)->getGuard()-pdamage);
 					pdamage=0;
 				}
-				if(pdamage > (*player)->getHP()){
+				if(pdamage > (*player)->getHP()){//맞고 뒤지는 경우
 					hpGauge->setValue(-1*(*player)->getHP());
 					(*player)->setHP(0);
-				}else{
+				}else{//맞아도 안죽는 경우
 					hpGauge->setValue(-1*pdamage);
 					(*player)->setHP((*player)->getHP()-pdamage);
 				}
 			}else if(pdamage < 0){//내 체력 증가
-				if(-1*pdamage > (*player)->getMaxHP()-(*player)->getHP()){
+				if(-1*pdamage > (*player)->getMaxHP()-(*player)->getHP()){//체력회복으로 풀피나 그 이상이 되는경우
 					hpGauge->setValue((*player)->getMaxHP()-(*player)->getHP());
 					(*player)->setHP((*player)->getMaxHP());
-				}else{
+				}else{//걍 회복
 					hpGauge->setValue(-1*pdamage);
 					(*player)->setHP((*player)->getHP()-pdamage);
 				}
 			}
 			if(damage > 0){//적 체력 감소
-				if(damage > enemy->getCurrentHp()){
+				if(damage > enemy->getCurrentHp()){//적의 피통보다 데미지가 클 경우
 					enemyGauge->setValue(-1*enemy->getCurrentHp());
 					enemy->setCurrentHp(0);
-				}else{
+				}else{//걍 데미지
 					enemyGauge->setValue(-1*damage);
 					enemy->setCurrentHp(enemy->getCurrentHp()-damage);
 				}
 				//---
-				puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 무효화된다.
-				//크리티컬은 적에게 일반 데미지를 줄떄만 발동된다.
-			}else if(damage < 0){//적 체력 회복
-				if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){
+				puzzle->setPlusDamage(1.0);//보너스 데미지는 적에게 데미지를 줬을때만 사용되도록 해놓음.
+			}else if(damage < 0){//적 체력 회복(내 스킬의 효과로...)
+				if(-1*damage > enemy->getMaxHp()-enemy->getCurrentHp()){//적이 풀피되는 경우
 					enemyGauge->setValue(enemy->getMaxHp()-enemy->getCurrentHp());
 					enemy->setCurrentHp(enemy->getMaxHp());
-				}else{
+				}else{//걍 회복
 					enemyGauge->setValue(-1*damage);
 					enemy->setCurrentHp(enemy->getCurrentHp()-damage);
 				}
 			}
 		}//미스가 났을 경우는 위 경우를 다 스킵함(아무 효과 없으니까)
-		if((*player)->getHP() <= 0 || enemy->getCurrentHp() <= 0)
+		if((*player)->getHP() <= 0 || enemy->getCurrentHp() <= 0)//적이나 내가 사망
 			sceneNum=checkSkill;
-		else{
+		else{//적의 턴으로 넘어감
 			sceneNum=enemySkill;
 			
-			if(enemy->getAcc() >= rand()%100){
+			if(enemy->getAcc() >= rand()%100){//적의 공격이 적중이
 				isMiss=false;
-				particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);
+				if(rand()%100 <= enemy->getSubPro()){//적이 서브스킬 사용
+					subSkill=true;
+					particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);//파티클 설정.
+					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀. 현재 플레이어가 가진 도트수치에 적 스킬의 도트값을 더해준다.
+					//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
+					//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가
+				}else{//적이 평타사용
+					particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);
+				}
 			}else{
 				isMiss=true;
 				//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
 			}
-			enemy->setAcc(enemy->getMaxAcc());//적의 명중률이 떨어졌을 경우...
-			//몹의 서브스킬 판정
-			if(!isMiss && rand()%100 <= enemy->getSubPro()){
-				subSkill=true;
-				particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
-				(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
-				//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
-				//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가
-				//도트뎀 프린트는 적/아군 바뀐거 적용하고 차후 하자 졸려 시발 으아
-			}
+			enemy->setAcc(enemy->getMaxAcc());//적에게 적용된 명중률 감소 등을 풀어준다.
 		}
 	}
 	hpGauge->update();
 	enemyGauge->update();
 	return;
 }
-void Battle::enemySkillUpdate(){
-//애니메이션 업데이트
-	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){
-		int damage;
-		if(subSkill){
+void Battle::enemySkillUpdate(){//적의 턴
+	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//파티클이 끝난경우
+		int damage;//적이 나에게 줄 데미지
+		if(subSkill){//서브스킬 사용시엔 그 스킬의 데미지, 아니면 몬스터 고유의 평타딜
 			damage = skill->data[enemy->getSubAni()].damage;
 		}else{
 			damage = enemy->getDamage();
 		}
 		
-		if(!isMiss){
-			if(damage >= (*player)->getGuard()){
+		if(!isMiss){//미스가 난 경우는 데미지 계산이 스킵된다.
+			if(damage >= (*player)->getGuard()){//플레이어의 추가 방어력을 뚫었을경우
 				damage-=(*player)->getGuard();
 				(*player)->setGuard(0);
-			}else{
+			}else{//추가방어를 뚫지 못하였을경우
 				(*player)->setGuard((*player)->getGuard()-damage);
-				damage=0;
+				damage=0;//데미지가 0이됨
 			}
 			(*player)->setHP((*player)->getHP()-damage);
 			hpGauge->setValue(-1*damage);
@@ -350,10 +343,14 @@ void Battle::enemySkillUpdate(){
 	enemyGauge->update();
 }
 void Battle::checkSkillUpdate(){
-	//아직 미설계
 	//도트뎀 계산.
-	//아직 플레이어가 도트뎀을 입는 경우, 적이 가드포함 스킬을 사용하는 경우, 적이 명중률 상승 효과를 보는 경우 등은 계산되지 않았다.
-	if(enemy->getDot() > 0){
+
+	//여기가 도트뎀을 계산하는 곳임.
+	//기존의 도트뎀 계산방식 : 일정 데미지가 추가되고 턴마가 그만큼 까임. 이 데미지는 턴마다 5씩 감소
+	//개선할시에는 도트값을 지속되는 턴으로 하고 중첩시 턴을 길게 한다던가 하면 될거같다
+	//하여튼 여기서 모든 도트딜을 계산하면 됨.
+
+	if(enemy->getDot() > 0){//적이 가진 도트 계수를 바탕으로 딜링을 하고 5를 깎아줌. 
 		if(enemy->getDot() > enemy->getCurrentHp()){
 			enemyGauge->setValue(-1*enemy->getCurrentHp());
 			enemy->setCurrentHp(0);
@@ -366,7 +363,7 @@ void Battle::checkSkillUpdate(){
 		else
 			enemy->setDot(0);
 	}
-	if((*player)->getDot() > 0){
+	if((*player)->getDot() > 0){//위와 같다.
 		if((*player)->getDot() > (*player)->getHP()){
 			hpGauge->setValue(-1*(*player)->getHP());
 			(*player)->setHP(0);
@@ -379,13 +376,11 @@ void Battle::checkSkillUpdate(){
 		else
 			(*player)->setDot(0);
 	}
+	//턴이 끝난 후의 초기화파트
 	isMiss=false;
 	subSkill=false;
 	sceneNum=normal;
 	timeGauge->setValue(puzzleLimit-timeGauge->getValue());
-	/*puzzle->cleanStack();
-	texture.loadFromFile("img/skills/empty.png");
-	useCnt=0;*/
 	return;
 }
 bool Battle::getResult(){
@@ -394,14 +389,14 @@ bool Battle::getResult(){
 	if((*player)->getHP() <= 0){
 		isBattle=false;
 		puzzle->cleanStack();
-		hpGauge->setValue(hpGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
+		hpGauge->setValue(hpGauge->getValue()*-1);
 		hpGauge->update();
 		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;
 		puzzle->cleanStack();
-		enemyGauge->setValue(enemyGauge->getValue()*-1);//0으로 깔끔하게(가끔 처리 안되서)
+		enemyGauge->setValue(enemyGauge->getValue()*-1);
 		enemyGauge->update();
 		return 1;
 	}

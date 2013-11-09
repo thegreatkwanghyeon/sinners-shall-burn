@@ -4,14 +4,16 @@ ParticleList::ParticleList(int _x, int _y){
 	x=_x;
 	y=_y;
 	particle = new particle::FireBall(x,y);
-	sound.setVolume(soundVolume);
+	sound.setLoop(false);
 }
 void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	num=_num;
 	if(isSound){
+		sound.resetBuffer();
 		soundBuffer.loadFromFile(_path);
 		sound.setBuffer(soundBuffer);
 		sound.play();
+		path=_path;
 	}
 	switch(num){
 		case 1: //È­¿°±¸
@@ -76,6 +78,7 @@ ParticleList::~ParticleList(){
 	delete particle;
 }
 void ParticleList::update(){
+	sound.setVolume(soundVolume);
 	particle->update();
 }
 

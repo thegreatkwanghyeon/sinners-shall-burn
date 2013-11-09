@@ -608,23 +608,24 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		buffer[i] = 0;
 	}
 	//미니
+	int recAlpha=100;
 	rec.setSize(sf::Vector2f(5,5));
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
 			rec.setPosition(20+((MapX-j-1)*5),215+(i*5));
 			if(worldMap[j][i] == 0){
-				rec.setFillColor(sf::Color::White);		
+				rec.setFillColor(sf::Color::Color(255,255,255,recAlpha));		
 			}else if(worldMap[j][i] == 1 || worldMap[j][i] == 10){
-				rec.setFillColor(sf::Color::Black);
+				rec.setFillColor(sf::Color::Color(0,0,0,recAlpha));
 			}else if(worldMap[j][i] == 8){
-				rec.setFillColor(sf::Color::Cyan);
+				rec.setFillColor(sf::Color::Color(0,255,255,recAlpha));
 			}else if(worldMap[j][i] == 9){
-				rec.setFillColor(sf::Color::Blue);
+				rec.setFillColor(sf::Color::Color(0,0,255,recAlpha));
 			}
 			window.draw(rec);
 			if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
 				if(fog[i][j] == 1){
-					rec.setFillColor(sf::Color::Color(40,40,40,255));
+					rec.setFillColor(sf::Color::Color(40,40,40,recAlpha));
 					window.draw(rec);
 				}else if(abs(j-int(pos.x)) > fov || abs(i-int(pos.y)) > fov){
 					rec.setFillColor(sf::Color::Color(220,220,220,100));
@@ -641,7 +642,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		window.draw(rec);
 	}
 	rec.setPosition(20+((MapX-int(pos.x)-1)*5),215+(int(pos.y)*5));
-	rec.setFillColor(sf::Color::Green);
+	rec.setFillColor(sf::Color::Color(0,255,0,recAlpha));
 	window.draw(rec);
 	//---미니맵 끝--//
 	if(alpha >= 0){

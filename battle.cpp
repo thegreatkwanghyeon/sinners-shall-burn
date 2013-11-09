@@ -176,11 +176,12 @@ void Battle::update(sf::Event &event){
 				srand(time(NULL));
 
 				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//0~99
-					(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
 					isMiss=true;
+					//particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);미스파티클
 				}else{
 					particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);
 				}
+				(*player)->setAcc(0);//추가 명중률을 다시 제거해준다.
 				skillTime.restart();
 				//tp = skillEffect->getLocation();
 
@@ -221,15 +222,16 @@ void Battle::update(sf::Event &event){
 				sceneNum=enemySkill;
 				skillTime.restart();
 
-				particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);//파티클 설정
 				if(enemy->getAcc() >= rand()%100){
 					isMiss=false;
+					particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);//파티클 설정
 				}else{
 					isMiss=true;
+					//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
 				}
 				enemy->setAcc(enemy->getMaxAcc());//명중률이 낮아졌을경우 다시 돌려주는 것이다.
 				//몹의 서브스킬 판정
-				if(rand()%100 <= enemy->getSubPro()){
+				if(!isMiss && rand()%100 <= enemy->getSubPro()){
 					subSkill=true;
 					particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
 					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
@@ -296,15 +298,17 @@ void Battle::playerSkillUpdate(){
 			sceneNum=checkSkill;
 		else{
 			sceneNum=enemySkill;
-			particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);
+			
 			if(enemy->getAcc() >= rand()%100){
 				isMiss=false;
+				particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);
 			}else{
 				isMiss=true;
+				//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
 			}
 			enemy->setAcc(enemy->getMaxAcc());//적의 명중률이 떨어졌을 경우...
 			//몹의 서브스킬 판정
-			if(rand()%100 <= enemy->getSubPro()){
+			if(!isMiss && rand()%100 <= enemy->getSubPro()){
 				subSkill=true;
 				particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
 				(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
@@ -407,7 +411,7 @@ bool Battle::getResult(){
 void Battle::draw(sf::RenderWindow &window){
 	int i;
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
-		if(!isMiss){
+		if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
 			particle->setLocationList();
 		}
 		//return;

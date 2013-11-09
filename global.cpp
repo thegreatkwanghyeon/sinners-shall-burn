@@ -15,5 +15,5 @@ std::wstring MTW( const char* string){
 	return returnString;
 }
 
-float soundVolume = 0;
+float soundVolume = 100;
 float musicVolume = 0;

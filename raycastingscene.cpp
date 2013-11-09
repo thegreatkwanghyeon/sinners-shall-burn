@@ -84,7 +84,7 @@ RayCastingScene::RayCastingScene(){
 
 	rec.setSize(sf::Vector2f(10,10));
 
-	fov=25;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
+	fov=3;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
 }
 RayCastingScene::~RayCastingScene(){
 	//delete makemap;
@@ -622,16 +622,20 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 			}else if(worldMap[j][i] == 9){
 				rec.setFillColor(sf::Color::Color(0,0,255,recAlpha));
 			}
-			window.draw(rec);
-			if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
-				if(fog[i][j] == 1){
-					rec.setFillColor(sf::Color::Color(40,40,40,recAlpha));
-					window.draw(rec);
-				}else if(abs(j-int(pos.x)) > fov || abs(i-int(pos.y)) > fov){
+			if(fog[i][j] == 0/* || (i == 0 || i == MapY-1 || j == 0 || j == MapX-1)*/){
+				window.draw(rec);
+				if(abs(j-int(pos.x)) > fov || abs(i-int(pos.y)) > fov){
 					rec.setFillColor(sf::Color::Color(220,220,220,100));
 					window.draw(rec);
 				}
 			}
+			/*if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
+				if(fog[i][j] == 1){
+					rec.setFillColor(sf::Color::Color(40,40,40,recAlpha));
+					window.draw(rec);
+				}else 
+			}*/
+			
 		}
 	}
 	rec.setFillColor(sf::Color::Red);

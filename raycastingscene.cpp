@@ -609,10 +609,16 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	}
 	//미니
 	int recAlpha=100;
+	sf::Vector2i mapStart;
+	mapStart.x=520;
+	mapStart.y=0;
+	//뷰어에서 x2해놓은 덕분에 절반으로 지정해야됨;;;
+	//월드맵이...
+	//0 : 빈칸 1 : 벽 8 : 쿠폰(리빌드 버튼) 9 : 문짝 10 : 빈 쿠폰
 	rec.setSize(sf::Vector2f(5,5));
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
-			rec.setPosition(20+((MapX-j-1)*5),215+(i*5));
+			rec.setPosition(mapStart.x+((MapX-j-1)*5),mapStart.y+(i*5));
 			if(worldMap[j][i] == 0){
 				rec.setFillColor(sf::Color::Color(255,255,255,recAlpha));		
 			}else if(worldMap[j][i] == 1 || worldMap[j][i] == 10){
@@ -629,25 +635,21 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 					window.draw(rec);
 				}
 			}
-			/*if(i > 0 && i < MapY-1 && j > 0 && j < MapX-1){//테두리는 예외처리
-				if(fog[i][j] == 1){
-					rec.setFillColor(sf::Color::Color(40,40,40,recAlpha));
-					window.draw(rec);
-				}else 
-			}*/
 			
 		}
 	}
-	rec.setFillColor(sf::Color::Red);
+	sf::CircleShape cir;
+	cir.setRadius(2.5);
+	cir.setFillColor(sf::Color::Red);
 	for(int i=0;i<pEnemy->size();i++){
 		if(abs(pEnemy->at(i)->getPosition().x-pos.x) >= fov+1 || abs(pEnemy->at(i)->getPosition().y-pos.y) >= fov+1)
 			continue;
-		rec.setPosition(20+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*5),215+(int(pEnemy->at(i)->getPosition().y)*5));
-		window.draw(rec);
+		cir.setPosition(mapStart.x+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*5),mapStart.y+(int(pEnemy->at(i)->getPosition().y)*5));
+		window.draw(cir);
 	}
-	rec.setPosition(20+((MapX-int(pos.x)-1)*5),215+(int(pos.y)*5));
-	rec.setFillColor(sf::Color::Color(0,255,0,recAlpha));
-	window.draw(rec);
+	cir.setPosition(mapStart.x+((MapX-int(pos.x)-1)*5),mapStart.y+(int(pos.y)*5));
+	cir.setFillColor(sf::Color::Color(0,255,0,recAlpha));
+	window.draw(cir);
 	//---미니맵 끝--//
 	if(alpha >= 0){
 		window.draw(rec2);

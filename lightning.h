@@ -10,6 +10,8 @@ class Lightning{
 
 		Well512* random;
 
+		sf::Shader effect;
+
 		float detail;
 		float displacement;
 		float thickness;

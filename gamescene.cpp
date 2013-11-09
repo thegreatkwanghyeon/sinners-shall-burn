@@ -38,8 +38,8 @@ GameScene::GameScene(){
 	text.setCharacterSize(50);
 
 	fText.setFont(font);
-	fText.setPosition(590.0f, 150.0f);
-	fText.setCharacterSize(100);
+	fText.setPosition(600.0f, 160.0f);
+	fText.setCharacterSize(80);
 
 	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");

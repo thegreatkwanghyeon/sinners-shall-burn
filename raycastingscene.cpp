@@ -612,13 +612,14 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 	sf::Vector2i mapStart;
 	mapStart.x=520;
 	mapStart.y=0;
+	int recSize=4;
 	//ºä¾î¿¡¼­ x2ÇØ³õÀº ´öºÐ¿¡ Àý¹ÝÀ¸·Î ÁöÁ¤ÇØ¾ßµÊ;;;
 	//¿ùµå¸ÊÀÌ...
 	//0 : ºóÄ­ 1 : º® 8 : ÄíÆù(¸®ºôµå ¹öÆ°) 9 : ¹®Â¦ 10 : ºó ÄíÆù
-	rec.setSize(sf::Vector2f(5,5));
+	rec.setSize(sf::Vector2f(recSize,recSize));
 	for(int i=0;i<MapY;i++){
 		for(int j=0;j<MapX;j++){
-			rec.setPosition(mapStart.x+((MapX-j-1)*5),mapStart.y+(i*5));
+			rec.setPosition(mapStart.x+((MapX-j-1)*recSize),mapStart.y+(i*recSize));
 			if(worldMap[j][i] == 0){
 				rec.setFillColor(sf::Color::Color(255,255,255,recAlpha));		
 			}else if(worldMap[j][i] == 1 || worldMap[j][i] == 10){
@@ -639,15 +640,15 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		}
 	}
 	sf::CircleShape cir;
-	cir.setRadius(2.5);
+	cir.setRadius(recSize/2);
 	cir.setFillColor(sf::Color::Red);
 	for(int i=0;i<pEnemy->size();i++){
 		if(abs(pEnemy->at(i)->getPosition().x-pos.x) >= fov+1 || abs(pEnemy->at(i)->getPosition().y-pos.y) >= fov+1)
 			continue;
-		cir.setPosition(mapStart.x+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*5),mapStart.y+(int(pEnemy->at(i)->getPosition().y)*5));
+		cir.setPosition(mapStart.x+((MapX-int(pEnemy->at(i)->getPosition().x)-1)*recSize),mapStart.y+(int(pEnemy->at(i)->getPosition().y)*recSize));
 		window.draw(cir);
 	}
-	cir.setPosition(mapStart.x+((MapX-int(pos.x)-1)*5),mapStart.y+(int(pos.y)*5));
+	cir.setPosition(mapStart.x+((MapX-int(pos.x)-1)*recSize),mapStart.y+(int(pos.y)*recSize));
 	cir.setFillColor(sf::Color::Color(0,255,0,recAlpha));
 	window.draw(cir);
 	//---¹Ì´Ï¸Ê ³¡--//

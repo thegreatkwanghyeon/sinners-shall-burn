@@ -15,12 +15,12 @@ Puzzle::Puzzle(){
 	bgSprite.setPosition(PStartX-20,PStartY-20);
 
 	button = new Button("img/buttons/hint.png");
-	button->setPosition(0,275);
+	button->setPosition(PStartX-85,PStartY+120);
 	button->setClickSound("sounds/button/click.wav");
 	button->setHoverSound("sounds/button/hover.wav");
 
 	reButton = new Button("img/buttons/rebuild.png");
-	reButton->setPosition(0,355);
+	reButton->setPosition(PStartX-85,PStartY+200);
 	reButton->setClickSound("sounds/button/click.wav");
 	reButton->setHoverSound("sounds/button/hover.wav");
 

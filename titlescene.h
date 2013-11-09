@@ -10,8 +10,8 @@
 
 class TitleScene : public SceneBase{
 	private:
-		sf::Text text;
-		sf::Font font;
+		sf::Texture texture;
+		sf::Sprite sprite;
 
 		//ParticleSystem* particle;
 		ParticleList *particle;

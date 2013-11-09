@@ -2,11 +2,6 @@
 #include "global.h"
 
 TitleScene::TitleScene(){
-	font.loadFromFile("font/spike.ttf");
-	text.setFont(font); 
-	text.setString(L"num1 : Å¸ÀÌÆ² ¾À \nnum2 : ²²ÀÓ¾À \nnum3 : ¼ÎÀÌ´õ¾À\nnum4 : ÆÛÁñ");
-	text.setPosition(450.0f, 250.0f);
-
 	particle = new ParticleList(640,200);
 	particle->setParticle(1,"",false);
 	pNum=1;
@@ -15,16 +10,19 @@ TitleScene::TitleScene(){
 	skill = new Skill();
 
 	startButton = new Button("img/startButton.png");
-	startButton->setPosition(510,400);
+	startButton->setPosition(250,500);
 	startButton->setText("START", 18);
 	startButton->setClickSound("sounds/button/click.wav");
 	startButton->setHoverSound("sounds/button/hover.wav");
 
 	endButton = new Button("img/startButton.png");
-	endButton->setPosition(510,500);
+	endButton->setPosition(760,500);
 	endButton->setText("END", 18);
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
+
+	//startButton->setPosition(510,400);
+	//endButton->setPosition(510,500);
 
 	slider = new Slider(&soundVolume, "img/slider/slider.png", "img/slider/handle.png");
 	slider->setPosition(500, 300);
@@ -40,6 +38,10 @@ TitleScene::TitleScene(){
 
 	sceneFlag=false;
 	endFlag=false;
+
+	texture.loadFromFile("img/titleimage.png");
+	sprite.setTexture(texture);
+	sprite.setPosition(0,0);
 }
 TitleScene::~TitleScene(){
 	delete startButton;
@@ -79,29 +81,34 @@ void TitleScene::update(sf::Event &event){
 }
 
 void TitleScene::draw(sf::RenderWindow &window){
+	sf::Font font;
 	sf::Text skillName;
 	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::Sprite icon;
 
+	window.draw(sprite);
+	//---
+	/*
+	font.loadFromFile("font/spike.ttf");
 	skillName.setFont(font);
 	skillName.setString(skill->data[pNum].name);
 	skillName.setPosition(0,300);
 	window.draw(skillName);
 
-	window.draw(text);
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		particle->setLocationList();
 	}
-	particle->draw(window);
-	startButton->draw(window);
-	endButton->draw(window);	
+	particle->draw(window);	
 	slider->draw(window);
 	lightning->draw(window);
 	
-	sprite.setPosition(200,200);
+	icon.setPosition(200,200);
 	texture.loadFromFile(skill->data[pNum].link);
-	sprite.setTexture(texture);
-	window.draw(sprite);
+	icon.setTexture(texture);
+	window.draw(icon);*/
+	//---
+	startButton->draw(window);
+	endButton->draw(window);
 }
 int TitleScene::changeScene(){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

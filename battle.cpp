@@ -24,7 +24,7 @@ Battle::Battle(Player** _player){
 
 	faceSprite.setTexture(face);
 	faceSprite.setTextureRect(faceTileset->getTileSet(0));
-	faceSprite.setPosition(325,455);
+	faceSprite.setPosition(0,550);
 
 	skillBG.loadFromFile("img/skillBackground.png");
 	skillBGSprite.setTexture(skillBG);
@@ -64,8 +64,8 @@ Battle::Battle(Player** _player){
 	hpGauge = new Gauge("img/hpgauge.png",100, 0, 1);
 	hpGauge->setPosition(sf::Vector2i(0,0));
 
-	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
-	enemyGauge->setPosition(sf::Vector2i(357,150));
+	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,-1);
+	enemyGauge->setPosition(sf::Vector2i(440,50));
 
 	timeGauge = new Gauge("img/hpgauge.png",puzzleLimit, 0, 1);
 	timeGauge->setPosition(sf::Vector2i(300,300));
@@ -96,8 +96,8 @@ void Battle::startBattle(int _code){
 	enemy = new Enemy(_code);
 	isBattle=true;
 	delete(enemyGauge);
-	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,0);
-	enemyGauge->setPosition(sf::Vector2i(357,150));
+	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,-1);
+	enemyGauge->setPosition(sf::Vector2i(440,50));
 
 	(*player)->setAcc(0);
 	(*player)->setGuard(0);
@@ -418,8 +418,8 @@ void Battle::draw(sf::RenderWindow &window){
 		puzzle->draw(window);
 		timeGauge->draw(window);
 
-		window.draw(enemy->getName());//몹 이름 출력!
 		enemyGauge->draw(window);
+		window.draw(enemy->getName());//몹 이름 출력!
 
 		
 		for(i=0;i<ViewSkill;i++){

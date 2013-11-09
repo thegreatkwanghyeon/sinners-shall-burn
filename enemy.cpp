@@ -39,8 +39,9 @@ Enemy::Enemy(int _code) : textureSize(256){
 
 	font.loadFromFile("font/spike.ttf");
 	name.setFont(font);
-	name.setPosition(500,60);
+	name.setPosition(640,60);
 	name.setCharacterSize(30);
+	name.setOrigin(name.getLocalBounds().width/2,0);
 }
 
 Enemy::~Enemy(){

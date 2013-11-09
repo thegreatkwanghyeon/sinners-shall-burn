@@ -62,7 +62,7 @@ Puzzle::Puzzle(){
 	font.loadFromFile("font/spike.ttf");
 	text.setFont(font); 
 	text.setString(L"3");
-	text.setPosition(120.0f, 380.0f);
+	text.setPosition(PStartX-110,PStartY+220);
 }
 
 Puzzle::~Puzzle(){

@@ -10,8 +10,13 @@
 #define ElementNum 15
 
 struct Dot{
-	int damage,turn;
+	int damage,turn,code;
 	sf::String name;
+};
+
+enum{//감전 등등..계속 추가
+	fire,//화상
+	water,//침수
 };
 
 struct SkillData{

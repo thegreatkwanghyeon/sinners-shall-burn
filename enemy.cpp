@@ -113,6 +113,12 @@ std::vector<Dot> Enemy::getDot(){
 	return dot;
 }
 void Enemy::addDot(Dot _dot){
+	for(int i=0;i<dot.size();i++){
+		if(dot[i].code == _dot.code){
+			dot[i].turn+=_dot.turn;
+		}
+		return;
+	}
 	dot.push_back(_dot);
 }
 int Enemy::getAcc(){

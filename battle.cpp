@@ -37,12 +37,12 @@ Battle::Battle(Player** _player){
 
 	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
-	text.setString(L"bonus : 1.00\ndot : 0\nguard : 0\nplusAcc : 0");
+	text.setString(L"bonus : 1.00\nguard : 0\nplusAcc : 0");
 	text.setPosition(150.0f, 515.0f);
 
 
 	eText.setFont(font); 
-	eText.setString(L"dot : 0 Acc : 0");
+	eText.setString(L"Acc : 0");
 	eText.setPosition(640.0f, 80.0f);
 	eText.setOrigin(eText.getLocalBounds().width/2,0);
 	eText.setCharacterSize(20);
@@ -104,7 +104,6 @@ void Battle::startBattle(int _code){
 
 	(*player)->setAcc(0);
 	(*player)->setGuard(0);
-	(*player)->setDot(0);
 }
 
 void Battle::update(sf::Event &event){
@@ -121,10 +120,10 @@ void Battle::update(sf::Event &event){
 	if(isBattle)//비전투시에는 퍼즐의 업데이트를 제한한다
 		puzzle->update(event);
 
-	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\ndot : %d\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getDot(),(*player)->getGuard(),(*player)->getAcc());
+	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);//화면에 출력되는 나의 상태정보 텍스트
 
-	_snprintf(plusString, sizeof(plusString), "dot : %d Acc : %d",enemy->getDot(),enemy->getAcc());
+	_snprintf(plusString, sizeof(plusString), " Acc : %d",enemy->getAcc());
 	eText.setString(plusString);//화면에 출력되는 적의 상태정보 텍스트
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄
@@ -195,8 +194,8 @@ void Battle::update(sf::Event &event){
 					if(skill->data[useSkillNow].guard > 0)
 						(*player)->setGuard((*player)->getGuard()+skill->data[useSkillNow].guard);//추가 방어력을 더해줌
 					//도트뎀. 이건 적한테 적용되니까 적에게 추가해줌
-					if(skill->data[useSkillNow].dot > 0)
-						enemy->setDot(enemy->getDot()+skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
+					if(skill->data[useSkillNow].dot.damage > 0)
+						enemy->addDot(skill->data[useSkillNow].dot);//도트뎀을 적에게 더해줌
 					
 				}
 			}
@@ -227,7 +226,8 @@ void Battle::update(sf::Event &event){
 					if(rand()%100 <= enemy->getSubPro()){//서브스킬 발동시
 						subSkill=true;
 						particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);
-						(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
+						if(skill->data[enemy->getSubAni()].dot.damage > 0)
+							(*player)->addDot(skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀
 					}else{//걍 평타 떄릴시
 						particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);//파티클 설정
 					}
@@ -302,7 +302,8 @@ void Battle::playerSkillUpdate(){
 				if(rand()%100 <= enemy->getSubPro()){//적이 서브스킬 사용
 					subSkill=true;
 					particle->setParticle(enemy->getSubAni(),skill->data[enemy->getSubAni()].soundLink,true);//파티클 설정.
-					(*player)->setDot((*player)->getDot()+skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀. 현재 플레이어가 가진 도트수치에 적 스킬의 도트값을 더해준다.
+					if(skill->data[enemy->getSubAni()].dot.damage > 0)
+						(*player)->addDot(skill->data[enemy->getSubAni()].dot);//플레이어에게 도트뎀. 현재 플레이어가 가진 도트수치에 적 스킬의 도트값을 더해준다.
 					//참고로 몬스터가 플레이어의 스킬을 배껴쓸떄는
 					//도트뎀, 일반뎀 외의 효과(명중률 증감/데미지 흡수) 등을 사용 불가
 				}else{//적이 평타사용
@@ -346,6 +347,7 @@ void Battle::enemySkillUpdate(){//적의 턴
 	enemyGauge->update();
 }
 void Battle::checkSkillUpdate(){
+	std::vector<Dot> _dot;
 	//도트뎀 계산.
 
 	//여기가 도트뎀을 계산하는 곳임.
@@ -353,31 +355,31 @@ void Battle::checkSkillUpdate(){
 	//개선할시에는 도트값을 지속되는 턴으로 하고 중첩시 턴을 길게 한다던가 하면 될거같다
 	//하여튼 여기서 모든 도트딜을 계산하면 됨.
 
-	if(enemy->getDot() > 0){//적이 가진 도트 계수를 바탕으로 딜링을 하고 5를 깎아줌. 
-		if(enemy->getDot() > enemy->getCurrentHp()){
-			enemyGauge->setValue(-1*enemy->getCurrentHp());
-			enemy->setCurrentHp(0);
-		}else{
-			enemyGauge->setValue(-1*enemy->getDot());
-			enemy->setCurrentHp(enemy->getCurrentHp()-enemy->getDot());
+	if(enemy->getDot().size() > 0){//적이 가진 도트 계수를 바탕으로 딜링을 하고 5를 깎아줌. 
+		_dot=enemy->getDot();
+		for(int i=0;i<_dot.size();i++){
+			if(_dot[i].damage > enemy->getCurrentHp()){
+				enemyGauge->setValue(-1*enemy->getCurrentHp());
+				enemy->setCurrentHp(0);
+			}else{
+				enemyGauge->setValue(-1*_dot[i].damage);
+				enemy->setCurrentHp(enemy->getCurrentHp()-_dot[i].damage);
+			}
 		}
-		if(enemy->getDot() > 5)
-			enemy->setDot(enemy->getDot()-5);
-		else
-			enemy->setDot(0);
+		enemy->updateDot();//도트들 깎아주고 약빨 떨어진건 폐기함
 	}
-	if((*player)->getDot() > 0){//위와 같다.
-		if((*player)->getDot() > (*player)->getHP()){
-			hpGauge->setValue(-1*(*player)->getHP());
-			(*player)->setHP(0);
-		}else{
-			hpGauge->setValue(-1*(*player)->getDot());
-			(*player)->setHP((*player)->getHP()-(*player)->getDot());
+	if((*player)->getDot().size() > 0){//위와 같다.
+		_dot=(*player)->getDot();
+		for(int i=0;i<_dot.size();i++){
+			if(_dot[i].damage > (*player)->getHP()){
+				hpGauge->setValue(-1*(*player)->getHP());
+				(*player)->setHP(0);
+			}else{
+				hpGauge->setValue(-1*_dot[i].damage);
+				(*player)->setHP((*player)->getHP()-_dot[i].damage);
+			}
 		}
-		if((*player)->getDot() > 5)
-			(*player)->setDot((*player)->getDot()-5);
-		else
-			(*player)->setDot(0);
+		(*player)->updateDot();
 	}
 	//턴이 끝난 후의 초기화파트
 	isMiss=false;
@@ -387,6 +389,7 @@ void Battle::checkSkillUpdate(){
 	return;
 }
 bool Battle::getResult(){
+
 	if(sceneNum != normal)
 		return 0;
 	if((*player)->getHP() <= 0){
@@ -398,6 +401,10 @@ bool Battle::getResult(){
 	}
 	if(enemy->getCurrentHp() <= 0){
 		isBattle=false;
+		//여기서 플레이어와 적의 도트뎀ㅇ을 날린다!
+		(*player)->clearDot();
+		enemy->clearDot();
+
 		puzzle->cleanStack();
 		enemyGauge->setValue(enemyGauge->getValue()*-1);
 		enemyGauge->update();
@@ -408,6 +415,10 @@ bool Battle::getResult(){
 
 void Battle::draw(sf::RenderWindow &window){
 	int i;
+	sf::Text vecterText,numText;
+	std::vector<Dot> _dot;
+	char vecNum[100];
+
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
 		if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
 			particle->setLocationList();
@@ -446,12 +457,41 @@ void Battle::draw(sf::RenderWindow &window){
 		}
 		window.draw(text);//보너스뎀,명중률보정,가드,도트뎀 수치 저장하는 곳.
 		window.draw(eText);//적의 평타 명중률과 도트데미지 기록
+		//---------------
+		vecterText.setFont(font);
+		numText.setFont(font);
+
+		_dot=(*player)->getDot();
+		if(_dot.size() > 0){
+			for(int i=0;i<_dot.size();i++){
+				vecterText.setPosition(200,200+(i*50));
+				numText.setPosition(250,200+(i*50));
+				_snprintf(vecNum, sizeof(vecNum), " : %d damage | %d Turn",_dot[i].damage,_dot[i].turn);
+				numText.setString(vecNum);
+				vecterText.setString(_dot[i].name);
+				window.draw(vecterText);
+				window.draw(numText);
+			}
+		}
+		_dot=enemy->getDot();
+		if(_dot.size() > 0){
+			for(int i=0;i<_dot.size();i++){
+				vecterText.setPosition(600,100+(i*50));
+				numText.setPosition(650,100+(i*50));
+				_snprintf(vecNum, sizeof(vecNum), " : %d damage | %d Turn",_dot[i].damage,_dot[i].turn);
+				numText.setString(vecNum);
+				vecterText.setString(_dot[i].name);
+				window.draw(vecterText);
+				window.draw(numText);
+			}
+		}
 	}
 		
 	hpGauge->draw(window);
 	//---face---//
 	faceSprite.setTextureRect(faceTileset->getTileSet((100-(*player)->getHP())/20));
 	window.draw(faceSprite);
+	//---
 }
 int Battle::makeCode(int s, int e){
 	int i,re=1;

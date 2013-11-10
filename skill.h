@@ -9,6 +9,11 @@
 #define SkillMax 200
 #define ElementNum 15
 
+struct Dot{
+	int damage,turn;
+	sf::String name;
+};
+
 struct SkillData{
 	sf::String name;
 	sf::String effect;
@@ -19,8 +24,9 @@ struct SkillData{
 	int guard;
 	int code;
 	int acc,plusAcc;
-	int dot;
 	int animationNum;
+
+	Dot dot;
 
 	//bool use;
 	bool have;

@@ -13,7 +13,6 @@ Player::Player(){
 
 	hp=100;
 	maxHp=100;
-	dot=0;
 	acc=0;
 	guard=0;
 }
@@ -37,11 +36,11 @@ int Player::getMaxHP(){
 void Player::setMaxHP(int num){
 	maxHp=num;
 }
-int Player::getDot(){
+std::vector<Dot> Player::getDot(){
 	return dot;
 }
-void Player::setDot(int num){
-	dot=num;
+void Player::addDot(Dot _dot){
+	dot.push_back(_dot);
 }
 int Player::getAcc(){
 	return acc;
@@ -55,3 +54,14 @@ int Player::getGuard(){
 void Player::setGuard(int num){
 	guard=num;
 }
+void Player::updateDot(){
+	for(int i=0;i<dot.size();i++){
+		dot[i].turn--;
+		if(dot[i].turn <= 0){
+			dot.erase(dot.begin()+i);
+		}
+	}
+}
+void Player::clearDot(){
+	dot.clear();
+}	

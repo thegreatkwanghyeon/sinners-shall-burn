@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "tinyxml.h"
 #include "global.h"
+#include "skill.h"
 
 class Enemy{
 	private:
@@ -20,7 +21,7 @@ class Enemy{
 		int animationNum;
 		int subAniNum;
 		int subPro;
-		int dot;
+		std::vector<Dot> dot;
 		int acc,maxAcc;
 		sf::Vector2f position;
 
@@ -50,8 +51,10 @@ class Enemy{
 		//юс╫ц
 		void setPosition(sf::Vector2f position);
 		void setTexture(sf::Image texture);
-		int getDot();
-		void setDot(int num);
+		std::vector<Dot> getDot();
+		void addDot(Dot _dot);
+		void updateDot();
+		void clearDot();
 		int getAcc();
 		int getSubPro();
 		int getSubAni();

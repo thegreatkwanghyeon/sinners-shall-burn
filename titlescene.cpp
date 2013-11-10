@@ -11,7 +11,7 @@ TitleScene::TitleScene(){
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(250,500);
-	startButton->setText(L"½ÃÀÛ", 18);
+	startButton->setText("START", 18);
 	startButton->setClickSound("sounds/button/click.wav");
 	startButton->setHoverSound("sounds/button/hover.wav");
 

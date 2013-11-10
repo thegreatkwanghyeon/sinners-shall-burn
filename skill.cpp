@@ -29,6 +29,7 @@ Skill::Skill(){
 		data[i].name = (MTW(pNode->ToElement()->Attribute("name")));
 		data[i].link = (MTW(pNode->ToElement()->Attribute("imgLink")));
 		data[i].soundLink = (MTW(pNode->ToElement()->Attribute("soundLink")));
+		data[i].dot.name = (MTW(pNode->ToElement()->Attribute("dotName")));
 		data[i].effect = (MTW(pNode->ToElement()->GetText()));
 
 		pNode->ToElement()->Attribute("damage",&data[i].damage);
@@ -36,7 +37,8 @@ Skill::Skill(){
 		pNode->ToElement()->Attribute("guard",&data[i].guard);
 		pNode->ToElement()->Attribute("acc",&data[i].acc);
 		pNode->ToElement()->Attribute("plusAcc",&data[i].plusAcc);
-		pNode->ToElement()->Attribute("dot",&data[i].dot);
+		pNode->ToElement()->Attribute("dotDamage",&data[i].dot.damage);
+		pNode->ToElement()->Attribute("dotTurn",&data[i].dot.turn);
 
 		pNode->ToElement()->Attribute("need",&data[i].needCode);
 		pNode->ToElement()->Attribute("animation",&data[i].animationNum);

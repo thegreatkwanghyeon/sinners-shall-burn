@@ -10,7 +10,7 @@ class Player{
 	private:
 		int hp;
 		int maxHp;
-		int dot;//damage over time
+		std::vector<Dot> dot;
 		int guard;//추가 방어
 		int acc;//추가 명중률
 
@@ -23,12 +23,14 @@ class Player{
 		void draw(sf::RenderWindow &window);
 		void setHP(int num);
 		void setMaxHP(int num);
-		void setDot(int num);
+		void addDot(Dot _dot);
+		void updateDot();
+		void clearDot();
 		void setAcc(int num);
 		void setGuard(int num);
 		int getHP();
 		int getMaxHP();
-		int getDot();
+		std::vector<Dot> getDot();
 		int getAcc();
 		int getGuard();
 

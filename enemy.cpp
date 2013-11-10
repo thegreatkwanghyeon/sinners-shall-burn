@@ -35,7 +35,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 	}
 	//юс╫ц
 	position = sf::Vector2f(0.0f, 0.0f);
-	dot=0;
+	//dot=0;
 
 	font.loadFromFile("font/aPinoL.ttf");
 	name.setFont(font);
@@ -109,11 +109,11 @@ void Enemy::setTexture(sf::Image texture){
 	this->texture = texture;
 	this->convertedTexture = convertImageToTexture(texture);
 }
-int Enemy::getDot(){
+std::vector<Dot> Enemy::getDot(){
 	return dot;
 }
-void Enemy::setDot(int num){
-	dot=num;
+void Enemy::addDot(Dot _dot){
+	dot.push_back(_dot);
 }
 int Enemy::getAcc(){
 	return acc;
@@ -139,3 +139,14 @@ sf::String Enemy::getIntro(){
 sf::String Enemy::getSoundLink(){
 	return soundLink;
 }
+void Enemy::updateDot(){
+	for(int i=0;i<dot.size();i++){
+		dot[i].turn--;
+		if(dot[i].turn <= 0){
+			dot.erase(dot.begin()+i);
+		}
+	}
+}
+void Enemy::clearDot(){
+	dot.clear();
+}	

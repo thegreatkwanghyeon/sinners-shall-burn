@@ -116,8 +116,8 @@ void Enemy::addDot(Dot _dot){
 	for(int i=0;i<dot.size();i++){
 		if(dot[i].code == _dot.code){
 			dot[i].turn+=_dot.turn;
+			return;
 		}
-		return;
 	}
 	dot.push_back(_dot);
 }

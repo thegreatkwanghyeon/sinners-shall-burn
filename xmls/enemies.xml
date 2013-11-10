@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <Enemies>
-  <Enemy code="1" hp="50" damage="5" skill1="50" skill2="1" acc="100" subpro="0" imgLink ="img/enemies/ghoul.png" name="구울" soundLink ="sounds/skill/skill01.wav"> 강령술로 되살아난 평범한 시체다. 그다지 강하지 않으며 지능이 낮아 주문을 쓸 수 없다</Enemy>
-  <Enemy code="2" hp="75" damage="10" skill1="51" skill2="31" acc="70" subpro="30" imgLink ="img/enemies/bloodyeye.png" name="블러디아이" soundLink ="sounds/skill/skill01.wav"> 커다란 안구의 형태를 띄고있다. 눈에서 냉기 광선을 쏘기도 한다</Enemy>
+  <Enemy code="1" hp="50" damage="5" skill1="50" skill2="1" acc="100" subpro="100" imgLink ="img/enemies/ghoul.png" name="구울" soundLink ="sounds/skill/skill01.wav"> 강령술로 되살아난 평범한 시체다. 그다지 강하지 않으며 지능이 낮아 주문을 쓸 수 없다</Enemy>
+  <Enemy code="2" hp="75" damage="100" skill1="51" skill2="31" acc="70" subpro="30" imgLink ="img/enemies/bloodyeye.png" name="블러디아이" soundLink ="sounds/skill/skill01.wav"> 커다란 안구의 형태를 띄고있다. 눈에서 냉기 광선을 쏘기도 한다</Enemy>
   <Enemy code="3" hp="50" damage="10" skill1="52" skill2="10" acc="100" subpro="30" imgLink ="img/enemies/dreamseed.png" name="드림시드" soundLink ="sounds/skill/hover.wav"> 다른 생물의 영혼을 좀먹는 존재. 체력을 흡수하는 주문을 사용한다</Enemy>
   <Enemy code="4" hp="100" damage="10" skill1="1" skill2="1" acc="50" subpro="15" imgLink ="img/enemies/gug.png" name ="구그" soundLink ="sounds/skill/hover.wav"> 4개의 팔을 가진 괴수. 강한 완력으로 적을 찢어버린다. 낮은 확률로 가벼운 주문을 사용한다</Enemy>
   <Enemy code="5" hp="1" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/ghoul.png" name ="2탄보스" soundLink ="sounds/skill/hover.wav"> 2탄보스</Enemy>

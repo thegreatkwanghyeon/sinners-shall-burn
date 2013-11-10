@@ -25,6 +25,15 @@ enum{
 };
 class Battle : public SceneBase{
 	private:
+
+		typedef struct{
+			sf::String statusName;
+			int damagePerTurn;
+			unsigned int remainedTurn;
+		}statusEffect;
+
+		std::vector<statusEffect> statusEffects;
+
 		TiXmlDocument stats;
 		sf::Font font;
 		sf::Text text,eText;

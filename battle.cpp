@@ -107,15 +107,17 @@ void Battle::startBattle(int _code){
 }
 
 void Battle::update(sf::Event &event){
-	int i,j,k,tp;
-	int chk[200]={0,};
+	int i, j, k, tp;
+	int chk[200] = { 0, };
 
 	float delta;
 
-	for(i=0;i<200;i++){
-		chk[i]=0;
+	for (i = 0; i < 200; i++){
+		chk[i] = 0;
 	}
-	particle->update();
+	if (!isMiss){
+		particle->update();
+	}
 
 	if(isBattle)//비전투시에는 퍼즐의 업데이트를 제한한다
 		puzzle->update(event);
@@ -241,7 +243,7 @@ void Battle::update(sf::Event &event){
 	}
 }
 void Battle::playerSkillUpdate(){
-	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//파티클이 끝난 경우
+	if(particle->isEnd()){//파티클이 끝난 경우
 		skillTime.restart();
 		int damage=skill->data[useSkillNow].damage*puzzle->getPlusDamage();//적에게 주는 데미지
 		int pdamage=skill->data[useSkillNow].pdamage;//내가 받을 데미지(내 스킬에 의한 데미지)
@@ -321,7 +323,7 @@ void Battle::playerSkillUpdate(){
 	return;
 }
 void Battle::enemySkillUpdate(){//적의 턴
-	if(skillTime.getElapsedTime().asSeconds() >= skillEffectTime){//파티클이 끝난경우
+	if(particle->isEnd()){//파티클이 끝난경우
 		int damage;//적이 나에게 줄 데미지
 		if(subSkill){//서브스킬 사용시엔 그 스킬의 데미지, 아니면 몬스터 고유의 평타딜
 			damage = skill->data[enemy->getSubAni()].damage;
@@ -421,11 +423,10 @@ void Battle::draw(sf::RenderWindow &window){
 
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
 		if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
-			particle->setLocationList();
+			particle->draw(window);
 		}
 		//return;
 	}
-	particle->draw(window);
 	
 	if(isBattle){
 		window.draw(skillBGSprite);

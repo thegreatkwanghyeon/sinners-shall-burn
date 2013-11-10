@@ -1,6 +1,7 @@
 #include "particlesystem.h"
 
 namespace particle{
+	/*
 	class Water : public ParticleSystem{
 		private :
 			sf::Vector2i pos;
@@ -160,4 +161,5 @@ namespace particle{
 			void initialize();
 			virtual void setLocationList();
 	};
+	*/
 }

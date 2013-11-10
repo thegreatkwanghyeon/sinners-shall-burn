@@ -1,5 +1,5 @@
 #include "particles.h"
-
+/*
 using namespace particle;
 
 FireBall::FireBall(int x, int y) : ParticleSystem(x, y){
@@ -388,3 +388,4 @@ void Miss::setLocationList(){
 	setLocationVar(sf::Vector2i(pos.x+150,pos.y+150));
 	fuelInSequence(0.0, 10);
 }
+*/

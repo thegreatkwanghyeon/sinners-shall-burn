@@ -1,8 +1,6 @@
 #include "particlesystem.h"
 
-ParticleSystem::ParticleSystem(int x, int y){
-	m_position.x = x;
-	m_position.y = y;
+ParticleSystem::ParticleSystem(){
 	m_particleSpeed = 300.0f;
 
 	m_life = 50;

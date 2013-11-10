@@ -1,10 +1,12 @@
 #ifndef __particlelist__
 #define __particlelist__
 
-#include "particles.h"
+
 #include "SFML/Audio.hpp"
 #include "global.h"
 #include "skill.h"
+#include "skilleffectlist.h"
+
 class ParticleList{
 	private : 
 		int num;
@@ -12,7 +14,7 @@ class ParticleList{
 		sf::SoundBuffer soundBuffer;
 		sf::Sound sound;
 
-		ParticleSystem *particle;
+		SkillEffect *skillEffect;
 	public :
 
 		ParticleList(int _x, int _y);
@@ -21,7 +23,7 @@ class ParticleList{
 		void setParticle(int _num, sf::String _path, bool isSound);
 		void update();
 		void draw(sf::RenderWindow &window);
-		void setLocationList();
+		bool isEnd(){return skillEffect->isEnd();}
 };
 
 #endif

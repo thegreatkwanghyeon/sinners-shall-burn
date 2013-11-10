@@ -106,15 +106,18 @@
     <ClInclude Include="slider.h">
       <Filter>system\UI</Filter>
     </ClInclude>
-    <ClInclude Include="pausescene.h" />
     <ClInclude Include="lightning.h">
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="line.h">
       <Filter>system</Filter>
     </ClInclude>
+    <ClInclude Include="well512.h" />
     <ClInclude Include="skilleffect.h">
-      <Filter>system</Filter>
+      <Filter>contents</Filter>
+    </ClInclude>
+    <ClInclude Include="skilleffectlist.h">
+      <Filter>contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -212,7 +215,6 @@
     <ClCompile Include="slider.cpp">
       <Filter>system\UI</Filter>
     </ClCompile>
-    <ClCompile Include="pausescene.cpp" />
     <ClCompile Include="lightning.cpp">
       <Filter>system</Filter>
     </ClCompile>
@@ -220,7 +222,10 @@
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="skilleffect.cpp">
-      <Filter>system</Filter>
+      <Filter>contents</Filter>
+    </ClCompile>
+    <ClCompile Include="skilleffectlist.cpp">
+      <Filter>contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

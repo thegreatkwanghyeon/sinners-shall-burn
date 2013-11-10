@@ -1,3 +1,6 @@
+#ifndef __lightning__
+#define __lightning__
+
 #include "stdafx.h"
 #include <list>
 #include "line.h"
@@ -41,3 +44,5 @@ class Lightning{
 		void update();
 		void draw(RenderWindow &window);
 };
+
+#endif

@@ -56,7 +56,7 @@ class ParticleSystem{
 
 		std::list<Particle*> m_particleList;
 
-		ParticleSystem(int x, int y);
+		ParticleSystem();
 		~ParticleSystem();
 
 		void fuel(int num);
@@ -78,6 +78,22 @@ class ParticleSystem{
 		void setEndColorVar(int r, int g, int b, int a);
 		void setSpeed(float speed);
 		void setSpeedVar(float speed);
+
+
+		float getSpeed(){return m_velocity;}
+		float getSpeedVar(){return m_velocityVar;}
+		sf::Vector2i getLocation(){return m_position;}
+		sf::Vector2i getLocationVar(){return m_positionVar;}
+		int getLife(){return m_life;}
+		int getLifeVar(){return m_lifeVar;}
+		int getAngle(){return m_angle;}
+		int getAngleVar(){return m_angleVar;}
+		sf::Color getStartColor(){return m_startColor;}
+		sf::Color getStartColoVar(){return m_startColorVar;}
+		sf::Color getEndColor(){return m_endColor;}
+		sf::Color getEndColoVar(){ return m_endColorVar; }
+
+
 		virtual void setLocationList();//ㅎㅎ내가 추가한 함수임. 오버라이딩용.
 };
 

@@ -1,9 +1,11 @@
 #include "particlelist.h"
 
+using namespace skill;
+
 ParticleList::ParticleList(int _x, int _y){
 	x=_x;
 	y=_y;
-	particle = new particle::FireBall(x,y);
+	skillEffect = new FireBall();
 	sound.setLoop(false);
 }
 void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
@@ -16,74 +18,74 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	}
 	switch(num){
 		case 1: //È­¿°±¸
-			delete particle;
-			particle = new particle::FireBall(x,y);
+			{
+			delete skillEffect;
+			skillEffect = new FireBall();
+			}
+
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
-			delete particle;
-			particle = new particle::Explosion(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			//particle = new particle::Beam(x,y);
 			break;
 		case 3://Áö¿ÁºÒ
-			delete particle;
-			particle = new particle::Fire(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 4://¼¼¸êÈ­
-			delete particle;
-			particle = new particle::FireRain2(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 5: //±â¿ìÁ¦
-			delete particle;
-			particle = new particle::Rain(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 6: //Ä§¼ö
-			delete particle;
-			particle = new particle::Water(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 9: //¾àÃÊ
-			delete particle;
-			particle = new particle::Heal(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 10: //¾¾»Ñ¸®±â
-			delete particle;
-			particle = new particle::Heal2(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 11: //Èí¼ö
-			delete particle;
-			particle = new particle::Drain(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 19: //¾óÀ½¹æÆÐ
-			delete particle;
-			particle = new particle::IceShield(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 35://¸ÞÅ×¿À
-			delete particle;
-			particle = new particle::FireRain(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 50: //¸÷ °ø°Ý : ±¸¿ï?
-			delete particle;
-			particle = new particle::Cut(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		case 51: //¸÷ °ø°Ý : ºí·¯µð¾ÆÀÌ(´«¿¡¼­ ºö!)
-			delete particle;
-			particle = new particle::Beam(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 			break;
 		default : 
-			delete particle;
-			particle = new particle::Explosion(x,y);
+			delete skillEffect;
+			skillEffect = new FireBall();
 	}
 }
 ParticleList::~ParticleList(){
-	delete particle;
+	delete skillEffect;
 }
 void ParticleList::update(){
 	sound.setVolume(soundVolume);
-	particle->update();
+	skillEffect->update();
 }
 
 void ParticleList::draw(sf::RenderWindow &window){
-	particle->draw(window);
-}
-void ParticleList::setLocationList(){
-	particle->setLocationList();
+	skillEffect->draw(window);
 }

@@ -1,17 +1,21 @@
-#include "particlesystem.h"
-#include "lightning.h"
+#ifndef __skilleffect__
+#define __skilleffect__
+
+#include "stdafx.h"
 
 class SkillEffect{
 	private : 
-		list<ParticleSystem*> particleList;
-		list<Lightning*> lightningList;
+		bool end;
 	public :
-		SkillEffect(){}
+		SkillEffect();
 		~SkillEffect();
 
-		void update();
-		void draw(RenderWindow &window);
+		virtual void update();
+		virtual void draw(sf::RenderWindow &window);
 
-		void addParticle(ParticleSystem* particle);
-		void addLightning(Lightning* lightning);
+		void setEnd();
+
+		bool isEnd(){return end;}
 };
+
+#endif

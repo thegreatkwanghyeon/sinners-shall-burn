@@ -1,3 +1,6 @@
+#ifndef __line__
+#define __line__
+
 #include "stdafx.h"
 
 #define _USE_MATH_DEFINES
@@ -34,3 +37,5 @@ public:
 	void initialize();
 
 };
+
+#endif

@@ -42,10 +42,11 @@ int main(void){
 		sf::Font font;
 		char stringFps[20];
 
-		font.loadFromFile("font/font.ttf");
+		font.loadFromFile("font/aPinoL.ttf");
 		textFps.setFont(font);
 		sprintf(stringFps, "FPS = %.0f", fps);
 		textFps.setString(stringFps);
+		textFps.setCharacterSize(20);
 
 	
 

@@ -39,7 +39,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 
 	font.loadFromFile("font/aPinoL.ttf");
 	name.setFont(font);
-	name.setPosition(640,60);
+	name.setPosition(640,30);
 	name.setCharacterSize(30);
 	name.setOrigin(name.getLocalBounds().width/2,0);
 }

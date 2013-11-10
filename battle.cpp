@@ -24,7 +24,7 @@ Battle::Battle(Player** _player){
 
 	faceSprite.setTexture(face);
 	faceSprite.setTextureRect(faceTileset->getTileSet(0));
-	faceSprite.setPosition(0,550);
+	faceSprite.setPosition(0,515);
 
 	skillBG.loadFromFile("img/skillBackground.png");
 	skillBGSprite.setTexture(skillBG);
@@ -38,12 +38,14 @@ Battle::Battle(Player** _player){
 	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
 	text.setString(L"bonus : 1.00\ndot : 0\nguard : 0\nplusAcc : 0");
-	text.setPosition(0.0f, 110.0f);
+	text.setPosition(150.0f, 515.0f);
 
 
 	eText.setFont(font); 
-	eText.setString(L"dot : 0\nAcc : 0");
-	eText.setPosition(1000.0f, 200.0f);
+	eText.setString(L"dot : 0 Acc : 0");
+	eText.setPosition(640.0f, 80.0f);
+	eText.setOrigin(eText.getLocalBounds().width/2,0);
+	eText.setCharacterSize(20);
 
 	for(i=0;i<ViewSkill;i++){
 		canUseSkill[i]=0;
@@ -62,13 +64,14 @@ Battle::Battle(Player** _player){
 	isBattle=false;
 
 	hpGauge = new Gauge("img/hpgauge.png",100, 0, 1);
-	hpGauge->setPosition(sf::Vector2i(0,0));
+	hpGauge->setPosition(sf::Vector2i(5,665));
+	hpGauge->setTextElement(20,sf::Color::White);
 
 	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,-1);
-	enemyGauge->setPosition(sf::Vector2i(440,50));
+	enemyGauge->setPosition(sf::Vector2i(440,20));
 
-	timeGauge = new Gauge("img/hpgauge.png",puzzleLimit, 0, 1);
-	timeGauge->setPosition(sf::Vector2i(300,300));
+	timeGauge = new Gauge("img/puzzleTimeGauge.png",puzzleLimit, 0, -1);
+	timeGauge->setPosition(sf::Vector2i(PStartX+320,PStartY-5));
 
 	sceneNum=normal;//기본 상태
 	isMiss=false;
@@ -97,7 +100,7 @@ void Battle::startBattle(int _code){
 	isBattle=true;
 	delete(enemyGauge);
 	enemyGauge = new Gauge("img/enemygauge.png",enemy->getMaxHp(),0,-1);
-	enemyGauge->setPosition(sf::Vector2i(440,50));
+	enemyGauge->setPosition(sf::Vector2i(440,20));
 
 	(*player)->setAcc(0);
 	(*player)->setGuard(0);
@@ -121,7 +124,7 @@ void Battle::update(sf::Event &event){
 	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\ndot : %d\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getDot(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);//화면에 출력되는 나의 상태정보 텍스트
 
-	_snprintf(plusString, sizeof(plusString), "dot : %d\nAcc : %d",enemy->getDot(),enemy->getAcc());
+	_snprintf(plusString, sizeof(plusString), "dot : %d Acc : %d",enemy->getDot(),enemy->getAcc());
 	eText.setString(plusString);//화면에 출력되는 적의 상태정보 텍스트
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄

@@ -62,7 +62,9 @@ Puzzle::Puzzle(){
 	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
 	text.setString(L"3");
-	text.setPosition(PStartX-110,PStartY+220);
+	text.setPosition(PStartX-70,PStartY+240);
+	text.setCharacterSize(30);
+	//text.setColor(sf::Color::Black);
 }
 
 Puzzle::~Puzzle(){

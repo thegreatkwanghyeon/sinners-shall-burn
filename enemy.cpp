@@ -37,7 +37,7 @@ Enemy::Enemy(int _code) : textureSize(256){
 	position = sf::Vector2f(0.0f, 0.0f);
 	dot=0;
 
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	name.setFont(font);
 	name.setPosition(640,60);
 	name.setCharacterSize(30);

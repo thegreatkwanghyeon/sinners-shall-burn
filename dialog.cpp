@@ -6,7 +6,7 @@ Dialog::Dialog(const char *_path) : WindowEntity(_path){
 	currentScriptCursor = 0;
 	currentScriptNumber = 0;
 
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	windowWidth = 800;
 
 	script.setFont(font);

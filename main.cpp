@@ -27,7 +27,7 @@ int main(void){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 				sceneManager->setScene(new GameScene());
 			}
-			if(sceneManager->getCurrentScene()->changeScene() == 3){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || sceneManager->getCurrentScene()->changeScene() == 3){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 				sceneManager->setScene(new ClearScene());
 			}

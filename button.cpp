@@ -3,7 +3,7 @@
 Button::Button(sf::String _path) : isButtonEnable(true),hotkey(sf::Keyboard::Unknown){
 	tileset = new TileSet();
 	texture.loadFromFile(_path);
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	texture = tileset->tileSet(_path, texture.getSize().x, (texture.getSize().y)/4);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(tileset->getTileSet(NormalState));

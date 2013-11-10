@@ -1,7 +1,7 @@
 #include "tooltip.h"
  
 Tooltip::Tooltip(const char *_path) : WindowEntity(_path){
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 }
 
 std::vector<std::wstring> Tooltip::splitWords (std::wstring &_str){ //description 문자열 데이터를 공백 기준으로 나눠준다 

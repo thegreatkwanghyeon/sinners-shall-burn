@@ -3,7 +3,7 @@
 Gauge::Gauge(sf::String _path, float _limit, int _gaugeType, int _textPercentage){
 	tileset = new TileSet();
 	texture.loadFromFile(_path);
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	texture = tileset->tileSet(_path, texture.getSize().x, (texture.getSize().y)/3);
 
 	coverSprite.setTexture(texture);

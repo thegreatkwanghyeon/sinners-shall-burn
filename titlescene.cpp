@@ -89,7 +89,7 @@ void TitleScene::draw(sf::RenderWindow &window){
 	window.draw(sprite);
 	//---
 	/*
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	skillName.setFont(font);
 	skillName.setString(skill->data[pNum].name);
 	skillName.setPosition(0,300);

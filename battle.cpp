@@ -35,7 +35,7 @@ Battle::Battle(Player** _player){
 	particle = new ParticleList(640,200);
 	particle->setParticle(1,"",false);
 
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
 	text.setString(L"bonus : 1.00\ndot : 0\nguard : 0\nplusAcc : 0");
 	text.setPosition(0.0f, 110.0f);

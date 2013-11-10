@@ -59,7 +59,7 @@ Puzzle::Puzzle(){
 
 	reNum=3;
 
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
 	text.setString(L"3");
 	text.setPosition(PStartX-110,PStartY+220);

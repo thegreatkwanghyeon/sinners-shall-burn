@@ -608,7 +608,7 @@ void RayCastingScene::draw(sf::RenderWindow &window){
 		buffer[i] = 0;
 	}
 	//¹Ì´Ï
-	int recAlpha=100;
+	int recAlpha=50;
 	sf::Vector2i mapStart;
 	mapStart.x=520;
 	mapStart.y=0;

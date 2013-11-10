@@ -31,7 +31,7 @@ GameScene::GameScene(){
 	isOver=false;
 	nowEnemy=0;
 
-	font.loadFromFile("font/spike.ttf");
+	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font);
 	text.setString(L"GAME OVER");
 	text.setPosition(480.0f, 175.0f);

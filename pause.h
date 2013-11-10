@@ -7,10 +7,15 @@
 class Pause{
 	private:
 		bool isPause,endFlag,titleFlag;
+		sf::Texture texture;
+		sf::Sprite sprite;
+		sf::Text fText;
+		sf::Font font;
 		Button* cButton;//콘티뉴(게임으로 돌아가기)
 		Button* endButton;//게임 종료시키기
 		Button* tButton;//타이틀로 가는 버튼
-		Slider* slider;
+		Slider* slider;//이건 효과음 슬라이더
+		Slider* bgmSlider;//이건 브금슬라이더
 	public:
 		Pause();
 		~Pause();

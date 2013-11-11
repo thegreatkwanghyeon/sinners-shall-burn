@@ -4,6 +4,8 @@ ParticleSystem::ParticleSystem(){
 
 	canFuel = true;
 
+	m_lifeTime = 0.0;
+
 	m_particleSpeed = 300.0f;
 
 	m_life = 50;
@@ -150,6 +152,7 @@ void ParticleSystem::setTexture(std::string texturePath){
 void ParticleSystem::update(){
 	float time = m_clock.getElapsedTime().asSeconds();
 	m_clock.restart();
+	m_lifeTime += time;
 
 	for(ParticleIterator it = m_particleList.begin(); it!=m_particleList.end(); it++){
 		(*it)->life -= 1;

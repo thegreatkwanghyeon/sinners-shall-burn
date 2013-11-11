@@ -13,6 +13,7 @@ namespace skill{
 		private : 
 			float height;
 			float scale;
+			int fuel;
 			ParticleSystem* fireballParticle;
 			ParticleSystem* explosionParticle;
 		public : 

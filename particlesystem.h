@@ -30,6 +30,8 @@ class ParticleSystem{
 
 		bool canFuel;
 
+		float m_lifeTime;
+
 		float m_scale;
 		float m_scaleVar;
 
@@ -102,6 +104,7 @@ class ParticleSystem{
 		float getScale(){ return m_scale; }
 		float getScaleVar(){ return m_scaleVar; }
 		int getNumberOfParticle(){ return m_particleList.size(); }
+		float getLifeTime(){ return m_lifeTime; }
 };
 
 #endif

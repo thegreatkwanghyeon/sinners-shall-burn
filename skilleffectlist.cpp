@@ -7,6 +7,7 @@ FireBall::FireBall() : SkillEffect(){
 
 	height = -4;
 	scale = 1;
+	fuel = 10;
 
 	fireballParticle = new ParticleSystem();
 	fireballParticle->setTexture("img/particles/fire.png");
@@ -14,13 +15,13 @@ FireBall::FireBall() : SkillEffect(){
 	fireballParticle->setLocationVar(sf::Vector2f(630, 220));
 	fireballParticle->setAngle(0);
 	fireballParticle->setAngleVar(360);
-	fireballParticle->setLife(7);
-	fireballParticle->setLifeVar(8);
-	fireballParticle->setSpeed(6);
-	fireballParticle->setSpeedVar(6.5);
+	fireballParticle->setLife(5);
+	fireballParticle->setLifeVar(6);
+	fireballParticle->setSpeed(5);
+	fireballParticle->setSpeedVar(5.5);
 	fireballParticle->setStartColor(255, 0, 0, 255);
 	fireballParticle->setStartColor(200, 10, 10, 255);
-	fireballParticle->setEndColor(255, 200, 0, 0);
+	fireballParticle->setEndColor(255, 30, 0, 0);
 
 	explosionParticle = new ParticleSystem();
 	explosionParticle->setTexture("img/particles/fire.png");
@@ -39,15 +40,23 @@ void FireBall::update(){
 	
 	if(scale > 0.7){
 		fireballParticle->update();
-		fireballParticle->fuel(120);
-		fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.12);
-		sf::Vector2f location = fireballParticle->getLocation();
-		sf::Vector2f locationVar = fireballParticle->getLocationVar();
-		fireballParticle->setLocation(sf::Vector2f(location.x, location.y+height));
-		fireballParticle->setLocationVar(sf::Vector2f(locationVar.x, locationVar.y + height));
-		fireballParticle->setScale(scale);
-		scale -= 0.007;
-		height += 0.25;
+		fireballParticle->fuel(fuel);
+
+		if (fuel < 120){
+			fuel += 5;
+		}
+		printf("%f\n", fireballParticle->getLifeTime());
+
+		if (fireballParticle->getLifeTime() > 0.7){
+			fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.12);
+			sf::Vector2f location = fireballParticle->getLocation();
+			sf::Vector2f locationVar = fireballParticle->getLocationVar();
+			fireballParticle->setLocation(sf::Vector2f(location.x, location.y + height));
+			fireballParticle->setLocationVar(sf::Vector2f(locationVar.x, locationVar.y + height));
+			fireballParticle->setScale(scale);
+			scale -= 0.007;
+			height += 0.25;
+		}
 	}
 	else{
 		explosionParticle->update();

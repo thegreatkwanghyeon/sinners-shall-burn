@@ -1,4 +1,5 @@
 #include "scenemanager.h"
+#include "global.h"
 
 
 int main(void){
@@ -11,8 +12,18 @@ int main(void){
 	 view.reset(sf::FloatRect(0, 0, 1280, 720));
 	 float lastTime = 0;
 
+	sf::Sound sound;
+	sf::SoundBuffer soundBuffer;
+
+	sound.setLoop(true);
+	soundBuffer.loadFromFile("sounds/title.wav");
+	sound.setBuffer(soundBuffer);
+	sound.play();
+
 	while(window.isOpen()){
 		sf::Event Event;
+
+		sound.setVolume(musicVolume);//볼륨 설정
 
 		while (window.pollEvent(Event)){
 			if(Event.type == sf::Event::Closed ||sceneManager->getCurrentScene()->changeScene() == 0){
@@ -21,15 +32,30 @@ int main(void){
 		
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sceneManager->getCurrentScene()->changeScene() == 1){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
-					sceneManager->setScene(new TitleScene());
+				sceneManager->setScene(new TitleScene());
+				//---
+				sound.resetBuffer();
+				soundBuffer.loadFromFile("sounds/title.wav");
+				sound.setBuffer(soundBuffer);
+				sound.play();
 			}
 			if(sceneManager->getCurrentScene()->changeScene() == 2){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 				sceneManager->setScene(new GameScene());
+				//---
+				sound.resetBuffer();
+				soundBuffer.loadFromFile("sounds/gamescene.wav");
+				sound.setBuffer(soundBuffer);
+				sound.play();
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || sceneManager->getCurrentScene()->changeScene() == 3){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 				sceneManager->setScene(new ClearScene());
+				//---
+				sound.resetBuffer();
+				soundBuffer.loadFromFile("sounds/clear.wav");
+				sound.setBuffer(soundBuffer);
+				sound.play();
 			}
 			sceneManager->update(Event);
 		}
@@ -57,12 +83,16 @@ int main(void){
 		if(sceneManager->getCurrentScene()->changeScene() == 3){//게임이 끝나는 경우에는 예외적으로 처리함.
 			view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 			sceneManager->setScene(new ClearScene());
+			//---
+			soundBuffer.loadFromFile("sounds/clear.wav");
+			sound.resetBuffer();
+			sound.setBuffer(soundBuffer);
+			sound.play();
 		}
 
 		window.draw(textFps);
 		window.display();
 
-		
 
 	}
 	return EXIT_SUCCESS;

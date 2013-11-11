@@ -13,7 +13,6 @@ class TitleScene : public SceneBase{
 		sf::Texture texture;
 		sf::Sprite sprite;
 
-		//ParticleSystem* particle;
 		ParticleList *particle;
 		int pNum;
 		sf::Clock pTime;

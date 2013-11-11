@@ -1,13 +1,19 @@
 #include "titlescene.h"
 #include "global.h"
 
-TitleScene::TitleScene(){
+/*
+주석달린 부분들은 파티클(현재의 스킬이펙트) 테스트를 위한 코드.
+차후 디콘 설명서 작성이나 기타 시연등에 필요함을 고려,
+주석으로 처리하였음.
+*/
+
+TitleScene::TitleScene(){/*
 	particle = new ParticleList(640,200);
 	particle->setParticle(1,"",false);
 	pNum=1;
 	isPress=false;
 	printf("particle : %d\n",pNum);
-	skill = new Skill();
+	skill = new Skill();*/
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(250,500);
@@ -39,17 +45,17 @@ TitleScene::TitleScene(){
 	sceneFlag=false;
 	endFlag=false;
 
-	texture.loadFromFile("img/titleimage.png");
+	/*texture.loadFromFile("img/titleimage.png");
 	sprite.setTexture(texture);
-	sprite.setPosition(0,0);
+	sprite.setPosition(0,0);*/
 }
 TitleScene::~TitleScene(){
 	delete startButton;
 	delete endButton;
-	delete particle;
+	//delete particle;
 }
 void TitleScene::update(sf::Event &event){
-
+	/*
 	particle->update();
 	if(!isPress && sf::Keyboard::isKeyPressed(sf::Keyboard::Num8) && pNum > 1){
 		pNum--;
@@ -67,7 +73,7 @@ void TitleScene::update(sf::Event &event){
 	}
 
 	if(isPress && pTime.getElapsedTime().asSeconds() >= 0.1)
-		isPress=false;
+		isPress=false;*/
 
 	startButton->update(event);
 	endButton->update(event);

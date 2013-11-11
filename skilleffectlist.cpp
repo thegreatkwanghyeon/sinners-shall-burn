@@ -20,9 +20,13 @@ void FireBall::update(){
 	
 	if(fireballParticle->getSpeed() > 0.5){
 		fireballParticle->update();
-		fireballParticle->fuel(30);
+		fireballParticle->fuel(20);
 		fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.01);
 		printf("update\n");
+	}
+	else{
+		printf("end");
+		SkillEffect::setEnd();
 	}
 }
 

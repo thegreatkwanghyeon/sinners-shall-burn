@@ -33,7 +33,6 @@ Battle::Battle(Player** _player){
 	skill = (*player)->skill;
 
 	particle = new ParticleList(640,200);
-	particle->setParticle(1,"",false);
 
 	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 

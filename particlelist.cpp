@@ -5,7 +5,7 @@ using namespace skill;
 ParticleList::ParticleList(int _x, int _y){
 	x=_x;
 	y=_y;
-	skillEffect = new FireBall();
+	skillEffect = new SkillEffect();
 	sound.setLoop(false);
 }
 void ParticleList::setParticle(int _num, sf::String _path, bool isSound){

@@ -113,10 +113,10 @@
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="well512.h" />
-    <ClInclude Include="skilleffect.h">
+    <ClInclude Include="skilleffectlist.h">
       <Filter>contents</Filter>
     </ClInclude>
-    <ClInclude Include="skilleffectlist.h">
+    <ClInclude Include="skilleffect.h">
       <Filter>contents</Filter>
     </ClInclude>
   </ItemGroup>
@@ -221,10 +221,10 @@
     <ClCompile Include="line.cpp">
       <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="skilleffect.cpp">
+    <ClCompile Include="skilleffectlist.cpp">
       <Filter>contents</Filter>
     </ClCompile>
-    <ClCompile Include="skilleffectlist.cpp">
+    <ClCompile Include="skilleffect.cpp">
       <Filter>contents</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,35 +14,18 @@ FireBall::FireBall() : SkillEffect(){
 	fireballParticle->setSpeedVar(7);
 	fireballParticle->setStartColor(255, 0, 0, 255);
 	fireballParticle->setEndColor(255, 180, 0, 0);
-
-	explosionParticle = new ParticleSystem();
-	explosionParticle->setTexture("img/particles/circle.png");
-	explosionParticle->setLocation(sf::Vector2i(640, 360));
-	explosionParticle->setAngle(0);
-	explosionParticle->setAngleVar(360);
-	explosionParticle->setLife(4);
-	explosionParticle->setLifeVar(7);
-	explosionParticle->setSpeed(4);
-	explosionParticle->setSpeedVar(7);
-	explosionParticle->setStartColor(255, 0, 0, 255);
-	explosionParticle->setEndColor(50, 50, 50, 0);
 }
 
 void FireBall::update(){
 	
-	if(fireballParticle->getSpeed() > 0 && fireballParticle->getSpeedVar() > 0){
+	if(fireballParticle->getSpeed() > 0.5){
 		fireballParticle->update();
-		fireballParticle->fuel(50);
-		fireballParticle->setSpeed(fireballParticle->getSpeed()-0.1);
-		fireballParticle->setSpeedVar(fireballParticle->getSpeedVar()-0.1);
-	}else{
-		explosionParticle->update();
-		explosionParticle->fuel(50);
-		SkillEffect::setEnd();
+		fireballParticle->fuel(30);
+		fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.01);
+		printf("update\n");
 	}
 }
 
 void FireBall::draw(RenderWindow &window){
 	fireballParticle->draw(window);
-	explosionParticle->draw(window);
 }

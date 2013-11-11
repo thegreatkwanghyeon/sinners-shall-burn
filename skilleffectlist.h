@@ -11,6 +11,8 @@ namespace skill{
 
 	class FireBall : public SkillEffect{
 		private : 
+			float height;
+			float scale;
 			ParticleSystem* fireballParticle;
 			ParticleSystem* explosionParticle;
 		public : 

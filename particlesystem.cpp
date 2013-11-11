@@ -1,6 +1,9 @@
-#include "particlesystem.h"
+ #include "particlesystem.h"
 
 ParticleSystem::ParticleSystem(){
+
+	canFuel = true;
+
 	m_particleSpeed = 300.0f;
 
 	m_life = 50;
@@ -11,7 +14,10 @@ ParticleSystem::ParticleSystem(){
 
 	m_velocity = 0.5;
 
-	m_texturePath = "img/particles/circle.png";
+	m_scale = 1;
+	m_scaleVar = 1;
+
+	m_texturePath = "img/particles/star.png";
 	m_texture.loadFromFile(m_texturePath);
 
 	m_startColor = sf::Color(0, 0, 0, 0);
@@ -29,7 +35,7 @@ ParticleSystem::~ParticleSystem(){
 	}
 }
 
-void ParticleSystem::setLocationVar(sf::Vector2i positionVar){
+void ParticleSystem::setLocationVar(sf::Vector2f positionVar){
 	m_positionVar = positionVar;
 }
 
@@ -74,10 +80,12 @@ void ParticleSystem::fuel(int num){
 	for(int i=0;i<num;i++){
 		particle = new Particle(m_texture);
 		particle->startvel = m_randomizer.NextFloat(m_velocity, m_velocityVar);
-		particle->sprite.setPosition(m_randomizer.Next(m_position.x, m_positionVar.x), m_randomizer.Next(m_position.y, m_positionVar.y));
+		particle->sprite.setPosition(m_randomizer.NextFloat(m_position.x, m_positionVar.x), m_randomizer.NextFloat(m_position.y, m_positionVar.y));
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
 		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+		float randomScale = m_randomizer.NextFloat(m_scale, m_scaleVar);
+		particle->sprite.setScale(randomScale, randomScale);
 
 		int r = m_randomizer.Next(m_startColor.r, m_startColorVar.r);
 		int g = m_randomizer.Next(m_startColor.g, m_startColorVar.g);
@@ -103,6 +111,15 @@ void ParticleSystem::setSpeedVar(float speed){
 	m_velocityVar = speed;
 }
 
+void ParticleSystem::setScale(float scale){
+	m_scale = scale;
+	m_scaleVar = scale;
+}
+
+void ParticleSystem::setScaleVar(float scale){
+	m_scaleVar = scale;
+}
+
 void ParticleSystem::fuelInSequence(float rate, int particles){
 	m_elapsedTime += m_clock2.getElapsedTime().asSeconds();
 	m_clock2.restart();
@@ -113,6 +130,13 @@ void ParticleSystem::fuelInSequence(float rate, int particles){
 	}
 }
 
+void ParticleSystem::fuelOnce(int num){
+	if(canFuel){
+		fuel(num);
+		canFuel = false;
+	}
+}
+
 void ParticleSystem::setSpeed(float speed){
 	m_velocity = speed;
 	m_velocityVar = m_velocity;
@@ -120,6 +144,7 @@ void ParticleSystem::setSpeed(float speed){
 
 void ParticleSystem::setTexture(std::string texturePath){
 	m_texturePath = texturePath;
+	m_texture.loadFromFile(m_texturePath);
 }
 
 void ParticleSystem::update(){
@@ -156,12 +181,9 @@ void ParticleSystem::draw(sf::RenderWindow &window){
 	}
 }
 
-void ParticleSystem::setLocation(sf::Vector2i position){
+void ParticleSystem::setLocation(sf::Vector2f position){
 	m_position.x = position.x;
 	m_position.y = position.y;
 
 	m_positionVar = m_position;
-}
-void ParticleSystem::setLocationList(){
-	return;
 }

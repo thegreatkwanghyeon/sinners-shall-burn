@@ -28,8 +28,13 @@ typedef std::list<Particle*>::iterator ParticleIterator;
 class ParticleSystem{
 	private : 
 
-		sf::Vector2i	m_position;
-		sf::Vector2i m_positionVar;
+		bool canFuel;
+
+		float m_scale;
+		float m_scaleVar;
+
+		sf::Vector2f	m_position;
+		sf::Vector2f m_positionVar;
 		Well512	m_randomizer;
 		sf::Clock	m_clock;
 		sf::Clock m_clock2;
@@ -60,13 +65,14 @@ class ParticleSystem{
 
 		void fuel(int num);
 		void fuelInSequence(float rate, int particles);
+		void fuelOnce(int num);
 
 		virtual void update();
 
 		virtual void draw(sf::RenderWindow &window);
 		void setTexture(std::string texturePath);
-		void setLocation(sf::Vector2i position);
-		void setLocationVar(sf::Vector2i positionVar);
+		void setLocation(sf::Vector2f position);
+		void setLocationVar(sf::Vector2f positionVar);
 		void setLife(int life);
 		void setLifeVar(int lifeVar);
 		void setAngle(int angle);
@@ -77,12 +83,14 @@ class ParticleSystem{
 		void setEndColorVar(int r, int g, int b, int a);
 		void setSpeed(float speed);
 		void setSpeedVar(float speed);
+		void setScale(float scale);
+		void setScaleVar(float scale);
 
 
 		float getSpeed(){return m_velocity;}
 		float getSpeedVar(){return m_velocityVar;}
-		sf::Vector2i getLocation(){return m_position;}
-		sf::Vector2i getLocationVar(){return m_positionVar;}
+		sf::Vector2f getLocation(){return m_position;}
+		sf::Vector2f getLocationVar(){return m_positionVar;}
 		int getLife(){return m_life;}
 		int getLifeVar(){return m_lifeVar;}
 		int getAngle(){return m_angle;}
@@ -91,9 +99,9 @@ class ParticleSystem{
 		sf::Color getStartColoVar(){return m_startColorVar;}
 		sf::Color getEndColor(){return m_endColor;}
 		sf::Color getEndColoVar(){ return m_endColorVar; }
-
-
-		virtual void setLocationList();//ㅎㅎ내가 추가한 함수임. 오버라이딩용.
+		float getScale(){ return m_scale; }
+		float getScaleVar(){ return m_scaleVar; }
+		int getNumberOfParticle(){ return m_particleList.size(); }
 };
 
 #endif

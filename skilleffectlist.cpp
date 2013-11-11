@@ -47,7 +47,7 @@ void FireBall::update(){
 		}
 		printf("%f\n", fireballParticle->getLifeTime());
 
-		if (fireballParticle->getLifeTime() > 0.7){
+		if (fireballParticle->getLifeTime() > 0.3){
 			fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.12);
 			sf::Vector2f location = fireballParticle->getLocation();
 			sf::Vector2f locationVar = fireballParticle->getLocationVar();

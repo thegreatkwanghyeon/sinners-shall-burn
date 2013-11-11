@@ -9,12 +9,10 @@
 
 class Particle{
 	public : 
-		Particle(std::string texturePath){
-			texture.loadFromFile(texturePath);
+		Particle(sf::Texture &texture){
 			sprite.setTexture(texture);
 		}
 		~Particle(){}
-		sf::Texture texture;
 		sf::Sprite sprite;
 		float startvel;
 		float vel;
@@ -40,6 +38,7 @@ class ParticleSystem{
 
 		float		m_particleSpeed;
 		std::string m_texturePath;
+		sf::Texture m_texture;
 
 		int m_angle, m_angleVar;
 		int m_life, m_lifeVar;

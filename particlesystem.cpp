@@ -11,7 +11,8 @@ ParticleSystem::ParticleSystem(){
 
 	m_velocity = 0.5;
 
-	m_texturePath = "img/particles/star.png";
+	m_texturePath = "img/particles/circle.png";
+	m_texture.loadFromFile(m_texturePath);
 
 	m_startColor = sf::Color(0, 0, 0, 0);
 	m_endColor = sf::Color(0, 0, 0, 0);
@@ -71,7 +72,7 @@ void ParticleSystem::setEndColorVar(int r, int g, int b, int a){
 void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
-		particle = new Particle(m_texturePath);
+		particle = new Particle(m_texture);
 		particle->startvel = m_randomizer.NextFloat(m_velocity, m_velocityVar);
 		particle->sprite.setPosition(m_randomizer.Next(m_position.x, m_positionVar.x), m_randomizer.Next(m_position.y, m_positionVar.y));
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);

@@ -45,9 +45,9 @@ TitleScene::TitleScene(){/*
 	sceneFlag=false;
 	endFlag=false;
 
-	/*texture.loadFromFile("img/titleimage.png");
+	texture.loadFromFile("img/titleimage.png");
 	sprite.setTexture(texture);
-	sprite.setPosition(0,0);*/
+	sprite.setPosition(0,0);
 }
 TitleScene::~TitleScene(){
 	delete startButton;

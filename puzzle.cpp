@@ -55,7 +55,7 @@ Puzzle::Puzzle(){
 
 	//---버튼들 사용시 리젠시간 표시용 게이지들임.
 	hGauge = new Gauge("img/timeGauge.PNG",100, 1, -1);
-	hGauge->setPosition(sf::Vector2i(120,300));
+	hGauge->setPosition(sf::Vector2i(PStartX-105,PStartY+140));
 
 	reNum=3;
 

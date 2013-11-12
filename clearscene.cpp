@@ -28,7 +28,7 @@ ClearScene::ClearScene(){
 	sceneFlag=false;
 	endFlag=false;
 
-	printf("your challanges : \nkill : %d/%d\ncoupon : %d/%d\nrebuild : %d\nhint : %d",killEnemyNum,30,getCouponNum,50,useRebuildNum,useHintNum);
+	//printf("your challanges : \nkill : %d/%d\ncoupon : %d/%d\nrebuild : %d\nhint : %d",killEnemyNum,30,getCouponNum,50,useRebuildNum,useHintNum);
 }
 ClearScene::~ClearScene(){
 	delete startButton;
@@ -45,10 +45,21 @@ void ClearScene::update(sf::Event &event){
 }
 
 void ClearScene::draw(sf::RenderWindow &window){
+	sf::Text chText;
+	char plusString[100];
+	//---
 	window.draw(sprite);
 	window.draw(text);
 	startButton->draw(window);
 	endButton->draw(window);
+
+	chText.setFont(font);
+	chText.setCharacterSize(20);
+	chText.setPosition(100,400);
+	_snprintf(plusString, sizeof(plusString), "your challanges : \nkill : %d/%d\ncoupon : %d/%d\nrebuild : %d\nhint : %d",killEnemyNum,30,getCouponNum,50,useRebuildNum,useHintNum);
+	chText.setString(plusString);
+
+	window.draw(chText);
 }
 int ClearScene::changeScene(){
 	if(sceneFlag)//시작 버튼을 눌렀을떄

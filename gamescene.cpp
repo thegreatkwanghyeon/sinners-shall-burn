@@ -64,6 +64,11 @@ GameScene::~GameScene(){
 	delete player;
 	delete overButton;
 	delete makemap;
+	delete tooltip;
+	for(int i=0;i<enemy.size();i++){
+		if(enemy[i] != NULL)
+			delete enemy[i];
+	}
 }
 void GameScene::update(sf::Event &event){
 	if(rec.getFillColor().a != 0){

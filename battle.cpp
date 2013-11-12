@@ -83,15 +83,19 @@ Battle::~Battle(){
 	delete hpGauge;
 	delete enemyGauge;
 	delete timeGauge;
+
 	for(int i=0;i<ViewSkill;i++){
 		delete button[i];
 		delete tooltip[i];
 	}
 	
 	delete enemy;
-	//delete player;
+	//delete (*player);
 	delete tileset;
 	delete faceTileset;
+
+	delete particle;
+	///delete skill;
 }
 void Battle::startBattle(int _code){
 	delete(enemy);

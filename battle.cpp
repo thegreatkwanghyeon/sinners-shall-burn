@@ -393,7 +393,7 @@ void Battle::checkSkillUpdate(){
 	timeGauge->setValue(puzzleLimit-timeGauge->getValue());
 	return;
 }
-bool Battle::getResult(){
+bool Battle::getResult(){//여기서 전투가 끝날 경우 kill 카운트를 1 올린다(내가 이겼으면 된거고 지면 어차피 타이틀신가서 리셋됨)
 
 	if(sceneNum != normal)
 		return 0;
@@ -402,6 +402,8 @@ bool Battle::getResult(){
 		puzzle->cleanStack();
 		hpGauge->setValue(hpGauge->getValue()*-1);
 		hpGauge->update();
+
+		killEnemyNum++;
 		return 1;
 	}
 	if(enemy->getCurrentHp() <= 0){
@@ -413,6 +415,8 @@ bool Battle::getResult(){
 		puzzle->cleanStack();
 		enemyGauge->setValue(enemyGauge->getValue()*-1);
 		enemyGauge->update();
+
+		killEnemyNum++;
 		return 1;
 	}
 	return 0;

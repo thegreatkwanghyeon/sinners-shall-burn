@@ -38,6 +38,8 @@ int main(void){
 				soundBuffer.loadFromFile("sounds/title.wav");
 				sound.setBuffer(soundBuffer);
 				sound.play();
+
+				resetChallenge();//타이틀신으로 올때는 무조건 도전과제 값을 조정한다.
 			}
 			if(sceneManager->getCurrentScene()->changeScene() == 2){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));

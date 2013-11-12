@@ -27,6 +27,8 @@ ClearScene::ClearScene(){
 
 	sceneFlag=false;
 	endFlag=false;
+
+	printf("your challanges : \nkill : %d/%d\ncoupon : %d/%d\nrebuild : %d\nhint : %d",killEnemyNum,30,getCouponNum,50,useRebuildNum,useHintNum);
 }
 ClearScene::~ClearScene(){
 	delete startButton;

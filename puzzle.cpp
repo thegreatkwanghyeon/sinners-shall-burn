@@ -196,6 +196,7 @@ void Puzzle::update(sf::Event &event){
 	if(button->checkMouseClick(event)){
 		hint=true;
 		button->disableButton();
+		useHintNum++;//힌트사용 추가
 		
 		hTime.restart();
 	}
@@ -205,6 +206,8 @@ void Puzzle::update(sf::Event &event){
 		makePuzzle();
 		reButton->disableButton();
 		reNum--;
+
+		useRebuildNum++;//리빌드 사용회수 추가
 
 		reTime.restart();
 	}

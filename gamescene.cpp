@@ -118,6 +118,7 @@ void GameScene::update(sf::Event &event){
 	}
 	if(rayCastingScene->isGetReNum()){
 		battle->getPuzzle()->setReNum(battle->getPuzzle()->getReNum()+1);
+		getCouponNum++;//ÄíÆù È¹µæ°³¼ö++
 	}
 	//---¸ÊÃ¼ÀÎÁö Å×½ºÆ®---//
 	if(rayCastingScene->isMapChange()){

@@ -27,6 +27,9 @@ ParticleSystem::ParticleSystem(){
 	m_startColorVar = sf::Color(0, 0, 0, 0);
 	m_endColorVar = sf::Color(0, 0, 0, 0);
 
+	m_rotation = 0;
+	m_rotationVar = 0;
+
 	m_elapsedTime = 0.0;
 }
 
@@ -35,6 +38,15 @@ ParticleSystem::~ParticleSystem(){
 	{
 		delete *it;
 	}
+}
+
+void ParticleSystem::setRotation(float rot){
+	m_rotation = rot;
+	m_rotationVar = rot;
+}
+
+void ParticleSystem::setRotationVar(float rot){
+	m_rotationVar = rot;
 }
 
 void ParticleSystem::setLocationVar(sf::Vector2f positionVar){
@@ -86,6 +98,7 @@ void ParticleSystem::fuel(int num){
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
 		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+		particle->sprite.setRotation(m_randomizer.NextFloat(m_rotation, m_rotationVar));
 		float randomScale = m_randomizer.NextFloat(m_scale, m_scaleVar);
 		particle->sprite.setScale(randomScale, randomScale);
 

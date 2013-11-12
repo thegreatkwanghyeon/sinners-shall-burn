@@ -2,7 +2,6 @@
 #define __skilleffectlist__
 
 #include "particlesystem.h"
-#include "lightning.h"
 #include "skilleffect.h"
 
 using namespace sf;
@@ -15,18 +14,32 @@ namespace skill{
 			float scale;
 			int fuel;
 			ParticleSystem* fireballParticle;
-			ParticleSystem* explosionParticle;
 		public : 
 			FireBall();
 			~FireBall(){
 				delete fireballParticle;
-				delete explosionParticle;
 			}
 
 			virtual void update();
 			virtual void draw(RenderWindow &window);
 
 	};
+
+	class Rain : public SkillEffect{
+		private :
+			ParticleSystem* cloud;
+			ParticleSystem* rain;
+		public : 
+			Rain();
+			~Rain(){
+				delete cloud;
+				delete rain;
+			}
+			
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+	};
+
 }
 
 #endif

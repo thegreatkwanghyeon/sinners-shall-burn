@@ -26,85 +26,93 @@ class Particle{
 typedef std::list<Particle*>::iterator ParticleIterator;
 
 class ParticleSystem{
-	private : 
+private:
 
-		bool canFuel;
+	bool canFuel;
 
-		float m_lifeTime;
+	float m_lifeTime;
 
-		float m_scale;
-		float m_scaleVar;
+	float m_scale;
+	float m_scaleVar;
 
-		sf::Vector2f	m_position;
-		sf::Vector2f m_positionVar;
-		Well512	m_randomizer;
-		sf::Clock	m_clock;
-		sf::Clock m_clock2;
+	sf::Vector2f	m_position;
+	sf::Vector2f m_positionVar;
+	Well512	m_randomizer;
+	sf::Clock	m_clock;
+	sf::Clock m_clock2;
 
-		float m_elapsedTime;
+	float m_elapsedTime;
 
-		float		m_particleSpeed;
-		std::string m_texturePath;
-		sf::Texture m_texture;
+	float		m_particleSpeed;
+	std::string m_texturePath;
+	sf::Texture m_texture;
 
-		int m_angle, m_angleVar;
-		int m_life, m_lifeVar;
+	int m_angle, m_angleVar;
+	int m_life, m_lifeVar;
 
-		sf::Color m_startColor;
-		sf::Color m_startColorVar;
-		sf::Color m_endColor;
-		sf::Color m_endColorVar;
+	sf::Color m_startColor;
+	sf::Color m_startColorVar;
+	sf::Color m_endColor;
+	sf::Color m_endColorVar;
 
-		float m_velocity;
-		float m_velocityVar;
+	float m_velocity;
+	float m_velocityVar;
 
-	public :
+	float m_rotation;
+	float m_rotationVar;
 
-		std::list<Particle*> m_particleList;
+public:
 
-		ParticleSystem();
-		~ParticleSystem();
+	std::list<Particle*> m_particleList;
 
-		void fuel(int num);
-		void fuelInSequence(float rate, int particles);
-		void fuelOnce(int num);
+	ParticleSystem();
+	~ParticleSystem();
 
-		virtual void update();
+	void fuel(int num);
+	void fuelInSequence(float rate, int particles);
+	void fuelOnce(int num);
 
-		virtual void draw(sf::RenderWindow &window);
-		void setTexture(std::string texturePath);
-		void setLocation(sf::Vector2f position);
-		void setLocationVar(sf::Vector2f positionVar);
-		void setLife(int life);
-		void setLifeVar(int lifeVar);
-		void setAngle(int angle);
-		void setAngleVar(int angleVar);
-		void setStartColor(int r, int g, int b, int a);
-		void setStartColorVar(int r, int g, int b, int a);
-		void setEndColor(int r, int g, int b, int a);
-		void setEndColorVar(int r, int g, int b, int a);
-		void setSpeed(float speed);
-		void setSpeedVar(float speed);
-		void setScale(float scale);
-		void setScaleVar(float scale);
+	virtual void update();
+
+	virtual void draw(sf::RenderWindow &window);
+	void setTexture(std::string texturePath);
+	void setLocation(sf::Vector2f position);
+	void setLocationVar(sf::Vector2f positionVar);
+	void setLife(int life);
+	void setLifeVar(int lifeVar);
+	void setAngle(int angle);
+	void setAngleVar(int angleVar);
+	void setStartColor(int r, int g, int b, int a);
+	void setStartColorVar(int r, int g, int b, int a);
+	void setEndColor(int r, int g, int b, int a);
+	void setEndColorVar(int r, int g, int b, int a);
+	void setSpeed(float speed);
+	void setSpeedVar(float speed);
+	void setScale(float scale);
+	void setScaleVar(float scale);
+
+	void setRotation(float rot);
+	void setRotationVar(float rot);
 
 
-		float getSpeed(){return m_velocity;}
-		float getSpeedVar(){return m_velocityVar;}
-		sf::Vector2f getLocation(){return m_position;}
-		sf::Vector2f getLocationVar(){return m_positionVar;}
-		int getLife(){return m_life;}
-		int getLifeVar(){return m_lifeVar;}
-		int getAngle(){return m_angle;}
-		int getAngleVar(){return m_angleVar;}
-		sf::Color getStartColor(){return m_startColor;}
-		sf::Color getStartColoVar(){return m_startColorVar;}
-		sf::Color getEndColor(){return m_endColor;}
-		sf::Color getEndColoVar(){ return m_endColorVar; }
-		float getScale(){ return m_scale; }
-		float getScaleVar(){ return m_scaleVar; }
-		int getNumberOfParticle(){ return m_particleList.size(); }
-		float getLifeTime(){ return m_lifeTime; }
+	float getSpeed(){ return m_velocity; }
+	float getSpeedVar(){ return m_velocityVar; }
+	sf::Vector2f getLocation(){ return m_position; }
+	sf::Vector2f getLocationVar(){ return m_positionVar; }
+	int getLife(){ return m_life; }
+	int getLifeVar(){ return m_lifeVar; }
+	int getAngle(){ return m_angle; }
+	int getAngleVar(){ return m_angleVar; }
+	sf::Color getStartColor(){ return m_startColor; }
+	sf::Color getStartColoVar(){ return m_startColorVar; }
+	sf::Color getEndColor(){ return m_endColor; }
+	sf::Color getEndColoVar(){ return m_endColorVar; }
+	float getScale(){ return m_scale; }
+	float getScaleVar(){ return m_scaleVar; }
+	int getNumberOfParticle(){ return m_particleList.size(); }
+	float getLifeTime(){ return m_lifeTime; }
+	float getRatation(){ return m_rotation; }
+	float getRotationVar(){ return m_rotationVar; }
 };
 
 #endif

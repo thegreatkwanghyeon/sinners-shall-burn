@@ -22,18 +22,6 @@ FireBall::FireBall() : SkillEffect(){
 	fireballParticle->setStartColor(255, 0, 0, 255);
 	fireballParticle->setStartColor(200, 10, 10, 255);
 	fireballParticle->setEndColor(255, 30, 0, 0);
-
-	explosionParticle = new ParticleSystem();
-	explosionParticle->setTexture("img/particles/fire.png");
-	explosionParticle->setAngle(0);
-	explosionParticle->setAngleVar(360);
-	explosionParticle->setLife(80);
-	explosionParticle->setLifeVar(110);
-	explosionParticle->setSpeed(1);
-	explosionParticle->setSpeedVar(1.4);
-	explosionParticle->setStartColor(150, 0, 0, 255);
-	explosionParticle->setStartColorVar(100, 0, 0, 255);
-	explosionParticle->setEndColor(100, 100, 100, 0);
 }
 
 void FireBall::update(){
@@ -43,9 +31,8 @@ void FireBall::update(){
 		fireballParticle->fuel(fuel);
 
 		if (fuel < 120){
-			fuel += 5;
+			fuel += 4;
 		}
-		printf("%f\n", fireballParticle->getLifeTime());
 
 		if (fireballParticle->getLifeTime() > 0.3){
 			fireballParticle->setSpeed(fireballParticle->getSpeed() - 0.12);
@@ -59,12 +46,19 @@ void FireBall::update(){
 		}
 	}
 	else{
-		explosionParticle->update();
-		explosionParticle->setLocation(fireballParticle->getLocation());
-		explosionParticle->setLocationVar(fireballParticle->getLocationVar());
-		explosionParticle->fuelOnce(150);
+		fireballParticle->update();
+		fireballParticle->setAngle(0);
+		fireballParticle->setAngleVar(360);
+		fireballParticle->setLife(80);
+		fireballParticle->setLifeVar(110);
+		fireballParticle->setSpeed(1);
+		fireballParticle->setSpeedVar(1.4);
+		fireballParticle->setStartColor(150, 0, 0, 255);
+		fireballParticle->setStartColorVar(100, 0, 0, 255);
+		fireballParticle->setEndColor(100, 100, 100, 0);
+		fireballParticle->fuelOnce(150);
 
-		if (explosionParticle->getNumberOfParticle() <= 0){
+		if (fireballParticle->getNumberOfParticle() <= 0){
 			SkillEffect::setEnd();
 		}
 
@@ -72,11 +66,50 @@ void FireBall::update(){
 }
 
 void FireBall::draw(RenderWindow &window){
-
-	if (scale > 0.7){
 		fireballParticle->draw(window);
+}
+
+Rain::Rain(){
+	cloud = new ParticleSystem();
+	cloud->setTexture("img/particles/fire.png");
+	cloud->setLocation(Vector2f(0, -40));
+	cloud->setLocationVar(Vector2f(1280, 90));
+	cloud->setStartColor(100, 100, 100, 100);
+	cloud->setEndColor(20, 20, 20, 0);
+	cloud->setAngle(180);
+	cloud->setLife(100);
+	cloud->setLifeVar(130);
+	cloud->setSpeed(0.2);
+	cloud->setScaleVar(0.3);
+
+	rain = new ParticleSystem();
+	rain->setTexture("img/particles/rain.png");
+	rain->setLocation(Vector2f(0, -40));
+	rain->setLocationVar(Vector2f(1280, 0));
+	rain->setStartColor(130, 130, 130, 100);
+	rain->setEndColor(100, 100, 100, 0);
+	rain->setAngle(260);
+	rain->setRotation(190);
+	rain->setLife(60);
+	rain->setLifeVar(80);
+	rain->setSpeed(3.5);
+	rain->setSpeedVar(4.5);
+}
+
+void Rain::update(){
+	if (rain->getLifeTime() < 3.2){
+		cloud->update();
+		rain->update();
+
+		cloud->fuel(50);
+		rain->fuel(50);
 	}
 	else{
-		explosionParticle->draw(window);
+		SkillEffect::setEnd();
 	}
+}
+
+void Rain::draw(RenderWindow &window){
+	rain->draw(window);
+	cloud->draw(window);
 }

@@ -35,15 +35,15 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 4://¼¼¸êÈ­
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new HellFire();
 			break;
 		case 5: //±â¿ìÁ¦
 			delete skillEffect;
-			skillEffect = new Rain();
+			skillEffect = new LightningBolt();
 			break;
 		case 6: //Ä§¼ö
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new Rain();
 			break;
 		case 9: //¾àÃÊ
 			delete skillEffect;
@@ -52,6 +52,10 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 		case 10: //¾¾»Ñ¸®±â
 			delete skillEffect;
 			skillEffect = new FireBall();
+			break;
+		case 14 :
+			delete skillEffect;
+			skillEffect = new LightningBolt();
 			break;
 		case 11: //Èí¼ö
 			delete skillEffect;

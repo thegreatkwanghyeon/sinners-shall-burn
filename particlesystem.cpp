@@ -14,10 +14,15 @@ ParticleSystem::ParticleSystem(){
 	m_angle = 0;
 	m_angleVar = 360;
 
-	m_velocity = 0.5;
+	m_startVelocity = 0.5;
+	m_startVelocityVar = 0.5;
+	m_endVelocity = 0.5;
+	m_endVelocityVar = 0.5;
 
-	m_scale = 1;
-	m_scaleVar = 1;
+	m_startScale = 1;
+	m_startScaleVar = 1;
+	m_endScale = 1;
+	m_endScaleVar = 1;
 
 	m_texturePath = "img/particles/star.png";
 	m_texture.loadFromFile(m_texturePath);
@@ -93,13 +98,23 @@ void ParticleSystem::fuel(int num){
 	Particle* particle;
 	for(int i=0;i<num;i++){
 		particle = new Particle(m_texture);
-		particle->startvel = m_randomizer.NextFloat(m_velocity, m_velocityVar);
+
+		particle->startVel = m_randomizer.NextFloat(m_startVelocity, m_startVelocityVar);
+		particle->endVel = m_randomizer.NextFloat(m_endVelocity, m_endVelocityVar);
+
+		particle->startScale = m_randomizer.NextFloat(m_startScale, m_startScaleVar);
+		particle->endScale = m_randomizer.NextFloat(m_endScale, m_endScaleVar);
+
 		particle->sprite.setPosition(m_randomizer.NextFloat(m_position.x, m_positionVar.x), m_randomizer.NextFloat(m_position.y, m_positionVar.y));
+		particle->startPosition = particle->sprite.getPosition();
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
+
 		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+
 		particle->sprite.setRotation(m_randomizer.NextFloat(m_rotation, m_rotationVar));
-		float randomScale = m_randomizer.NextFloat(m_scale, m_scaleVar);
+
+		float randomScale = m_randomizer.NextFloat(m_startScale, m_startScaleVar);
 		particle->sprite.setScale(randomScale, randomScale);
 
 		int r = m_randomizer.Next(m_startColor.r, m_startColorVar.r);
@@ -122,17 +137,17 @@ void ParticleSystem::fuel(int num){
 	}
 }
 
-void ParticleSystem::setSpeedVar(float speed){
-	m_velocityVar = speed;
+void ParticleSystem::setStartSpeedVar(float speed){
+	m_startVelocityVar = speed;
 }
 
-void ParticleSystem::setScale(float scale){
-	m_scale = scale;
-	m_scaleVar = scale;
+void ParticleSystem::setStartScale(float scale){
+	m_startScale = scale;
+	m_startScaleVar = scale;
 }
 
-void ParticleSystem::setScaleVar(float scale){
-	m_scaleVar = scale;
+void ParticleSystem::setStartScaleVar(float scale){
+	m_startScaleVar = scale;
 }
 
 void ParticleSystem::fuelInSequence(float rate, int particles){
@@ -152,10 +167,29 @@ void ParticleSystem::fuelOnce(int num){
 	}
 }
 
-void ParticleSystem::setSpeed(float speed){
-	m_velocity = speed;
-	m_velocityVar = m_velocity;
+void ParticleSystem::setStartSpeed(float speed){
+	m_startVelocity = speed;
+	m_startVelocityVar = m_startVelocity;
 }
+
+void ParticleSystem::setEndScale(float scale){
+	m_endScale = scale;
+	m_endScaleVar = m_endScale;
+}
+
+void ParticleSystem::setEndScaleVar(float scale){
+	m_endScaleVar = scale;
+}
+
+void ParticleSystem::setEndSpeed(float speed){
+	m_endVelocity = speed;
+	m_endVelocityVar = m_endVelocity;
+}
+
+void ParticleSystem::setEndSpeedVar(float speed){
+	m_endVelocityVar = speed;
+}
+
 
 void ParticleSystem::setTexture(std::string texturePath){
 	m_texturePath = texturePath;
@@ -180,9 +214,12 @@ void ParticleSystem::update(){
 
 		(*it)->sprite.setColor(sf::Color(r, g, b, a));
 
-		float velocity = (*it)->startvel * lifeRatio;
+		float velocity = (*it)->startVel * lifeRatio + (*it)->endVel * (1-lifeRatio);
+		float scale = (*it)->startScale * lifeRatio + (*it)->endScale * (1 - lifeRatio);
 
 		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + velocity * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + velocity * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
+		(*it)->sprite.setScale(scale, scale);
+
 		if((*it)->life <= 0){
 			delete (*it);
 			it = m_particleList.erase( it );

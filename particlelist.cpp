@@ -26,12 +26,12 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new HellFire();
 			//particle = new particle::Beam(x,y);
 			break;
 		case 3://Áö¿ÁºÒ
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new HellFire();
 			break;
 		case 4://¼¼¸êÈ­
 			delete skillEffect;

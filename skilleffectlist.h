@@ -9,20 +9,39 @@ using namespace sf;
 namespace skill{
 
 	class FireBall : public SkillEffect{
+	private:
+		ParticleSystem* explosionParticle;
+	public:
+		FireBall();
+		~FireBall(){
+			delete explosionParticle;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+
+	class HellFire : public SkillEffect{
 		private : 
-			float height;
-			float scale;
+
 			int fuel;
-			ParticleSystem* fireballParticle;
+			float locationVarX;
+
+			float lifeTime;
+
+			ParticleSystem* smoke;
+			ParticleSystem* fire;
 		public : 
-			FireBall();
-			~FireBall(){
-				delete fireballParticle;
+			HellFire();
+			~HellFire(){
+				delete fire;
+				delete smoke;
 			}
 
 			virtual void update();
 			virtual void draw(RenderWindow &window);
-
 	};
 
 	class Rain : public SkillEffect{

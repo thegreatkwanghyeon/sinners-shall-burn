@@ -153,4 +153,55 @@ void HellFire::draw(RenderWindow &window){
 	fire->draw(window);
 }
 
+LightningBolt::LightningBolt() : SkillEffect(){
+	lightning = new Lightning();
+	lightning->setColor(252, 255, 0);
+	lightning->setThcikness(1);
+	lightning->setDetail(3);
+	lightning->setDisplacement(300);
+	lightning->setStartPosition(640, 0);
+	lightning->setEndPosition(640, 360);
 
+	cloud = new ParticleSystem();
+	cloud->setTexture("img/particles/cloud.png");
+	cloud->setLocation(Vector2f(0, -40));
+	cloud->setLocationVar(Vector2f(1280, 90));
+	cloud->setStartColor(100, 100, 100, 100);
+	cloud->setEndColor(20, 20, 20, 0);
+	cloud->setAngle(180);
+	cloud->setLife(100);
+	cloud->setLifeVar(130);
+	cloud->setStartSpeed(0.2);
+	cloud->setStartSpeedVar(0.3);
+	cloud->setEndSpeed(0.2);
+	cloud->setEndSpeedVar(0.3);
+
+	randomizer = new Well512();
+}
+
+void LightningBolt::update(){
+	lightning->update();
+
+	cloud->update();
+
+	if (cloud->getLifeTime() < 0.6){
+		float randomX = randomizer->Next(635, 645);
+
+		lightning->setStartPosition(randomX, 0);
+		lightning->setEndPosition(randomX, 720);
+
+		cloud->fuel(50);
+	}
+	else{
+		if (cloud->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void LightningBolt::draw(RenderWindow &window){
+	if (cloud->getLifeTime() < 0.6)
+	lightning->draw(window);
+
+	cloud->draw(window);
+}

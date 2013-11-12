@@ -2,6 +2,7 @@
 #define __skilleffectlist__
 
 #include "particlesystem.h"
+#include "lightning.h"
 #include "skilleffect.h"
 
 using namespace sf;
@@ -57,6 +58,23 @@ namespace skill{
 			
 			virtual void update();
 			virtual void draw(RenderWindow &window);
+	};
+
+	class LightningBolt : public SkillEffect{
+		private : 
+			ParticleSystem* cloud;
+			Lightning* lightning;
+			Well512* randomizer;
+		public :
+
+			LightningBolt();
+			~LightningBolt(){
+				delete lightning;
+			}
+
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+
 	};
 
 }

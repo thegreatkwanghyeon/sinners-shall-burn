@@ -34,7 +34,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			delete skillEffect;
 			skillEffect = new WorldFire();
 			break;
-		case 5: //기우제
+		case 5: //폭우
 			delete skillEffect;
 			skillEffect = new Rain();
 			break;
@@ -42,17 +42,17 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			delete skillEffect;
 			skillEffect = new Flood();
 			break;
-		case 7: //침수
+		case 7: //쓰나미
 			delete skillEffect;
 			skillEffect = new Tsunami();
 			break;
-		case 8: //침수
+		case 8: //삼지창
 			delete skillEffect;
 			skillEffect = new Trident();
 			break;
 		case 9: //약초
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new Heal();
 			break;
 		case 10: //씨뿌리기
 			delete skillEffect;

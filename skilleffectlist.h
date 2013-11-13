@@ -163,6 +163,20 @@ namespace skill{
 			virtual void draw(RenderWindow &window);
 	};
 
+	class Heal : public SkillEffect{
+		private: 
+			ParticleSystem* heal;
+		public :
+			Heal();
+			~Heal(){
+				delete heal;
+			}
+
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+
+	};
+
 }
 
 #endif

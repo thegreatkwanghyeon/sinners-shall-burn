@@ -454,3 +454,34 @@ void Tsunami::update(){
 void Tsunami::draw(RenderWindow &window){
 	tsunami->draw(window);
 }
+
+Heal::Heal() : SkillEffect(){
+	heal = new ParticleSystem();
+	heal->setTexture("img/particles/cloud.png");
+	heal->setLocation(Vector2f(-30, 660));
+	heal->setLocationVar(Vector2f(150, 700));
+	heal->setStartColor(0, 255, 0, 255);
+	heal->setEndColor(0, 255, 0, 0);
+	heal->setStartScale(0.2);
+	heal->setStartScaleVar(0.4);
+	heal->setEndScale(0.0);
+	heal->setEndScaleVar(0.1);
+	heal->setLife(60);
+	heal->setLifeVar(70);
+	heal->setStartSpeed(0.8);
+	heal->setStartSpeedVar(1.1);
+	heal->setAngle(90);
+}
+
+void Heal::update(){
+	heal->update();
+	if (heal->getLifeTime() < 0.7)
+		heal->fuel(20);
+	else if (heal->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void Heal::draw(RenderWindow &window){
+	heal->draw(window);
+}

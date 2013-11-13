@@ -51,7 +51,7 @@ GameScene::GameScene(){
 
 	pause = new Pause();
 	tooltip = new Tooltip("img/tooltip.png");
-	tooltip->setTooltip(L"", L"", sf::FloatRect(500,0,280,415), 350);
+	tooltip->setTooltip(L"", L"", sf::FloatRect(440,120,370,300), 350);
 
 	titleTexture.loadFromFile("img/title.png");
 	sprite.setTexture(titleTexture);
@@ -111,7 +111,7 @@ void GameScene::update(sf::Event &event){
 		
 		nowEnemy=rayCastingScene->isBattle();
 		if(nowEnemy != -1){
-			tooltip->setTooltip(enemy[nowEnemy]->getName().getString(),enemy[nowEnemy]->getIntro(),sf::FloatRect(500,0,280,415), 350);
+			tooltip->setTooltip(enemy[nowEnemy]->getName().getString(),enemy[nowEnemy]->getIntro(),sf::FloatRect(440,120,370,300), 350);
 			isBattle=true;
 			battle->startBattle(enemy[nowEnemy]->getCode());
 		}

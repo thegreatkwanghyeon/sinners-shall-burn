@@ -15,9 +15,16 @@ Battle::Battle(Player** _player){
 
 	tileset = new TileSet();
 	faceTileset = new TileSet();
+	statusTileset = new TileSet();
 
 	face.loadFromFile("img/portrait.png");
 	face = faceTileset->tileSet("img/portrait.png",150,150);
+
+	statusTexture.loadFromFile("img/statuseffect.png");
+	statusTexture = statusTileset->tileSet("img/statuseffect.png",25,25);
+	
+	status.setTexture(statusTexture);
+	//status.setTextureRect(statusTileset->getTileSet(0));
 
 	texture.loadFromFile("img/skills/empty.png");
 	sprite.setTexture(texture);
@@ -77,6 +84,14 @@ Battle::Battle(Player** _player){
 	subSkill=false;
 
 	puzzleTime.restart();
+
+	for(i=0;i<8;i++){
+		eStatusTip[i] = new Tooltip("img/tooltip.png");
+		pStatusTip[i] = new Tooltip("img/tooltip.png");
+		
+		eStatusTip[i]->setTooltip(L"", L"", sf::FloatRect(460+(i*30),80,25,25),350);
+		pStatusTip[i]->setTooltip(L"", L"", sf::FloatRect(160+(i*30),630,25,25),350);
+	}
 }
 Battle::~Battle(){
 	delete puzzle;
@@ -93,6 +108,12 @@ Battle::~Battle(){
 	//delete (*player);
 	delete tileset;
 	delete faceTileset;
+	delete statusTileset;
+
+	for(int i=0;i<8;i++){
+		delete pStatusTip[i];
+		delete eStatusTip[i];
+	}
 
 	delete particle;
 	///delete skill;
@@ -117,6 +138,10 @@ void Battle::update(sf::Event &event){
 
 	for (i = 0; i < 200; i++){
 		chk[i] = 0;
+	}
+	for(i=0;i<8;i++){
+		pStatusTip[i]->update();
+		eStatusTip[i]->update();
 	}
 	if (!isMiss){
 		particle->update();
@@ -424,9 +449,6 @@ bool Battle::getResult(){//여기서 전투가 끝날 경우 kill 카운트를 1 올린다(내가 �
 
 void Battle::draw(sf::RenderWindow &window){
 	int i;
-	sf::Text vecterText,numText;
-	std::vector<Dot> _dot;
-	char vecNum[100];
 
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
 		if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
@@ -466,31 +488,43 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(text);//보너스뎀,명중률보정,가드,도트뎀 수치 저장하는 곳.
 		window.draw(eText);//적의 평타 명중률과 도트데미지 기록
 		//---------------
+		sf::Text vecterText,numText;
+		std::vector<Dot> _dot;
+		char vecNum[100];
+
 		vecterText.setFont(font);
 		numText.setFont(font);
 
 		_dot=(*player)->getDot();
 		if(_dot.size() > 0){
 			for(int i=0;i<_dot.size();i++){
-				vecterText.setPosition(200,200+(i*50));
-				numText.setPosition(250,200+(i*50));
-				_snprintf(vecNum, sizeof(vecNum), " : %d damage | %d Turn",_dot[i].damage,_dot[i].turn);
+				status.setPosition(160+(i*30),630);
+				status.setTextureRect(statusTileset->getTileSet(_dot[i].code-1));
+				window.draw(status);
+			}
+			for(int i=0;i<_dot.size();i++){
+				_snprintf(vecNum, sizeof(vecNum), "%d damage | %d Turn",_dot[i].damage,_dot[i].turn);
 				numText.setString(vecNum);
 				vecterText.setString(_dot[i].name);
-				window.draw(vecterText);
-				window.draw(numText);
+				//-----
+				pStatusTip[i]->setTooltip(vecterText.getString(), numText.getString(), sf::FloatRect(160+(i*30),630,25,25),350);
+				pStatusTip[i]->draw(window);
 			}
 		}
 		_dot=enemy->getDot();
 		if(_dot.size() > 0){
 			for(int i=0;i<_dot.size();i++){
-				vecterText.setPosition(600,100+(i*50));
-				numText.setPosition(650,100+(i*50));
-				_snprintf(vecNum, sizeof(vecNum), " : %d damage | %d Turn",_dot[i].damage,_dot[i].turn);
+				status.setPosition(460+(i*30),80);
+				status.setTextureRect(statusTileset->getTileSet(_dot[i].code-1));
+				window.draw(status);
+			}
+			for(int i=0;i<_dot.size();i++){
+				_snprintf(vecNum, sizeof(vecNum), "%d damage | %d Turn",_dot[i].damage,_dot[i].turn);
 				numText.setString(vecNum);
 				vecterText.setString(_dot[i].name);
-				window.draw(vecterText);
-				window.draw(numText);
+				//---
+				eStatusTip[i]->setTooltip(vecterText.getString(),numText.getString(),sf::FloatRect(460+(i*30),80,25,25),350);
+				eStatusTip[i]->draw(window);
 			}
 		}
 	}

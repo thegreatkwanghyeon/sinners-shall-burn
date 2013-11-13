@@ -35,7 +35,7 @@ Pause::Pause(){
 	endButton->setText("end game");
 
 	slider = new Slider(&soundVolume, "img/slider/slider.png", "img/slider/handle.png");
-	slider->setPosition(390,370);
+	slider->setPosition(390,390);
 	slider->setLimit(100);
 
 	bgmSlider = new Slider(&musicVolume, "img/slider/slider.png", "img/slider/handle.png");
@@ -62,6 +62,7 @@ void Pause::update(sf::Event &event){
 }
 void Pause::draw(sf::RenderWindow &window){
 	sf::RectangleShape rec;//화면 검게 덮어줄 사각형
+	sf::Text text;
 	rec.setPosition(0,0);
 	rec.setSize(sf::Vector2f(1280,720));
 	rec.setFillColor(sf::Color::Color(0,0,0,200));//반투명 검정?
@@ -75,6 +76,17 @@ void Pause::draw(sf::RenderWindow &window){
 
 	window.draw(sprite);
 	window.draw(fText);
+
+	text.setFont(font);
+
+	text.setString("BGM");
+	text.setPosition(640,260);
+	text.setOrigin(text.getLocalBounds().width/2,0);
+	window.draw(text);
+	text.setString("SOUND");
+	text.setPosition(640,350);
+	text.setOrigin(text.getLocalBounds().width/2,0);
+	window.draw(text);
 }
 bool Pause::getState(){
 	return isPause; 

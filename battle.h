@@ -33,10 +33,11 @@ class Battle : public SceneBase{
 		sf::Clock puzzleTime;
 		char plusString[100];
 
-		sf::Sprite   sprite,faceSprite,skillBGSprite;
-		sf::Texture  texture, face,skillBG;
+		sf::Sprite   sprite,faceSprite,skillBGSprite,status;
+		sf::Texture  texture, face,skillBG,statusTexture;
 		TileSet *tileset;
 		TileSet *faceTileset;
+		TileSet *statusTileset;
 		Enemy *enemy;
 		Player **player;
 
@@ -53,6 +54,9 @@ class Battle : public SceneBase{
 		Skill *skill;
 		Button *button[ViewSkill+1];
 		Tooltip *tooltip[ViewSkill+1];
+
+		Tooltip *eStatusTip[10];//스테이터스(적)
+		Tooltip *pStatusTip[10];//스테이터스(나)
 
 		Gauge *hpGauge;
 		Gauge *enemyGauge;

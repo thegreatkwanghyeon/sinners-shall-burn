@@ -52,7 +52,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 9: //æ‡√ 
 			delete skillEffect;
-			skillEffect = new Heal();
+			skillEffect = new Seed();
 			break;
 		case 10: //ææª—∏Æ±‚
 			delete skillEffect;

@@ -485,3 +485,49 @@ void Heal::update(){
 void Heal::draw(RenderWindow &window){
 	heal->draw(window);
 }
+
+Seed::Seed(){
+
+	seedTexture.loadFromFile("img/seed.png");
+	seed.setTexture(seedTexture);
+	seed.setScale(0.8, 0.8);
+	seed.setPosition(540, 110);
+
+	heal = new ParticleSystem();
+	heal->setTexture("img/particles/cloud.png");
+	heal->setLocation(Vector2f(0, 640));
+	heal->setLocationVar(Vector2f(1280, 720));
+	heal->setStartColor(0, 255, 0, 255);
+	heal->setEndColor(0, 255, 0, 0);
+	heal->setStartScale(0.2);
+	heal->setStartScaleVar(0.4);
+	heal->setEndScale(0.0);
+	heal->setEndScaleVar(0.1);
+	heal->setLife(160);
+	heal->setLifeVar(170);
+	heal->setStartSpeed(3.1);
+	heal->setStartSpeedVar(3.7);
+	heal->setAngle(90);
+
+	alpha = 255;
+}
+
+void Seed::update(){
+	heal->update();
+
+	if (alpha >= 0){
+		seed.setColor(Color(255, 255, 255, alpha));
+		alpha -= 9;
+	}
+
+	if (heal->getLifeTime() < 0.3)
+		heal->fuel(80);
+	else if (heal->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void Seed::draw(RenderWindow &window){
+	heal->draw(window);
+	window.draw(seed);
+}

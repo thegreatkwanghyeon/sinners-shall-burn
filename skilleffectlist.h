@@ -177,6 +177,24 @@ namespace skill{
 
 	};
 
+	class Seed : public SkillEffect{
+		private: 
+			Texture seedTexture;
+			Sprite seed;
+			ParticleSystem* heal;
+			float alpha;
+		public : 
+
+			Seed();
+			~Seed(){
+				delete heal;
+			}
+
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+
+	};
+
 }
 
 #endif

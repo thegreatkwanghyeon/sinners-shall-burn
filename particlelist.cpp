@@ -18,15 +18,12 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	}
 	switch(num){
 		case 1: //화염구
-			{
 			delete skillEffect;
 			skillEffect = new FireBall();
-			}
-
 			break;
 		case 2: //타오르는 화염
 			delete skillEffect;
-			skillEffect = new HellFire();
+			skillEffect = new DragonSlave();
 			//particle = new particle::Beam(x,y);
 			break;
 		case 3://지옥불
@@ -35,15 +32,15 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 4://세멸화
 			delete skillEffect;
-			skillEffect = new HellFire();
+			skillEffect = new WorldFire();
 			break;
 		case 5: //기우제
 			delete skillEffect;
-			skillEffect = new LightningBolt();
+			skillEffect = new Rain();
 			break;
 		case 6: //침수
 			delete skillEffect;
-			skillEffect = new Rain();
+			skillEffect = new Flood();
 			break;
 		case 9: //약초
 			delete skillEffect;

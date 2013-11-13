@@ -4,35 +4,76 @@ using namespace skill;
 
 FireBall::FireBall() : SkillEffect(){
 
-	explosionParticle = new ParticleSystem();
-	explosionParticle->setTexture("img/particles/fire.png");
-	explosionParticle->setLocation(Vector2f(490, 130));
-	explosionParticle->setLocationVar(Vector2f(690, 330));
-	explosionParticle->setAngle(0);
-	explosionParticle->setAngleVar(360);
-	explosionParticle->setLife(20);
-	explosionParticle->setLifeVar(30);
-	explosionParticle->setStartSpeed(0);
-	explosionParticle->setStartSpeedVar(0);
-	explosionParticle->setEndSpeed(0.3);
-	explosionParticle->setEndSpeedVar(0.4);
-	explosionParticle->setStartColor(252, 255, 0, 255);
-	explosionParticle->setEndColor(255, 0, 0, 255);
+	fireParticle = new ParticleSystem();
+	fireParticle->setTexture("img/particles/cloud.png");
+	fireParticle->setLocation(Vector2f(565, 295));
+	fireParticle->setLocationVar(Vector2f(655, 345));
+	fireParticle->setStartScale(0.6);
+	fireParticle->setStartScaleVar(1.0);
+	fireParticle->setEndScale(0.3);
+	fireParticle->setEndScaleVar(0.4);
+	fireParticle->setAngle(84);
+	fireParticle->setLife(40);
+	fireParticle->setLifeVar(45);
+	fireParticle->setStartSpeed(1.0);
+	fireParticle->setStartSpeedVar(1.3);
+	fireParticle->setStartColor(252, 255, 0, 255);
+	fireParticle->setEndColor(255, 0, 0, 0);
 }
 
 void FireBall::update(){
 
-	explosionParticle->update();
-	explosionParticle->fuelOnce(100);
+	fireParticle->update();
+	if (fireParticle->getLifeTime() < 0.4){
+		fireParticle->fuel(30);
+	}
+	else{
 
-	if (explosionParticle->getNumberOfParticle() <= 0){
-		SkillEffect::setEnd();
+		if (fireParticle->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
 	}
 
 }
 
 void FireBall::draw(RenderWindow &window){
-	explosionParticle->draw(window);
+	fireParticle->draw(window);
+}
+
+DragonSlave::DragonSlave() : SkillEffect(){
+
+	fire = new ParticleSystem();
+	fire->setTexture("img/particles/cloud.png");
+	fire->setLocation(Vector2f(640, 800));
+	fire->setStartScale(0.0);
+	fire->setStartScaleVar(0.2);
+	fire->setEndScale(1.0);
+	fire->setEndScaleVar(1.3);
+	fire->setAngle(75);
+	fire->setAngleVar(110);
+	fire->setLife(60);
+	fire->setLifeVar(80);
+	fire->setStartSpeed(3.5);
+	fire->setStartSpeedVar(4.5);
+	fire->setEndSpeed(0.2);
+	fire->setEndSpeedVar(0.5);
+	fire->setStartColor(252, 255, 0, 255);
+	fire->setEndColor(255, 0, 0, 0);
+}
+
+void DragonSlave::update(){
+	fire->update();
+	if (fire->getLifeTime() < 0.4)
+		fire->fuel(30);
+	else{
+		if (fire->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void DragonSlave::draw(RenderWindow &window){
+	fire->draw(window);
 }
 
 Rain::Rain() : SkillEffect(){
@@ -102,7 +143,7 @@ HellFire::HellFire() : SkillEffect(){
 	fire->setStartColor(252, 255, 0, 255);
 	fire->setEndColor(255, 0, 0, 200);
 	fire->setStartSpeed(1.3);
-	fire->setStartSpeedVar(2.3);
+	fire->setStartSpeedVar(1.7);
 	fire->setStartScale(1);
 	fire->setStartScaleVar(0.8);
 	fire->setEndScale(0.1);
@@ -141,7 +182,7 @@ void HellFire::update(){
 	}
 
 	if (fire->getLifeTime() - lifeTime < 3.5){
-		fire->fuel(100);
+		fire->fuelInSequence(0.3, 100);
 		smoke->fuel(50);
 	}else if(fire->getNumberOfParticle() <= 0 && smoke->getNumberOfParticle() <= 0){
 		SkillEffect::setEnd();
@@ -152,6 +193,72 @@ void HellFire::draw(RenderWindow &window){
 	smoke->draw(window);
 	fire->draw(window);
 }
+
+WorldFire::WorldFire() : SkillEffect(){
+
+	fuel = 5;
+	locationVarX = 1280;
+
+	fire = new ParticleSystem();
+	fire->setTexture("img/particles/fire.png");
+	fire->setLocation(Vector2f(0, 650));
+	fire->setAngle(95);
+	fire->setAngleVar(100);
+	fire->setStartColor(252, 255, 0, 255);
+	fire->setEndColor(255, 0, 0, 200);
+	fire->setStartSpeed(1.3);
+	fire->setStartSpeedVar(1.7);
+	fire->setStartScale(1);
+	fire->setStartScaleVar(0.8);
+	fire->setEndScale(0.1);
+	fire->setEndScaleVar(0.2);
+	fire->setLife(45);
+	fire->setLifeVar(55);
+
+	smoke = new ParticleSystem();
+	smoke->setTexture("img/particles/cloud.png");
+	smoke->setLocation(Vector2f(0, 600));
+	smoke->setAngle(90);
+	smoke->setAngleVar(95);
+	smoke->setStartColor(100, 100, 100, 100);
+	smoke->setEndColor(0, 0, 0, 0);
+	smoke->setStartSpeed(1.5);
+	smoke->setStartSpeedVar(2.7);
+	smoke->setStartScale(1);
+	smoke->setStartScaleVar(0.8);
+	smoke->setEndScale(0.3);
+	smoke->setEndScaleVar(0.4);
+	smoke->setLife(80);
+	smoke->setLifeVar(90);
+
+	lifeTime = 0;
+}
+
+void WorldFire::update(){
+	fire->update();
+	smoke->update();
+
+	if (locationVarX < 1480){
+		locationVarX += 60;
+		fire->setLocationVar(Vector2f(locationVarX, 720));
+		smoke->setLocationVar(Vector2f(locationVarX, 600));
+		lifeTime = fire->getLifeTime();
+	}
+
+	if (fire->getLifeTime() - lifeTime < 3.5){
+		fire->fuel(100);
+		smoke->fuel(50);
+	}
+	else if (fire->getNumberOfParticle() <= 0 && smoke->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void WorldFire::draw(RenderWindow &window){
+	smoke->draw(window);
+	fire->draw(window);
+}
+
 
 LightningBolt::LightningBolt() : SkillEffect(){
 	lightning = new Lightning();
@@ -204,4 +311,111 @@ void LightningBolt::draw(RenderWindow &window){
 	lightning->draw(window);
 
 	cloud->draw(window);
+}
+
+Flood::Flood() : SkillEffect(){
+
+	locationVarY = 280.0;
+
+	flood = new ParticleSystem();
+	flood->setTexture("img/particles/cloud.png");
+	flood->setLocation(Vector2f(1300, 280));
+	flood->setAngle(185);
+	flood->setStartScale(0.6);
+	flood->setStartScaleVar(1.0);
+	flood->setStartColor(200, 200, 200, 30);
+	flood->setEndColor(200, 200, 200, 30);
+	flood->setLife(90);
+	flood->setLifeVar(100);
+	flood->setStartSpeed(4.4);
+	flood->setStartSpeedVar(5.7);
+
+}
+
+void Flood::update(){
+
+	flood->update();
+
+	if (locationVarY < 720){
+		flood->setLocationVar(Vector2f(1300, locationVarY));
+		locationVarY += 6;
+	}
+
+	if (flood->getLifeTime() < 2.5){
+		flood->fuel(50);
+	}else if (flood->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void Flood::draw(RenderWindow &window){
+	flood->draw(window);
+}
+
+Trident::Trident() : SkillEffect(){
+	printf("sadf\n");
+	water = new ParticleSystem();
+	water->setTexture("img/particles/cloud.png");
+	water->setLocation(Vector2f(0, 720));
+	water->setLocationVar(Vector2f(1280, 520));
+	water->setAngle(90);
+	water->setStartScale(1);
+	water->setStartScaleVar(1);
+	water->setEndScale(0.3);
+	water->setEndScaleVar(0.4);
+	water->setStartColor(0, 0, 255, 100);
+	water->setEndColor(0, 0, 255, 0);
+	water->setLife(30);
+	water->setLifeVar(40);
+	water->setStartSpeed(1.0);
+	water->setStartSpeedVar(1.4);
+
+	waterPillar = new ParticleSystem();
+	waterPillar->setTexture("img/particles/cloud.png");
+	waterPillar->setLocation(Vector2f(600, 720));
+	waterPillar->setLocationVar(Vector2f(600, 520));
+	waterPillar->setAngle(250);
+	waterPillar->setAngleVar(290);
+	waterPillar->setStartScale(1);
+	waterPillar->setStartScaleVar(1);
+	waterPillar->setEndScale(0.3);
+	waterPillar->setEndScaleVar(0.4);
+	waterPillar->setStartColor(0, 0, 255, 0);
+	waterPillar->setEndColor(0, 0, 255, 100);
+	waterPillar->setLife(30);
+	waterPillar->setLifeVar(40);
+	waterPillar->setStartSpeed(2.3);
+	waterPillar->setStartSpeedVar(3.4);
+
+	tridentTexture.loadFromFile("img/trident.png");
+	trident.setTexture(tridentTexture);
+	trident.setPosition(560, 720);
+
+	move = -25;
+}
+
+void Trident::update(){
+	water->update();
+	waterPillar->update();
+	if (trident.getPosition().y < 1440){
+		water->fuel(100);
+		waterPillar->fuel(10);
+	}
+
+		waterPillar->setLocation(Vector2f(595, trident.getPosition().y - 50));
+		waterPillar->setLocationVar(Vector2f(605, trident.getPosition().y + 150));
+		trident.move(0, move);
+		move += 0.5;
+
+		if (water->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+
+}
+
+void Trident::draw(RenderWindow &window){
+	water->draw(window);
+	waterPillar->draw(window);
+	window.draw(trident);
+
 }

@@ -43,8 +43,9 @@ Battle::Battle(Player** _player){
 
 	font.loadFromFile("font/aPinoL.ttf");
 	text.setFont(font); 
-	text.setString(L"bonus : 1.00\nguard : 0\nplusAcc : 0");
-	text.setPosition(150.0f, 515.0f);
+	text.setCharacterSize(20);
+	text.setString(L"추가 공격력 : 1.00\n추가 방어력 : 0\n추가 명중률 : 0");
+	text.setPosition(150.0f, 580.0f);
 
 
 	eText.setFont(font); 
@@ -150,10 +151,10 @@ void Battle::update(sf::Event &event){
 	if(isBattle)//비전투시에는 퍼즐의 업데이트를 제한한다
 		puzzle->update(event);
 
-	_snprintf(plusString, sizeof(plusString), "bonus : %.2f\nguard : %d\nplusAcc : %d", puzzle->getPlusDamage(),(*player)->getGuard(),(*player)->getAcc());
+	_swprintf(plusString, L"추가 데미지 : %.2f\n추가 방어력 : %d\n추가 명중률 : %d", puzzle->getPlusDamage(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);//화면에 출력되는 나의 상태정보 텍스트
 
-	_snprintf(plusString, sizeof(plusString), " Acc : %d",enemy->getAcc());
+	_swprintf(plusString, L" 명중률 : %d",enemy->getAcc());
 	eText.setString(plusString);//화면에 출력되는 적의 상태정보 텍스트
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄

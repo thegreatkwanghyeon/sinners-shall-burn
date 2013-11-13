@@ -84,7 +84,7 @@ RayCastingScene::RayCastingScene(){
 
 	rec.setSize(sf::Vector2f(10,10));
 
-	fov=30;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
+	fov=3;//디폴트. 천리안 등의 슼킬이나 템이 있으면 교체가능. 근데 딱히 하고싶지는 않음. 지도나 이런거 얻으면 범위 25로 해서 맵핵모드 할까 고민중
 }
 RayCastingScene::~RayCastingScene(){
 	//delete makemap;

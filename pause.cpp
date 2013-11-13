@@ -9,7 +9,7 @@ Pause::Pause(){
 	fText.setFont(font);
 	fText.setPosition(640.0f, 65.0f);
 	fText.setCharacterSize(80);
-	fText.setString(sf::String("PAUSE"));
+	fText.setString(sf::String(L"일시정지"));
 	fText.setOrigin(fText.getLocalBounds().width/2,0);
 
 	texture.loadFromFile("img/title.png");
@@ -20,19 +20,19 @@ Pause::Pause(){
 	cButton->setClickSound("sounds/button/click.wav");
 	cButton->setHoverSound("sounds/button/hover.wav");
 	cButton->setPosition(510,200);
-	cButton->setText("continue");
+	cButton->setText(L"게임으로 돌아가기");
 
 	tButton = new Button("img/startbutton.png");
 	tButton->setClickSound("sounds/button/click.wav");
 	tButton->setHoverSound("sounds/button/hover.wav");
 	tButton->setPosition(510,450);
-	tButton->setText("back to title");
+	tButton->setText(L"메인화면으로 돌아가기");
 
 	endButton = new Button("img/startbutton.png");
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
 	endButton->setPosition(510,550);
-	endButton->setText("end game");
+	endButton->setText(L"게임 종료");
 
 	slider = new Slider(&soundVolume, "img/slider/slider.png", "img/slider/handle.png");
 	slider->setPosition(390,390);

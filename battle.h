@@ -31,7 +31,7 @@ class Battle : public SceneBase{
 		sf::Clock limitTime;
 		sf::Clock skillTime;
 		sf::Clock puzzleTime;
-		char plusString[100];
+		wchar_t plusString[100];
 
 		sf::Sprite   sprite,faceSprite,skillBGSprite,status;
 		sf::Texture  texture, face,skillBG,statusTexture;

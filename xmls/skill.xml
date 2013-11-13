@@ -2,7 +2,7 @@
 <List>
   <skill code ="1" need ="2" name ="화염구" damage ="10" pdamage ="5" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="3" dotCode="1" dotTurn="3" imgLink ="img/skills/fireball.png" soundLink ="sounds/skill/skill01.wav">뜨거운 불꽃으로 적에게 10의 피해를 주고 5의 피해를 입는다. 화상 : 3피해(3턴)</skill>
   <skill code ="2" need ="4" name ="용의 숨결" damage ="15" pdamage ="10" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/dragonslave.png" soundLink ="sounds/skill/hover.wav">고온의 화염을 내뿜어 15의 피해를 주고 10의 피해를 입는다. 화상 : 5피해(3턴)</skill>
-  <skill code ="3" need ="8" name ="지옥불" damage ="20" pdamage ="15" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/hellfire.png" soundLink ="sounds/skill/hover.wav">지옥의 불길로 적에게 20의 피해를 주고 15의 피해를 입는다. 화상 : 5피해(3턴)</skill>
+  <skill code ="3" need ="8" name ="지옥불" damage ="20" pdamage ="15" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/hellfire.pg" soundLink ="sounds/skill/hover.wav">지옥의 불길로 적에게 20의 피해를 주고 15의 피해를 입는다. 화상 : 5피해(3턴)</skill>
   <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="40" pdamage ="35" guard ="0" acc ="90"  plusAcc ="0" dotName="화상" dotDamage="10" dotCode="1" dotTurn="3" imgLink ="img/skills/worldfire.png" soundLink ="sounds/skill/hover.wav">멸망의 화염으로 적에게 40의 피해를 주고 35의 피해를 입는다. 화상 : 10피해(3턴)</skill>
   
   <skill code ="5" need ="3" name ="폭우" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="침수" dotDamage="3" dotCode="2" dotTurn="7" imgLink ="img/skills/raincalling.png" soundLink ="sounds/skill/hover.wav">비바람을 불러낸다. 침수 : 3피해(7턴)</skill>
@@ -12,7 +12,7 @@
   
   <skill code ="9" need ="5" name ="약초" damage ="0" pdamage ="-10" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/healingherb.png" soundLink ="sounds/skill/hover.wav">약초의 힘으로 체력을 10 회복한다</skill>
   <skill code ="10" need ="25" name ="씨뿌리기" damage ="10" pdamage ="-20" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/leechseed.png" soundLink ="sounds/skill/hover.wav">씨앗을 적에게 심어 10의 피해를 주고 체력을 20 회복한다</skill>
-  <skill code ="11" need ="125" name ="자연의 힘" damage ="0" pdamage ="-30" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/growth.png" soundLink ="sounds/skill/hover.wav">자연의 힘을 받아 체력을 20 회복한다</skill>
+  <skill code ="11" need ="125" name ="자연의 힘" damage ="0" pdamage ="-30" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/growth.png" soundLink ="sounds/skill/hover.wav">자연의 힘을 받아 체력을 30 회복한다</skill>
   <skill code ="12" need ="625" name ="생명의 씨앗" damage ="-10" pdamage ="-50" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/originoflife.png" soundLink ="sounds/skill/hover.wav">생명의 씨앗을 발아하여 체력을 50만큼 회복하고 적의 체력을 10 회복한다</skill>
   
   <skill code ="13" need ="7" name ="전기 쇼크" damage ="10" pdamage ="0" guard ="0" acc ="100"  plusAcc ="-10" dotName="감전" dotDamage="3" dotCode="3" dotTurn="3" imgLink ="img/skills/electricshock.png" soundLink ="sounds/skill/hover.wav">전기 쇼크로 10의 피해를 주고 적의 명중률을 10 내린다. 감전 : 3피해(3턴)</skill>
@@ -42,7 +42,7 @@
 
   <skill code ="32" need ="714" name ="폭풍우" damage ="20" pdamage ="20" guard ="0" acc ="100"  plusAcc ="0" dotName="침수" dotDamage="10" dotCode="2" dotTurn="3" imgLink ="img/skills/stormyrain.png" soundLink ="sounds/skill/hover.wav">엄청난 폭풍우를 불러내어 20의 피해를 주고 20의 피해를 입는다. 침수 : 10피해(3턴)</skill>
 
-  <skill code ="33" need ="3757" name ="우박" damage ="20" pdamage ="25" guard ="0" acc ="100"  plusAcc ="-100" dotName="혼란" dotDamage="1" dotCode="7" dotTurn="1" imgLink ="img/skills/hail.png" soundLink ="sounds/skill/hover.wav">우박을 뿌려 20의 데미지를 주고 25의 피해를 입는다. 혼란 : 공격 빗나감(1턴)</skill>
+  <skill code ="33" need ="3757" name ="우박" damage ="30" pdamage ="25" guard ="0" acc ="100"  plusAcc ="-100" dotName="혼란" dotDamage="1" dotCode="7" dotTurn="1" imgLink ="img/skills/hail.png" soundLink ="sounds/skill/hover.wav">우박을 뿌려 30의 데미지를 주고 25의 피해를 입는다. 혼란 : 공격 빗나감(1턴)</skill>
 
   <skill code ="34" need ="26" name ="마그마" damage ="35" pdamage ="25" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/magma.png" soundLink ="sounds/skill/hover.wav">마그마의 파도로 35의 피해를 주고 25의 피해를 입는다</skill>
   <skill code ="35" need ="338" name ="메테오" damage ="55" pdamage ="40" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/meteor.png" soundLink ="sounds/skill/hover.wav">메테오를 떨어뜨려 55의 피해를 주고 40의 피해를 입는다</skill>

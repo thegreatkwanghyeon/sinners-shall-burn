@@ -148,6 +148,21 @@ namespace skill{
 
 	};
 
+	class Tsunami : public SkillEffect{
+		private : 
+			ParticleSystem* tsunami;
+			float locationVarY;
+		public :
+
+			Tsunami();
+			~Tsunami(){
+				delete tsunami;
+			}
+
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+	};
+
 }
 
 #endif

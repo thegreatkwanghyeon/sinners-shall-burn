@@ -19,7 +19,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	switch(num){
 		case 1: //È­¿°±¸
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new Tsunami();
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
 			delete skillEffect;

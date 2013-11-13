@@ -419,3 +419,38 @@ void Trident::draw(RenderWindow &window){
 	window.draw(trident);
 
 }
+
+Tsunami::Tsunami() : SkillEffect(){
+
+	locationVarY = 380;
+
+	tsunami = new ParticleSystem();
+	tsunami->setTexture("img/particles/cloud.png");
+	tsunami->setLocation(Vector2f(-40, locationVarY));
+	tsunami->setStartColor(0, 0, 255, 255);
+	tsunami->setEndColor(0, 0, 255, 255);
+	tsunami->setStartScale(1.0);
+	tsunami->setStartScaleVar(1.3);
+	tsunami->setEndScale(0.1);
+	tsunami->setEndScaleVar(0.2);
+	tsunami->setLife(100);
+	tsunami->setLifeVar(130);
+	tsunami->setStartSpeed(4.3);
+	tsunami->setStartSpeedVar(4.7);
+	tsunami->setAngle(0);
+	tsunami->setAngleVar(10);
+}
+
+void Tsunami::update(){
+	tsunami->update();
+	if (tsunami->getLifeTime() < 1.7){
+		locationVarY += 2;
+		tsunami->setLocation(Vector2f(-40, locationVarY));
+		tsunami->setLocationVar(Vector2f(-10, 720));
+		tsunami->fuel(100);
+	}
+}
+
+void Tsunami::draw(RenderWindow &window){
+	tsunami->draw(window);
+}

@@ -161,9 +161,7 @@ namespace skill{
 	};
 
 	class Seed : public SkillEffect{
-		private: 
-			Texture seedTexture;
-			Sprite seed;
+		private: ;
 			ParticleSystem* heal;
 			float alpha;
 		public : 
@@ -177,6 +175,7 @@ namespace skill{
 			virtual void draw(RenderWindow &window);
 
 	};
+
 
 	class LightningBolt : public SkillEffect{
 	private:
@@ -354,6 +353,245 @@ namespace skill{
 
 		virtual void update();
 		virtual void draw(RenderWindow &window);
+	};
+
+	class Steam : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		Steam();
+		~Steam(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class HotWater : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		HotWater();
+		~HotWater(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class StormyRain : public SkillEffect{
+	private:
+		ParticleSystem* cloud;
+		ParticleSystem* rain;
+		ParticleSystem* storm;
+	public:
+		StormyRain();
+		~StormyRain(){
+			delete cloud;
+			delete rain;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Hail : public SkillEffect{
+	private:
+		ParticleSystem* cloud;
+		ParticleSystem* rain;
+	public:
+		Hail();
+		~Hail(){
+			delete cloud;
+			delete rain;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Magma : public SkillEffect{
+	private:
+		ParticleSystem* flood;
+		float locationVarY;
+		int temp;
+	public:
+		Magma();
+		~Magma(){
+			delete flood;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Poison : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		Poison();
+		~Poison(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class FatalPoison : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		FatalPoison();
+		~FatalPoison(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Mud : public SkillEffect{
+	private:
+		float scale;
+		ParticleSystem* fire;
+	public:
+		Mud();
+		~Mud(){
+			delete fire;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+	class MuddyWater : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		MuddyWater();
+		~MuddyWater(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class MuddyShield : public SkillEffect{
+	private:
+		ParticleSystem* ice;
+	public:
+		MuddyShield();
+		~MuddyShield(){
+			delete ice;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class LandSlides : public SkillEffect{
+	private:
+		ParticleSystem* snow;
+	public:
+		LandSlides();
+		~LandSlides(){
+			delete snow;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class SolarBeam : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		SolarBeam();
+		~SolarBeam(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class MagneticField : public SkillEffect{
+	private:
+		ParticleSystem* particle;
+	public:
+		MagneticField();
+		~MagneticField(){
+			delete particle;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class ChainOfEarth : public SkillEffect{
+	private:
+		ParticleSystem* particleLeft;
+		ParticleSystem* particleRight;
+	public:
+		ChainOfEarth();
+		~ChainOfEarth(){
+			delete particleLeft;
+			delete particleRight;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Photosynthesis : public SkillEffect{
+	private:
+		ParticleSystem* heal;
+		float alpha;
+	public:
+
+		Photosynthesis();
+		~Photosynthesis(){
+			delete heal;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+	class Meteor : public SkillEffect{
+	private :
+		ParticleSystem* meteor[5];
+		Well512* randomizer;
+	public : 
+		Meteor();
+		~Meteor(){
+			delete randomizer;
+			delete meteor;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Miss : public SkillEffect{
+	private:
+
+	public:
+
+		Miss();
+		~Miss(){
+			
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
 	};
 
 }

@@ -19,7 +19,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	switch(num){
 		case 1: //È­¿°±¸
 			delete skillEffect;
-			skillEffect = new SonicBoom();
+			skillEffect = new FireBall();
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
 			delete skillEffect;
@@ -76,7 +76,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 15:
 			delete skillEffect;
-			skillEffect = new ElectricShock ();
+			skillEffect = new MagneticField ();
 			break;
 		case 16:
 			delete skillEffect;
@@ -94,9 +94,101 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			delete skillEffect;
 			skillEffect = new IceShield();
 			break;
+		case 20: 
+			delete skillEffect;
+			skillEffect = new AbsoluteZero();
+			break;
+		case 21:
+			delete skillEffect;
+			skillEffect = new EarthSplitter();
+			break;
+		case 22:
+			delete skillEffect;
+			skillEffect = new ChainOfEarth();
+			break;
+		case 23:
+			delete skillEffect;
+			skillEffect = new SandStorm();
+			break;
+		case 24:
+			delete skillEffect;
+			skillEffect = new EarthShake();
+			break;
+		case 25:
+			delete skillEffect;
+			skillEffect = new Gust();
+			break;
+		case 26:
+			delete skillEffect;
+			skillEffect = new SonicBoom();
+			break;
+		case 27:
+			delete skillEffect;
+			skillEffect = new Gust();
+			break;
+		case 28:
+			delete skillEffect;
+			skillEffect = new Gust();
+			break;
+		case 29:
+			delete skillEffect;
+			skillEffect = new Steam();
+			break;
+		case 30:
+			delete skillEffect;
+			skillEffect = new HotWater();
+			break;
+		case 31:
+			delete skillEffect;
+			skillEffect = new Gust();
+			break;
+		case 32:
+			delete skillEffect;
+			skillEffect = new StormyRain();
+			break;
+		case 33:
+			delete skillEffect;
+			skillEffect = new Hail();
+			break;
+		case 34:
+			delete skillEffect;
+			skillEffect = new Magma();
+			break;
 		case 35://¸ÞÅ×¿À
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new Meteor();
+			break;
+		case 36:
+			delete skillEffect;
+			skillEffect = new Poison();
+			break;
+		case 37:
+			delete skillEffect;
+			skillEffect = new FatalPoison();
+			break;
+		case 38:
+			delete skillEffect;
+			skillEffect = new Mud();
+			break;
+		case 39:
+			delete skillEffect;
+			skillEffect = new MuddyWater();
+			break;
+		case 40:
+			delete skillEffect;
+			skillEffect = new MuddyShield();
+			break;
+		case 41:
+			delete skillEffect;
+			skillEffect = new LandSlides();
+			break;
+		case 42:
+			delete skillEffect;
+			skillEffect = new Photosynthesis();
+			break;
+		case 43: //¸÷ °ø°Ý : ±¸¿ï?
+			delete skillEffect;
+			skillEffect = new SolarBeam();
 			break;
 		case 50: //¸÷ °ø°Ý : ±¸¿ï?
 			delete skillEffect;
@@ -105,6 +197,10 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 		case 51: //¸÷ °ø°Ý : ºí·¯µð¾ÆÀÌ(´«¿¡¼­ ºö!)
 			delete skillEffect;
 			skillEffect = new FireBall();
+			break;
+		case 100 :
+			delete skillEffect;
+			skillEffect = new Miss();
 			break;
 		default : 
 			delete skillEffect;

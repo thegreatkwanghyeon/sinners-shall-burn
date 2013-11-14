@@ -21,7 +21,7 @@ Slider::Slider(float *value, String tileSetPath, String handlePath){
 	handleSprite.setTexture(handleTexture);
 
 	controllable = false;
-	limit = 100;
+
 	this->value = value;
 }
 
@@ -35,6 +35,10 @@ void Slider::setHandlePosition(){
 
 void Slider::setLimit(float limit){
 	this->limit = limit;
+	handleSprite.setPosition(baseSprite.getPosition().x + (baseSprite.getGlobalBounds().width * (*value) / limit) - handleSprite.getGlobalBounds().width / 2, handleSprite.getPosition().y);
+	IntRect tmpTextureRect = middleSprite.getTextureRect();
+	tmpTextureRect.width = baseSprite.getGlobalBounds().width * (*value) / limit;
+	middleSprite.setTextureRect(tmpTextureRect);
 }
 
 void Slider::setValue(){

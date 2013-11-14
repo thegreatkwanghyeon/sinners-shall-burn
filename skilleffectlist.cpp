@@ -263,7 +263,7 @@ void WorldFire::draw(RenderWindow &window){
 LightningBolt::LightningBolt() : SkillEffect(){
 	lightning = new Lightning();
 	lightning->setColor(117, 231, 255);
-	lightning->setThcikness(3);
+	lightning->setThcikness(2);
 	lightning->setDetail(15);
 	lightning->setDisplacement(300);
 	lightning->setStartPosition(640, 0);
@@ -489,11 +489,6 @@ void Heal::draw(RenderWindow &window){
 
 Seed::Seed(){
 
-	seedTexture.loadFromFile("img/seed.png");
-	seed.setTexture(seedTexture);
-	seed.setScale(0.8, 0.8);
-	seed.setPosition(540, 110);
-
 	heal = new ParticleSystem();
 	heal->setTexture("img/particles/cloud.png");
 	heal->setLocation(Vector2f(0, 640));
@@ -516,11 +511,6 @@ Seed::Seed(){
 void Seed::update(){
 	heal->update();
 
-	if (alpha >= 0){
-		seed.setColor(Color(255, 255, 255, alpha));
-		alpha -= 9;
-	}
-
 	if (heal->getLifeTime() < 0.3)
 		heal->fuel(80);
 	else if (heal->getNumberOfParticle() <= 0){
@@ -530,7 +520,6 @@ void Seed::update(){
 
 void Seed::draw(RenderWindow &window){
 	heal->draw(window);
-	window.draw(seed);
 }
 
 ElectricShock::ElectricShock() : SkillEffect(){
@@ -539,7 +528,7 @@ ElectricShock::ElectricShock() : SkillEffect(){
 
 	lightning = new Lightning();
 	lightning->setColor(117, 231, 255);
-	lightning->setThcikness(3);
+	lightning->setThcikness(2);
 	lightning->setDetail(15);
 	lightning->setDisplacement(300);
 	lightning->setStartPosition(640, 0);
@@ -982,4 +971,693 @@ void SonicBoom::update(){
 
 void SonicBoom::draw(RenderWindow &window){
 	sand->draw(window);
+}
+
+Steam::Steam() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(-200, 720));
+	sand->setLocationVar(Vector2f(150, 570));
+	sand->setStartColor(200, 200, 200, 100);
+	sand->setEndColor(10, 10, 10, 0);
+	sand->setAngle(25);
+	sand->setAngleVar(35);
+	sand->setStartScale(0.4);
+	sand->setStartScaleVar(0.7);
+	sand->setEndScale(1.0);
+	sand->setLife(95);
+	sand->setLifeVar(125);
+	sand->setStartSpeed(3.5);
+	sand->setStartSpeedVar(4.5);
+	sand->setEndSpeed(1.3);
+	sand->setEndSpeedVar(1.7);
+}
+
+void Steam::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 1.4){
+		sand->fuel(80);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void Steam::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+HotWater::HotWater() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(390, -70));
+	sand->setLocationVar(Vector2f(870, -40));
+	sand->setStartColor(200, 200, 200, 100);
+	sand->setEndColor(10, 10, 10, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(0.8);
+	sand->setEndScale(0.1);
+	sand->setEndScaleVar(0.2);
+	sand->setLife(65);
+	sand->setLifeVar(85);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void HotWater::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 1.4){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void HotWater::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+StormyRain::StormyRain() : SkillEffect(){
+	cloud = new ParticleSystem();
+	cloud->setTexture("img/particles/cloud.png");
+	cloud->setLocation(Vector2f(0, -40));
+	cloud->setLocationVar(Vector2f(1280, 90));
+	cloud->setStartColor(100, 100, 100, 100);
+	cloud->setEndColor(20, 20, 20, 0);
+	cloud->setAngle(180);
+	cloud->setLife(100);
+	cloud->setLifeVar(130);
+	cloud->setStartSpeed(0.2);
+	cloud->setStartSpeedVar(0.3);
+	cloud->setEndSpeed(0.2);
+	cloud->setEndSpeedVar(0.3);
+
+	rain = new ParticleSystem();
+	rain->setTexture("img/particles/rain.png");
+	rain->setLocation(Vector2f(0, -40));
+	rain->setLocationVar(Vector2f(1280, 0));
+	rain->setStartColor(130, 130, 130, 100);
+	rain->setEndColor(100, 100, 100, 0);
+	rain->setAngle(260);
+	rain->setRotation(190);
+	rain->setLife(60);
+	rain->setLifeVar(80);
+	rain->setStartSpeed(3.5);
+	rain->setStartSpeedVar(4.5);
+	rain->setEndSpeed(3.5);
+	rain->setEndSpeedVar(4.5);
+
+	storm = new ParticleSystem();
+	storm->setTexture("img/particles/cloud.png");
+	storm->setLocation(Vector2f(-10, 520));
+	storm->setLocationVar(Vector2f(1680, 720));
+	storm->setStartColor(220, 220, 220, 7);
+	storm->setEndColor(240, 240, 240, 0);
+	storm->setAngle(150);
+	storm->setRotation(190);
+	storm->setLife(130);
+	storm->setLifeVar(150);
+	storm->setStartSpeed(4.5);
+	storm->setStartSpeedVar(5.5);
+	storm->setEndSpeed(3.5);
+	storm->setEndSpeedVar(4.5);
+
+}
+
+void StormyRain::update(){
+
+	cloud->update();
+	rain->update();
+	storm->update();
+
+	if (rain->getLifeTime() < 3.2){
+
+		cloud->fuel(50);
+		rain->fuel(50);
+		storm->fuel(80);
+	}
+	else{
+		if (cloud->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void StormyRain::draw(RenderWindow &window){
+	rain->draw(window);
+	storm->draw(window);
+	cloud->draw(window);
+}
+
+
+Hail::Hail() : SkillEffect(){
+	cloud = new ParticleSystem();
+	cloud->setTexture("img/particles/cloud.png");
+	cloud->setLocation(Vector2f(0, -40));
+	cloud->setLocationVar(Vector2f(1280, 90));
+	cloud->setStartColor(100, 100, 100, 100);
+	cloud->setEndColor(20, 20, 20, 0);
+	cloud->setAngle(180);
+	cloud->setLife(100);
+	cloud->setLifeVar(130);
+	cloud->setStartSpeed(0.2);
+	cloud->setStartSpeedVar(0.3);
+	cloud->setEndSpeed(0.2);
+	cloud->setEndSpeedVar(0.3);
+
+	rain = new ParticleSystem();
+	rain->setTexture("img/particles/rain.png");
+	rain->setLocation(Vector2f(0, -40));
+	rain->setLocationVar(Vector2f(1280, 0));
+	rain->setStartColor(130, 130, 130, 100);
+	rain->setEndColor(100, 100, 100, 0);
+	rain->setAngle(260);
+	rain->setRotation(190);
+	rain->setLife(60);
+	rain->setLifeVar(80);
+	rain->setStartSpeed(3.5);
+	rain->setStartSpeedVar(4.5);
+	rain->setEndSpeed(3.5);
+	rain->setEndSpeedVar(4.5);
+}
+
+void Hail::update(){
+
+	cloud->update();
+	rain->update();
+
+	if (rain->getLifeTime() < 3.2){
+
+		cloud->fuel(50);
+		rain->fuel(50);
+	}
+	else{
+		if (cloud->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void Hail::draw(RenderWindow &window){
+	rain->draw(window);
+	cloud->draw(window);
+}
+
+Magma::Magma() : SkillEffect(){
+
+	locationVarY = 720;
+
+	flood = new ParticleSystem();
+	flood->setTexture("img/particles/fire.png");
+	flood->setLocation(Vector2f(0, 720));
+	flood->setAngle(345);
+	flood->setStartScale(0.6);
+	flood->setStartScaleVar(0.8);
+	flood->setEndScale(0.1);
+	flood->setEndScaleVar(0.2);
+	flood->setStartColor(250, 0, 0, 255);
+	flood->setEndColor(252, 255, 0, 0);
+	flood->setLife(110);
+	flood->setLifeVar(120);
+	flood->setStartSpeed(4.4);
+	flood->setStartSpeedVar(5.7);
+
+	temp = -8;
+
+}
+
+void Magma::update(){
+
+	flood->update();
+
+	if (locationVarY > 230){
+		flood->setLocationVar(Vector2f(0, locationVarY));
+		locationVarY += temp;
+	}
+	else{
+		temp = 8;
+		flood->setLocationVar(Vector2f(0, locationVarY));
+		locationVarY += temp;
+	}
+
+	if (flood->getLifeTime() < 2.5){
+		flood->fuel(50);
+	}
+	else if (flood->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void Magma::draw(RenderWindow &window){
+	flood->draw(window);
+}
+
+Poison::Poison() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(390, -70));
+	sand->setLocationVar(Vector2f(870, -40));
+	sand->setStartColor(10, 255, 10, 100);
+	sand->setEndColor(0, 255, 10, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(0.8);
+	sand->setEndScale(0.1);
+	sand->setEndScaleVar(0.2);
+	sand->setLife(65);
+	sand->setLifeVar(85);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void Poison::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 0.3){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void Poison::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+FatalPoison::FatalPoison() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(390, -70));
+	sand->setLocationVar(Vector2f(870, -40));
+	sand->setStartColor(0, 255, 0, 100);
+	sand->setEndColor(0, 255, 10, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(0.8);
+	sand->setEndScale(0.1);
+	sand->setEndScaleVar(0.2);
+	sand->setLife(65);
+	sand->setLifeVar(85);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void FatalPoison::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 1.3){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void FatalPoison::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+Mud::Mud() : SkillEffect(){
+
+	fire = new ParticleSystem();
+	fire->setTexture("img/particles/cloud.png");
+	fire->setLocation(Vector2f(640, 800));
+	fire->setStartScale(0.0);
+	fire->setStartScaleVar(0.2);
+	fire->setEndScale(1.0);
+	fire->setEndScaleVar(1.3);
+	fire->setAngle(75);
+	fire->setAngleVar(110);
+	fire->setLife(60);
+	fire->setLifeVar(80);
+	fire->setStartSpeed(3.5);
+	fire->setStartSpeedVar(4.5);
+	fire->setEndSpeed(0.2);
+	fire->setEndSpeedVar(0.5);
+	fire->setStartColor(58, 29, 1, 255);
+	fire->setEndColor(154, 89, 31, 0);
+}
+
+void Mud::update(){
+	fire->update();
+	if (fire->getLifeTime() < 0.3)
+		fire->fuel(30);
+	else{
+		if (fire->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void Mud::draw(RenderWindow &window){
+	fire->draw(window);
+}
+
+
+MuddyWater::MuddyWater() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(390, -70));
+	sand->setLocationVar(Vector2f(870, -40));
+	sand->setStartColor(58, 29, 1, 255);
+	sand->setEndColor(154, 89, 31, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(0.8);
+	sand->setEndScale(0.1);
+	sand->setEndScaleVar(0.2);
+	sand->setLife(65);
+	sand->setLifeVar(85);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void MuddyWater::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 0.7){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void MuddyWater::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+MuddyShield::MuddyShield() : SkillEffect(){
+
+	ice = new ParticleSystem();
+	ice->setTexture("img/particles/fire.png");
+	ice->setLocation(Vector2f(540, 140));
+	ice->setLocationVar(Vector2f(740, 340));
+	ice->setStartScale(0.6);
+	ice->setStartScaleVar(1.0);
+	ice->setEndScale(0.3);
+	ice->setEndScaleVar(0.4);
+	ice->setAngle(84);
+	ice->setLife(200);
+	ice->setLifeVar(250);
+	ice->setStartSpeed(0);
+	ice->setStartSpeedVar(0);
+	ice->setEndSpeed(0);
+	ice->setEndSpeedVar(0);
+	ice->setStartColor(58, 29, 1, 255);
+	ice->setEndColor(154, 89, 31, 0);
+}
+
+void MuddyShield::update(){
+
+	ice->update();
+	if (ice->getLifeTime() < 0.5){
+		ice->fuelInSequence(0.1, 10);
+	}
+	else{
+
+		if (ice->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+
+}
+
+void MuddyShield::draw(RenderWindow &window){
+	ice->draw(window);
+}
+
+LandSlides::LandSlides() : SkillEffect(){
+	snow = new ParticleSystem();
+	snow->setTexture("img/particles/fire.png");
+	snow->setLocation(Vector2f(0, -40));
+	snow->setLocationVar(Vector2f(1380, 0));
+	snow->setStartColor(58, 29, 1, 255);
+	snow->setEndColor(154, 89, 31, 0);
+	snow->setEndScale(0.1);
+	snow->setEndScaleVar(0.2);
+	snow->setAngle(270);
+	snow->setLife(60);
+	snow->setLifeVar(80);
+	snow->setStartSpeed(3.5);
+	snow->setStartSpeedVar(4.5);
+	snow->setEndSpeed(3.5);
+	snow->setEndSpeedVar(4.5);
+}
+
+void LandSlides::update(){
+
+	snow->update();
+
+	if (snow->getLifeTime() < 3.2){
+		snow->fuel(10);
+	}
+	else{
+		if (snow->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void LandSlides::draw(RenderWindow &window){
+	snow->draw(window);
+}
+
+SolarBeam::SolarBeam() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(590, -70));
+	sand->setLocationVar(Vector2f(670, -40));
+	sand->setStartColor(0, 255, 0, 100);
+	sand->setEndColor(0, 255, 10, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(1.0);
+	sand->setLife(95);
+	sand->setLifeVar(125);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void SolarBeam::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 1.3){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void SolarBeam::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+MagneticField::MagneticField(){
+	particle = new ParticleSystem();
+	particle->setTexture("img/particles/fire.png");
+	particle->setLocation(Vector2f());
+	particle->setAngle(0);
+	particle->setAngleVar(360);
+	particle->setLife(60);
+	particle->setLifeVar(80);
+	particle->setStartSpeed(1.4);
+	particle->setStartSpeedVar(1.9);
+	particle->setEndSpeed(0.1);
+	particle->setEndSpeedVar(0.0);
+
+}
+
+void MagneticField::update(){
+	particle->update();
+	if (particle->getLifeTime() < 2.3)
+		particle->fuelInSequence(0.3, 50);
+	else
+		SkillEffect::setEnd();
+}
+
+void MagneticField::draw(RenderWindow &window){
+	particle->draw(window);
+}
+
+ChainOfEarth::ChainOfEarth() : SkillEffect(){
+	particleLeft = new ParticleSystem();
+	particleLeft->setTexture("img/particles/cloud.png");
+	particleLeft->setLocation(Vector2f(440, 100));
+	particleLeft->setLocationVar(Vector2f(440, 420));
+	particleLeft->setStartColor(58, 29, 1, 255);
+	particleLeft->setEndColor(154, 89, 31, 255);
+	particleLeft->setAngle(0);
+	particleLeft->setStartScale(1.0);
+	particleLeft->setStartScaleVar(0.8);
+	particleLeft->setEndScale(0.1);
+	particleLeft->setEndScaleVar(0.2);
+	particleLeft->setLife(15);
+	particleLeft->setLifeVar(20);
+	particleLeft->setStartSpeed(1.5);
+	particleLeft->setStartSpeedVar(2.5);
+	particleLeft->setEndSpeed(2.5);
+	particleLeft->setEndSpeedVar(3.5);
+	particleRight = new ParticleSystem();
+	particleRight->setTexture("img/particles/cloud.png");
+	particleRight->setLocation(Vector2f(790, 100));
+	particleRight->setLocationVar(Vector2f(790, 420));
+	particleRight->setStartColor(58, 29, 1, 255);
+	particleRight->setEndColor(154, 89, 31, 255);
+	particleRight->setAngle(180);
+	particleRight->setStartScale(1.0);
+	particleRight->setStartScaleVar(0.8);
+	particleRight->setEndScale(0.1);
+	particleRight->setEndScaleVar(0.2);
+	particleRight->setLife(15);
+	particleRight->setLifeVar(20);
+	particleRight->setStartSpeed(1.5);
+	particleRight->setStartSpeedVar(2.5);
+	particleRight->setEndSpeed(2.5);
+	particleRight->setEndSpeedVar(3.5);
+}
+
+void ChainOfEarth::update(){
+	particleLeft->update();
+	particleRight->update();
+	if (particleLeft->getLifeTime() < 0.4){
+		particleLeft->fuel(50);
+		particleRight->fuel(50);
+	}
+	else{
+		if (particleLeft->getNumberOfParticle() <= 0)
+			SkillEffect::setEnd();
+	}
+}
+
+void ChainOfEarth::draw(RenderWindow &window){
+	particleLeft->draw(window);
+	particleRight->draw(window);
+}
+
+Photosynthesis::Photosynthesis(){
+	heal = new ParticleSystem();
+	heal->setTexture("img/particles/cloud.png");
+	heal->setLocation(Vector2f(0, 640));
+	heal->setLocationVar(Vector2f(1280, 720));
+	heal->setStartColor(0, 255, 0, 255);
+	heal->setEndColor(0, 255, 0, 0);
+	heal->setStartScale(0.2);
+	heal->setStartScaleVar(0.4);
+	heal->setEndScale(0.0);
+	heal->setEndScaleVar(0.1);
+	heal->setLife(160);
+	heal->setLifeVar(170);
+	heal->setStartSpeed(3.1);
+	heal->setStartSpeedVar(3.7);
+	heal->setAngle(90);
+
+	alpha = 255;
+}
+
+void Photosynthesis::update(){
+	heal->update();
+
+	if (alpha >= 0){
+		alpha -= 9;
+	}
+
+	if (heal->getLifeTime() < 0.3)
+		heal->fuel(80);
+	else if (heal->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
+	}
+}
+
+void Photosynthesis::draw(RenderWindow &window){
+	heal->draw(window);
+}
+
+Meteor::Meteor(){
+
+	randomizer = new Well512();
+
+	for (int i = 0; i < 5; i++){
+		int rY = randomizer->Next(50, 300);
+		int rX = randomizer->Next(500, 1780);
+		meteor[i] = new ParticleSystem();
+		meteor[i]->setTexture("img/particles/cloud.png");
+		meteor[i]->setLocation(Vector2f(rX, -rY));
+		meteor[i]->setLocationVar(Vector2f(rX + 180, -rY  + 50));
+		meteor[i]->setStartScale(0.6);
+		meteor[i]->setStartScaleVar(1.0);
+		meteor[i]->setEndScale(0.3);
+		meteor[i]->setEndScaleVar(0.4);
+		meteor[i]->setAngle(60);
+		meteor[i]->setLife(40);
+		meteor[i]->setLifeVar(45);
+		meteor[i]->setStartSpeed(1.0);
+		meteor[i]->setStartSpeedVar(1.3);
+		meteor[i]->setStartColor(252, 255, 0, 255);
+		meteor[i]->setEndColor(255, 0, 0, 0);
+	}
+}
+
+void Meteor::update(){
+	for (int i = 0; i < 5; i++){
+		meteor[i]->update();
+		meteor[i]->fuel(50);
+		meteor[i]->setLocation(Vector2f(meteor[i]->getLocation().x - 32, meteor[i]->getLocation().y + 20));
+		meteor[i]->setLocationVar(Vector2f(meteor[i]->getLocationVar().x - 32, meteor[i]->getLocationVar().y + 20));
+	}
+	if (meteor[0]->getLifeTime() > 1.7){
+		SkillEffect::setEnd();
+	}
+}
+
+void Meteor::draw(RenderWindow &window){
+	for (int i = 0; i < 5; i++){
+		meteor[i]->draw(window);
+	}
+}
+
+Miss::Miss() : SkillEffect(){
+
+}
+
+void Miss::update(){
+	SkillEffect::setEnd();
+}
+
+void Miss::draw(RenderWindow &window){
+
 }

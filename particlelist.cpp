@@ -44,7 +44,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 7: //쓰나미
 			delete skillEffect;
-			skillEffect = new Tsunami();
+			skillEffect = new Flood();
 			break;
 		case 8: //삼지창
 			delete skillEffect;

@@ -17,6 +17,8 @@ class Particle{
 		float startVel;
 		float endVel;
 
+		float spin;
+
 		sf::Vector2f startPosition;
 
 		float startScale;
@@ -73,8 +75,8 @@ private:
 	float m_endVelocity;
 	float m_endVelocityVar;
 
-	float m_rotation;
-	float m_rotationVar;
+	float m_spin;
+	float m_spinVar;
 
 public:
 
@@ -113,9 +115,8 @@ public:
 	void setEndScale(float scale);
 	void setEndScaleVar(float scale);
 
-	void setRotation(float rot);
-	void setRotationVar(float rot);
-
+	void setSpin(float rot);
+	void setSpinVar(float rot);
 
 	float getStartSpeed(){ return m_startVelocity; }
 	float getStartSpeedVar(){ return m_startVelocityVar; }
@@ -137,8 +138,6 @@ public:
 	float getEndScaleVar(){ return m_endScaleVar; }
 	int getNumberOfParticle(){ return m_particleList.size(); }
 	float getLifeTime(){ return m_lifeTime; }
-	float getRatation(){ return m_rotation; }
-	float getRotationVar(){ return m_rotationVar; }
 };
 
 #endif

@@ -11,6 +11,9 @@ ParticleSystem::ParticleSystem(){
 	m_life = 50;
 	m_lifeVar = m_life;
 
+	m_spin = 0;
+	m_spinVar = 0;
+
 	m_angle = 0;
 	m_angleVar = 360;
 
@@ -32,9 +35,6 @@ ParticleSystem::ParticleSystem(){
 	m_startColorVar = sf::Color(0, 0, 0, 0);
 	m_endColorVar = sf::Color(0, 0, 0, 0);
 
-	m_rotation = 0;
-	m_rotationVar = 0;
-
 	m_elapsedTime = 0.0;
 }
 
@@ -43,15 +43,6 @@ ParticleSystem::~ParticleSystem(){
 	{
 		delete *it;
 	}
-}
-
-void ParticleSystem::setRotation(float rot){
-	m_rotation = rot;
-	m_rotationVar = rot;
-}
-
-void ParticleSystem::setRotationVar(float rot){
-	m_rotationVar = rot;
 }
 
 void ParticleSystem::setLocationVar(sf::Vector2f positionVar){
@@ -110,10 +101,10 @@ void ParticleSystem::fuel(int num){
 		particle->life = m_randomizer.Next(m_life, m_lifeVar);
 		particle->defaultLife = particle->life;
 
-		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
-		particle->sprite.setRotation(360-particle->angle);
+		particle->spin = m_randomizer.NextFloat(m_spin, m_spinVar);
 
-		particle->sprite.setRotation(m_randomizer.NextFloat(m_rotation, m_rotationVar));
+		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+		particle->sprite.rotate(360-particle->angle);
 
 		float randomScale = m_randomizer.NextFloat(m_startScale, m_startScaleVar);
 		particle->sprite.setScale(randomScale, randomScale);
@@ -145,6 +136,15 @@ void ParticleSystem::setStartSpeedVar(float speed){
 void ParticleSystem::setStartScale(float scale){
 	m_startScale = scale;
 	m_startScaleVar = scale;
+}
+
+void ParticleSystem::setSpin(float rot){
+	m_spin = rot;
+	m_spinVar = rot;
+}
+
+void ParticleSystem::setSpinVar(float rot){
+	m_spinVar = rot;
 }
 
 void ParticleSystem::setStartScaleVar(float scale){
@@ -220,6 +220,8 @@ void ParticleSystem::update(){
 
 		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + velocity * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + velocity * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
 		(*it)->sprite.setScale(scale, scale);
+
+		(*it)->sprite.setRotation((*it)->spin);
 
 		if((*it)->life <= 0){
 			delete (*it);

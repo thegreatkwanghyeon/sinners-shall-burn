@@ -99,6 +99,7 @@ namespace skill{
 		private : 
 			ParticleSystem* flood;
 			float locationVarY;
+			float temp;
 		public :	
 			Flood();
 			~Flood(){
@@ -249,11 +250,12 @@ namespace skill{
 
 	class IceShield : public SkillEffect{
 	private:
-		ParticleSystem* ice;
+		ParticleSystem* particleLeft, *particleRight;
 	public:
 		IceShield();
 		~IceShield(){
-			delete ice;
+			delete particleLeft;
+			delete particleRight;
 		}
 
 		virtual void update();
@@ -483,11 +485,13 @@ namespace skill{
 
 	class MuddyShield : public SkillEffect{
 	private:
-		ParticleSystem* ice;
+		ParticleSystem* particleLeft;
+		ParticleSystem* particleRight;
 	public:
 		MuddyShield();
 		~MuddyShield(){
-			delete ice;
+			delete particleLeft;
+			delete particleRight;
 		}
 
 		virtual void update();

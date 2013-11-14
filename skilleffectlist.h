@@ -572,7 +572,8 @@ namespace skill{
 		Meteor();
 		~Meteor(){
 			delete randomizer;
-			delete meteor;
+			for (int i = 0; i < 5;i++)
+				delete meteor[i];
 		}
 
 		virtual void update();
@@ -592,6 +593,30 @@ namespace skill{
 		virtual void update();
 		virtual void draw(RenderWindow &window);
 
+	};
+
+	class Frost : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		Frost();
+		~Frost(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Vaccum : public SkillEffect{
+	private : 
+		ParticleSystem* air;
+		int x, y, xv, yv;
+	public : 
+		Vaccum();
+		~Vaccum();
+		virtual void update();
+		virtual void draw(RenderWindow &window);
 	};
 
 }

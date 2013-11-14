@@ -111,6 +111,7 @@ void ParticleSystem::fuel(int num){
 		particle->defaultLife = particle->life;
 
 		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
+		particle->sprite.setRotation(360-particle->angle);
 
 		particle->sprite.setRotation(m_randomizer.NextFloat(m_rotation, m_rotationVar));
 

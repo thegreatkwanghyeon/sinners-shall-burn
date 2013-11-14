@@ -1661,3 +1661,93 @@ void Miss::update(){
 void Miss::draw(RenderWindow &window){
 
 }
+
+Frost::Frost() : SkillEffect(){
+	sand = new ParticleSystem();
+	sand->setTexture("img/particles/cloud.png");
+	sand->setLocation(Vector2f(590, -70));
+	sand->setLocationVar(Vector2f(670, -40));
+	sand->setStartColor(0, 255, 0, 100);
+	sand->setEndColor(0, 255, 10, 0);
+	sand->setAngle(270);
+	sand->setStartScale(1.0);
+	sand->setStartScaleVar(1.0);
+	sand->setLife(95);
+	sand->setLifeVar(125);
+	sand->setStartSpeed(1.5);
+	sand->setStartSpeedVar(2.5);
+	sand->setEndSpeed(3.5);
+	sand->setEndSpeedVar(4.5);
+}
+
+void Frost::update(){
+
+	sand->update();
+
+	if (sand->getLifeTime() < 1.3){
+		sand->fuel(30);
+	}
+	else{
+		if (sand->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+}
+
+void Frost::draw(RenderWindow &window){
+	sand->draw(window);
+}
+
+Vaccum::Vaccum() : SkillEffect(){
+
+	x = -400;
+	y = -400;
+	xv = 1780;
+	yv = 1220;
+
+	air = new ParticleSystem();
+	air->setTexture("img/particles/cloud.png");
+	air->setLocation(Vector2f(x, y));
+	air->setLocationVar(Vector2f(xv, yv));
+	air->setStartScale(0.6);
+	air->setStartScaleVar(1.0);
+	air->setEndScale(0.3);
+	air->setEndScaleVar(0.4);
+	air->setAngle(0);
+	air->setAngle(360);
+	air->setLife(50);
+	air->setLifeVar(70);
+	air->setStartSpeed(0.01);
+	air->setStartSpeedVar(0.02);
+	air->setEndSpeed(0.002);
+	air->setEndSpeedVar(0.001);
+	air->setStartColor(100, 100, 100, 100);
+	air->setEndColor(20, 20, 20, 0);
+
+}
+
+void Vaccum::update(){
+	air->update();
+	air->setLocation(Vector2f(x, y));
+	air->setLocationVar(Vector2f(xv, yv));
+	air->setStartColor(100, 100, 100, air->getStartColor().a - 1);
+	x += 22;
+	y += 15;
+	xv -= 22;
+	yv -= 15;
+
+	if (xv - x > 10){
+		air->fuel(100);
+	}
+	else{
+		if (air->getNumberOfParticle() <= 0){
+			SkillEffect::setEnd();
+		}
+	}
+
+
+}
+
+void Vaccum::draw(RenderWindow &window){
+	air->draw(window);
+}	

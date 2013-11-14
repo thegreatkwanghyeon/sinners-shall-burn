@@ -128,7 +128,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 28:
 			delete skillEffect;
-			skillEffect = new Gust();
+			skillEffect = new Vaccum();
 			break;
 		case 29:
 			delete skillEffect;
@@ -140,7 +140,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 31:
 			delete skillEffect;
-			skillEffect = new Gust();
+			skillEffect = new Frost();
 			break;
 		case 32:
 			delete skillEffect;

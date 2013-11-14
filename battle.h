@@ -85,6 +85,7 @@ class Battle : public SceneBase{
 		void startBattle(int _code);
 		bool getState();//현재 이펙트 진행중이거나 기타 상황이어서 일시정지를 할 수 없는 경우 false 리턴
 		Puzzle* getPuzzle();
+		void setGaugeMax();
 };
 
 #endif

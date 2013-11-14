@@ -9,7 +9,7 @@
 #include "pause.h"
 #include "tooltip.h"
 
-#define EnemyNum 5
+#define EnemyNum 7
 #define EndStage 5
 #define ChangeTime 350
 

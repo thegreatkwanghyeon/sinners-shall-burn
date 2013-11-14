@@ -15,13 +15,13 @@ ClearScene::ClearScene(){
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(510,400);
-	startButton->setText("Back to MainMenu", 18);
+	startButton->setText(L"메인화면으로 돌아가기", 18);
 	startButton->setClickSound("sounds/button/click.wav");
 	startButton->setHoverSound("sounds/button/hover.wav");
 
 	endButton = new Button("img/startButton.png");
 	endButton->setPosition(510,500);
-	endButton->setText("END", 18);
+	endButton->setText(L"종료", 18);
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
 
@@ -46,7 +46,7 @@ void ClearScene::update(sf::Event &event){
 
 void ClearScene::draw(sf::RenderWindow &window){
 	sf::Text chText;
-	char plusString[100];
+	wchar_t plusString[100];
 	//---
 	window.draw(sprite);
 	window.draw(text);
@@ -54,9 +54,9 @@ void ClearScene::draw(sf::RenderWindow &window){
 	endButton->draw(window);
 
 	chText.setFont(font);
-	chText.setCharacterSize(20);
-	chText.setPosition(100,400);
-	_snprintf(plusString, sizeof(plusString), "your challanges : \nkill : %d/%d\ncoupon : %d/%d\nrebuild : %d\nhint : %d",killEnemyNum,30,getCouponNum,50,useRebuildNum,useHintNum);
+	chText.setCharacterSize(30);
+	chText.setPosition(100,300);
+	_swprintf(plusString,L"당신의 플레이 통계 : \n전투 회수 : %d/%d\n얻은 아이템 : %d/%d\n퍼즐 재배치 회수 : %d\n힌트 사용회수 : %d",killEnemyNum,60,getCouponNum,50,useRebuildNum,useHintNum);
 	chText.setString(plusString);
 
 	window.draw(chText);

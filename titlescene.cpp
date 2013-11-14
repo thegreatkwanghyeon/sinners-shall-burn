@@ -17,13 +17,13 @@ TitleScene::TitleScene(){/*
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(250,500);
-	startButton->setText("START", 18);
+	startButton->setText(L"시작", 18);
 	startButton->setClickSound("sounds/button/click.wav");
 	startButton->setHoverSound("sounds/button/hover.wav");
 
 	endButton = new Button("img/startButton.png");
 	endButton->setPosition(760,500);
-	endButton->setText("END", 18);
+	endButton->setText(L"종료", 18);
 	endButton->setClickSound("sounds/button/click.wav");
 	endButton->setHoverSound("sounds/button/hover.wav");
 

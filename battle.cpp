@@ -45,7 +45,7 @@ Battle::Battle(Player** _player){
 	text.setFont(font); 
 	text.setCharacterSize(20);
 	text.setString(L"추가 공격력 : 1.00\n추가 방어력 : 0\n추가 명중률 : 0");
-	text.setPosition(150.0f, 580.0f);
+	text.setPosition(150.0f, 550.0f);
 
 
 	eText.setFont(font); 
@@ -205,7 +205,7 @@ void Battle::update(sf::Event &event){
 
 				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//미스판정(여기 구문은 미스가 난경우)
 					isMiss=true;
-					//particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);미스파티클
+					particle->setParticle(100,enemy->getSoundLink(),true);
 				}else{//적중
 					particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);
 				}
@@ -264,7 +264,7 @@ void Battle::update(sf::Event &event){
 					}
 				}else{
 					isMiss=true;
-					//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
+					particle->setParticle(100,enemy->getSoundLink(),true);
 				}
 				enemy->setAcc(enemy->getMaxAcc());//플레이어가 스킬로 적의 명중률을 낮췄을경우 (현재 그 명중률보정이 적용됬으므로) 다시 원래대로 돌려줌
 			}
@@ -342,7 +342,7 @@ void Battle::playerSkillUpdate(){
 				}
 			}else{
 				isMiss=true;
-				//particle->setParticle(enemy->getAnimationNum(),enemy->getSoundLink(),true);미스파티클
+				particle->setParticle(100,enemy->getSoundLink(),true);
 			}
 			enemy->setAcc(enemy->getMaxAcc());//적에게 적용된 명중률 감소 등을 풀어준다.
 		}
@@ -452,9 +452,8 @@ void Battle::draw(sf::RenderWindow &window){
 	int i;
 
 	if(sceneNum == playerSkill || sceneNum == enemySkill){
-		if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
-			particle->draw(window);
-		}
+		//if(!isMiss){//차후 지울예정(미스에도 파티클 추가)
+		particle->draw(window);
 		//return;
 	}
 	
@@ -573,4 +572,7 @@ bool Battle::getState(){
 }
 Puzzle* Battle::getPuzzle(){
 	return puzzle;
+}
+void Battle::setGaugeMax(){
+	hpGauge->setValue(100-hpGauge->getValue());
 }

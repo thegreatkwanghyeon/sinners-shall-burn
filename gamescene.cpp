@@ -191,7 +191,7 @@ void GameScene::makeEnemys(){
 		tp=makemap->getEnemyPos(i,EnemyNum);
 		enemy[i]->setPosition(translatePosition((double)tp.x+0.5,(double)tp.y+0.5));
 		enemy[i]->setPosition(sf::Vector2f(enemy[i]->getPosition().x+1,enemy[i]->getPosition().y));
-		printf("%d : %.2f %.2f [%d]<%d %d>---\n",i,enemy[i]->getPosition().x,enemy[i]->getPosition().y,enemy[i]->getCode(),i,enemy.size());
+		//printf("%d : %.2f %.2f [%d]<%d %d>---\n",i,enemy[i]->getPosition().x,enemy[i]->getPosition().y,enemy[i]->getCode(),i,enemy.size());
 		enemy[i]->setTexture(texture);
 	}
 
@@ -205,6 +205,9 @@ void GameScene::makeEnemys(){
 
 	_snprintf(plusString, sizeof(plusString), "F%d",floorNum);
 	fText.setString(plusString);
+
+	player->setHP(100);
+	battle->setGaugeMax();
 }
 sf::Vector2f GameScene::translatePosition(float _x, float _y){
 	return sf::Vector2f(MapX-_x-1,_y);

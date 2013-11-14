@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0"?>
 <Enemies>
-  <Enemy code="1" hp="50" damage="10" skill1="50" skill2="1" acc="70" subpro="0" imgLink ="img/enemies/ghoul.png" name="구울" soundLink ="sounds/skill/skill01.wav"> 강령술로 되살아난 평범한 시체다. 그다지 강하지 않으며 지능이 낮아 주문을 쓸 수 없다</Enemy>
-  <Enemy code="2" hp="50" damage="10" skill1="51" skill2="31" acc="70" subpro="30" imgLink ="img/enemies/bloodyeye.png" name="블러디아이" soundLink ="sounds/skill/skill01.wav"> 커다란 안구의 형태를 띈 악마. 눈에서 냉기 광선을 쏘기도 한다</Enemy>
-  <Enemy code="3" hp="50" damage="10" skill1="52" skill2="10" acc="70" subpro="30" imgLink ="img/enemies/dreamseed.png" name="드림시드" soundLink ="sounds/skill/hover.wav"> 다른 생물의 영혼을 좀먹는 혼령. 체력을 흡수하는 주문을 사용한다</Enemy>
-  <Enemy code="4" hp="100" damage="15" skill1="53" skill2="14" acc="75" subpro="35" imgLink ="img/enemies/lloyd.png" name ="로이드" soundLink ="sounds/skill/hover.wav"> 절망과 괴로움이 형상화된 존재. 고급 마법을 사용할 수 있다</Enemy>
-  <Enemy code="5" hp="150" damage="20" skill1="54" skill2="1" acc="75" subpro="0" imgLink ="img/enemies/gug.png" name ="구그" soundLink ="sounds/skill/hover.wav"> 4개의 팔을 가진 괴수. 강한 완력으로 적을 찢어버린다. 낮은 확률로 가벼운 주문을 사용한다</Enemy>
+  <Enemy code="1" hp="50" damage="5" skill1="50" skill2="1" acc="70" subpro="0" imgLink ="img/enemies/ghoul.png" name="구울" soundLink ="sounds/skill/skill01.wav"> 강령술로 되살아난 평범한 시체다. 그다지 강하지 않으며 지능이 낮아 주문을 쓸 수 없다</Enemy>
+  <Enemy code="2" hp="50" damage="5" skill1="51" skill2="31" acc="70" subpro="30" imgLink ="img/enemies/bloodyeye.png" name="블러디아이" soundLink ="sounds/skill/skill01.wav"> 커다란 안구의 형태를 띈 악마. 눈에서 냉기 광선을 쏘기도 한다</Enemy>
+  <Enemy code="3" hp="50" damage="5" skill1="52" skill2="10" acc="70" subpro="30" imgLink ="img/enemies/dreamseed.png" name="드림시드" soundLink ="sounds/skill/hover.wav"> 다른 생물의 영혼을 좀먹는 혼령. 체력을 흡수하는 주문을 사용한다</Enemy>
+  <Enemy code="4" hp="100" damage="10" skill1="53" skill2="14" acc="75" subpro="35" imgLink ="img/enemies/lloyd.png" name ="로이드" soundLink ="sounds/skill/hover.wav"> 절망과 괴로움이 형상화된 존재. 고급 마법을 사용할 수 있다</Enemy>
+  <Enemy code="5" hp="150" damage="15" skill1="54" skill2="1" acc="75" subpro="0" imgLink ="img/enemies/gug.png" name ="구그" soundLink ="sounds/skill/hover.wav"> 4개의 팔을 가진 괴수. 강한 완력으로 적을 찢어버린다. 낮은 확률로 가벼운 주문을 사용한다</Enemy>
   <Enemy code="6" hp="200" damage="15" skill1="55" skill2="36" acc="75" subpro="40" imgLink ="img/enemies/eldritchdevourer.png" name ="엘드리지 포식자" soundLink ="sounds/skill/hover.wav"> 언제나 굶주려있는 포식자. 이빨에는 다량의 독액이 묻어있다</Enemy>
-  <Enemy code="7" hp="150" damage="25" skill1="2" skill2="3" acc="75" subpro="85" imgLink ="img/enemies/huntinghorror.png" name ="공포추격자" soundLink ="sounds/skill/hover.wav"> 재빠른 몸으로 목표물을 쫓는 비룡. 용의 숨결로 모든 것을 태운다</Enemy>
-  <Enemy code="8" hp="350" damage="30" skill1="3" skill2="4" acc="85" subpro="45" imgLink ="img/enemies/dragonj.png" name ="황천용" soundLink ="sounds/skill/hover.wav"> 저주받은 용무리의 왕. 지옥의 불길을 뿜어낼 수 있다</Enemy>
-  <Enemy code="9" hp="1" damage="10" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/dragonj.png" name ="에러방지용 개발자의 정성" soundLink ="sounds/skill/hover.wav"> 개발자의 정성이 몬스터로서 나타난 것이다. 적을 2진수로 분해해버린다.</Enemy>
+  <Enemy code="7" hp="150" damage="15" skill1="2" skill2="3" acc="75" subpro="85" imgLink ="img/enemies/huntinghorror.png" name ="공포추격자" soundLink ="sounds/skill/hover.wav"> 재빠른 몸으로 목표물을 쫓는 비룡. 용의 숨결로 모든 것을 태운다</Enemy>
+  <Enemy code="8" hp="350" damage="20" skill1="3" skill2="4" acc="85" subpro="45" imgLink ="img/enemies/dragonj.png" name ="황천용" soundLink ="sounds/skill/hover.wav"> 저주받은 용무리의 왕. 지옥의 불길을 뿜어낼 수 있다</Enemy>
+  <Enemy code="9" hp="1" damage="25" skill1="1" skill2="10" acc="50" subpro="35" imgLink ="img/enemies/dragonj.png" name ="에러방지용 개발자의 정성" soundLink ="sounds/skill/hover.wav"> 개발자의 정성이 몬스터로서 나타난 것이다. 적을 2진수로 분해해버린다.</Enemy>
 </Enemies>

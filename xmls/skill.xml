@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <List>
-  <skill code ="1" need ="2" name ="화염구" damage ="10" pdamage ="5" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="3" dotCode="1" dotTurn="3" imgLink ="img/skills/fireball.png" soundLink ="sounds/skill/skill01.wav">뜨거운 불꽃으로 적에게 10의 피해를 주고 5의 피해를 입는다. 화상 : 3피해(3턴)</skill>
+  <skill code ="1" need ="2" name ="화염구" damage ="10" pdamage ="5" guard ="0" acc ="0"  plusAcc ="0" dotName="화상" dotDamage="3" dotCode="1" dotTurn="3" imgLink ="img/skills/fireball.png" soundLink ="sounds/skill/skill01.wav">뜨거운 불꽃으로 적에게 10의 피해를 주고 5의 피해를 입는다. 화상 : 3피해(3턴)</skill>
   <skill code ="2" need ="4" name ="용의 숨결" damage ="15" pdamage ="10" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/dragonslave.png" soundLink ="sounds/skill/hover.wav">고온의 화염을 내뿜어 15의 피해를 주고 10의 피해를 입는다. 화상 : 5피해(3턴)</skill>
   <skill code ="3" need ="8" name ="지옥불" damage ="20" pdamage ="15" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/hellfire.pg" soundLink ="sounds/skill/hover.wav">지옥의 불길로 적에게 20의 피해를 주고 15의 피해를 입는다. 화상 : 5피해(3턴)</skill>
   <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="40" pdamage ="35" guard ="0" acc ="90"  plusAcc ="0" dotName="화상" dotDamage="10" dotCode="1" dotTurn="3" imgLink ="img/skills/worldfire.png" soundLink ="sounds/skill/hover.wav">멸망의 화염으로 적에게 40의 피해를 주고 35의 피해를 입는다. 화상 : 10피해(3턴)</skill>

@@ -144,9 +144,8 @@ void Battle::update(sf::Event &event){
 		pStatusTip[i]->update();
 		eStatusTip[i]->update();
 	}
-	if (!isMiss){
-		particle->update();
-	}
+	particle->update();
+	
 
 	if(isBattle)//비전투시에는 퍼즐의 업데이트를 제한한다
 		puzzle->update(event);

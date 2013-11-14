@@ -205,7 +205,7 @@ void Battle::update(sf::Event &event){
 
 				if(skill->data[useSkillNow].acc+(*player)->getAcc() < rand()%100){//미스판정(여기 구문은 미스가 난경우)
 					isMiss=true;
-					particle->setParticle(100,enemy->getSoundLink(),true);
+					particle->setParticle(100,"sounds/skill/miss.ogg",true);
 				}else{//적중
 					particle->setParticle(skill->data[useSkillNow].code,skill->data[useSkillNow].soundLink,true);
 				}
@@ -264,7 +264,7 @@ void Battle::update(sf::Event &event){
 					}
 				}else{
 					isMiss=true;
-					particle->setParticle(100,enemy->getSoundLink(),true);
+					particle->setParticle(100,"sounds/skill/miss.ogg",true);
 				}
 				enemy->setAcc(enemy->getMaxAcc());//플레이어가 스킬로 적의 명중률을 낮췄을경우 (현재 그 명중률보정이 적용됬으므로) 다시 원래대로 돌려줌
 			}
@@ -342,7 +342,7 @@ void Battle::playerSkillUpdate(){
 				}
 			}else{
 				isMiss=true;
-				particle->setParticle(100,enemy->getSoundLink(),true);
+				particle->setParticle(100,"sounds/skill/miss.ogg",true);
 			}
 			enemy->setAcc(enemy->getMaxAcc());//적에게 적용된 명중률 감소 등을 풀어준다.
 		}

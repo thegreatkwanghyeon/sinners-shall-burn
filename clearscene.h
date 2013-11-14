@@ -9,8 +9,8 @@ class ClearScene : public SceneBase{
 	private:
 		sf::Text text;
 		sf::Font font;
-		sf::Texture texture;
-		sf::Sprite sprite;
+		sf::Texture texture,clearTexture;
+		sf::Sprite sprite,clearSprite;
 
 		Button* startButton;
 		Button* endButton;

@@ -12,6 +12,10 @@ ClearScene::ClearScene(){
 	sprite.setTexture(texture);
 	sprite.setPosition(390,150);
 
+	clearTexture.loadFromFile("img/clear.png");
+	clearSprite.setTexture(clearTexture);
+	//sprite.setPosition(390,150);
+
 
 	startButton = new Button("img/startButton.png");
 	startButton->setPosition(510,400);
@@ -48,6 +52,7 @@ void ClearScene::draw(sf::RenderWindow &window){
 	sf::Text chText;
 	wchar_t plusString[100];
 	//---
+	window.draw(clearSprite);
 	window.draw(sprite);
 	window.draw(text);
 	startButton->draw(window);

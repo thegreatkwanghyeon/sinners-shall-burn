@@ -19,7 +19,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 	switch(num){
 		case 1: //È­¿°±¸
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new SonicBoom();
 			break;
 		case 2: //Å¸¿À¸£´Â È­¿°
 			delete skillEffect;
@@ -52,23 +52,47 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 9: //¾àÃÊ
 			delete skillEffect;
-			skillEffect = new Seed();
+			skillEffect = new Heal();
 			break;
 		case 10: //¾¾»Ñ¸®±â
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new Seed();
 			break;
-		case 14 :
+		case 11: //ÀÚ¿¬ÀÇ Èû
+			delete skillEffect;
+			skillEffect = new Heal();
+			break;
+		case 12: //»ý¸íÀÇ ¾¾¾Ñ
+			delete skillEffect;
+			skillEffect = new Heal();
+			break;
+		case 13 :
+			delete skillEffect;
+			skillEffect = new ElectricShock();
+			break;
+		case 14:
 			delete skillEffect;
 			skillEffect = new LightningBolt();
 			break;
-		case 11: //Èí¼ö
+		case 15:
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new ElectricShock ();
+			break;
+		case 16:
+			delete skillEffect;
+			skillEffect = new LightningStorm();
+			break;
+		case 17:
+			delete skillEffect;
+			skillEffect = new FrozenSpear();
+			break;
+		case 18:
+			delete skillEffect;
+			skillEffect = new Blizzard();
 			break;
 		case 19: //¾óÀ½¹æÆÐ
 			delete skillEffect;
-			skillEffect = new FireBall();
+			skillEffect = new IceShield();
 			break;
 		case 35://¸ÞÅ×¿À
 			delete skillEffect;

@@ -95,23 +95,6 @@ namespace skill{
 			virtual void draw(RenderWindow &window);
 	};
 
-	class LightningBolt : public SkillEffect{
-		private : 
-			ParticleSystem* cloud;
-			Lightning* lightning;
-			Well512* randomizer;
-		public :
-
-			LightningBolt();
-			~LightningBolt(){
-				delete lightning;
-			}
-
-			virtual void update();
-			virtual void draw(RenderWindow &window);
-
-	};
-
 	class Flood : public SkillEffect{
 		private : 
 			ParticleSystem* flood;
@@ -193,6 +176,184 @@ namespace skill{
 			virtual void update();
 			virtual void draw(RenderWindow &window);
 
+	};
+
+	class LightningBolt : public SkillEffect{
+	private:
+		ParticleSystem* cloud;
+		Lightning* lightning;
+		Well512* randomizer;
+	public:
+
+		LightningBolt();
+		~LightningBolt(){
+			delete lightning;
+			delete cloud;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+
+	class ElectricShock : public SkillEffect{
+	private:
+		ParticleSystem* timer;
+		Lightning* lightning;
+		Well512* randomizer;
+	public:
+
+		ElectricShock();
+		~ElectricShock(){
+			delete timer;
+			delete lightning;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+	class LightningStorm : public SkillEffect{
+	private:
+		ParticleSystem* cloud;
+		Lightning* lightning;
+		Well512* randomizer;
+	public:
+
+		LightningStorm();
+		~LightningStorm(){
+			delete lightning;
+			delete cloud;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+
+	};
+
+	class Blizzard : public SkillEffect{
+	private:
+		ParticleSystem* cloud;
+		ParticleSystem* snow;
+	public:
+		Blizzard();
+		~Blizzard(){
+			delete cloud;
+			delete snow;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class IceShield : public SkillEffect{
+	private:
+		ParticleSystem* ice;
+	public:
+		IceShield();
+		~IceShield(){
+			delete ice;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class AbsoluteZero : public SkillEffect{
+	private:
+		ParticleSystem* ice;
+	public:
+		AbsoluteZero();
+		~AbsoluteZero(){
+			delete ice;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+
+	class FrozenSpear : public SkillEffect{
+		private:
+			Texture texture;
+			Sprite spear;
+			ParticleSystem* ice;
+		public :
+			FrozenSpear();
+			~FrozenSpear(){
+				delete ice;
+			}
+
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+
+	};
+
+	class EarthSplitter : public SkillEffect{
+		private :
+			ParticleSystem* particle;
+		public : 
+
+			EarthSplitter();
+			~EarthSplitter(){
+				delete particle;
+			}
+			virtual void update();
+			virtual void draw(RenderWindow &window);
+	};
+
+	class SandStorm : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		SandStorm();
+		~SandStorm(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class EarthShake : public SkillEffect{
+	private:
+		ParticleSystem* particle;
+	public:
+
+		EarthShake();
+		~EarthShake(){
+			delete particle;
+		}
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class Gust : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		Gust();
+		~Gust(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
+	};
+
+	class SonicBoom : public SkillEffect{
+	private:
+		ParticleSystem* sand;
+	public:
+		SonicBoom();
+		~SonicBoom(){
+			delete sand;
+		}
+
+		virtual void update();
+		virtual void draw(RenderWindow &window);
 	};
 
 }

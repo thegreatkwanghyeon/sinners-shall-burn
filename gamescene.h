@@ -28,7 +28,7 @@ class GameScene : public SceneBase{
 		sf::Text text,fText;
 		sf::Clock alphaTime;
 
-		char plusString[100];
+		wchar_t plusString[100];
 
 		sf::Vector2i portal;
 

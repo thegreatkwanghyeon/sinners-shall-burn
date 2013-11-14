@@ -227,8 +227,10 @@ void Puzzle::update(sf::Event &event){
 		reButton->enableButton();
 		//걍 연속클릭 방지?
 	}
-	if(reNum < 0)
+	if(reNum <= 0){
 		reNum=0;
+		reButton->enableButton();
+	}
 
 	hGauge->update();
 }

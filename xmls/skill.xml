@@ -2,7 +2,7 @@
 <List>
   <skill code ="1" need ="2" name ="화염구" damage ="10" pdamage ="5" guard ="0" acc ="100"  plusAcc ="0" dotName="화상" dotDamage="3" dotCode="1" dotTurn="3" imgLink ="img/skills/fireball.png" soundLink ="sounds/skill/fire1.ogg">뜨거운 불꽃으로 적에게 10의 피해를 주고 5의 피해를 입는다. 화상 : 3피해(3턴)</skill>
   <skill code ="2" need ="4" name ="용의 숨결" damage ="15" pdamage ="10" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/dragonslave.png" soundLink ="sounds/skill/fire1.ogg">고온의 화염을 내뿜어 15의 피해를 주고 10의 피해를 입는다. 화상 : 5피해(3턴)</skill>
-  <skill code ="3" need ="8" name ="지옥불" damage ="20" pdamage ="15" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/hellfire.pg" soundLink ="sounds/skill/fire2.ogg">지옥의 불길로 적에게 20의 피해를 주고 15의 피해를 입는다. 화상 : 5피해(3턴)</skill>
+  <skill code ="3" need ="8" name ="지옥불" damage ="20" pdamage ="15" guard ="0" acc ="85"  plusAcc ="0" dotName="화상" dotDamage="5" dotCode="1" dotTurn="3" imgLink ="img/skills/hellfire.png" soundLink ="sounds/skill/fire2.ogg">지옥의 불길로 적에게 20의 피해를 주고 15의 피해를 입는다. 화상 : 5피해(3턴)</skill>
   <skill code ="4" need ="16" name ="세상을 멸하는 화염" damage ="40" pdamage ="35" guard ="0" acc ="90"  plusAcc ="0" dotName="화상" dotDamage="10" dotCode="1" dotTurn="3" imgLink ="img/skills/worldfire.png" soundLink ="sounds/skill/fire2.ogg">멸망의 화염으로 적에게 40의 피해를 주고 35의 피해를 입는다. 화상 : 10피해(3턴)</skill>
   
   <skill code ="5" need ="3" name ="폭우" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="침수" dotDamage="3" dotCode="2" dotTurn="7" imgLink ="img/skills/raincalling.png" soundLink ="sounds/skill/water2.ogg">비바람을 불러낸다. 침수 : 3피해(7턴)</skill>
@@ -18,7 +18,7 @@
   <skill code ="13" need ="7" name ="전기 쇼크" damage ="10" pdamage ="0" guard ="0" acc ="100"  plusAcc ="-10" dotName="감전" dotDamage="3" dotCode="3" dotTurn="3" imgLink ="img/skills/electricshock.png" soundLink ="sounds/skill/lightening1.ogg">전기 쇼크로 10의 피해를 주고 적의 명중률을 10 내린다. 감전 : 3피해(3턴)</skill>
   <skill code ="14" need ="49" name ="낙뢰" damage ="20" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="감전" dotDamage="5" dotCode="3" dotTurn="3" imgLink ="img/skills/thunderbolt.png" soundLink ="sounds/skill/lightening1.ogg">낙뢰로 20의 피해를 준다. 감전 : 3피해(3턴)</skill>
   <skill code ="15" need ="343" name ="전자기파" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="-50" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/magneticfield.png" soundLink ="sounds/skill/lightening2.ogg">강력한 전자기파로 적에게 혼란을 줘 다음 공격의 명중률을 50 내린다. 감전 : 3피해(3턴)</skill>
-  <skill code ="16" need ="2401" name ="전자기 폭풍" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="감전" dotDamage="15" dotCode="1" dotTurn="3" imgLink ="img/skills/lightningstorm.png" soundLink ="sounds/skill/lightening2.ogg">번개의 폭풍으로 적을 감싼다. 감전 : 15피해(3턴)</skill>
+  <skill code ="16" need ="2401" name ="전자기 폭풍" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="감전" dotDamage="15" dotCode="3" dotTurn="3" imgLink ="img/skills/lightningstorm.png" soundLink ="sounds/skill/lightening2.ogg">번개의 폭풍으로 적을 감싼다. 감전 : 15피해(3턴)</skill>
   
   <skill code ="17" need ="11" name ="얼음창" damage ="10" pdamage ="0" guard ="0" acc ="100"  plusAcc ="10" dotName="동상" dotDamage="2" dotCode="4" dotTurn="10" imgLink ="img/skills/icespear.png" soundLink ="sounds/skill/ice1.ogg">얼음창을 던져 10의 피해를 주고 다음 공격의 명중률을 10 올린다. 동상 : 2피해(10턴)</skill>
   <skill code ="18" need ="121" name ="눈보라" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="30" dotName="동상" dotDamage="3" dotCode="4" dotTurn="10" imgLink ="img/skills/blizzard.png" soundLink ="sounds/skill/ice2.ogg">눈보라를 일으켜 다음 공격의 명중률을 30 올린다. 동상 : 3피해(10턴)</skill>
@@ -47,7 +47,7 @@
   <skill code ="34" need ="26" name ="마그마" damage ="35" pdamage ="25" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/magma.png" soundLink ="sounds/skill/fire2.ogg">마그마의 파도로 35의 피해를 주고 25의 피해를 입는다</skill>
   <skill code ="35" need ="338" name ="메테오" damage ="55" pdamage ="40" guard ="0" acc ="100"  plusAcc ="0" dotName="_" dotDamage="0" dotCode="1" dotTurn="0" imgLink ="img/skills/meteor.png" soundLink ="sounds/skill/fire2.ogg">메테오를 떨어뜨려 55의 피해를 주고 40의 피해를 입는다</skill>
   
-  <skill code ="36" need ="15" name ="독액" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="중독" dotDamage="15" dotCode="5" dotTurn="3" imgLink ="img/skills/poison.png" soundLink ="sounds/skill/poison1.ogg">적에게 독액을 주입한다. 중독 : 15피해(3턴)</skill>
+  <skill code ="36" need ="15" name ="독액" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="중독" dotDamage="10" dotCode="5" dotTurn="5" imgLink ="img/skills/poison.png" soundLink ="sounds/skill/poison1.ogg">적에게 독액을 주입한다. 중독 : 15피해(3턴)</skill>
   <skill code ="37" need ="225" name ="맹독" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="0" dotName="중독" dotDamage="15" dotCode="5" dotTurn="5" imgLink ="img/skills/fatalpoison.png" soundLink ="sounds/skill/poison2.ogg">적에게 맹독을 주입한다. 중독 : 15피해(5턴)</skill>
   
   <skill code ="38" need ="39" name ="진흙" damage ="0" pdamage ="0" guard ="0" acc ="100"  plusAcc ="-20" dotName="침수" dotDamage="3" dotCode="2" dotTurn="5" imgLink ="img/skills/mud.png" soundLink ="sounds/skill/water2.ogg">적에게 진흙을 뿌려 다음 공격의 명중률을 20 낮춘다. 침수 : 3피해(5턴)</skill>

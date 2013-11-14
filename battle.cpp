@@ -49,7 +49,7 @@ Battle::Battle(Player** _player){
 
 
 	eText.setFont(font); 
-	eText.setString(L"Acc : 0");
+	eText.setString(L"명중률 : 0 체력 : 100/100");
 	eText.setPosition(640.0f, 80.0f);
 	eText.setOrigin(eText.getLocalBounds().width/2,0);
 	eText.setCharacterSize(20);
@@ -153,7 +153,8 @@ void Battle::update(sf::Event &event){
 	_swprintf(plusString, L"추가 데미지 : %.2f\n추가 방어력 : %d\n추가 명중률 : %d", puzzle->getPlusDamage(),(*player)->getGuard(),(*player)->getAcc());
 	text.setString(plusString);//화면에 출력되는 나의 상태정보 텍스트
 
-	_swprintf(plusString, L" 명중률 : %d",enemy->getAcc());
+	_swprintf(plusString, L" 명중률 : %d 체력 %d/%d",enemy->getAcc(),enemy->getCurrentHp(),enemy->getMaxHp());
+	eText.setOrigin(eText.getLocalBounds().width/2,0);
 	eText.setString(plusString);//화면에 출력되는 적의 상태정보 텍스트
 
 	if(sceneNum == playerSkill){//플레이어가 스킬 시전중일떄

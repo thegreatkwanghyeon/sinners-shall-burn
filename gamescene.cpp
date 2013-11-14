@@ -38,8 +38,9 @@ GameScene::GameScene(){
 	text.setCharacterSize(50);
 
 	fText.setFont(font);
-	fText.setPosition(600.0f, 160.0f);
-	fText.setCharacterSize(80);
+	fText.setPosition(640.0f, 170.0f);
+	fText.setCharacterSize(60);
+	fText.setOrigin(fText.getLocalBounds().width/2,0);
 
 	overButton = new Button("img/startbutton.png");
 	overButton->setClickSound("sounds/button/click.wav");
@@ -133,7 +134,7 @@ void GameScene::update(sf::Event &event){
 		rayCastingScene->setMap(worldMap);
 		rayCastingScene->setPos(translatePosition(1.5,2.5));
 		makeEnemys();
-		printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
+		//printf("now : %d(floor)\nportal : %d %d\n",floorNum,portal.x,portal.y);
 	}
 }
 
@@ -203,7 +204,7 @@ void GameScene::makeEnemys(){
 	alpha=ChangeTime;
 	alphaTime.restart();
 
-	_snprintf(plusString, sizeof(plusString), "F%d",floorNum);
+	_swprintf(plusString,L"ÁöÇÏ %dÃþ",EndStage-floorNum+1);
 	fText.setString(plusString);
 
 	player->setHP(100);

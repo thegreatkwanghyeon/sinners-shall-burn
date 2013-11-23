@@ -586,12 +586,14 @@ namespace skill{
 
 	class Miss : public SkillEffect{
 	private:
-
+		Font font;
+		Text miss;
+		ParticleSystem* timer;
 	public:
 
 		Miss();
 		~Miss(){
-			
+			delete timer;
 		}
 
 		virtual void update();

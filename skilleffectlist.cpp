@@ -22,7 +22,7 @@ FireBall::FireBall() : SkillEffect(){
 }
 
 void FireBall::update(){
-
+	SkillEffect::update();
 	fireParticle->update();
 	if (fireParticle->getLifeTime() < 0.4){
 		fireParticle->fuel(30);
@@ -63,6 +63,7 @@ DragonSlave::DragonSlave() : SkillEffect(){
 }
 
 void DragonSlave::update(){
+	SkillEffect::update();
 	fire->update();
 	if (fire->getLifeTime() < 0.4)
 		fire->fuel(30);
@@ -108,7 +109,7 @@ Rain::Rain() : SkillEffect(){
 }
 
 void Rain::update(){
-
+	SkillEffect::update();
 	cloud->update();
 	rain->update();
 
@@ -171,11 +172,12 @@ HellFire::HellFire() : SkillEffect(){
 }
 
 void HellFire::update(){
+	SkillEffect::update();
 	fire->update();
 	smoke->update();
 
 	if (locationVarX < 1480){
-		locationVarX += 60;
+		locationVarX += 60 * time;
 		fire->setLocationVar(Vector2f(locationVarX, 720));
 		smoke->setLocationVar(Vector2f(locationVarX, 600));
 		lifeTime = fire->getLifeTime();
@@ -235,17 +237,18 @@ WorldFire::WorldFire() : SkillEffect(){
 }
 
 void WorldFire::update(){
+	SkillEffect::update();
 	fire->update();
 	smoke->update();
 
 	if (locationVarX < 1480){
-		locationVarX += 60;
+		locationVarX += 60 * time;
 		fire->setLocationVar(Vector2f(locationVarX, 720));
 		smoke->setLocationVar(Vector2f(locationVarX, 600));
 		lifeTime = fire->getLifeTime();
 	}
 
-	if (fire->getLifeTime() - lifeTime < 3.5){
+	if (fire->getLifeTime() - lifeTime < 2.5){
 		fire->fuel(100);
 		smoke->fuel(50);
 	}
@@ -287,6 +290,7 @@ LightningBolt::LightningBolt() : SkillEffect(){
 }
 
 void LightningBolt::update(){
+	SkillEffect::update();
 	lightning->update();
 
 	cloud->update();
@@ -315,7 +319,7 @@ void LightningBolt::draw(RenderWindow &window){
 }
 
 Flood::Flood() : SkillEffect(){
-
+	SkillEffect::update();
 	locationVarY = 720;
 
 	flood = new ParticleSystem();
@@ -342,12 +346,12 @@ void Flood::update(){
 
 	if (locationVarY > 150){
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp;
+		locationVarY += temp * time;
 	}
 	else{
 		temp = 8;
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp;
+		locationVarY += temp * time;
 	}
 
 	if (flood->getLifeTime() < 2.5){
@@ -405,6 +409,7 @@ Trident::Trident() : SkillEffect(){
 }
 
 void Trident::update(){
+	SkillEffect::update();
 	water->update();
 	waterPillar->update();
 	if (trident.getPosition().y < 980){
@@ -416,11 +421,11 @@ void Trident::update(){
 	}
 
 	if (move < 0){
-		waterPillar->setLocation(Vector2f(535, trident.getPosition().y + 50));
-		waterPillar->setLocationVar(Vector2f(665, trident.getPosition().y + 150));
+		waterPillar->setLocation(Vector2f(535, trident.getPosition().y + 50 * time));
+		waterPillar->setLocationVar(Vector2f(665, trident.getPosition().y + 150 * time));
 	}
 		trident.move(0, move);
-		move += 0.5;
+		move += 0.5 * time;
 
 		if (water->getNumberOfParticle() <= 0){
 			SkillEffect::setEnd();
@@ -457,9 +462,10 @@ Tsunami::Tsunami() : SkillEffect(){
 }
 
 void Tsunami::update(){
+	SkillEffect::update();
 	tsunami->update();
 	if (tsunami->getLifeTime() < 1.7){
-		locationVarY += 2;
+		locationVarY += 2 * time;
 		tsunami->setLocation(Vector2f(-40, locationVarY));
 		tsunami->setLocationVar(Vector2f(-10, 720));
 		tsunami->fuel(100);
@@ -489,6 +495,7 @@ Heal::Heal() : SkillEffect(){
 }
 
 void Heal::update(){
+	SkillEffect::update();
 	heal->update();
 	if (heal->getLifeTime() < 0.7)
 		heal->fuel(20);
@@ -523,6 +530,7 @@ Seed::Seed(){
 }
 
 void Seed::update(){
+	SkillEffect::update();
 	heal->update();
 
 	if (heal->getLifeTime() < 0.6)
@@ -552,6 +560,7 @@ ElectricShock::ElectricShock() : SkillEffect(){
 }
 
 void ElectricShock::update(){
+	SkillEffect::update();
 	timer->update();
 	lightning->update();
 
@@ -602,6 +611,7 @@ LightningStorm::LightningStorm() : SkillEffect(){
 }
 
 void LightningStorm::update(){
+	SkillEffect::update();
 	lightning->update();
 
 	cloud->update();
@@ -664,7 +674,7 @@ Blizzard::Blizzard() : SkillEffect(){
 }
 
 void Blizzard::update(){
-
+	SkillEffect::update();
 	cloud->update();
 	snow->update();
 
@@ -724,6 +734,7 @@ IceShield::IceShield() : SkillEffect(){
 }
 
 void IceShield::update(){
+	SkillEffect::update();
 	particleLeft->update();
 	particleRight->update();
 	if (particleLeft->getLifeTime() < 0.4){
@@ -763,7 +774,7 @@ AbsoluteZero::AbsoluteZero() : SkillEffect(){
 }
 
 void AbsoluteZero::update(){
-
+	SkillEffect::update();
 	ice->update();
 	if (ice->getLifeTime() < 1.7){
 		ice->fuel(30);
@@ -806,7 +817,7 @@ FrozenSpear::FrozenSpear() : SkillEffect(){
 }
 
 void FrozenSpear::update(){
-
+	SkillEffect::update();
 	ice->update();
 	spear.move(50, 0);
 	if (spear.getPosition().x < 1290){
@@ -847,7 +858,7 @@ EarthSplitter::EarthSplitter() : SkillEffect(){
 }
 
 void EarthSplitter::update(){
-
+	SkillEffect::update();
 	particle->update();
 		particle->fuelOnce(100);
 		if (particle->getNumberOfParticle() <= 0){
@@ -878,7 +889,7 @@ SandStorm::SandStorm() : SkillEffect(){
 }
 
 void SandStorm::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.3){
@@ -917,7 +928,7 @@ EarthShake::EarthShake() : SkillEffect(){
 }
 
 void EarthShake::update(){
-
+	SkillEffect::update();
 	particle->update();
 	if (particle->getLifeTime() < 0.15)
 		particle->fuel(15);
@@ -949,7 +960,7 @@ Gust::Gust() : SkillEffect(){
 }
 
 void Gust::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.3){
@@ -988,7 +999,7 @@ SonicBoom::SonicBoom() : SkillEffect(){
 }
 
 void SonicBoom::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 0.20){
@@ -1026,7 +1037,7 @@ Steam::Steam() : SkillEffect(){
 }
 
 void Steam::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.4){
@@ -1064,7 +1075,7 @@ HotWater::HotWater() : SkillEffect(){
 }
 
 void HotWater::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.4){
@@ -1127,7 +1138,7 @@ StormyRain::StormyRain() : SkillEffect(){
 }
 
 void StormyRain::update(){
-
+	SkillEffect::update();
 	cloud->update();
 	rain->update();
 	storm->update();
@@ -1185,7 +1196,7 @@ Hail::Hail() : SkillEffect(){
 }
 
 void Hail::update(){
-
+	SkillEffect::update();
 	cloud->update();
 	rain->update();
 
@@ -1230,16 +1241,17 @@ Magma::Magma() : SkillEffect(){
 }
 
 void Magma::update(){
+	SkillEffect::update();
 	flood->update();
 
 	if (locationVarY > 150){
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp;
+		locationVarY += temp * time;
 	}
 	else{
 		temp = 8;
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp;
+		locationVarY += temp * time;
 	}
 
 	if (flood->getLifeTime() < 2.5){
@@ -1275,7 +1287,7 @@ Poison::Poison() : SkillEffect(){
 }
 
 void Poison::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 0.3){
@@ -1313,7 +1325,7 @@ FatalPoison::FatalPoison() : SkillEffect(){
 }
 
 void FatalPoison::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.3){
@@ -1352,6 +1364,7 @@ Mud::Mud() : SkillEffect(){
 }
 
 void Mud::update(){
+	SkillEffect::update();
 	fire->update();
 	if (fire->getLifeTime() < 0.3)
 		fire->fuel(30);
@@ -1388,7 +1401,7 @@ MuddyWater::MuddyWater() : SkillEffect(){
 }
 
 void MuddyWater::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 0.7){
@@ -1443,6 +1456,7 @@ MuddyShield::MuddyShield() : SkillEffect(){
 }
 
 void MuddyShield::update(){
+	SkillEffect::update();
 	particleLeft->update();
 	particleRight->update();
 	if (particleLeft->getLifeTime() < 0.4){
@@ -1479,7 +1493,7 @@ LandSlides::LandSlides() : SkillEffect(){
 }
 
 void LandSlides::update(){
-
+	SkillEffect::update();
 	snow->update();
 
 	if (snow->getLifeTime() < 1.2){
@@ -1515,7 +1529,7 @@ SolarBeam::SolarBeam() : SkillEffect(){
 }
 
 void SolarBeam::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.3){
@@ -1550,6 +1564,7 @@ MagneticField::MagneticField(){
 }
 
 void MagneticField::update(){
+	SkillEffect::update();
 	particle->update();
 	if (particle->getLifeTime() < 2.3)
 		particle->fuelInSequence(0.25, 80);
@@ -1599,6 +1614,7 @@ ChainOfEarth::ChainOfEarth() : SkillEffect(){
 }
 
 void ChainOfEarth::update(){
+	SkillEffect::update();
 	particleLeft->update();
 	particleRight->update();
 	if (particleLeft->getLifeTime() < 0.4){
@@ -1637,10 +1653,11 @@ Photosynthesis::Photosynthesis(){
 }
 
 void Photosynthesis::update(){
+	SkillEffect::update();
 	heal->update();
 
 	if (alpha >= 0){
-		alpha -= 9;
+		alpha -= 9 * time;
 	}
 
 	if (heal->getLifeTime() < 0.5)
@@ -1680,11 +1697,12 @@ Meteor::Meteor(){
 }
 
 void Meteor::update(){
+	SkillEffect::update();
 	for (int i = 0; i < 5; i++){
 		meteor[i]->update();
 		meteor[i]->fuel(50);
-		meteor[i]->setLocation(Vector2f(meteor[i]->getLocation().x - 32, meteor[i]->getLocation().y + 20));
-		meteor[i]->setLocationVar(Vector2f(meteor[i]->getLocationVar().x - 32, meteor[i]->getLocationVar().y + 20));
+		meteor[i]->setLocation(Vector2f(meteor[i]->getLocation().x - 32 * time, meteor[i]->getLocation().y + 20 * time));
+		meteor[i]->setLocationVar(Vector2f(meteor[i]->getLocationVar().x - 32 * time, meteor[i]->getLocationVar().y + 20 * time));
 	}
 	if (meteor[0]->getLifeTime() > 1.7){
 		SkillEffect::setEnd();
@@ -1699,14 +1717,26 @@ void Meteor::draw(RenderWindow &window){
 
 Miss::Miss() : SkillEffect(){
 
+	timer = new ParticleSystem();
+
+	font.loadFromFile("font/aPinoL.ttf");
+
+	miss.setString("MISS");
+	miss.setFont(font);
+	miss.setCharacterSize(100);
+	miss.setPosition(540, 160);
+	miss.setColor(Color::White);
 }
 
 void Miss::update(){
-	SkillEffect::setEnd();
+	SkillEffect::update();
+	timer->update();
+	if (timer->getLifeTime() > 0.3)
+		SkillEffect::setEnd();
 }
 
 void Miss::draw(RenderWindow &window){
-
+	window.draw(miss);
 }
 
 Frost::Frost() : SkillEffect(){
@@ -1728,7 +1758,7 @@ Frost::Frost() : SkillEffect(){
 }
 
 void Frost::update(){
-
+	SkillEffect::update();
 	sand->update();
 
 	if (sand->getLifeTime() < 1.3){
@@ -1774,14 +1804,15 @@ Vaccum::Vaccum() : SkillEffect(){
 }
 
 void Vaccum::update(){
+	SkillEffect::update();
 	air->update();
 	air->setLocation(Vector2f(x, y));
 	air->setLocationVar(Vector2f(xv, yv));
-	air->setStartColor(100, 100, 100, air->getStartColor().a - 1);
-	x += 22;
-	y += 15;
-	xv -= 22;
-	yv -= 15;
+	air->setStartColor(100, 100, 100, air->getStartColor().a - 1 * time);
+	x += 22 * time;
+	y += 15 * time;
+	xv -= 22 * time;
+	yv -= 15 * time;
 
 	if (xv - x > 10){
 		air->fuel(100);

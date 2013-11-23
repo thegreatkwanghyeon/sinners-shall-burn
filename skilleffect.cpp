@@ -9,7 +9,8 @@ SkillEffect::~SkillEffect(){
 }
 
 void SkillEffect::update(){
-
+	time = clock.getElapsedTime().asSeconds();
+	clock.restart();
 }
 
 void SkillEffect::draw(sf::RenderWindow &window){

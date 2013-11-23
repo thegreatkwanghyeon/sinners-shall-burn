@@ -6,6 +6,10 @@
 class SkillEffect{
 	private : 
 		bool end;
+
+	protected :
+		sf::Clock clock;
+		float time;
 	public :
 		SkillEffect();
 		~SkillEffect();

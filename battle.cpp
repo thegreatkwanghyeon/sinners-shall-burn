@@ -467,6 +467,9 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(skillBGSprite);
 		puzzle->draw(window);
 		timeGauge->draw(window);
+
+		enemyGauge->draw(window);
+		window.draw(enemy->getName());//몹 이름 출력!
 		
 		for(i=0;i<ViewSkill;i++){
 			if(i < (ViewSkill/2))
@@ -487,15 +490,14 @@ void Battle::draw(sf::RenderWindow &window){
 		for(i=0;i<useCnt;i++){
 			tooltip[i]->draw(window);
 		}
-		window.draw(text);//보너스뎀,명중률보정,가드,도트뎀 수치 저장하는 곳.
-		window.draw(eText);//적의 평타 명중률과 도트데미지 기록
-		//---------------
+		//--------------- 
 		sf::Text vecterText,numText;
 		std::vector<Dot> _dot;
 		char vecNum[100];
 
 		vecterText.setFont(font);
 		numText.setFont(font);
+
 
 		_dot=(*player)->getDot();
 		if(_dot.size() > 0){
@@ -529,8 +531,8 @@ void Battle::draw(sf::RenderWindow &window){
 				eStatusTip[i]->draw(window);
 			}
 		}
-		enemyGauge->draw(window);
-		window.draw(enemy->getName());//몹 이름 출력!
+		window.draw(text);//보너스뎀,명중률보정,가드,도트뎀 수치 저장하는 곳.
+		window.draw(eText);//적의 평타 명중률과 도트데미지 기록
 	}
 		
 	hpGauge->draw(window);

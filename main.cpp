@@ -100,11 +100,8 @@ int main(void){
 		if(cheatButton){
 			_swprintf(stringFps, L"(Ä¡Æ®) FPS = %.0f\n¸ÊÇÙ\nÆÛÁñ Àç¹èÄ¡ ¹«ÇÑ\n½ºÅ³ÇÙ : %d", fps,cheatSkillNum);
 			textFps.setString(stringFps);
-		}else{
-			_swprintf(stringFps, L"FPS = %.0f", fps);
-			textFps.setString(stringFps);
+			textFps.setCharacterSize(20);
 		}
-		textFps.setCharacterSize(20);	
 
 		window.clear();
 		window.setView(view);
@@ -120,7 +117,8 @@ int main(void){
 			sound.play();
 		}
 
-		window.draw(textFps);
+		if(cheatButton)
+			window.draw(textFps);
 		window.display();
 
 

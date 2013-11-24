@@ -7,7 +7,6 @@ SceneManager::SceneManager(){
 }
 
 SceneManager::~SceneManager(){
-	
 }
 
 void SceneManager::setScene(SceneBase *scene){

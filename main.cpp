@@ -36,6 +36,11 @@ int main(void){
 				cheatMap=true;
 				cheatSkill=true;
 			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)){//치트
+				cheatButton=false;
+				cheatMap=false;
+				cheatSkill=false;
+			}
 			if(!keyEvent && sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) && cheatSkillNum < 43){//치트-스킬넘+
 				cheatSkillNum++;
 				keyEvent=true;

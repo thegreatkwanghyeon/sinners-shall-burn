@@ -12,5 +12,7 @@ extern int useHintNum;//힌트 사용회수
 
 extern bool cheatButton;//버튼치트(리빌드무한)
 extern bool cheatMap;//맵핵
+extern bool cheatSkill;//스킬치트
+extern int cheatSkillNum;//사용할 치트스킬 넘버
 
 extern void resetChallenge();

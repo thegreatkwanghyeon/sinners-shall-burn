@@ -189,13 +189,19 @@ void Battle::update(sf::Event &event){
 			}
 		}
 	}
+	if(cheatSkill){//스킬치트
+		canUseSkill[0]=cheatSkillNum;
+		if(useCnt == 0)
+			useCnt++;
+	}
 	for(i=0;i<useCnt;i++){
 		button[i]->update(event);
 		if(keyEvent == false && canUseSkill[i] != 0 && button[i]->checkMouseClick(event)){//클릭
 			if(isBattle){//여기가 스킬을 사용하였을떄의 상황
 
 				useSkillNow=canUseSkill[i];//현재 사용한 스킬의 코드를 저장한다
-				useSkill(canUseSkill[i]);//사용한 스킬에 맞게 스택 클리어
+				if(!cheatSkill || i != 0)
+					useSkill(canUseSkill[i]);//사용한 스킬에 맞게 스택 클리어
 
 				deltaClock.restart();//연타방지
 				keyEvent=true;//연타 방지

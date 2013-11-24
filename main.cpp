@@ -8,6 +8,8 @@ int main(void){
 
 	 window.setFramerateLimit(60);
 	 sf::Clock clock;
+	 sf::Clock cheatKeyTime;
+	 bool keyEvent=false;
 	 sf::View view;
 	 view.reset(sf::FloatRect(0, 0, 1280, 720));
 	 float lastTime = 0;
@@ -24,10 +26,25 @@ int main(void){
 		sf::Event Event;
 		sound.setVolume(musicVolume);//볼륨 설정
 
+		if(keyEvent && cheatKeyTime.getElapsedTime().asSeconds() >= 0.1){
+			keyEvent=false;
+		}
+
 		while (window.pollEvent(Event)){
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){//치트
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Insert)){//치트
 				cheatButton=true;
 				cheatMap=true;
+				cheatSkill=true;
+			}
+			if(!keyEvent && sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) && cheatSkillNum < 43){//치트-스킬넘+
+				cheatSkillNum++;
+				keyEvent=true;
+				cheatKeyTime.restart();
+			}
+			if(!keyEvent && sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && cheatSkillNum > 1){//치트-스킬넘-
+				cheatSkillNum--;
+				keyEvent=true;
+				cheatKeyTime.restart();
 			}
 			if(Event.type == sf::Event::Closed ||sceneManager->getCurrentScene()->changeScene() == 0){
 				window.close();
@@ -76,7 +93,7 @@ int main(void){
 		font.loadFromFile("font/aPinoL.ttf");
 		textFps.setFont(font);
 		if(cheatButton){
-			_swprintf(stringFps, L"(치트) FPS = %.0f\n맵핵\n퍼즐 재배치 무한", fps);
+			_swprintf(stringFps, L"(치트) FPS = %.0f\n맵핵\n퍼즐 재배치 무한\n스킬핵 : %d", fps,cheatSkillNum);
 			textFps.setString(stringFps);
 		}else{
 			_swprintf(stringFps, L"FPS = %.0f", fps);

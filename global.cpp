@@ -25,6 +25,8 @@ int useHintNum=0;
 
 bool cheatButton=false;
 bool cheatMap=false;
+bool cheatSkill=false;
+int cheatSkillNum=1;
 
 void resetChallenge(){
 	killEnemyNum=0;

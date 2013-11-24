@@ -177,7 +177,7 @@ void HellFire::update(){
 	smoke->update();
 
 	if (locationVarX < 1480){
-		locationVarX += 60 * time;
+		locationVarX += 60 * time * SPEED;
 		fire->setLocationVar(Vector2f(locationVarX, 720));
 		smoke->setLocationVar(Vector2f(locationVarX, 600));
 		lifeTime = fire->getLifeTime();
@@ -342,16 +342,17 @@ Flood::Flood() : SkillEffect(){
 }
 
 void Flood::update(){
+	SkillEffect::update();
 	flood->update();
 
 	if (locationVarY > 150){
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp * time;
+		locationVarY += temp * time * SPEED;
 	}
 	else{
 		temp = 8;
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp * time;
+		locationVarY += temp * time * SPEED;
 	}
 
 	if (flood->getLifeTime() < 2.5){
@@ -421,11 +422,11 @@ void Trident::update(){
 	}
 
 	if (move < 0){
-		waterPillar->setLocation(Vector2f(535, trident.getPosition().y + 50 * time));
-		waterPillar->setLocationVar(Vector2f(665, trident.getPosition().y + 150 * time));
+		waterPillar->setLocation(Vector2f(535, trident.getPosition().y + 50 * time * SPEED));
+		waterPillar->setLocationVar(Vector2f(665, trident.getPosition().y + 150 * time * SPEED));
 	}
 		trident.move(0, move);
-		move += 0.5 * time;
+		move += 0.5 * time * SPEED;
 
 		if (water->getNumberOfParticle() <= 0){
 			SkillEffect::setEnd();
@@ -465,7 +466,7 @@ void Tsunami::update(){
 	SkillEffect::update();
 	tsunami->update();
 	if (tsunami->getLifeTime() < 1.7){
-		locationVarY += 2 * time;
+		locationVarY += 2 * time * SPEED;
 		tsunami->setLocation(Vector2f(-40, locationVarY));
 		tsunami->setLocationVar(Vector2f(-10, 720));
 		tsunami->fuel(100);
@@ -1246,12 +1247,12 @@ void Magma::update(){
 
 	if (locationVarY > 150){
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp * time;
+		locationVarY += temp * time * SPEED;
 	}
 	else{
 		temp = 8;
 		flood->setLocationVar(Vector2f(1380, locationVarY));
-		locationVarY += temp * time;
+		locationVarY += temp * time * SPEED;
 	}
 
 	if (flood->getLifeTime() < 2.5){
@@ -1657,7 +1658,7 @@ void Photosynthesis::update(){
 	heal->update();
 
 	if (alpha >= 0){
-		alpha -= 9 * time;
+		alpha -= 9 * time * SPEED;
 	}
 
 	if (heal->getLifeTime() < 0.5)
@@ -1701,8 +1702,9 @@ void Meteor::update(){
 	for (int i = 0; i < 5; i++){
 		meteor[i]->update();
 		meteor[i]->fuel(50);
-		meteor[i]->setLocation(Vector2f(meteor[i]->getLocation().x - 32 * time, meteor[i]->getLocation().y + 20 * time));
-		meteor[i]->setLocationVar(Vector2f(meteor[i]->getLocationVar().x - 32 * time, meteor[i]->getLocationVar().y + 20 * time));
+		printf("%f\n", time);
+		meteor[i]->setLocation(Vector2f(meteor[i]->getLocation().x - 32 * time * SPEED, meteor[i]->getLocation().y + 20 * time * SPEED));
+		meteor[i]->setLocationVar(Vector2f(meteor[i]->getLocationVar().x - 32 * time * SPEED, meteor[i]->getLocationVar().y + 20 * time * SPEED));
 	}
 	if (meteor[0]->getLifeTime() > 1.7){
 		SkillEffect::setEnd();
@@ -1808,11 +1810,11 @@ void Vaccum::update(){
 	air->update();
 	air->setLocation(Vector2f(x, y));
 	air->setLocationVar(Vector2f(xv, yv));
-	air->setStartColor(100, 100, 100, air->getStartColor().a - 1 * time);
-	x += 22 * time;
-	y += 15 * time;
-	xv -= 22 * time;
-	yv -= 15 * time;
+	air->setStartColor(100, 100, 100, air->getStartColor().a - 1 * time * SPEED);
+	x += 22 * time * SPEED;
+	y += 15 * time * SPEED;
+	xv -= 22 * time * SPEED;
+	yv -= 15 * time * SPEED;
 
 	if (xv - x > 10){
 		air->fuel(100);

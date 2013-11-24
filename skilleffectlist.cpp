@@ -113,7 +113,7 @@ void Rain::update(){
 	cloud->update();
 	rain->update();
 
-	if (rain->getLifeTime() < 3.2){
+	if (rain->getLifeTime() < 2.0){
 
 		cloud->fuel(50);
 		rain->fuel(50);
@@ -820,7 +820,7 @@ void FrozenSpear::update(){
 	SkillEffect::update();
 	ice->update();
 	spear.move(50, 0);
-	if (spear.getPosition().x < 1290){
+	if (spear.getPosition().x < 1000){
 		ice->fuel(80);
 	}
 	else{

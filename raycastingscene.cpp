@@ -310,6 +310,8 @@ void RayCastingScene::update(sf::Event &event){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)){
 		setShader((std::string)"darker");
 	}*/
+	if(cheatMap)//¸ÊÇÙ
+		fov=30;
 }
 double RayCastingScene::fixErrorNum(double num, double st, double ed, double setNum){
 	if(num > st && num < ed)

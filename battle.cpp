@@ -461,10 +461,6 @@ void Battle::draw(sf::RenderWindow &window){
 		window.draw(skillBGSprite);
 		puzzle->draw(window);
 		timeGauge->draw(window);
-
-		enemyGauge->draw(window);
-		window.draw(enemy->getName());//몹 이름 출력!
-
 		
 		for(i=0;i<ViewSkill;i++){
 			if(i < (ViewSkill/2))
@@ -527,6 +523,8 @@ void Battle::draw(sf::RenderWindow &window){
 				eStatusTip[i]->draw(window);
 			}
 		}
+		enemyGauge->draw(window);
+		window.draw(enemy->getName());//몹 이름 출력!
 	}
 		
 	hpGauge->draw(window);

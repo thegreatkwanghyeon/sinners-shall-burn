@@ -229,7 +229,8 @@ void Puzzle::update(sf::Event &event){
 	}
 	if(reNum <= 0){
 		reNum=0;
-		reButton->enableButton();
+		if(cheatButton)
+			reButton->enableButton();
 	}
 
 	hGauge->update();

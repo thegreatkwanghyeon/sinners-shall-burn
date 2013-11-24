@@ -22,10 +22,13 @@ int main(void){
 
 	while(window.isOpen()){
 		sf::Event Event;
-
 		sound.setVolume(musicVolume);//º¼·ý ¼³Á¤
 
 		while (window.pollEvent(Event)){
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){//Ä¡Æ®
+				cheatButton=true;
+				cheatMap=true;
+			}
 			if(Event.type == sf::Event::Closed ||sceneManager->getCurrentScene()->changeScene() == 0){
 				window.close();
 			}
@@ -68,15 +71,18 @@ int main(void){
 
 		sf::Text textFps;
 		sf::Font font;
-		char stringFps[20];
+		wchar_t stringFps[20];
 
 		font.loadFromFile("font/aPinoL.ttf");
 		textFps.setFont(font);
-		sprintf(stringFps, "FPS = %.0f", fps);
-		textFps.setString(stringFps);
-		textFps.setCharacterSize(20);
-
-	
+		if(cheatButton){
+			_swprintf(stringFps, L"(Ä¡Æ®) FPS = %.0f\n¸ÊÇÙ\nÆÛÁñ Àç¹èÄ¡ ¹«ÇÑ", fps);
+			textFps.setString(stringFps);
+		}else{
+			_swprintf(stringFps, L"FPS = %.0f", fps);
+			textFps.setString(stringFps);
+		}
+		textFps.setCharacterSize(20);	
 
 		window.clear();
 		window.setView(view);

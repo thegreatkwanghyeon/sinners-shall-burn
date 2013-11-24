@@ -10,4 +10,7 @@ extern int getCouponNum;//얻은 쿠폰수(총 50개)
 extern int useRebuildNum;//리빌드 사용회수
 extern int useHintNum;//힌트 사용회수
 
+extern bool cheatButton;//버튼치트(리빌드무한)
+extern bool cheatMap;//맵핵
+
 extern void resetChallenge();

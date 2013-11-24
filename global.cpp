@@ -23,6 +23,9 @@ int getCouponNum=0;
 int useRebuildNum=0;
 int useHintNum=0;
 
+bool cheatButton=false;
+bool cheatMap=false;
+
 void resetChallenge(){
 	killEnemyNum=0;
 	getCouponNum=0;

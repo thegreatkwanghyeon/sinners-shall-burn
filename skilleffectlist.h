@@ -5,7 +5,7 @@
 #include "lightning.h"
 #include "skilleffect.h"
 
-#define SPEED 100
+#define EFFECTSPEED 100
 
 using namespace sf;
 

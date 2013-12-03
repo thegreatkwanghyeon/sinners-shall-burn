@@ -17,6 +17,7 @@
 
 #include "scenebase.h"
 #include "enemy.h"
+#include <SFML\Audio.hpp>
 #include "makemap.h"
 
 struct emp{
@@ -119,6 +120,9 @@ class RayCastingScene{
 		 sf::RectangleShape rec2;
 		 int alpha;
 		 sf::Clock changeTime;
+
+		 sf::Sound walkSound,itemSound;
+		 sf::SoundBuffer sBuffer1, sBuffer2;
 	public:
 		RayCastingScene();
 		~RayCastingScene();

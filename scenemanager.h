@@ -7,6 +7,8 @@
 //#include "battle.h"
 #include "raycastingscene.h"
 #include "clearscene.h"
+#include "logoscene.h"
+#include "storyscene.h"
 
 class SceneManager{
 	private:

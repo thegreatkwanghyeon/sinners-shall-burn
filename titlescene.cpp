@@ -116,11 +116,11 @@ void TitleScene::draw(sf::RenderWindow &window){
 	startButton->draw(window);
 	endButton->draw(window);
 }
-int TitleScene::changeScene(){
+int TitleScene::changeScene(){/*
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		return 0;
+		return 0;*/
 	if(sceneFlag)//시작 버튼을 눌렀을떄
-		return 2;
+		return 4;
 	else if(endFlag)
 		return 0;
 	return -1;

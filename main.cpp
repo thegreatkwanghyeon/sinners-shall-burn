@@ -20,7 +20,8 @@ int main(void){
 	sound.setLoop(true);
 	soundBuffer.loadFromFile("sounds/title.wav");
 	sound.setBuffer(soundBuffer);
-	sound.play();
+	//sound.play();
+	sound.stop();
 
 	while(window.isOpen()){
 		sf::Event Event;
@@ -70,14 +71,19 @@ int main(void){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
 				sceneManager->setScene(new GameScene());
 				//---
-				sound.resetBuffer();
-				soundBuffer.loadFromFile("sounds/gamescene.wav");
-				sound.setBuffer(soundBuffer);
-				sound.play();
 			}
 			if(sceneManager->getCurrentScene()->changeScene() == 3){
 				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 				sceneManager->setScene(new ClearScene());
+				//---
+				sound.resetBuffer();
+				soundBuffer.loadFromFile("sounds/clear.wav");
+				sound.setBuffer(soundBuffer);
+				sound.play();
+			}
+			if(sceneManager->getCurrentScene()->changeScene() == 4){
+				view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
+				sceneManager->setScene(new StoryScene());
 				//---
 				sound.resetBuffer();
 				soundBuffer.loadFromFile("sounds/clear.wav");
@@ -107,6 +113,23 @@ int main(void){
 		window.setView(view);
 		sceneManager->update(Event);
 		sceneManager->draw(window);
+
+		if(sceneManager->getCurrentScene()->changeScene() == 1){
+			view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
+			sceneManager->setScene(new TitleScene());
+			//---
+			sound.resetBuffer();
+			soundBuffer.loadFromFile("sounds/title.wav");
+			sound.setBuffer(soundBuffer);
+			sound.play();
+
+			resetChallenge();//타이틀신으로 올때는 무조건 도전과제 값을 조정한다.
+		}
+		if(sceneManager->getCurrentScene()->changeScene() == 2){
+			view.setViewport(sf::FloatRect(0.f, 0.f, 2.0f, 2.0f));
+			sceneManager->setScene(new GameScene());
+			//---
+		}
 		if(sceneManager->getCurrentScene()->changeScene() == 3){//게임이 끝나는 경우에는 예외적으로 처리함.
 			view.setViewport(sf::FloatRect(0.f, 0.f, 1.0f, 1.0f));
 			sceneManager->setScene(new ClearScene());

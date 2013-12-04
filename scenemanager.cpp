@@ -3,7 +3,7 @@
 
 
 SceneManager::SceneManager(){
-	currentScene = new TitleScene();
+	currentScene = new LogoScene();
 }
 
 SceneManager::~SceneManager(){

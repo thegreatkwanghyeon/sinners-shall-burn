@@ -5,7 +5,7 @@
 #include "lightning.h"
 #include "skilleffect.h"
 
-#define EFFECTSPEED 100
+#define SPEED 100
 
 using namespace sf;
 
@@ -114,8 +114,7 @@ namespace skill{
 
 	class Trident : public SkillEffect{
 		private	:
-			ParticleSystem* water;
-			ParticleSystem* waterPillar;
+			ParticleSystem* flood;
 			Texture tridentTexture;
 			Sprite trident;
 
@@ -125,8 +124,7 @@ namespace skill{
 
 			Trident();
 			~Trident(){
-				delete water;
-				delete waterPillar;
+				delete flood;
 			}
 
 			virtual void update();
@@ -252,12 +250,11 @@ namespace skill{
 
 	class IceShield : public SkillEffect{
 	private:
-		ParticleSystem* particleLeft, *particleRight;
+		ParticleSystem* particle;
 	public:
 		IceShield();
 		~IceShield(){
-			delete particleLeft;
-			delete particleRight;
+			delete particle;
 		}
 
 		virtual void update();
@@ -487,13 +484,11 @@ namespace skill{
 
 	class MuddyShield : public SkillEffect{
 	private:
-		ParticleSystem* particleLeft;
-		ParticleSystem* particleRight;
+		ParticleSystem* particle;
 	public:
 		MuddyShield();
 		~MuddyShield(){
-			delete particleLeft;
-			delete particleRight;
+			delete particle;
 		}
 
 		virtual void update();

@@ -104,7 +104,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 22:
 			delete skillEffect;
-			skillEffect = new ChainOfEarth();
+			skillEffect = new MuddyShield();
 			break;
 		case 23:
 			delete skillEffect;
@@ -144,7 +144,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 32:
 			delete skillEffect;
-			skillEffect = new StormyRain();
+			skillEffect = new Rain();
 			break;
 		case 33:
 			delete skillEffect;
@@ -180,11 +180,11 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 41:
 			delete skillEffect;
-			skillEffect = new LandSlides();
+			skillEffect = new EarthShake();
 			break;
 		case 42:
 			delete skillEffect;
-			skillEffect = new Photosynthesis();
+			skillEffect = new Seed();
 			break;
 		case 43: //Έχ °ψ°έ : ±ΈΏο?
 			delete skillEffect;

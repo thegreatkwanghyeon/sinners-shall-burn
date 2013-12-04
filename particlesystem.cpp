@@ -104,7 +104,7 @@ void ParticleSystem::fuel(int num){
 		particle->spin = m_randomizer.NextFloat(m_spin, m_spinVar);
 
 		particle->angle = m_randomizer.Next(m_angle, m_angleVar);
-		particle->sprite.rotate(360-particle->angle);
+		particle->sprite.rotate(-particle->angle);
 
 		float randomScale = m_randomizer.NextFloat(m_startScale, m_startScaleVar);
 		particle->sprite.setScale(randomScale, randomScale);
@@ -220,8 +220,6 @@ void ParticleSystem::update(){
 
 		(*it)->sprite.setPosition((*it)->sprite.getPosition().x + velocity * time * m_particleSpeed * cos((*it)->angle*M_PI/180), (*it)->sprite.getPosition().y + velocity * time * m_particleSpeed * -sin((*it)->angle*M_PI/180));
 		(*it)->sprite.setScale(scale, scale);
-
-		(*it)->sprite.setRotation((*it)->spin);
 
 		if((*it)->life <= 0){
 			delete (*it);

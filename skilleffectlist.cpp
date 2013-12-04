@@ -1359,35 +1359,30 @@ void MuddyShield::draw(RenderWindow &window){
 
 LandSlides::LandSlides() : SkillEffect(){
 	snow = new ParticleSystem();
-	snow->setTexture("img/particles/stone.png");
-	snow->setLocation(Vector2f(0, -40));
-	snow->setLocationVar(Vector2f(1380, 0));
-	snow->setStartColor(255, 255, 255, 255);
-	snow->setEndColor(255,255, 255, 0);
-	snow->setStartScale(0.5);
-	snow->setStartScaleVar(0.6);
-	snow->setEndScale(0.0);
-	snow->setEndScaleVar(0.1);
+	snow->setTexture("img/particles/fire.png");
+	snow->setLocation(Vector2f(-10, -20));
+	snow->setLocationVar(Vector2f(1290, -20));
 	snow->setAngle(270);
-	snow->setLife(60);
-	snow->setLifeVar(80);
-	snow->setStartSpeed(3.5);
-	snow->setStartSpeedVar(4.5);
-	snow->setEndSpeed(3.5);
-	snow->setEndSpeedVar(4.5);
+	snow->setStartScale(1.0);
+	snow->setStartScaleVar(1.2);
+	snow->setStartColor(58, 29, 1, 255);
+	snow->setEndColor(154, 89, 31, 255);
+	snow->setLife(25);
+	snow->setLifeVar(30);
+	snow->setStartSpeed(7.4);
+	snow->setStartSpeedVar(8.7);
+	snow->setEndSpeed(0.0);
+	snow->setEndSpeedVar(0.3);
 }
 
 void LandSlides::update(){
 	SkillEffect::update();
 	snow->update();
-
-	if (snow->getLifeTime() < 1.2){
-		snow->fuel(5);
+	if (snow->getLifeTime() < 1.0){
+		snow->fuel(10);
 	}
-	else{
-		if (snow->getNumberOfParticle() <= 0){
-			SkillEffect::setEnd();
-		}
+	else if (snow->getNumberOfParticle() <= 0){
+		SkillEffect::setEnd();
 	}
 }
 

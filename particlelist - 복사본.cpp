@@ -112,7 +112,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 24:
 			delete skillEffect;
-			skillEffect = new LandSlides();
+			skillEffect = new EarthShake();
 			break;
 		case 25:
 			delete skillEffect;
@@ -180,7 +180,7 @@ void ParticleList::setParticle(int _num, sf::String _path, bool isSound){
 			break;
 		case 41:
 			delete skillEffect;
-			skillEffect = new LandSlides();
+			skillEffect = new EarthShake();
 			break;
 		case 42:
 			delete skillEffect;

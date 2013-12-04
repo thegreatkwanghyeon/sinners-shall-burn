@@ -23,7 +23,7 @@ void LogoScene::update(sf::Event &event){
 		sprite.setTexture(texture[logoNum]);
 		alpha=0;
 	}
-	if(delta.getElapsedTime().asSeconds() >= 0.015){
+	if(delta.getElapsedTime().asSeconds() >= 0.03){
 		delta.restart();
 		alpha+=5;
 		if(alpha <= 250)

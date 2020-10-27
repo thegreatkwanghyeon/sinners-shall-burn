@@ -1,4 +1,4 @@
-# sinners-shall-burn
+# Sinners shall burn
 2013년 선린인터넷고등학교 디지털 콘텐츠 공모전에 제출한 게임입니다.
 
 # 의존성
